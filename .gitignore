@@ -6,3 +6,4 @@ __pycache__/
 *.db-shm
 .env
 .demo_license_key
+.devto_api_key
