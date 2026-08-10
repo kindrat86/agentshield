@@ -1,0 +1,6 @@
+# AgentShield Dependencies
+# The core engine, store, licensing, and auth use Python 3.11 stdlib only.
+# These optional deps enable Stripe billing when needed.
+# No installation required for core functionality.
+
+# stripe>=7.0.0  # Uncomment for production billing

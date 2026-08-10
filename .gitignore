@@ -1,0 +1,7 @@
+agentshield.db
+agentshield.db-wal
+agentshield.db-shm
+__pycache__/
+*.pyc
+.env
+/tmp/as_cookies

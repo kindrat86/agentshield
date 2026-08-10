@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgentShield Dashboard</title>
+<style>
+:root {
+  --bg: #0a0a0a; --surface: #141414; --surface2: #1a1a1a; --border: #2a2a2a;
+  --accent: #00d4aa; --text: #e8e8e8; --muted: #888; --warn: #ffa502; --danger: #ff4757;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg); color: var(--text); }
+.nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
+.nav h1 { font-size: 1.2em; color: var(--accent); }
+.nav .user-info { font-size: 0.85em; color: var(--muted); }
+.nav a { color: var(--muted); margin-left: 16px; text-decoration: none; font-size: 0.85em; }
+.tabs { display: flex; gap: 4px; padding: 0 24px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.tab { padding: 12px 20px; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; transition: all .15s; }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.content { padding: 24px; max-width: 1200px; margin: 0 auto; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+.stat-card .label { font-size: 0.8em; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-card .value { font-size: 2em; font-weight: 700; margin-top: 4px; }
+.stat-card .value.danger { color: var(--danger); }
+.stat-card .value.accent { color: var(--accent); }
+
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--muted); font-size: 0.8em; text-transform: uppercase; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--surface2); font-size: 0.9em; }
+
+.btn { padding: 8px 16px; background: var(--accent); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.9em; }
+.btn-sm { padding: 4px 10px; font-size: 0.8em; }
+.btn-danger { background: var(--danger); color: #fff; }
+
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75em; font-weight: 600; }
+.badge-blocked { background: rgba(255,71,87,0.15); color: var(--danger); }
+.badge-approved { background: rgba(0,212,170,0.15); color: var(--accent); }
+.badge-flagged { background: rgba(255,165,2,0.15); color: var(--warn); }
+
+.api-key { font-family: monospace; font-size: 0.85em; background: var(--surface2); padding: 2px 6px; border-radius: 3px; }
+
+.event-feed { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; max-height: 500px; overflow-y: auto; }
+.event { padding: 8px 12px; margin-bottom: 8px; border-radius: 6px; font-size: 0.9em; animation: slideIn .3s; }
+.event.blocked { background: rgba(255,71,87,0.1); border-left: 3px solid var(--danger); }
+.event.flagged { background: rgba(255,165,2,0.1); border-left: 3px solid var(--warn); }
+@keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+.form-row { margin-bottom: 12px; }
+.form-row label { display: block; margin-bottom: 4px; color: var(--muted); font-size: 0.85em; }
+.form-row input, .form-row select, .form-row textarea { width: 100%; padding: 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-size: 0.9em; }
+.form-row textarea { font-family: monospace; min-height: 60px; }
+
+.agent-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+
+#auth-required { text-align: center; padding: 80px 24px; }
+#auth-required a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div id="auth-required" style="display:none">
+  <h2>Please log in to access the dashboard</h2>
+  <p style="margin-top:12px;color:var(--muted)">You need an account to view this page.</p>
+  <p style="margin-top:20px"><a href="/api/auth/register">Register</a> or <a href="/">return home</a></p>
+</div>
+
+<div id="dashboard" style="display:none">
+  <div class="nav">
+    <h1>🛡️ AgentShield</h1>
+    <div class="user-info">
+      <span id="user-email"></span> · <span id="user-tier" style="color:var(--accent)"></span>
+      <a href="#" onclick="logout();return false">Logout</a>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('overview')">Overview</div>
+    <div class="tab" onclick="switchTab('agents')">Agents</div>
+    <div class="tab" onclick="switchTab('rules')">Rules</div>
+    <div class="tab" onclick="switchTab('transactions')">Transactions</div>
+    <div class="tab" onclick="switchTab('feed')">Live Feed</div>
+  </div>
+
+  <div class="content">
+    <!-- Overview -->
+    <div class="panel active" id="panel-overview">
+      <div class="stat-grid">
+        <div class="stat-card"><div class="label">Total Transactions</div><div class="value" id="stat-total">—</div></div>
+        <div class="stat-card"><div class="label">Blocked</div><div class="value danger" id="stat-blocked">—</div></div>
+        <div class="stat-card"><div class="label">Active Agents</div><div class="value accent" id="stat-agents">—</div></div>
+        <div class="stat-card"><div class="label">Tier</div><div class="value" id="stat-tier">—</div></div>
+      </div>
+      <h3 style="margin-bottom:12px">Recent Transactions</h3>
+      <table>
+        <thead><tr><th>Amount</th><th>Merchant</th><th>Decision</th><th>Reason</th><th>Time</th></tr></thead>
+        <tbody id="recent-txns"></tbody>
+      </table>
+    </div>
+
+    <!-- Agents -->
+    <div class="panel" id="panel-agents">
+      <h3 style="margin-bottom:16px">Your Agents</h3>
+      <div style="margin-bottom:20px">
+        <div class="form-row" style="display:flex;gap:8px">
+          <input type="text" id="new-agent-name" placeholder="Agent name" style="flex:1;padding:8px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text)">
+          <button class="btn" onclick="createAgent()">Create Agent</button>
+        </div>
+      </div>
+      <div id="agent-list"></div>
+    </div>
+
+    <!-- Rules -->
+    <div class="panel" id="panel-rules">
+      <h3 style="margin-bottom:16px">Spend Control Rules</h3>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px">
+        <h4 style="margin-bottom:12px">Add Rule</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-row"><label>Type</label>
+            <select id="rule-type">
+              <option value="transaction_limit">transaction_limit</option>
+              <option value="daily_total">daily_total</option>
+              <option value="velocity">velocity</option>
+              <option value="merchant_allowlist">merchant_allowlist</option>
+              <option value="category_block">category_block</option>
+            </select>
+          </div>
+          <div class="form-row"><label>Priority (lower = higher)</label><input type="number" id="rule-priority" value="1"></div>
+          <div class="form-row" style="grid-column:span 2"><label>Params (JSON)</label><textarea id="rule-params" placeholder='{"max_amount": 500}'>{"max_amount": 500}</textarea></div>
+          <div class="form-row"><label>Action</label>
+            <select id="rule-action"><option value="BLOCK">BLOCK</option><option value="FLAGGED">FLAGGED</option></select>
+          </div>
+        </div>
+        <button class="btn" style="margin-top:8px" onclick="createRule()">Add Rule</button>
+      </div>
+      <table>
+        <thead><tr><th>Type</th><th>Priority</th><th>Params</th><th>Action</th><th></th></tr></thead>
+        <tbody id="rules-list"></tbody>
+      </table>
+    </div>
+
+    <!-- Transactions -->
+    <div class="panel" id="panel-transactions">
+      <h3 style="margin-bottom:16px">Transaction History</h3>
+      <table>
+        <thead><tr><th>Amount</th><th>Merchant</th><th>Category</th><th>Decision</th><th>Rule</th><th>Time</th></tr></thead>
+        <tbody id="all-txns"></tbody>
+      </table>
+    </div>
+
+    <!-- Live Feed -->
+    <div class="panel" id="panel-feed">
+      <h3 style="margin-bottom:16px">Live Blocked Transaction Feed (SSE)</h3>
+      <div class="event-feed" id="event-feed">
+        <div style="color:var(--muted);text-align:center;padding:20px">Waiting for events...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? match[2] : null;
+}
+const token = getCookie('session_token');
+
+async function api(path, method='GET', body=null) {
+  const opts = {method, headers: {}};
+  if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+  const resp = await fetch(path, opts);
+  if (resp.status === 401) { window.location.href = '/'; return null; }
+  return resp.json();
+}
+
+async function init() {
+  if (!token) { document.getElementById('auth-required').style.display = 'block'; return; }
+  const me = await api('/api/auth/me');
+  if (!me) { document.getElementById('auth-required').style.display = 'block'; return; }
+  document.getElementById('dashboard').style.display = 'block';
+  document.getElementById('user-email').textContent = me.email;
+  document.getElementById('user-tier').textContent = me.tier.toUpperCase();
+  loadStats(); loadAgents(); loadRules(); loadTransactions(); connectSSE();
+}
+
+async function loadStats() {
+  const s = await api('/api/dashboard/stats');
+  if (!s) return;
+  document.getElementById('stat-total').textContent = s.total_transactions;
+  document.getElementById('stat-blocked').textContent = s.blocked_count;
+  document.getElementById('stat-agents').textContent = s.active_agents;
+  document.getElementById('stat-tier').textContent = s.tier.toUpperCase();
+}
+
+async function loadAgents() {
+  const data = await api('/api/agents');
+  if (!data) return;
+  const list = document.getElementById('agent-list');
+  list.innerHTML = data.agents.map(a => `
+    <div class="agent-card">
+      <div><strong>${a.name}</strong> ${a.active ? '' : '(inactive)'}<br>
+        <span class="api-key">${a.api_key}</span></div>
+      <div>${a.active ? `<button class="btn btn-sm btn-danger" onclick="deactivateAgent('${a.id}')">Deactivate</button>` : ''}</div>
+    </div>`).join('') || '<p style="color:var(--muted)">No agents yet. Create one above.</p>';
+}
+
+async function createAgent() {
+  const name = document.getElementById('new-agent-name').value || 'Agent-' + Date.now();
+  await api('/api/agents', 'POST', {name});
+  document.getElementById('new-agent-name').value = '';
+  loadAgents(); loadStats();
+}
+
+async function deactivateAgent(id) {
+  await api('/api/agents/' + id, 'DELETE');
+  loadAgents(); loadStats();
+}
+
+async function loadRules() {
+  const data = await api('/api/rules');
+  if (!data) return;
+  const list = document.getElementById('rules-list');
+  list.innerHTML = data.rules.map(r => `<tr>
+    <td>${r.type}</td><td>${r.priority}</td>
+    <td><code style="font-size:0.85em">${JSON.stringify(r.params)}</code></td>
+    <td><span class="badge badge-${r.action.toLowerCase()}">${r.action}</span></td>
+    <td><button class="btn btn-sm btn-danger" onclick="deleteRule('${r.id}')">Delete</button></td>
+  </tr>`).join('') || '<tr><td colspan="5" style="color:var(--muted);text-align:center">No rules configured</td></tr>';
+}
+
+async function createRule() {
+  const type = document.getElementById('rule-type').value;
+  const priority = parseInt(document.getElementById('rule-priority').value);
+  let params; try { params = JSON.parse(document.getElementById('rule-params').value); } catch(e) { alert('Invalid JSON params'); return; }
+  const action = document.getElementById('rule-action').value;
+  await api('/api/rules', 'POST', {type, priority, params, action});
+  loadRules(); loadStats();
+}
+
+async function deleteRule(id) {
+  await api('/api/rules/' + id, 'DELETE');
+  loadRules();
+}
+
+async function loadTransactions() {
+  const data = await api('/api/transactions?limit=50');
+  if (!data) return;
+  const txns = data.transactions || [];
+  const html = txns.map(t => `<tr>
+    <td>$${t.amount.toFixed(2)}</td><td>${t.merchant || '—'}</td><td>${t.category || '—'}</td>
+    <td><span class="badge badge-${(t.decision||'').toLowerCase()}">${t.decision}</span></td>
+    <td>${t.rule_triggered || '—'}</td><td>${new Date(t.created_at).toLocaleString()}</td>
+  </tr>`).join('');
+  document.getElementById('all-txns').innerHTML = html || '<tr><td colspan="6" style="color:var(--muted);text-align:center">No transactions yet</td></tr>';
+  const recent = txns.slice(0, 5).map(t => `<tr>
+    <td>$${t.amount.toFixed(2)}</td><td>${t.merchant || '—'}</td>
+    <td><span class="badge badge-${(t.decision||'').toLowerCase()}">${t.decision}</span></td>
+    <td>${t.rule_triggered || '—'}</td><td>${new Date(t.created_at).toLocaleTimeString()}</td>
+  </tr>`).join('');
+  document.getElementById('recent-txns').innerHTML = recent || '<tr><td colspan="5" style="color:var(--muted)">No transactions yet</td></tr>';
+}
+
+function connectSSE() {
+  // SSE requires an agent API key. In demo mode, skip if no key.
+  // In production, use the first active agent's key.
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+  if (name === 'transactions') loadTransactions();
+  if (name === 'overview') { loadStats(); loadTransactions(); }
+}
+
+async function logout() {
+  await api('/api/auth/logout', 'POST');
+  window.location.href = '/';
+}
+
+init();
+</script>
+</body>
+</html>

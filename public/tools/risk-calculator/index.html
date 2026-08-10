@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Agent Spend Risk Calculator — AgentShield</title>
+<meta name="description" content="Calculate your AI agent spend risk in real time. Free, no signup required. See your financial exposure and get recommended firewall rules.">
+<style>
+:root {
+  --bg: #0a0a0a; --surface: #141414; --surface2: #1a1a1a; --border: #2a2a2a;
+  --accent: #00d4aa; --text: #e8e8e8; --muted: #888; --warn: #ffa502; --danger: #ff4757;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+.container { max-width: 700px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2em; margin-bottom: 8px; }
+.subtitle { color: var(--muted); margin-bottom: 32px; }
+.tool { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.95em; }
+.form-group .hint { font-weight: 400; color: var(--muted); font-size: 0.85em; }
+.form-group input[type="number"] { width: 100%; padding: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 1.1em; }
+.form-group input:focus { outline: none; border-color: var(--accent); }
+.toggle { display: flex; align-items: center; gap: 12px; }
+.toggle input { width: 20px; height: 20px; accent-color: var(--accent); }
+.btn { display: block; width: 100%; padding: 16px; background: var(--accent); color: #000; border: none; border-radius: 8px; font-weight: 700; font-size: 1.1em; cursor: pointer; margin-top: 8px; }
+.btn:hover { opacity: 0.9; }
+
+.results { margin-top: 32px; display: none; }
+.results.show { display: block; }
+.result-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.gauge { text-align: center; padding: 20px 0; }
+.gauge .score { font-size: 4em; font-weight: 800; line-height: 1; }
+.gauge .label { font-size: 1.1em; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.1em; }
+.metric-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.metric-row:last-child { border-bottom: none; }
+.metric-label { color: var(--muted); }
+.metric-val { font-weight: 700; }
+.config-box { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 16px; margin-top: 12px; overflow-x: auto; }
+.config-box code { font-size: 0.85em; white-space: pre; }
+.share-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-top: 12px; display: flex; gap: 8px; align-items: center; }
+.share-box textarea { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); padding: 8px; font-size: 0.85em; resize: none; }
+.share-btn { padding: 8px 16px; background: var(--accent); color: #000; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; white-space: nowrap; }
+.nav-back { display: inline-block; margin-bottom: 24px; color: var(--accent); text-decoration: none; font-size: 0.9em; }
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="/" class="nav-back">← Back to AgentShield</a>
+  <h1>AI Agent Spend Risk Calculator</h1>
+  <p class="subtitle">See your financial exposure in real time. No signup required.</p>
+
+  <div class="tool">
+    <div class="form-group">
+      <label>Number of AI agents <span class="hint">How many autonomous agents are you running?</span></label>
+      <input type="number" id="agents" value="3" min="0">
+    </div>
+    <div class="form-group">
+      <label>Average transaction amount ($) <span class="hint">Typical cost per API call</span></label>
+      <input type="number" id="amount" value="0.50" min="0" step="0.01">
+    </div>
+    <div class="form-group">
+      <label>Transaction frequency <span class="hint">Per agent, per hour</span></label>
+      <input type="number" id="freq" value="20" min="0">
+    </div>
+    <div class="form-group">
+      <label>Monthly budget ($) <span class="hint">Your target spend ceiling</span></label>
+      <input type="number" id="budget" value="500" min="0">
+    </div>
+    <div class="form-group">
+      <div class="toggle">
+        <input type="checkbox" id="always-on" checked>
+        <label for="always-on" style="margin:0">Agents run 24/7</label>
+      </div>
+    </div>
+    <button class="btn" onclick="calculate()">Calculate My Risk Score</button>
+  </div>
+
+  <div class="results" id="results">
+    <div class="result-card">
+      <div class="gauge">
+        <div class="score" id="score">—</div>
+        <div class="label" id="score-label">Risk Score</div>
+      </div>
+    </div>
+
+    <div class="result-card">
+      <div class="metric-row"><span class="metric-label">Projected monthly cost</span><span class="metric-val" id="monthly-cost">—</span></div>
+      <div class="metric-row"><span class="metric-label">Worst-case daily cost (runaway)</span><span class="metric-val" id="worst-daily" style="color:var(--danger)">—</span></div>
+      <div class="metric-row"><span class="metric-label">Projected monthly overage</span><span class="metric-val" id="overage">—</span></div>
+      <div class="metric-row"><span class="metric-label">Budget utilization</span><span class="metric-val" id="utilization">—</span></div>
+    </div>
+
+    <div class="result-card">
+      <h3 style="margin-bottom:8px">Recommended Firewall Rules</h3>
+      <div class="config-box"><code id="config-json"></code></div>
+    </div>
+
+    <div class="result-card">
+      <h3 style="margin-bottom:8px">Share Your Score</h3>
+      <div class="share-box">
+        <textarea id="share-text" rows="2" readonly></textarea>
+        <button class="share-btn" onclick="copyShare()">Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function calculate() {
+  const agents = parseFloat(document.getElementById('agents').value) || 0;
+  const amount = parseFloat(document.getElementById('amount').value) || 0;
+  const freq = parseFloat(document.getElementById('freq').value) || 0;
+  const budget = parseFloat(document.getElementById('budget').value) || 0;
+  const alwaysOn = document.getElementById('always-on').checked;
+  const hoursPerDay = alwaysOn ? 24 : 8;
+  const daysPerMonth = 30;
+
+  const monthlyCost = agents * amount * freq * hoursPerDay * daysPerMonth;
+  const worstDaily = agents * amount * freq * hoursPerDay * 10; // 10x runaway
+  const overage = Math.max(0, monthlyCost - budget);
+  const utilization = budget > 0 ? (monthlyCost / budget * 100) : 0;
+
+  // Risk score calculation
+  let score = 0;
+  if (budget > 0) score += Math.min(60, (monthlyCost / budget) * 30);
+  score += Math.min(25, (agents * freq * amount) / 10);
+  score += Math.min(15, worstDaily / Math.max(1, budget) * 5);
+  score = Math.min(100, Math.round(score));
+
+  const scoreEl = document.getElementById('score');
+  const labelEl = document.getElementById('score-label');
+  scoreEl.textContent = score + '/100';
+  if (score < 33) { scoreEl.style.color = '#00d4aa'; labelEl.textContent = 'LOW RISK'; }
+  else if (score < 66) { scoreEl.style.color = '#ffa502'; labelEl.textContent = 'MODERATE RISK'; }
+  else { scoreEl.style.color = '#ff4757'; labelEl.textContent = 'HIGH RISK'; }
+
+  document.getElementById('monthly-cost').textContent = '$' + monthlyCost.toFixed(2);
+  document.getElementById('worst-daily').textContent = '$' + worstDaily.toFixed(2);
+  const ovEl = document.getElementById('overage');
+  ovEl.textContent = '$' + overage.toFixed(2);
+  ovEl.style.color = overage > 0 ? '#ff4757' : '#00d4aa';
+  document.getElementById('utilization').textContent = utilization.toFixed(0) + '%';
+
+  // Generate recommended config
+  const rules = [];
+  if (amount > 0) rules.push({id: "rule_001", type: "transaction_limit", priority: 1, params: {max_amount: +(amount * 5).toFixed(2)}, action: "BLOCK"});
+  if (budget > 0 && agents > 0) rules.push({id: "rule_002", type: "daily_total", priority: 2, params: {max_daily: +((budget / 30) * 0.8).toFixed(2)}, action: "BLOCK"});
+  if (freq > 0) rules.push({id: "rule_003", type: "velocity", priority: 3, params: {window_minutes: 60, max_count: Math.ceil(freq * 1.5)}, action: "FLAGGED"});
+  rules.push({id: "rule_004", type: "merchant_allowlist", priority: 4, params: {allowed: ["openai-api", "anthropic-api", "stripe-api"]}, action: "BLOCK"});
+
+  document.getElementById('config-json').textContent = JSON.stringify(rules, null, 2);
+
+  const shareText = 'My AI agent spend risk score: ' + score + '/100. Projected monthly cost: $' + monthlyCost.toFixed(2) + '. Overage: $' + overage.toFixed(2) + '. Run your own check at agentshield.dev';
+  document.getElementById('share-text').value = shareText;
+
+  document.getElementById('results').classList.add('show');
+}
+
+function copyShare() {
+  const textarea = document.getElementById('share-text');
+  textarea.select();
+  navigator.clipboard.writeText(textarea.value).then(() => {
+    const btn = document.querySelector('.share-btn');
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+</script>
+</body>
+</html>

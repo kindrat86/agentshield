@@ -1,0 +1,802 @@
+[
+  {
+    "name": "Andrej Karpathy",
+    "handle": "@karpathy",
+    "category": "ai_researcher",
+    "why": "Former Tesla AI Director; openly discusses LLM cost and deployment challenges",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Jim Fan",
+    "handle": "@DrJimFan",
+    "category": "ai_researcher",
+    "why": "NVIDIA AI agent researcher; tweets about agent safety and cost",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Lilian Weng",
+    "handle": "@lilianweng",
+    "category": "ai_researcher",
+    "why": "Writes definitive guides on LLM agents at OpenAI; covers agent architectures",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Harrison Chase",
+    "handle": "@hwchase17",
+    "category": "ai_researcher",
+    "why": "LangChain CEO; his framework powers thousands of agents that spend money",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Yohei Nakajima",
+    "handle": "@yoheinakajima",
+    "category": "ai_researcher",
+    "why": "Creator of BabyAGI; firsthand experience with autonomous agent cost overruns",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Liangchen Luo",
+    "handle": "@luoliCC",
+    "category": "ai_researcher",
+    "why": "AI agent safety researcher; published on cost-aware agent design",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Shunyu Yao",
+    "handle": "@shunyuyao",
+    "category": "ai_researcher",
+    "why": "Creator of ReAct prompting; agent reasoning research directly relevant",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Noah Goodman",
+    "handle": "@ngoodman_ri",
+    "category": "ai_researcher",
+    "why": "Stanford professor working on agent architectures and cost efficiency",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Ofir Press",
+    "handle": "@OfirPress",
+    "category": "ai_researcher",
+    "why": "Princeton; agent benchmark researcher aware of cost constraints",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Andrew Ng",
+    "handle": "@AndrewYNg",
+    "category": "ai_researcher",
+    "why": "Advocates for practical AI deployment; agent cost control is a deployment concern",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Chip Huyen",
+    "handle": "@chipro",
+    "category": "ai_researcher",
+    "why": "ML infrastructure expert; writes about production AI cost optimization",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Eugene Yan",
+    "handle": "@eugeneyan",
+    "category": "ai_researcher",
+    "why": "Applied ML at Amazon; covers production AI reliability and cost",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Latent Space Podcast",
+    "handle": "@latentspacepod",
+    "category": "ai_researcher",
+    "why": "Top AI engineering podcast; audience builds and deploys agents daily",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "LangChain Team",
+    "handle": "@LangChainAI",
+    "category": "framework_builder",
+    "why": "Most popular agent framework; AgentShield integrates naturally",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "CrewAI / Joao Moura",
+    "handle": "@joaomdmoura",
+    "category": "framework_builder",
+    "why": "Multi-agent framework; agents collaborate and spend together",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "AutoGPT / Toran Bruce",
+    "handle": "@ToranBruce",
+    "category": "framework_builder",
+    "why": "First viral autonomous agent; notorious for runaway costs",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "LlamaIndex / Jerry Liu",
+    "handle": "@jerryjliu0",
+    "category": "framework_builder",
+    "why": "RAG + agent framework; enterprise cost management gap",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Microsoft AutoGen",
+    "handle": "@Microsoft",
+    "category": "framework_builder",
+    "why": "Multi-agent conversation framework; enterprise cost concerns",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "OpenAI Agents SDK",
+    "handle": "@OpenAI",
+    "category": "framework_builder",
+    "why": "Official agent SDK; spend control is a natural extension",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Semantic Kernel",
+    "handle": "@Microsoft",
+    "category": "framework_builder",
+    "why": "Microsoft's agent orchestration; enterprise spend governance",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Phidata",
+    "handle": "@phidatahq",
+    "category": "framework_builder",
+    "why": "Agent framework focused on production deployment",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Instructor / Jason Liu",
+    "handle": "@jxnlco",
+    "category": "framework_builder",
+    "why": "Structured outputs for agents; cost-aware API usage advocate",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "DSPy / Omar Khattab",
+    "handle": "@lateinteraction",
+    "category": "framework_builder",
+    "why": "Programmatic LLM optimization; cost is a core optimization variable",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Magentic",
+    "handle": "@jackmpcollins",
+    "category": "framework_builder",
+    "why": "Python agent framework; production-focused",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Atomic Agents",
+    "handle": "@KennyVaneetvelde",
+    "category": "framework_builder",
+    "why": "Lightweight agent framework; cost-conscious design philosophy",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Agno (Phidata rebrand)",
+    "handle": "@agnohq",
+    "category": "framework_builder",
+    "why": "Production agent framework with monitoring features",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Stripe Dev Team",
+    "handle": "@StripeDev",
+    "category": "payment_api",
+    "why": "Customers build AI agents that process payments; spend control is complementary",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Paddle Team",
+    "handle": "@paddle",
+    "category": "payment_api",
+    "why": "SaaS billing platform; AI agent billing is an emerging use case",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Chargebee",
+    "handle": "@chargebee",
+    "category": "payment_api",
+    "why": "Subscription billing; AI agent usage-based billing is a gap",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Orb / Alfonso Eduardo",
+    "handle": "@orbbilling",
+    "category": "payment_api",
+    "why": "Usage-based billing infrastructure; directly complementary to spend control",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Metronome",
+    "handle": "@metronomepm",
+    "category": "payment_api",
+    "why": "Usage-based billing for AI companies; spend control is their customer need",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Lago",
+    "handle": "@getlago",
+    "category": "payment_api",
+    "why": "Open-source usage-based billing; AI agent billing integration",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Hyperline",
+    "handle": "@hyperline",
+    "category": "payment_api",
+    "why": "SaaS billing with usage components; AI agent spend is a use case",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Amberflo",
+    "handle": "@amberflo",
+    "category": "payment_api",
+    "why": "Metering and billing for API products; AI cost metering overlap",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Togai",
+    "handle": "@togaihq",
+    "category": "payment_api",
+    "why": "Usage-based billing platform; AI agent spend monitoring gap",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "OpenMeter",
+    "handle": "@openmeterio",
+    "category": "payment_api",
+    "why": "Open-source metering for AI/usage-based billing",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Helcim",
+    "handle": "@helcim",
+    "category": "payment_api",
+    "why": "Payment processing for tech companies; AI agent payment controls",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Recurly",
+    "handle": "@recurly",
+    "category": "payment_api",
+    "why": "Subscription management; AI SaaS cost control complementary",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "10Clouds AI",
+    "handle": "@10clouds",
+    "category": "ai_agency",
+    "why": "AI development agency building agents for enterprise clients",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Netguru AI",
+    "handle": "@netguru",
+    "category": "ai_agency",
+    "why": "Builds AI agents for clients; cost overruns are a client concern",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Vention",
+    "handle": "@ventionteams",
+    "category": "ai_agency",
+    "why": "AI/ML development; agents need cost guardrails for client projects",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Sigmoid",
+    "handle": "@sigmoid",
+    "category": "ai_agency",
+    "why": "Data engineering + AI; agent deployment cost governance",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Turing",
+    "handle": "@turing",
+    "category": "ai_agency",
+    "why": "AI talent platform; agents deployed at scale need cost controls",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Toptal AI",
+    "handle": "@toptal",
+    "category": "ai_agency",
+    "why": "Freelance AI talent; clients deploying agents need spend governance",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "BairesDev",
+    "handle": "@bairesdev",
+    "category": "ai_agency",
+    "why": "Nearshore AI development; agent cost control for client budgets",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "DataRoot Labs",
+    "handle": "@DataRootLabs",
+    "category": "ai_agency",
+    "why": "AI startup incubator; agent cost management for portfolio companies",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Adastra",
+    "handle": "@adastracorp",
+    "category": "ai_agency",
+    "why": "Enterprise data/AI consulting; agent governance for regulated industries",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "N-iX",
+    "handle": "@N_iX",
+    "category": "ai_agency",
+    "why": "Enterprise software development; AI agent cost control for clients",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Sara Technologies",
+    "handle": "@SaraTechnologies",
+    "category": "ai_agency",
+    "why": "AI agent development; cost overrun prevention for clients",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Dreamers Inc",
+    "handle": "@dreamersinc",
+    "category": "ai_agency",
+    "why": "AI development agency; agent cost monitoring for client work",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "CTO at Klarna",
+    "handle": "@Klarna",
+    "category": "enterprise_team",
+    "why": "Deployed AI assistant handling millions of transactions; spend control critical",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "VP Eng at Shopify",
+    "handle": "@ShopifyEng",
+    "category": "enterprise_team",
+    "why": "AI agents in production at massive scale; cost governance needed",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "AI Platform Lead at Uber",
+    "handle": "@UberEng",
+    "category": "enterprise_team",
+    "why": "Internal AI agents at scale; cost control for internal tooling",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "ML Platform at Netflix",
+    "handle": "@NetflixEng",
+    "category": "enterprise_team",
+    "why": "Large-scale ML infrastructure; agent cost monitoring for production",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "AI Infra at Airbnb",
+    "handle": "@AirbnbEng",
+    "category": "enterprise_team",
+    "why": "Customer service AI agents; cost control for autonomous interactions",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "VP AI at Spotify",
+    "handle": "@SpotifyEng",
+    "category": "enterprise_team",
+    "why": "AI agents for content moderation and recommendation; spend governance",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "CTO at Jasper AI",
+    "handle": "@JasperAI",
+    "category": "enterprise_team",
+    "why": "AI writing platform; LLM API costs are their primary expense",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Head of AI at Writer",
+    "handle": "@writer",
+    "category": "enterprise_team",
+    "why": "Enterprise AI platform; agent cost governance for Fortune 500 clients",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "VP Eng at Copy.ai",
+    "handle": "@copy_ai",
+    "category": "enterprise_team",
+    "why": "AI marketing platform; LLM spend is a core cost line",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "CTO at Perplexity",
+    "handle": "@peraborasao",
+    "category": "enterprise_team",
+    "why": "AI search engine; massive API costs; spend control is existential",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "AI Platform at Notion",
+    "handle": "@NotionHQ",
+    "category": "enterprise_team",
+    "why": "AI features in production; cost control for embedded agents",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Eng Lead at Cursor",
+    "handle": "@cursor_ai",
+    "category": "enterprise_team",
+    "why": "AI code editor; per-user API costs are the primary margin pressure",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "VP AI at Duolingo",
+    "handle": "@duolingo",
+    "category": "enterprise_team",
+    "why": "AI tutor agents; cost control for millions of users",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Vanta AI Compliance",
+    "handle": "@Vanta",
+    "category": "compliance",
+    "why": "SOC2 automation; AI governance is a growing compliance requirement",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Drata",
+    "handle": "@drata",
+    "category": "compliance",
+    "why": "Compliance automation; AI agent governance emerging requirement",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Secureframe",
+    "handle": "@secureframe",
+    "category": "compliance",
+    "why": "SOC2 compliance; AI spend controls are a governance concern",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Anecdotes",
+    "handle": "@anecdotesai",
+    "category": "compliance",
+    "why": "Compliance platform; AI agent audit trails and spend controls",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "OneTrust AI Governance",
+    "handle": "@OneTrust",
+    "category": "compliance",
+    "why": "Privacy/governance platform; AI agent governance is their next frontier",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Credo AI",
+    "handle": "@credo_ai",
+    "category": "compliance",
+    "why": "AI governance platform; spend control is part of responsible AI",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Robust Intelligence",
+    "handle": "@RobustInt",
+    "category": "compliance",
+    "why": "AI security/monitoring; agent spend anomalies signal security issues",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Arthur AI",
+    "handle": "@ArthurAI",
+    "category": "compliance",
+    "why": "AI monitoring platform; spend anomalies are a monitoring signal",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Weights & Biases",
+    "handle": "@weights_biases",
+    "category": "compliance",
+    "why": "ML experiment tracking; agent cost tracking is a natural extension",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Arize AI",
+    "handle": "@arizeAI",
+    "category": "compliance",
+    "why": "ML observability; agent spend monitoring is part of production health",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Fiddler AI",
+    "handle": "@fiddler_ai",
+    "category": "compliance",
+    "why": "AI monitoring; spend spikes indicate model behavior anomalies",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Aporia",
+    "handle": "@aporiaai",
+    "category": "compliance",
+    "why": "ML monitoring; agent cost anomalies are production incidents",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Latent Space (Swyx)",
+    "handle": "@swyx",
+    "category": "content_creator",
+    "why": "Top AI engineering newsletter; audience builds AI agents professionally",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "AI Tinkerers",
+    "handle": "@aitinkerers",
+    "category": "content_creator",
+    "why": "Community of AI agent builders; direct target audience",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Matt Wolfe",
+    "handle": "@mreflow",
+    "category": "content_creator",
+    "why": "AI YouTube channel; covers tools that his audience deploys",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Ben's Bites",
+    "handle": "@bensbites",
+    "category": "content_creator",
+    "why": "Daily AI newsletter with 100k+ subscribers; agent tools coverage",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "TLDR AI",
+    "handle": "@tldrai",
+    "category": "content_creator",
+    "why": "AI newsletter reaching 500k+ developers; ideal for launch",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Rundown AI",
+    "handle": "@rundownai",
+    "category": "content_creator",
+    "why": "Popular AI newsletter; covers developer tools regularly",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Promoting the Show",
+    "handle": "@aiinabox",
+    "category": "content_creator",
+    "why": "AI in a Box podcast; agent tools and infrastructure coverage",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Fireship",
+    "handle": "@fireship_dev",
+    "category": "content_creator",
+    "why": "Top dev YouTube channel; would cover a clean, stdlib-only tool",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Theo (t3.gg)",
+    "handle": "@t3dotgg",
+    "category": "content_creator",
+    "why": "Dev streamer; covers dev tools and SaaS infrastructure",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Primeagen",
+    "handle": "@ThePrimeagen",
+    "category": "content_creator",
+    "why": "Popular dev streamer; audience includes AI agent builders",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Indie Hackers",
+    "handle": "@IndieHackers",
+    "category": "content_creator",
+    "why": "Community of SaaS founders; AI cost control is a real pain point",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Jason Calacanis",
+    "handle": "@jason",
+    "category": "content_creator",
+    "why": "Launches startups on This Week in Startups; agent spend control is timely",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Greg Isenberg",
+    "handle": "@gregisenberg",
+    "category": "content_creator",
+    "why": "AI product community; agent infrastructure is a core topic",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Y Combinator",
+    "handle": "@ycombinator",
+    "category": "vc_ecosystem",
+    "why": "AI agent startups are their largest batch; spend control is universal need",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "a16z AI Fund",
+    "handle": "@a16z",
+    "category": "vc_ecosystem",
+    "why": "Largest AI fund; portfolio companies all face agent cost challenges",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Sequoia AI",
+    "handle": "@sequoia",
+    "category": "vc_ecosystem",
+    "why": "AI infrastructure investors; spend control is infrastructure",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Greylock AI",
+    "handle": "@greylockvc",
+    "category": "vc_ecosystem",
+    "why": "Early-stage AI investors; agent infra is a thesis area",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Bessemer AI",
+    "handle": "@bessemervp",
+    "category": "vc_ecosystem",
+    "why": "Cloud/AI investors; cost governance is a Bessemer research area",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "General Catalyst AI",
+    "handle": "@gcv",
+    "category": "vc_ecosystem",
+    "why": "AI-first thesis; agent infrastructure investments growing",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Lux Capital",
+    "handle": "@lux_capital",
+    "category": "vc_ecosystem",
+    "why": "Deep tech/AI investor; agent safety is a thesis area",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Founders Fund",
+    "handle": "@foundersfund",
+    "category": "vc_ecosystem",
+    "why": "Contrarian tech investors; agent cost control is contrarian infrastructure",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "South Park Commons",
+    "handle": "@southparkcommons",
+    "category": "vc_ecosystem",
+    "why": "AI builder community; agent infrastructure is core to their work",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "SignalFire",
+    "handle": "@SignalFire",
+    "category": "vc_ecosystem",
+    "why": "AI-focused fund; portfolio companies build agents that need cost control",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "Conviction VC",
+    "handle": "@conviction",
+    "category": "vc_ecosystem",
+    "why": "AI-native fund; software-as-a-service infrastructure for agents",
+    "email": null,
+    "status": "draft"
+  },
+  {
+    "name": "NEA AI",
+    "handle": "@NEA",
+    "category": "vc_ecosystem",
+    "why": "Multi-stage investor; AI infrastructure portfolio growing rapidly",
+    "email": null,
+    "status": "draft"
+  }
+]
