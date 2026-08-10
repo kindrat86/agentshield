@@ -1,0 +1,24 @@
+app = "agentshield"
+primary_region = "ams"
+
+[build]
+
+[env]
+  PORT = "7100"
+
+[[services]]
+  internal_port = 7100
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256

@@ -347,7 +347,7 @@ class APIHandler(BaseHTTPRequestHandler):
         response = {
             "id": account['id'],
             "email": account['email'],
-            "thread": account.get('tier', 'free')
+            "tier": account.get('tier', 'free')
         }
         body_bytes = json.dumps(response, default=str).encode('utf-8')
         self.send_response(200)

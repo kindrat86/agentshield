@@ -1,0 +1,12 @@
+.git
+__pycache__
+*.pyc
+*.pyo
+*.db
+*.db-wal
+*.db-shm
+.env
+.demo_license_key
+outreach/
+/tmp
+.claude

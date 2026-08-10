@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AgentShield Dashboard</title>
+<meta name="description" content="AgentShield dashboard — manage your AI agent spend control rules, monitor transactions, and view real-time blocked alerts.">
 <style>
 :root {
   --bg: #0a0a0a; --surface: #141414; --surface2: #1a1a1a; --border: #2a2a2a;
@@ -70,7 +71,7 @@ td { padding: 10px 12px; border-bottom: 1px solid var(--surface2); font-size: 0.
 </div>
 
 <div id="dashboard" style="display:none">
-  <div class="nav">
+  <nav class="nav" role="navigation" aria-label="Main navigation">
     <h1>🛡️ AgentShield</h1>
     <div class="user-info">
       <span id="user-email"></span> · <span id="user-tier" style="color:var(--accent)"></span>

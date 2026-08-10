@@ -21,12 +21,15 @@ import os
 from datetime import datetime, timezone
 
 
-# Master secret: 64 hex chars (32 bytes). Load from env or generate on first run.
-# In production, ALWAYS set LICENSING_MASTER_SECRET in the environment.
-MASTER_SECRET = os.environ.get(
-    'LICENSING_MASTER_SECRET',
-    hashlib.sha256(b'agentshield-default-dev-secret-do-not-use-in-prod').hexdigest()
-)
+# Master secret: 64 hex chars (32 bytes). MUST be set via environment variable.
+# Generate with: python3.11 -c "import secrets; print(secrets.token_hex(32))"
+MASTER_SECRET = os.environ.get('LICENSING_MASTER_SECRET')
+
+if not MASTER_SECRET:
+    raise RuntimeError(
+        "LICENSING_MASTER_SECRET environment variable is required. "
+        "Generate with: python3.11 -c 'import secrets; print(secrets.token_hex(32))'"
+    )
 LICENSE_VERSION = 1
 
 

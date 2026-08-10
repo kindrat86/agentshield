@@ -15,6 +15,21 @@ import sys
 # Ensure the project root is on the path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+# ─── Load .env file (stdlib-only, no python-dotenv dependency) ─────────────
+def _load_env():
+    """Load key=value pairs from .env file into os.environ if present."""
+    env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env')
+    if os.path.exists(env_path):
+        with open(env_path) as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith('#') or '=' not in line:
+                    continue
+                key, _, val = line.partition('=')
+                os.environ.setdefault(key.strip(), val.strip())
+
+_load_env()
+
 from core.store import Store
 from core.engine import SpendControlEngine
 from core.auth import AuthManager
