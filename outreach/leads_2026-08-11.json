@@ -1,0 +1,58 @@
+[
+  {
+    "source_url": "https://news.ycombinator.com/item?id=47351950",
+    "name": "Omrikos (HN user) / Genway AI",
+    "problem_summary": "OpenClaw AI agent went into a runaway loop during active development. The auto-pause on cost limits feature in ClaWatch (an open-source agent observability tool) saved them from a $300 runaway agent incident last Tuesday. The team built ClaWatch after repeatedly experiencing agents that freeze, burn through API costs, or start destructive operations like deleting inbox contents.",
+    "amount_mentioned": "$300 (single runaway agent incident)",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=44742710",
+    "name": "dipampaul17 / AgentGuard",
+    "problem_summary": "Built AgentGuard after seeing developers repeatedly post about accidentally spending $500+ on OpenAI API calls from runaway agents. AI agents hit infinite loops and can rack up $2,000 in API charges overnight — described as happening 'weekly to AI developers.' AgentGuard is a circuit breaker that monitors API calls in real-time and kills the process at the budget limit. The creator says it has saved them from 'several costly bugs during development.'",
+    "amount_mentioned": "$2,000 overnight (described as common scenario); $500 (frequent accidental spend)",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://github.com/openclaw/openclaw/issues/42475",
+    "name": "hkochar (OpenClaw contributor)",
+    "problem_summary": "Filed a feature request for per-agent cost budget enforcement in OpenClaw, noting that current cost tracking is observability-only with no enforcement mechanism. Operators running multiple agents with real API keys have no way to cap spend per agent. A single runaway session can exhaust a monthly budget in hours, and the only existing guard is a reactive cooldown that fires after a billing error from the provider.",
+    "amount_mentioned": null,
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://prefactor.tech/problems/runaway-agent-costs",
+    "name": "Prefactor (agent observability platform)",
+    "problem_summary": "Documented a real-world case where monthly AI agent spend jumped from $9k to $38k with zero attribution — nobody could say what the increased spend actually produced. The most expensive agent was running the cheapest model with only a 61% pass rate. Teams resort to blindly downgrading models to cap spend without measuring the quality impact. The root cause was that platform billing stops at the account level, with no per-agent or per-task cost breakdown.",
+    "amount_mentioned": "$9,000 → $38,000 monthly (4.2x increase)",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://www.braintrust.dev/articles/how-to-track-llm-costs-2026",
+    "name": "Braintrust (LLM observability platform)",
+    "problem_summary": "Described a case where a provider invoice showed the OpenAI bill increased by $12,000 in March, but the invoice itself cannot show whether the increase came from one customer's agent loop, a retry pattern during an outage, or a prompt change that added hundreds of tokens to every chat session. Runaway agent loops — where an agent calls a tool, gets a malformed result, reasons over it, and calls again — can bill tokens on every iteration with no request-level fingerprint.",
+    "amount_mentioned": "$12,000 (monthly increase, unattributed)",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://www.cloudzero.com/blog/llm-api-pricing-comparison",
+    "name": "CloudZero (cloud cost intelligence)",
+    "problem_summary": "Warns that a misconfigured batch job or runaway prompt loop can turn a $5,000 monthly AI bill into $50,000 overnight. Notes that every major provider supports spend caps, but most teams configure them only after receiving their first surprise invoice — comparing it to 'buying a fire extinguisher after the kitchen is already on fire.' CloudZero surfaces unexpected cost spikes (prompt regressions, context window creep, misconfigured jobs) with alerts to engineering teams within the hour.",
+    "amount_mentioned": "$5,000 → $50,000 monthly (10x overnight spike)",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://community.latenode.com/t/hidden-costs-behind-cheap-llm-api-pricing-my-expensive-learning-experience/34393",
+    "name": "Anonymous Latenode community user",
+    "problem_summary": "Discovered firsthand how LLM API costs spiral: while editing a 600-line Python script, each small change was resending the entire conversation context along with the code. What seemed like a quick $0.50 session turned into $8. Describes the context window problem as 'brutal' — you think you're sending one question but you're paying for the whole conversation every single time. Notes that $0.002/1K tokens looks cheap but the math is deceptive at scale.",
+    "amount_mentioned": "$0.50 → $8 per session (16x more than expected)",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://github.com/AgentBudget/agentbudget",
+    "name": "AgentBudget (open source project)",
+    "problem_summary": "Open-source Python library that addresses 'The Loop Problem': a stuck agent can make 200 LLM calls in 10 minutes, burning $50-$200 before anyone notices. Also highlights that 1,000 concurrent sessions with a 5% failure rate yields 50 runaway agents. The library provides per-session budget caps with a finalization reserve so agents aren't cut off mid-task. Tracks costs across OpenAI, Anthropic, Google, and custom APIs with a unified real-time view.",
+    "amount_mentioned": "$50–$200 per runaway loop incident",
+    "discovered_at": "2026-08-11"
+  }
+]
