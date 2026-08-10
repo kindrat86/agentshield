@@ -1,7 +1,8 @@
-agentshield.db
-agentshield.db-wal
-agentshield.db-shm
 __pycache__/
 *.pyc
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
 .env
-/tmp/as_cookies
+.demo_license_key
