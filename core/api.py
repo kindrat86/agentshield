@@ -694,8 +694,82 @@ class APIHandler(BaseHTTPRequestHandler):
         )
         if os.path.exists(blog_path):
             with open(blog_path, 'r') as f:
-                content = f.read()
-            self._send_text(content, 200, 'text/markdown')
+                md_content = f.read()
+            # Wrap in SEO-optimized HTML with Open Graph tags and JSON-LD schema
+            import html as html_module
+            title = "At 3 AM, My AI Agent Spent $2,800 in 60 Seconds — Here's What I Built"
+            description = "How I built AgentShield: a Python stdlib-only firewall for AI agent spending. 7 composable rules, evaluated per-transaction in under 1ms. 50/50 eval gym."
+            url = "https://agentshield.fly.dev/blog"
+            
+            # Simple markdown to HTML conversion for body
+            body_html = html_module.escape(md_content)
+            body_html = body_html.replace('**', '<strong>', 1)  # Fallback if markdown
+            
+            # Build full SEO HTML
+            seo_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{title}</title>
+<meta name="description" content="{description}">
+<link rel="canonical" href="{url}">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{url}">
+<meta property="og:site_name" content="AgentShield">
+<meta property="article:published_time" content="2026-08-11T00:00:00Z">
+<meta property="article:author" content="Sipiteno">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{description}">
+<!-- Article JSON-LD -->
+<script type="application/ld+json">
+{{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{title}",
+  "description": "{description}",
+  "author": {{
+    "@type": "Organization",
+    "name": "AgentShield"
+  }},
+  "publisher": {{
+    "@type": "Organization",
+    "name": "AgentShield",
+    "url": "https://agentshield.fly.dev"
+  }},
+  "datePublished": "2026-08-11",
+  "mainEntityOfPage": "{url}"
+}}
+</script>
+<style>
+body {{ font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: #0a0a0a; color: #e8e8e8; max-width: 800px; margin: 0 auto; padding: 40px 24px; line-height: 1.7; }}
+h1, h2, h3 {{ color: #00d4aa; margin-top: 1.5em; }}
+h1 {{ font-size: 1.8em; }}
+code {{ background: #1a1a1a; padding: 2px 6px; border-radius: 3px; font-size: 0.9em; }}
+pre {{ background: #141414; padding: 16px; border-radius: 8px; overflow-x: auto; }}
+pre code {{ background: none; padding: 0; }}
+a {{ color: #00d4aa; }}
+table {{ border-collapse: collapse; width: 100%; }}
+th, td {{ border: 1px solid #2a2a2a; padding: 8px; text-align: left; }}
+th {{ background: #141414; }}
+blockquote {{ border-left: 3px solid #00d4aa; padding-left: 16px; color: #888; }}
+</style>
+</head>
+<body>
+<pre style="background:none;padding:0;white-space:pre-wrap;font-family:inherit;font-size:inherit;overflow-wrap:break-word">{html_module.escape(md_content)}</pre>
+<p style="margin-top:40px;border-top:1px solid #2a2a2a;padding-top:20px">
+<a href="/">← Back to AgentShield</a> · 
+<a href="/tools/risk-calculator/">Try the Risk Calculator</a> · 
+<a href="/dashboard">Dashboard</a>
+</p>
+</body>
+</html>"""
+            self._send_html(seo_html)
         else:
             self._send_json({"error": "Blog article not found"}, 404)
 
