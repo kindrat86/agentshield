@@ -1,0 +1,42 @@
+HN POST READY — copy-paste this into https://news.ycombinator.com/submit
+
+TITLE: AgentShield – A firewall for AI agent spending (stdlib, 50/50 eval)
+URL: https://agentshield.fly.dev
+
+STATUS: Already submitted! Post URL: https://news.ycombinator.com/item?id=49250917
+
+POST BODY (if text post needed for future reference):
+---
+At 3 AM, an AI agent I built made 21 API calls in 60 seconds. $2,800 gone before I woke up.
+
+Existing solutions failed:
+- API rate limits: kicked in too late (per-minute, not per-dollar)
+- Budget alerts: emailed me while I was asleep
+- Manual monitoring: doesn't scale past 3 agents
+
+So I built AgentShield — 5 composable spending rules evaluated per-transaction in under 1ms.
+
+What it does:
+- Per-transaction limit (max $500/single call)
+- Daily total cap ($2,000/day per agent)
+- Velocity detection (flags >10 txns in 60 minutes)
+- Merchant allowlist (only approved API providers)
+- Category blocking (no crypto exchanges, no adult content)
+
+Tech: Pure Python 3.11 stdlib. No pip install. SQLite + WAL mode. SSE for real-time alerts. Multi-tenant isolation out of the box.
+
+The eval gym has 50 labeled scenarios across 7 categories. Currently 50/50 on first run.
+
+Edge cases:
+- Amount exactly at limit → APPROVED (not strictly greater)
+- $0.01 over limit → BLOCKED
+- Missing amount field → FLAGGED
+- Empty rules list → APPROVED
+
+Try the risk calculator (no signup): https://agentshield.fly.dev/tools/risk-calculator/
+Live eval results: https://agentshield.fly.dev/eval
+
+Feedback wanted:
+1. Rule composition model — does first-match-wins cover real-world agent spending?
+2. What rules would you add for your own AI agents?
+3. Worth adding Slack/Teams alert integration?

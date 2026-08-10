@@ -596,6 +596,7 @@ class APIHandler(BaseHTTPRequestHandler):
     # ─── Billing (Stripe) ─────────────────────────────────────────────────
 
     def _handle_billing_checkout(self):
+        """Create a Stripe Checkout Session and redirect the user."""
         account = self._get_session_account()
         if not account:
             return
@@ -610,13 +611,59 @@ class APIHandler(BaseHTTPRequestHandler):
         if not price_id:
             self._send_json({"error": "Invalid tier or Stripe not configured"}, 400)
             return
-        # In production, create a Stripe Checkout Session here
-        self._send_json({
-            "message": "Stripe checkout requires server-side stripe library",
-            "tier": tier,
-            "price_id": price_id,
-            "account_id": account['id']
-        })
+
+        stripe_key = os.getenv('STRIPE_SECRET_KEY')
+        if not stripe_key:
+            self._send_json({"error": "Stripe not configured"}, 500)
+            return
+
+        # Create a Stripe Checkout Session using urllib (stdlib)
+        import urllib.request
+        import urllib.error
+        import urllib.parse
+        import base64
+
+        checkout_data = urllib.parse.urlencode({
+            'mode': 'subscription',
+            'line_items[0][price]': price_id,
+            'line_items[0][quantity]': '1',
+            'success_url': f"https://agentshield.fly.dev/dashboard?upgrade=success&tier={tier}",
+            'cancel_url': 'https://agentshield.fly.dev/dashboard?upgrade=cancelled',
+            'client_reference_id': account['id'],
+            'metadata[tier]': tier,
+            'metadata[account_id]': account['id'],
+        }).encode()
+
+        req = urllib.request.Request(
+            'https://api.stripe.com/v1/checkout/sessions',
+            data=checkout_data,
+            headers={
+                'Authorization': 'Basic ' + base64.b64encode(f'{stripe_key}:'.encode()).decode(),
+            },
+            method='POST'
+        )
+
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                session_data = json.loads(resp.read().decode())
+            checkout_url = session_data.get('url')
+            if checkout_url:
+                self.send_response(302)
+                self._send_cors_headers()
+                self.send_header('Location', checkout_url)
+                self.send_header('Content-Length', '0')
+                self.end_headers()
+            else:
+                self._send_json({"error": "Failed to create checkout session"}, 500)
+        except urllib.error.HTTPError as e:
+            error_body = e.read().decode()
+            try:
+                error_data = json.loads(error_body)
+                self._send_json({"error": error_data.get('error', {}).get('message', 'Stripe error')}, e.code)
+            except json.JSONDecodeError:
+                self._send_json({"error": f"Stripe API error: {e.code}"}, e.code)
+        except Exception as e:
+            self._send_json({"error": f"Checkout failed: {str(e)}"}, 500)
 
     def _handle_billing_webhook(self):
         body = self._read_body()
