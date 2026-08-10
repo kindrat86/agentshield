@@ -23,7 +23,7 @@
 | HN Post | https://news.ycombinator.com/item?id=49250917 | ✅ PUBLISHED |
 | Blog (on-site) | https://agentshield.fly.dev/blog | ✅ LIVE |
 | Dev.to | https://dev.to/maryan_k_bef6cf83fa64e809/i-built-a-firewall-for-ai-agent-spending-here-is-the-architecture-2560 | ✅ PUBLISHED |
-| HN Account | SipitenoMK (1 karma) | ✅ Active |
+| HN Account | SipitenoMK (1 karma) | 🔄 Warm-up phase |
 
 ## Demo Account
 - Email: demo@agentshield.dev
