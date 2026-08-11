@@ -197,6 +197,10 @@ class APIHandler(BaseHTTPRequestHandler):
                 self._serve_file(os.path.join(self.public_dir, 'dashboard.html'))
             elif path == '/api/auth/me':
                 self._handle_auth_me()
+            elif path == '/api/auth/google':
+                self._handle_google_auth()
+            elif path == '/api/auth/google/callback':
+                self._handle_google_callback()
             elif path == '/api/agents':
                 self._handle_list_agents()
             elif path == '/api/rules':
