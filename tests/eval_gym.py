@@ -373,6 +373,62 @@ SCENARIOS = [
                {"id": "r2", "type": "transaction_limit", "priority": 1, "params": {"max_amount": 5000}, "action": "BLOCK"}],
      "prior_transactions": [], "expected": "BLOCKED",
      "description": "Same priority — first rule (max_amount=5) blocks $10"},
+
+    # ─── Session Budget (inspired by HeartFlow / @yun520-1) ───
+    {"id": 51, "category": "session_budget",
+     "transaction": {**_txn("t051", amount=150.00), "session_id": "sess_1"},
+     "rules": [{"id": "sb1", "type": "session_budget", "priority": 1,
+                "params": {"max_session": 500}, "action": "BLOCK"}],
+     "prior_transactions": [
+         {**_txn("t050a", amount=400.00), "session_id": "sess_1"},
+     ],
+     "expected": "BLOCKED",
+     "description": "Session total $550 exceeds $500 session budget"},
+
+    {"id": 52, "category": "session_budget",
+     "transaction": {**_txn("t052", amount=100.00), "session_id": "sess_2"},
+     "rules": [{"id": "sb2", "type": "session_budget", "priority": 1,
+                "params": {"max_session": 500}, "action": "BLOCK"}],
+     "prior_transactions": [
+         {**_txn("t052a", amount=200.00), "session_id": "sess_2"},
+     ],
+     "expected": "APPROVED",
+     "description": "Session total $300 under $500 session budget — approved"},
+
+    {"id": 53, "category": "session_budget",
+     "transaction": {**_txn("t053", amount=50.00), "session_id": "sess_3"},
+     "rules": [{"id": "sb3", "type": "session_budget", "priority": 1,
+                "params": {"max_session": 500}, "action": "BLOCK"}],
+     "prior_transactions": [
+         {**_txn("t053a", amount=200.00), "session_id": "sess_4"},  # Different session
+     ],
+     "expected": "APPROVED",
+     "description": "Prior transaction in different session — not counted"},
+
+    # ─── Cascade Cost (inspired by HeartFlow / @yun520-1) ───
+    {"id": 54, "category": "cascade_cost",
+     "transaction": {**_txn("t054", amount=50.00), "fail_probability": 0.3, "reversal_cost": 200},
+     "rules": [{"id": "cc1", "type": "cascade_cost", "priority": 1,
+                "params": {"max_cascade_cost": 100}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Cascade cost $110 ($50 + 30% × $200) exceeds $100 limit"},
+
+    {"id": 55, "category": "cascade_cost",
+     "transaction": {**_txn("t055", amount=10.00), "fail_probability": 0.1, "reversal_cost": 50},
+     "rules": [{"id": "cc2", "type": "cascade_cost", "priority": 1,
+                "params": {"max_cascade_cost": 100}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "APPROVED",
+     "description": "Cascade cost $15 ($10 + 10% × $50) under $100 limit"},
+
+    {"id": 56, "category": "cascade_cost",
+     "transaction": {**_txn("t056", amount=10.00), "estimated_cascade_cost": 150},
+     "rules": [{"id": "cc3", "type": "cascade_cost", "priority": 1,
+                "params": {"max_cascade_cost": 100}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Pre-computed cascade cost $150 exceeds $100 limit"},
 ]
 
 

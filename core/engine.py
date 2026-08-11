@@ -10,12 +10,14 @@ and returns a decision: APPROVED, BLOCKED, or FLAGGED. It is:
   - Composable: rules can be combined arbitrarily; first match (by priority) wins.
   - Monetary-safe: uses decimal.Decimal for all amount arithmetic (never float).
 
-Rule Types (7):
+Rule Types (9):
   1. transaction_limit   — block if a single transaction exceeds max_amount
   2. daily_total         — block if cumulative daily spend exceeds max_daily
   3. velocity            — flag if transaction count in rolling window exceeds max_count
   4. merchant_allowlist  — block if merchant is NOT in the allowed list
   5. category_block      — block if category IS in the blocked list
+  6. session_budget      — block if cumulative session spend exceeds max_session (resets per session)
+  7. cascade_cost        — block if estimated cascade cost (call + retry probability × reversal) exceeds threshold
 """
 
 from decimal import Decimal, InvalidOperation
@@ -106,6 +108,10 @@ class SpendControlEngine:
             return self._check_merchant_allowlist(rule_id, transaction, params, action)
         elif rule_type == 'category_block':
             return self._check_category_block(rule_id, transaction, params, action)
+        elif rule_type == 'session_budget':
+            return self._check_session_budget(rule_id, transaction, txn_amount, prior_transactions, params, action)
+        elif rule_type == 'cascade_cost':
+            return self._check_cascade_cost(rule_id, txn_amount, transaction, params, action)
         else:
             # Unknown rule type — skip silently
             return None
@@ -188,7 +194,111 @@ class SpendControlEngine:
                 f"Category '{category}' is blocked")
         return None
 
-    # ─── Helpers ───────────────────────────────────────────────────────────
+    def _check_session_budget(self, rule_id: str, transaction: dict, txn_amount: Decimal,
+                              prior_transactions: list, params: dict, action: str):
+        """
+        Session-scoped budget with optional decay tightening.
+        Inspired by HeartFlow's session budget pattern (via @yun520-1 on OpenClaw #42475).
+
+        Params:
+          max_session: Maximum cumulative spend per session
+          session_id:  Field name in transaction to identify session (default: 'session_id')
+          decay_factor: Optional tightening factor (0.0-1.0). Each call's effective
+                       threshold shrinks as session spend accumulates.
+        """
+        max_session = self._to_decimal_safe(params.get('max_session'))
+        if max_session is None:
+            return None
+
+        session_field = params.get('session_id', 'session_id')
+        session_id = transaction.get(session_field)
+        agent_id = transaction.get('agent_id')
+        decay_factor = params.get('decay_factor')
+
+        # Sum prior transactions in the same session
+        session_total = txn_amount
+        for prior in prior_transactions:
+            if agent_id and prior.get('agent_id') != agent_id:
+                continue
+            if session_id and prior.get(session_field) == session_id:
+                prior_amount = self._to_decimal_safe(prior.get('amount'))
+                if prior_amount is not None:
+                    session_total += prior_amount
+
+        if session_total > max_session:
+            return self._make_result(action, rule_id,
+                f"Session spend ${self._fmt(session_total)} exceeds session budget of ${self._fmt(max_session)}")
+
+        # Apply decay tightening if configured
+        if decay_factor is not None:
+            try:
+                decay = float(decay_factor)
+                if 0 < decay < 1:
+                    remaining = max_session - session_total
+                    effective_threshold = txn_amount  # base check
+                    # Tighten: if remaining budget is < decay × max_session, per-call threshold shrinks
+                    if remaining < max_session * Decimal(str(decay)):
+                        # Per-call limit shrinks proportionally to remaining budget
+                        per_call_cap = remaining * Decimal(str(decay))
+                        if txn_amount > per_call_cap and per_call_cap > Decimal('0'):
+                            return self._make_result(action, rule_id,
+                                f"Session decay: per-call cap ${self._fmt(per_call_cap)} (remaining "
+                                f"${self._fmt(remaining)} < {decay:.0%} of session budget)")
+            except (ValueError, TypeError):
+                pass
+
+        return None
+
+    def _check_cascade_cost(self, rule_id: str, txn_amount: Decimal, transaction: dict,
+                            params: dict, action: str):
+        """
+        Pre-dispatch cascade cost estimation.
+        Inspired by HeartFlow's adaptive controller (via @yun520-1 on OpenClaw #42475).
+
+        Estimates expected value of a call including retry probability × reversal cost,
+        and blocks if the cascade-adjusted cost exceeds a threshold.
+
+        Params:
+          max_cascade_cost: Threshold for cascade-adjusted cost
+          fail_probability: Estimated probability of call failure (0.0-1.0)
+          reversal_cost:    Cost of reversing/handling a failed call
+          estimated_cascade_cost: Optionally pre-computed by the caller and passed in the transaction
+
+        Transaction fields (optional, override params):
+          fail_probability: Per-call failure probability
+          reversal_cost:    Per-call reversal cost
+          estimated_cascade_cost: Pre-computed cascade cost
+        """
+        max_cascade = self._to_decimal_safe(params.get('max_cascade_cost'))
+        if max_cascade is None:
+            return None
+
+        # Check if caller pre-computed cascade cost
+        pre_computed = self._to_decimal_safe(transaction.get('estimated_cascade_cost'))
+        if pre_computed is not None:
+            if pre_computed > max_cascade:
+                return self._make_result(action, rule_id,
+                    f"Cascade cost ${self._fmt(pre_computed)} exceeds limit of ${self._fmt(max_cascade)}")
+            return None
+
+        # Compute cascade cost: call_cost + fail_probability × reversal_cost
+        fail_prob = params.get('fail_probability', transaction.get('fail_probability'))
+        reversal_cost = self._to_decimal_safe(
+            params.get('reversal_cost', transaction.get('reversal_cost'))
+        )
+
+        if fail_prob is not None and reversal_cost is not None:
+            try:
+                fp = Decimal(str(fail_prob))
+                cascade_cost = txn_amount + (fp * reversal_cost)
+                if cascade_cost > max_cascade:
+                    return self._make_result(action, rule_id,
+                        f"Cascade cost ${self._fmt(cascade_cost)} (call ${self._fmt(txn_amount)} + "
+                        f"{fp:.0%} × ${self._fmt(reversal_cost)}) exceeds limit of ${self._fmt(max_cascade)}")
+            except (ValueError, TypeError, InvalidOperation):
+                pass
+
+        return None
 
     @staticmethod
     def _to_decimal(value) -> Decimal:
