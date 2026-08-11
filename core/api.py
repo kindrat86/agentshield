@@ -273,6 +273,8 @@ class APIHandler(BaseHTTPRequestHandler):
             elif path.startswith('/tools/risk-calculator'):
                 fpath = os.path.join(self.public_dir, 'tools', 'risk-calculator', 'index.html')
                 self._serve_file(fpath)
+            elif path == '/comparisons' or path == '/comparisons/':
+                self._serve_file(os.path.join(self.public_dir, 'comparisons', 'index.html'))
             elif path == '/comparisons/helicone':
                 self._serve_file(os.path.join(self.public_dir, 'comparisons', 'helicone.html'))
             elif path == '/comparisons/langsmith':
@@ -663,6 +665,25 @@ class APIHandler(BaseHTTPRequestHandler):
         if not rule_type:
             self._send_json({"error": "Rule type required"}, 400)
             return
+        # Validate required params per rule type (prevent silent no-op rules)
+        required_params = {
+            'transaction_limit': ['max_amount'],
+            'daily_total': ['max_daily'],
+            'velocity': ['window_minutes', 'max_count'],
+            'merchant_allowlist': ['allowed'],
+            'category_block': ['blocked'],
+            'session_budget': ['max_session'],
+            'cascade_cost': ['max_cascade_cost'],
+        }
+        if rule_type in required_params:
+            params = body.get('params', {})
+            missing = [p for p in required_params[rule_type] if p not in params]
+            if missing:
+                self._send_json({
+                    "error": f"Rule type '{rule_type}' requires params: {missing}",
+                    "hint": 'Params must be nested: {"params": {"max_amount": 50}}'
+                }, 400)
+                return
         rule_id = self.store.create_rule(
             account['id'], rule_type, priority, params, action
         )

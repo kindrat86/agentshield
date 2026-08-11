@@ -161,7 +161,7 @@ Every transaction flows through the engine before reaching the provider. The eng
 
 **[Dashboard →](/dashboard)** — Register for a free account and configure your own rules.
 
-The core engine is open-source and runs on Python 3.11 stdlib. No dependencies. No frameworks. Just rules, evaluated fast.
+The core engine is open-source and runs on Python 3.11 stdlib. No dependencies. No frameworks. Just 7 composable rules, evaluated fast. **[56/56 eval gym results →](/eval)**
 
 ---
 

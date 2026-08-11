@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentShield Comparisons — How We Stack Up Against Observability Tools</title>
+<meta name="description" content="Honest side-by-side comparison of AgentShield vs Helicone, LangSmith, LangFuse, Portkey, Braintrust, AgentOps, Weights & Biases, and Galileo for AI agent spend control.">
+<meta property="og:title" content="AgentShield Comparisons">
+<meta property="og:description" content="Honest comparison of AgentShield against 8 observability/gateway tools for AI agent spend control.">
+<meta name="twitter:card" content="summary">
+<style>
+  :root { --bg: #0a0a0f; --surface: #141420; --border: #2a2a3a; --text: #e0e0e0; --dim: #888; --accent: #10b981; --accent2: #6366f1; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; }
+  .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+  h1 { font-size: 2rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  p.subtitle { color: var(--dim); margin-bottom: 2rem; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; transition: border-color 0.2s; }
+  .card:hover { border-color: var(--accent); }
+  .card h2 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .card h2 a { color: var(--accent); text-decoration: none; }
+  .card p { color: var(--dim); font-size: 0.95rem; }
+  .back { display: inline-block; margin-top: 2rem; color: var(--dim); text-decoration: none; }
+  .back:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>AgentShield vs The Ecosystem</h1>
+  <p class="subtitle">AgentShield is a <strong>spend-control firewall</strong> for AI agents — not an observability platform. These tools solve different problems. Here's where we overlap and where we don't.</p>
+
+  <div class="card">
+    <h2><a href="/comparisons/helicone">vs Helicone</a></h2>
+    <p>Helicone is an LLM proxy with logging and caching. AgentShield is a pre-flight enforcement engine. Helicone tells you what happened; AgentShield stops it before it happens.</p>
+  </div>
+
+  <div class="card">
+    <h2><a href="/comparisons/langsmith">vs LangSmith</a></h2>
+    <p>LangSmith is the LangChain observability hub — tracing, evaluation, prompt management. AgentShield is a standalone enforcement layer that works with any framework (or none).</p>
+  </div>
+
+  <div class="card">
+    <h2><a href="/comparisons/langfuse">vs LangFuse</a></h2>
+    <p>LangFuse offers open-source LLM tracing and analytics. AgentShield adds the spend-control dimension: rules, velocity limits, and merchant allowlists that LangFuse doesn't provide.</p>
+  </div>
+
+  <div class="card">
+    <h2><a href="/comparisons/portkey">vs Portkey</a></h2>
+    <p>Portkey is an LLM gateway with load balancing, fallbacks, and caching. AgentShield is a spend-control engine. They're complementary — Portkey routes requests, AgentShield decides if they should execute.</p>
+  </div>
+
+  <div class="card">
+    <h2><a href="/comparisons/braintrust">vs Braintrust</a></h2>
+    <p>Braintrust is an AI evaluation platform. AgentShield's 56-scenario eval gym is independently useful as a benchmark for any spend-control implementation, including Braintrust-integrated ones.</p>
+  </div>
+
+  <div class="card">
+    <h2><a href="/comparisons/agentops">vs AgentOps</a></h2>
+    <p>AgentOps provides agent observability — session tracking, cost monitoring, compliance. AgentShield adds real-time enforcement (BLOCK/FLAG before the API call executes).</p>
+  </div>
+
+  <div class="card">
+    <h2><a href="/comparisons/wandb">vs Weights & Biases</a></h2>
+    <p>W&B is the standard for ML experiment tracking. AgentShield solves a different problem: autonomous agent spend control. If your training pipeline uses autonomous agents, they complement each other.</p>
+  </div>
+
+  <div class="card">
+    <h2><a href="/comparisons/galileo">vs Galileo</a></h2>
+    <p>Galileo focuses on LLM evaluation and hallucination detection. AgentShield focuses on financial guardrails — different problems, both important for production AI.</p>
+  </div>
+
+  <a href="/" class="back">← Back to AgentShield</a>
+</div>
+</body>
+</html>
