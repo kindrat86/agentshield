@@ -95,9 +95,29 @@
   "omar_khattab_status": "on_hold",
   "omar_khattab_note": "Draft ready but sipiteno.com not verified. Send from invisibleexit.com once confirmed.",
   "sender_identity": {
-    "preferred": "mkondratyuk86@gmail.com",
+    "preferred": "sales@sipiteno.com",
     "resend_verified": "escape@invisibleexit.com",
-    "sipiteno_status": "Resend domain d77d146e created, needs DKIM+SPF DNS records in Cloudflare",
-    "gmail_in_resend": "NOT accepted \u2014 Resend requires custom domains"
+    "sipiteno_status": "not_started \u2014 needs 3 DNS records added manually",
+    "cloudflare_access": "Login required (mkondratyuk86@gmail.com). Cannot automate.",
+    "dns_records_needed": [
+      {
+        "type": "TXT",
+        "name": "resend._domainkey",
+        "content": "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDC2aZWYYgX9+AALN/rnWGgPgGNfgg8JTt8GCgk85AL8pXJLU+L8mV7Tl2BF09V01cc1nP4qz+3AjLdKeZEkrjypR3J982rCLltxPFnU3NOZ0jFkQBHkur6Gzch2UQ7TIsr7pha150NP1NRRwgR9wBwBR9EdYg03GFSod02DzsiaQIDAQAB"
+      },
+      {
+        "type": "MX",
+        "name": "send",
+        "content": "feedback-smtp.eu-west-1.amazonses.com",
+        "priority": 10
+      },
+      {
+        "type": "TXT",
+        "name": "send",
+        "content": "v=spf1 include:amazonses.com ~all"
+      }
+    ],
+    "gmail_in_resend": "NOT accepted \u2014 Resend requires custom domains",
+    "resend_domain_id": "d77d146e-e2cb-4a44-aba4-11396aa4bd5e"
   }
 }
