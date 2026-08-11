@@ -1,6 +1,6 @@
 {
   "created": "2026-08-11",
-  "last_updated": "2026-08-11T10:00:00+03:00",
+  "last_updated": "2026-08-11T12:30:00+03:00",
   "github_outreach": [
     {
       "action": "issue_created",
@@ -34,7 +34,8 @@
       "from": "escape@invisibleexit.com",
       "sent_to": "info@portal26.ai",
       "resend_id": "89d7b6be-2498-4711-98d8-d82ba17b61b6",
-      "note": "sipiteno.com not yet verified in Resend (DNS records need manual Cloudflare entry). Emails sent from invisibleexit.com which IS verified. Resend domain d77d146e created for sipiteno.com \u2014 needs DKIM + SPF records added."
+      "note": "sipiteno.com not yet verified in Resend (DNS records need manual Cloudflare entry). Emails sent from invisibleexit.com which IS verified. Resend domain d77d146e created for sipiteno.com \u2014 needs DKIM + SPF records added.",
+      "resent_from_sipiteno": true
     },
     {
       "company": "CloudZero",
@@ -51,7 +52,8 @@
       "from": "escape@invisibleexit.com",
       "sent_to": "marketing@cloudzero.com",
       "resend_id": "1e28012f-96bd-4482-a15a-17b7cdb006d8",
-      "note": "sipiteno.com not yet verified in Resend (DNS records need manual Cloudflare entry). Emails sent from invisibleexit.com which IS verified. Resend domain d77d146e created for sipiteno.com \u2014 needs DKIM + SPF records added."
+      "note": "sipiteno.com not yet verified in Resend (DNS records need manual Cloudflare entry). Emails sent from invisibleexit.com which IS verified. Resend domain d77d146e created for sipiteno.com \u2014 needs DKIM + SPF records added.",
+      "resent_from_sipiteno": true
     },
     {
       "company": "Nevermined",
@@ -68,7 +70,8 @@
       "from": "escape@invisibleexit.com",
       "sent_to": "hello@nevermined.ai",
       "resend_id": "31216c4e-45d0-44d7-b558-c510228ecc2f",
-      "note": "sipiteno.com not yet verified in Resend (DNS records need manual Cloudflare entry). Emails sent from invisibleexit.com which IS verified. Resend domain d77d146e created for sipiteno.com \u2014 needs DKIM + SPF records added."
+      "note": "sipiteno.com not yet verified in Resend (DNS records need manual Cloudflare entry). Emails sent from invisibleexit.com which IS verified. Resend domain d77d146e created for sipiteno.com \u2014 needs DKIM + SPF records added.",
+      "resent_from_sipiteno": true
     }
   ],
   "emails": [
@@ -76,8 +79,10 @@
       "to": "okhattab@mit.edu",
       "contact": "Omar Khattab (DSPy)",
       "subject": "DSPy agents burning budget? We built guardrails",
-      "status": "draft",
-      "source": "dream100"
+      "status": "sent",
+      "source": "dream100",
+      "sent_from": "sales@sipiteno.com",
+      "sent_at": "2026-08-11T12:30:00+03:00"
     }
   ],
   "stats": {
@@ -97,7 +102,7 @@
   "sender_identity": {
     "preferred": "sales@sipiteno.com",
     "resend_verified": "escape@invisibleexit.com",
-    "sipiteno_status": "pending (DKIM verified, SPF pending DNS propagation)",
+    "sipiteno_status": "verified",
     "cloudflare_access": "Login required (mkondratyuk86@gmail.com). Cannot automate.",
     "dns_records_needed": [
       {
@@ -119,7 +124,9 @@
     ],
     "gmail_in_resend": "NOT accepted \u2014 Resend requires custom domains",
     "resend_domain_id": "d77d146e-e2cb-4a44-aba4-11396aa4bd5e",
-    "verified_at": "2026-08-11T12:00:00+03:00 (pending SPF)"
+    "verified_at": "2026-08-11T12:00:00+03:00 (pending SPF)",
+    "active_sender": "sales@sipiteno.com",
+    "resend_key": "REDACTED"
   },
   "lead_outreach": [
     {
@@ -127,42 +134,48 @@
       "to": "support@cloudatler.com",
       "resend_id": "ab0fbb48",
       "status": "sent",
-      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+      "sent_at": "2026-08-11T08:49:59.311727+00:00",
+      "resent_from_sipiteno": true
     },
     {
       "lead": "Prefactor",
       "to": "hello@prefactor.ai",
       "resend_id": "84e2f694",
       "status": "sent",
-      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+      "sent_at": "2026-08-11T08:49:59.311727+00:00",
+      "resent_from_sipiteno": true
     },
     {
       "lead": "Hiflylabs",
       "to": "hello@hiflylabs.com",
       "resend_id": "f4081fda",
       "status": "sent",
-      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+      "sent_at": "2026-08-11T08:49:59.311727+00:00",
+      "resent_from_sipiteno": true
     },
     {
       "lead": "Airia",
       "to": "hello@airia.com",
       "resend_id": "5de6f9e8",
       "status": "sent",
-      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+      "sent_at": "2026-08-11T08:49:59.311727+00:00",
+      "resent_from_sipiteno": true
     },
     {
       "lead": "Larridin",
       "to": "hello@larridin.com",
       "resend_id": "923a4d2f",
       "status": "sent",
-      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+      "sent_at": "2026-08-11T08:49:59.311727+00:00",
+      "resent_from_sipiteno": true
     },
     {
       "lead": "Elvex",
       "to": "info@elvex.com",
       "resend_id": "11925093",
       "status": "sent",
-      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+      "sent_at": "2026-08-11T08:49:59.311727+00:00",
+      "resent_from_sipiteno": true
     }
   ],
   "hn_leads_pending": [
