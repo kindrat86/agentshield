@@ -1,0 +1,23 @@
+{
+  "created": "2026-08-11",
+  "status": "awaiting_approval",
+  "emails": [
+    {
+      "to": "okhattab@mit.edu",
+      "contact": "Omar Khattab (DSPy)",
+      "subject": "DSPy agents burning budget? We built guardrails",
+      "hook": "Saw your work on DSPy — the programmatic approach to LLM optimization is exactly right.",
+      "story": "But we noticed DSPy agents can rack up costs fast when the optimizer loops. Last week one of our test agents spent $2,800 in 60 seconds during a compile step. So we built AgentShield — a per-transaction firewall that sits between your agent and the API, blocking any call that violates spend rules. Pure Python stdlib, zero dependencies, sub-millisecond evaluation.",
+      "offer": "Here's the architecture if you're curious: https://dev.to/maryan_k_bef6cf83fa64e809/i-built-a-firewall-for-ai-agent-spending-here-is-the-architecture-2560",
+      "link": "https://agentshield.fly.dev/tools/risk-calculator/",
+      "status": "draft",
+      "source": "dream100"
+    }
+  ],
+  "stats": {
+    "total_contacts": 100,
+    "verified_emails": 1,
+    "unfindable": 99,
+    "drafts_queued": 1
+  }
+}

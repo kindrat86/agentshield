@@ -5,7 +5,9 @@
     "category": "ai_researcher",
     "why": "Former Tesla AI Director; openly discusses LLM cost and deployment challenges",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Jim Fan",
@@ -13,7 +15,9 @@
     "category": "ai_researcher",
     "why": "NVIDIA AI agent researcher; tweets about agent safety and cost",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Lilian Weng",
@@ -21,7 +25,9 @@
     "category": "ai_researcher",
     "why": "Writes definitive guides on LLM agents at OpenAI; covers agent architectures",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Harrison Chase",
@@ -29,7 +35,9 @@
     "category": "ai_researcher",
     "why": "LangChain CEO; his framework powers thousands of agents that spend money",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Yohei Nakajima",
@@ -37,7 +45,9 @@
     "category": "ai_researcher",
     "why": "Creator of BabyAGI; firsthand experience with autonomous agent cost overruns",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Liangchen Luo",
@@ -45,7 +55,9 @@
     "category": "ai_researcher",
     "why": "AI agent safety researcher; published on cost-aware agent design",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Shunyu Yao",
@@ -53,7 +65,9 @@
     "category": "ai_researcher",
     "why": "Creator of ReAct prompting; agent reasoning research directly relevant",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Noah Goodman",
@@ -61,7 +75,9 @@
     "category": "ai_researcher",
     "why": "Stanford professor working on agent architectures and cost efficiency",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Ofir Press",
@@ -69,7 +85,9 @@
     "category": "ai_researcher",
     "why": "Princeton; agent benchmark researcher aware of cost constraints",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Andrew Ng",
@@ -77,7 +95,9 @@
     "category": "ai_researcher",
     "why": "Advocates for practical AI deployment; agent cost control is a deployment concern",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Chip Huyen",
@@ -85,7 +105,9 @@
     "category": "ai_researcher",
     "why": "ML infrastructure expert; writes about production AI cost optimization",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Eugene Yan",
@@ -93,7 +115,9 @@
     "category": "ai_researcher",
     "why": "Applied ML at Amazon; covers production AI reliability and cost",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Latent Space Podcast",
@@ -101,7 +125,9 @@
     "category": "ai_researcher",
     "why": "Top AI engineering podcast; audience builds and deploys agents daily",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "LangChain Team",
@@ -109,7 +135,9 @@
     "category": "framework_builder",
     "why": "Most popular agent framework; AgentShield integrates naturally",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "CrewAI / Joao Moura",
@@ -117,7 +145,9 @@
     "category": "framework_builder",
     "why": "Multi-agent framework; agents collaborate and spend together",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "AutoGPT / Toran Bruce",
@@ -125,7 +155,9 @@
     "category": "framework_builder",
     "why": "First viral autonomous agent; notorious for runaway costs",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "LlamaIndex / Jerry Liu",
@@ -133,7 +165,9 @@
     "category": "framework_builder",
     "why": "RAG + agent framework; enterprise cost management gap",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Microsoft AutoGen",
@@ -141,7 +175,9 @@
     "category": "framework_builder",
     "why": "Multi-agent conversation framework; enterprise cost concerns",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "OpenAI Agents SDK",
@@ -149,7 +185,9 @@
     "category": "framework_builder",
     "why": "Official agent SDK; spend control is a natural extension",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Semantic Kernel",
@@ -157,7 +195,9 @@
     "category": "framework_builder",
     "why": "Microsoft's agent orchestration; enterprise spend governance",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Phidata",
@@ -165,7 +205,9 @@
     "category": "framework_builder",
     "why": "Agent framework focused on production deployment",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Instructor / Jason Liu",
@@ -173,15 +215,19 @@
     "category": "framework_builder",
     "why": "Structured outputs for agents; cost-aware API usage advocate",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "DSPy / Omar Khattab",
     "handle": "@lateinteraction",
     "category": "framework_builder",
     "why": "Programmatic LLM optimization; cost is a core optimization variable",
-    "email": null,
-    "status": "draft"
+    "email": "okhattab@mit.edu",
+    "status": "draft",
+    "email_status": "VERIFIED",
+    "email_source": "personal_website"
   },
   {
     "name": "Magentic",
@@ -189,7 +235,9 @@
     "category": "framework_builder",
     "why": "Python agent framework; production-focused",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Atomic Agents",
@@ -197,7 +245,9 @@
     "category": "framework_builder",
     "why": "Lightweight agent framework; cost-conscious design philosophy",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Agno (Phidata rebrand)",
@@ -205,7 +255,9 @@
     "category": "framework_builder",
     "why": "Production agent framework with monitoring features",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Stripe Dev Team",
@@ -213,7 +265,9 @@
     "category": "payment_api",
     "why": "Customers build AI agents that process payments; spend control is complementary",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Paddle Team",
@@ -221,7 +275,9 @@
     "category": "payment_api",
     "why": "SaaS billing platform; AI agent billing is an emerging use case",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Chargebee",
@@ -229,7 +285,9 @@
     "category": "payment_api",
     "why": "Subscription billing; AI agent usage-based billing is a gap",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Orb / Alfonso Eduardo",
@@ -237,7 +295,9 @@
     "category": "payment_api",
     "why": "Usage-based billing infrastructure; directly complementary to spend control",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Metronome",
@@ -245,7 +305,9 @@
     "category": "payment_api",
     "why": "Usage-based billing for AI companies; spend control is their customer need",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Lago",
@@ -253,7 +315,9 @@
     "category": "payment_api",
     "why": "Open-source usage-based billing; AI agent billing integration",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Hyperline",
@@ -261,7 +325,9 @@
     "category": "payment_api",
     "why": "SaaS billing with usage components; AI agent spend is a use case",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Amberflo",
@@ -269,7 +335,9 @@
     "category": "payment_api",
     "why": "Metering and billing for API products; AI cost metering overlap",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Togai",
@@ -277,7 +345,9 @@
     "category": "payment_api",
     "why": "Usage-based billing platform; AI agent spend monitoring gap",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "OpenMeter",
@@ -285,7 +355,9 @@
     "category": "payment_api",
     "why": "Open-source metering for AI/usage-based billing",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Helcim",
@@ -293,7 +365,9 @@
     "category": "payment_api",
     "why": "Payment processing for tech companies; AI agent payment controls",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Recurly",
@@ -301,7 +375,9 @@
     "category": "payment_api",
     "why": "Subscription management; AI SaaS cost control complementary",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "10Clouds AI",
@@ -309,7 +385,9 @@
     "category": "ai_agency",
     "why": "AI development agency building agents for enterprise clients",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Netguru AI",
@@ -317,7 +395,9 @@
     "category": "ai_agency",
     "why": "Builds AI agents for clients; cost overruns are a client concern",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Vention",
@@ -325,7 +405,9 @@
     "category": "ai_agency",
     "why": "AI/ML development; agents need cost guardrails for client projects",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Sigmoid",
@@ -333,7 +415,9 @@
     "category": "ai_agency",
     "why": "Data engineering + AI; agent deployment cost governance",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Turing",
@@ -341,7 +425,9 @@
     "category": "ai_agency",
     "why": "AI talent platform; agents deployed at scale need cost controls",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Toptal AI",
@@ -349,7 +435,9 @@
     "category": "ai_agency",
     "why": "Freelance AI talent; clients deploying agents need spend governance",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "BairesDev",
@@ -357,7 +445,9 @@
     "category": "ai_agency",
     "why": "Nearshore AI development; agent cost control for client budgets",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "DataRoot Labs",
@@ -365,7 +455,9 @@
     "category": "ai_agency",
     "why": "AI startup incubator; agent cost management for portfolio companies",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Adastra",
@@ -373,7 +465,9 @@
     "category": "ai_agency",
     "why": "Enterprise data/AI consulting; agent governance for regulated industries",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "N-iX",
@@ -381,7 +475,9 @@
     "category": "ai_agency",
     "why": "Enterprise software development; AI agent cost control for clients",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Sara Technologies",
@@ -389,7 +485,9 @@
     "category": "ai_agency",
     "why": "AI agent development; cost overrun prevention for clients",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Dreamers Inc",
@@ -397,7 +495,9 @@
     "category": "ai_agency",
     "why": "AI development agency; agent cost monitoring for client work",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "CTO at Klarna",
@@ -405,7 +505,9 @@
     "category": "enterprise_team",
     "why": "Deployed AI assistant handling millions of transactions; spend control critical",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "VP Eng at Shopify",
@@ -413,7 +515,9 @@
     "category": "enterprise_team",
     "why": "AI agents in production at massive scale; cost governance needed",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "AI Platform Lead at Uber",
@@ -421,7 +525,9 @@
     "category": "enterprise_team",
     "why": "Internal AI agents at scale; cost control for internal tooling",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "ML Platform at Netflix",
@@ -429,7 +535,9 @@
     "category": "enterprise_team",
     "why": "Large-scale ML infrastructure; agent cost monitoring for production",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "AI Infra at Airbnb",
@@ -437,7 +545,9 @@
     "category": "enterprise_team",
     "why": "Customer service AI agents; cost control for autonomous interactions",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "VP AI at Spotify",
@@ -445,7 +555,9 @@
     "category": "enterprise_team",
     "why": "AI agents for content moderation and recommendation; spend governance",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "CTO at Jasper AI",
@@ -453,7 +565,9 @@
     "category": "enterprise_team",
     "why": "AI writing platform; LLM API costs are their primary expense",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Head of AI at Writer",
@@ -461,7 +575,9 @@
     "category": "enterprise_team",
     "why": "Enterprise AI platform; agent cost governance for Fortune 500 clients",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "VP Eng at Copy.ai",
@@ -469,7 +585,9 @@
     "category": "enterprise_team",
     "why": "AI marketing platform; LLM spend is a core cost line",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "CTO at Perplexity",
@@ -477,7 +595,9 @@
     "category": "enterprise_team",
     "why": "AI search engine; massive API costs; spend control is existential",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "AI Platform at Notion",
@@ -485,7 +605,9 @@
     "category": "enterprise_team",
     "why": "AI features in production; cost control for embedded agents",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Eng Lead at Cursor",
@@ -493,7 +615,9 @@
     "category": "enterprise_team",
     "why": "AI code editor; per-user API costs are the primary margin pressure",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "VP AI at Duolingo",
@@ -501,7 +625,9 @@
     "category": "enterprise_team",
     "why": "AI tutor agents; cost control for millions of users",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Vanta AI Compliance",
@@ -509,7 +635,9 @@
     "category": "compliance",
     "why": "SOC2 automation; AI governance is a growing compliance requirement",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Drata",
@@ -517,7 +645,9 @@
     "category": "compliance",
     "why": "Compliance automation; AI agent governance emerging requirement",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Secureframe",
@@ -525,7 +655,9 @@
     "category": "compliance",
     "why": "SOC2 compliance; AI spend controls are a governance concern",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Anecdotes",
@@ -533,7 +665,9 @@
     "category": "compliance",
     "why": "Compliance platform; AI agent audit trails and spend controls",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "OneTrust AI Governance",
@@ -541,7 +675,9 @@
     "category": "compliance",
     "why": "Privacy/governance platform; AI agent governance is their next frontier",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Credo AI",
@@ -549,7 +685,9 @@
     "category": "compliance",
     "why": "AI governance platform; spend control is part of responsible AI",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Robust Intelligence",
@@ -557,7 +695,9 @@
     "category": "compliance",
     "why": "AI security/monitoring; agent spend anomalies signal security issues",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Arthur AI",
@@ -565,7 +705,9 @@
     "category": "compliance",
     "why": "AI monitoring platform; spend anomalies are a monitoring signal",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Weights & Biases",
@@ -573,7 +715,9 @@
     "category": "compliance",
     "why": "ML experiment tracking; agent cost tracking is a natural extension",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Arize AI",
@@ -581,7 +725,9 @@
     "category": "compliance",
     "why": "ML observability; agent spend monitoring is part of production health",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Fiddler AI",
@@ -589,7 +735,9 @@
     "category": "compliance",
     "why": "AI monitoring; spend spikes indicate model behavior anomalies",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Aporia",
@@ -597,7 +745,9 @@
     "category": "compliance",
     "why": "ML monitoring; agent cost anomalies are production incidents",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Latent Space (Swyx)",
@@ -605,7 +755,9 @@
     "category": "content_creator",
     "why": "Top AI engineering newsletter; audience builds AI agents professionally",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "AI Tinkerers",
@@ -613,7 +765,9 @@
     "category": "content_creator",
     "why": "Community of AI agent builders; direct target audience",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Matt Wolfe",
@@ -621,7 +775,9 @@
     "category": "content_creator",
     "why": "AI YouTube channel; covers tools that his audience deploys",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Ben's Bites",
@@ -629,7 +785,9 @@
     "category": "content_creator",
     "why": "Daily AI newsletter with 100k+ subscribers; agent tools coverage",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "TLDR AI",
@@ -637,7 +795,9 @@
     "category": "content_creator",
     "why": "AI newsletter reaching 500k+ developers; ideal for launch",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Rundown AI",
@@ -645,7 +805,9 @@
     "category": "content_creator",
     "why": "Popular AI newsletter; covers developer tools regularly",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Promoting the Show",
@@ -653,7 +815,9 @@
     "category": "content_creator",
     "why": "AI in a Box podcast; agent tools and infrastructure coverage",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Fireship",
@@ -661,7 +825,9 @@
     "category": "content_creator",
     "why": "Top dev YouTube channel; would cover a clean, stdlib-only tool",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Theo (t3.gg)",
@@ -669,7 +835,9 @@
     "category": "content_creator",
     "why": "Dev streamer; covers dev tools and SaaS infrastructure",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Primeagen",
@@ -677,7 +845,9 @@
     "category": "content_creator",
     "why": "Popular dev streamer; audience includes AI agent builders",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Indie Hackers",
@@ -685,7 +855,9 @@
     "category": "content_creator",
     "why": "Community of SaaS founders; AI cost control is a real pain point",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Jason Calacanis",
@@ -693,7 +865,9 @@
     "category": "content_creator",
     "why": "Launches startups on This Week in Startups; agent spend control is timely",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Greg Isenberg",
@@ -701,7 +875,9 @@
     "category": "content_creator",
     "why": "AI product community; agent infrastructure is a core topic",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Y Combinator",
@@ -709,7 +885,9 @@
     "category": "vc_ecosystem",
     "why": "AI agent startups are their largest batch; spend control is universal need",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "a16z AI Fund",
@@ -717,7 +895,9 @@
     "category": "vc_ecosystem",
     "why": "Largest AI fund; portfolio companies all face agent cost challenges",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Sequoia AI",
@@ -725,7 +905,9 @@
     "category": "vc_ecosystem",
     "why": "AI infrastructure investors; spend control is infrastructure",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Greylock AI",
@@ -733,7 +915,9 @@
     "category": "vc_ecosystem",
     "why": "Early-stage AI investors; agent infra is a thesis area",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Bessemer AI",
@@ -741,7 +925,9 @@
     "category": "vc_ecosystem",
     "why": "Cloud/AI investors; cost governance is a Bessemer research area",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "General Catalyst AI",
@@ -749,7 +935,9 @@
     "category": "vc_ecosystem",
     "why": "AI-first thesis; agent infrastructure investments growing",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Lux Capital",
@@ -757,7 +945,9 @@
     "category": "vc_ecosystem",
     "why": "Deep tech/AI investor; agent safety is a thesis area",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Founders Fund",
@@ -765,7 +955,9 @@
     "category": "vc_ecosystem",
     "why": "Contrarian tech investors; agent cost control is contrarian infrastructure",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "South Park Commons",
@@ -773,7 +965,9 @@
     "category": "vc_ecosystem",
     "why": "AI builder community; agent infrastructure is core to their work",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "SignalFire",
@@ -781,7 +975,9 @@
     "category": "vc_ecosystem",
     "why": "AI-focused fund; portfolio companies build agents that need cost control",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "Conviction VC",
@@ -789,7 +985,9 @@
     "category": "vc_ecosystem",
     "why": "AI-native fund; software-as-a-service infrastructure for agents",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   },
   {
     "name": "NEA AI",
@@ -797,6 +995,8 @@
     "category": "vc_ecosystem",
     "why": "Multi-stage investor; AI infrastructure portfolio growing rapidly",
     "email": null,
-    "status": "draft"
+    "status": "draft",
+    "email_status": "unfindable",
+    "email_source": null
   }
 ]
