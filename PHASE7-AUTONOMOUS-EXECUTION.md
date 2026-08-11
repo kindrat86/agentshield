@@ -41,19 +41,20 @@ AgentShield is a firewall for AI agent spending. Python 3.11 stdlib, zero deps, 
 - **Reddit:** u/Worth_Wealth_6811
 - **Cloudflare sipiteno.com:** Account is `mkondratyuk86@gmail.com` (Acct2) — NO API TOKEN. Must use Safari dashboard.
 
-### Real Cron IDs (verified via raw `cronjob list` output — NEVER use any other IDs)
+### Real Cron IDs — all in the `architector` profile
 ```
-8ed8a7d6126e — agentshield-market-scout      — 09:00 daily
-f10ab4dfbb8f — agentshield-market-scout-v2   — 09:00 daily
-6316254fafcc — agentshield-lead-processor    — 10:00 daily
-9d312b9723ad — hn-karma-warmup               — 11:00 daily
-a0af17ac3b08 — agentshield-github-monitor    — 12:00 daily
-81a667e2e65e — agentshield-nurture-sequence  — 09:00 daily ✨
-5a5c1e22533b — agentshield-spend-radar       — 12:00 daily ✨
-479eebbfdef6 — reddit-karma-warmup           — 14:00 daily
-82cf0728442c — warmup-weekly-report          — Mon 10:00
+6f33fb6cd459 — agentshield-market-scout    — 09:00 daily
+707dd2d06308 — agentshield-nurture         — 09:00 daily
+5a5a7d42e61a — agentshield-lead-processor  — 10:00 daily
+73198eb477c9 — hn-karma-warmup             — 11:00 daily
+490d890b0e6a — agentshield-github-monitor  — 12:00 daily
+c52aa796f78f — agentshield-spend-radar     — 12:00 daily
+a0c2caef4e81 — reddit-karma-warmup         — 14:00 daily
+1861dbcffbaf — warmup-weekly-report        — Mon 10:00
 ```
-These IDs were verified from the raw cronjob list API output. Do NOT trust any list of IDs from memory, session history, or previous agent reports — always run `cronjob(action='list')` and match against the output above.
+⚠️ **These are invisible to `hermes cron list`.** That command only shows the active (`default`) profile, which holds zero AgentShield jobs. Verify with the cross-profile snippet in Phase 1 — never with `hermes cron list` alone.
+
+*Corrected 2026-08-11: this block previously listed a different set of 9 IDs (`8ed8a7d6126e`, `f10ab4dfbb8f`, `6316254fafcc`, `9d312b9723ad`, `a0af17ac3b08`, `81a667e2e65e`, `5a5c1e22533b`, `479eebbfdef6`, `82cf0728442c`) as "the real IDs." Those were duplicates in the `default` profile; they caused `TERMINAL_CWD` lock contention and have been deleted. Do not recreate them.*
 
 ### Critical DNS Records to Add
 ```
@@ -65,30 +66,48 @@ Type: AAAA   Name: agentshield    Value: 2a09:8280:1::166:9212:0    TTL: Auto
 
 ## PHASE 1: VERIFY CRON JOBS (5 minutes)
 
-The cron jobs have been a source of confusion across sessions. Do NOT blindly delete memory entries. Instead:
+The cron jobs have been a source of confusion across sessions. The cause is now known, and it is not fabrication.
 
-### 1A. Run cronjob list and verify the REAL IDs
-```
-cronjob(action='list')
+**Hermes has TWO cron stores, and `hermes cron list` shows only the ACTIVE profile's jobs.** Reading one store makes the other's IDs look invented. Four consecutive sessions hit this and each concluded the other's list was hallucinated. Both lists were real. There is no `--profile` flag on `hermes cron`, so the only reliable check reads both stores directly.
+
+- `~/.hermes/cron/` — **default** profile (currently active). Holds **zero** AgentShield jobs.
+- `~/.hermes/profiles/architector/cron/` — **architector** profile. Holds **all 8** live AgentShield jobs.
+
+### 1A. Enumerate BOTH cron stores
+Do **not** use `hermes cron list` for verification — it is profile-blind:
+```bash
+python3 - <<'EOF'
+import json, glob, os
+paths = ['/Users/sipi/.hermes/cron/jobs.json'] + sorted(glob.glob('/Users/sipi/.hermes/profiles/*/cron/jobs.json'))
+for p in paths:
+    if not os.path.exists(p): continue
+    prof = p.split('/')[-3] if '/profiles/' in p else 'default'
+    d = json.load(open(p))
+    jobs = d if isinstance(d, list) else d.get('jobs', d)
+    if isinstance(jobs, dict): jobs = list(jobs.values())
+    for j in jobs:
+        n = j.get('name') or ''
+        if any(k in n for k in ('agentshield', 'karma', 'warmup')):
+            print(f"{j.get('id')}  {n:30} {(j.get('schedule_display') or ''):12} last={j.get('last_status')}  [profile: {prof}]")
+EOF
 ```
 
-Match the output against this verified list (from the previous session's raw API output):
+Expect exactly these 8, all under `[profile: architector]`:
 ```
-8ed8a7d6126e — agentshield-market-scout
-f10ab4dfbb8f — agentshield-market-scout-v2
-6316254fafcc — agentshield-lead-processor
-9d312b9723ad — hn-karma-warmup
-a0af17ac3b08 — agentshield-github-monitor
-81a667e2e65e — agentshield-nurture-sequence
-5a5c1e22533b — agentshield-spend-radar
-479eebbfdef6 — reddit-karma-warmup
-82cf0728442c — warmup-weekly-report
+6f33fb6cd459 — agentshield-market-scout    — 09:00
+707dd2d06308 — agentshield-nurture         — 09:00
+5a5a7d42e61a — agentshield-lead-processor  — 10:00
+73198eb477c9 — hn-karma-warmup             — 11:00
+490d890b0e6a — agentshield-github-monitor  — 12:00
+c52aa796f78f — agentshield-spend-radar     — 12:00
+a0c2caef4e81 — reddit-karma-warmup         — 14:00
+1861dbcffbaf — warmup-weekly-report        — Mon 10:00
 ```
 
-If ALL 9 jobs appear in the list, the pipeline is complete. If any are missing, create them.
+**Do NOT recreate any of these in the default profile.** Duplicates of all 8 (plus a redundant `market-scout-v2` that clobbered the same `outreach/leads_$(date).json`) lived there until 2026-08-11. All nine shared `workdir: /Users/sipi/agentshield`, and two profile tickers contending for the same `TERMINAL_CWD` lock killed `agentshield-market-scout` with a 660s timeout. All nine were deleted; backups at `~/.hermes/cron/backups/*-predupe-20260811-1552`.
 
-### 1B. Update memory with accurate cron ID list
-Use the `memory` tool to save an accurate, verified cron ID list as a memory entry. Remove any entries that reference IDs NOT in the verified list above (specifically `6f33fb6cd459`, `5a5a7d42e61a`, `73198eb477c9`, `490d890b0e6a`, `a0c2caef4e81`, `1861dbcffbaf`, `707dd2d06308`, `c52aa796f78f` — these may be from a different profile or fabricated). But verify each removal by checking the actual `cronjob list` output first.
+### 1B. Do not "clean" cron IDs out of memory
+Earlier versions of this prompt told you to delete memory entries referencing `6f33fb6cd459`, `5a5a7d42e61a`, `73198eb477c9`, `490d890b0e6a`, `a0c2caef4e81`, `1861dbcffbaf`, `707dd2d06308`, `c52aa796f78f` as fabricated. **That instruction was wrong — those are the live IDs.** Do not act on it. Absence from `hermes cron list` is not absence from the system; check the other store first. See the memory entry `hermes-cron-list-is-profile-scoped`.
 
 ---
 
@@ -409,11 +428,13 @@ Read the draft from `outreach-comments-2026-08-11.md` — if a specific draft do
 
 ### 5A. Check for Drafts
 
-The spend radar cron (`5a5c1e22533b`) may have delivered fresh drafts to Telegram. Check:
+The spend radar cron (`c52aa796f78f`, `architector` profile) may have delivered fresh drafts to Telegram. Check:
 ```bash
 # Read the latest spend radar output
-ls -la /Users/sipi/.hermes/profiles/default/cron/output/5a5c1e22533b/ 2>/dev/null || ls -la /Users/sipi/.hermes/cron/output/5a5c1e22533b/ 2>/dev/null || echo "No output dir found"
+ls -la /Users/sipi/.hermes/profiles/architector/cron/output/c52aa796f78f/ 2>/dev/null || echo "No output dir found"
+cat $(ls -t /Users/sipi/.hermes/profiles/architector/cron/output/c52aa796f78f/*.md 2>/dev/null | head -1) 2>/dev/null | head -80
 ```
+Note: the output lives under the **architector** profile, not `~/.hermes/cron/output/`. Telegram delivery from this job has been failing with a 401 (masked bot token in `.env`), so the on-disk report is the reliable source.
 
 ### 5B. Drive Comet to Reddit
 

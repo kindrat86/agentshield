@@ -6,9 +6,11 @@
 
 ## CONTEXT
 
-AgentShield is a firewall for AI agent spending. Python 3.11 stdlib, zero deps, 50/50 eval gym. Deployed at `https://agentshield.fly.dev`. The product is real and working. The funnel infrastructure is built but INCOMPLETE — two critical cron jobs were claimed as created by a previous agent but were FABRICATED (the IDs 81a667e2e65e and 5a5c1e22533b do not appear in `cronjob list`).
+AgentShield is a firewall for AI agent spending. Python 3.11 stdlib, zero deps, 50/50 eval gym. Deployed at `https://agentshield.fly.dev`. The product is real and working. The funnel infrastructure is complete — all 8 cron jobs exist and run.
 
-Your job: create those cron jobs FOR REAL, execute everything that CAN be done autonomously, and clearly separate what CAN be done from what requires the human (Maryan).
+*Corrected 2026-08-11: this paragraph previously claimed the nurture and spend-radar crons "were FABRICATED (the IDs 81a667e2e65e and 5a5c1e22533b do not appear in `cronjob list`)." That was profile-blindness, not fabrication — both jobs existed the whole time in the `architector` profile as `707dd2d06308` (nurture) and `c52aa796f78f` (spend-radar), invisible to `hermes cron list`. The IDs `81a667e2e65e` / `5a5c1e22533b` were later-created duplicates in the `default` profile; they have since been deleted. Do not recreate them.*
+
+Your job: execute everything that CAN be done autonomously, and clearly separate what CAN be done from what requires the human (Maryan).
 
 ### Project Layout
 ```
@@ -31,16 +33,22 @@ Your job: create those cron jobs FOR REAL, execute everything that CAN be done a
 - **Telegram delivery:** `telegram:369633431`
 - **Stripe Dev price ID:** `price_1U31cUCwGoUDklRe41V2eDvn`
 
-### Current REAL Cron Jobs (from `cronjob list`)
+### Current REAL Cron Jobs — all in the `architector` profile
 ```
 6f33fb6cd459 — agentshield-market-scout    — 09:00 daily
+707dd2d06308 — agentshield-nurture         — 09:00 daily
 5a5a7d42e61a — agentshield-lead-processor  — 10:00 daily
 73198eb477c9 — hn-karma-warmup             — 11:00 daily
 490d890b0e6a — agentshield-github-monitor  — 12:00 daily
+c52aa796f78f — agentshield-spend-radar     — 12:00 daily
 a0c2caef4e81 — reddit-karma-warmup         — 14:00 daily
 1861dbcffbaf — warmup-weekly-report        — Mon 10:00
 ```
-**TOTAL: 6 jobs. The nurture and spend-radar jobs DO NOT EXIST.**
+**TOTAL: 8 jobs**, all under `~/.hermes/profiles/architector/cron/`, all verified running as of 2026-08-11.
+
+⚠️ These are **invisible to `hermes cron list`**, which only shows the active (`default`) profile. Do not conclude they are missing or fabricated — see Phase 1 of `PHASE7-AUTONOMOUS-EXECUTION.md` for the cross-profile check.
+
+*Corrected 2026-08-11: this section previously read "TOTAL: 6 jobs. The nurture and spend-radar jobs DO NOT EXIST." Both exist and both ran successfully that day (`707dd2d06308` at 15:06, `c52aa796f78f` at 15:09).*
 
 ---
 

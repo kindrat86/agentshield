@@ -30,24 +30,50 @@ After claiming ANY action is complete, prove it with tool output. Never claim a 
 
 ## PHASE 1: VERIFY CRON JOBS (5 min)
 
-The cron IDs have been a source of confusion. DO NOT trust any list from memory or previous sessions. Instead:
+**Read this before touching any cron job.** Hermes has TWO cron stores, and `hermes cron list` shows only the **active** profile's jobs. Reading one store makes the other's IDs look fabricated. That is exactly what happened: four consecutive sessions accused each other of hallucinating cron IDs, and two competing "verified" lists got written into these prompts. **Both lists were real.** Neither was a hallucination.
+
+- `~/.hermes/cron/` — **default** profile (currently active). Holds **zero** AgentShield jobs.
+- `~/.hermes/profiles/architector/cron/` — **architector** profile. Holds **all 8** live AgentShield jobs.
+
+There is no `--profile` flag on `hermes cron`. The only reliable check reads both stores directly.
 
 ### Action:
-1. Run `cronjob(action='list')` to get the actual, current list of all jobs.
-2. Verify these 9 AgentShield jobs exist by matching against the raw API output:
-   ```
-   8ed8a7d6126e — agentshield-market-scout      — 09:00
-   f10ab4dfbb8f — agentshield-market-scout-v2   — 09:00
-   6316254fafcc — agentshield-lead-processor    — 10:00
-   9d312b9723ad — hn-karma-warmup               — 11:00
-   a0af17ac3b08 — agentshield-github-monitor    — 12:00
-   81a667e2e65e — agentshield-nurture-sequence  — 09:00
-   5a5c1e22533b — agentshield-spend-radar       — 12:00
-   479eebbfdef6 — reddit-karma-warmup           — 14:00
-   82cf0728442c — warmup-weekly-report          — Mon 10:00
-   ```
-3. If all 9 exist, the pipeline is complete. Update the memory entry to reflect the verified IDs.
-4. The following IDs do NOT exist in the cron system and should never be referenced: `6f33fb6cd459`, `5a5a7d42e61a`, `73198eb477c9`, `490d890b0e6a`, `a0c2caef4e81`, `1861dbcffbaf`, `707dd2d06308`, `c52aa796f78f`.
+
+**Step 1 — enumerate BOTH stores.** Do **not** use `hermes cron list` for this; it is profile-blind. Run this exactly as written (the heredoc body must stay at column 0 — indenting it produces `IndentationError`):
+
+```bash
+python3 - <<'EOF'
+import json, glob, os
+paths = ['/Users/sipi/.hermes/cron/jobs.json'] + sorted(glob.glob('/Users/sipi/.hermes/profiles/*/cron/jobs.json'))
+for p in paths:
+    if not os.path.exists(p): continue
+    prof = p.split('/')[-3] if '/profiles/' in p else 'default'
+    d = json.load(open(p))
+    jobs = d if isinstance(d, list) else d.get('jobs', d)
+    if isinstance(jobs, dict): jobs = list(jobs.values())
+    for j in jobs:
+        n = j.get('name') or ''
+        if any(k in n for k in ('agentshield', 'karma', 'warmup')):
+            print(f"{j.get('id')}  {n:30} {(j.get('schedule_display') or ''):12} last={j.get('last_status')}  [profile: {prof}]")
+EOF
+```
+
+**Step 2 — expect exactly these 8 jobs**, all under `[profile: architector]`:
+
+```
+6f33fb6cd459 — agentshield-market-scout    — 09:00
+707dd2d06308 — agentshield-nurture         — 09:00
+5a5a7d42e61a — agentshield-lead-processor  — 10:00
+73198eb477c9 — hn-karma-warmup             — 11:00
+490d890b0e6a — agentshield-github-monitor  — 12:00
+c52aa796f78f — agentshield-spend-radar     — 12:00
+a0c2caef4e81 — reddit-karma-warmup         — 14:00
+1861dbcffbaf — warmup-weekly-report        — Mon 10:00
+```
+
+**Step 3 — do NOT recreate any of these in the default profile.** Duplicates of all 8 (plus a redundant `market-scout-v2`) existed there until 2026-08-11. All nine shared `workdir: /Users/sipi/agentshield`, and two profile tickers contending for the same `TERMINAL_CWD` lock killed `agentshield-market-scout` with a 660s lock timeout. The duplicate `nurture` job also created a check-then-send race against Resend. All nine were deleted; backups are at `~/.hermes/cron/backups/*-predupe-20260811-1552`.
+
+**Step 4 — there is no blocklist of "fake" IDs**, and earlier versions of this prompt were wrong to publish one. If an ID is missing from the active profile, check the other store before drawing any conclusion. Absence from `hermes cron list` is not absence from the system.
 
 ---
 
@@ -330,9 +356,10 @@ Check: do you see a logged-in user (avatar in top-right, karma count)? If yes �
 
 ### Step 2: Check for fresh radar drafts
 ```bash
-ls -la /Users/sipi/.hermes/cron/output/5a5c1e22533b/ 2>/dev/null || echo "No output yet"
-cat $(ls -t /Users/sipi/.hermes/cron/output/5a5c1e22533b/*.md 2>/dev/null | head -1) | head -30 -100
+ls -la /Users/sipi/.hermes/profiles/architector/cron/output/c52aa796f78f/ 2>/dev/null || echo "No output yet"
+cat $(ls -t /Users/sipi/.hermes/profiles/architector/cron/output/c52aa796f78f/*.md 2>/dev/null | head -1) 2>/dev/null | head -80
 ```
+Note: the spend radar is `c52aa796f78f` in the **architector** profile — its output is NOT under `~/.hermes/cron/output/`. Telegram delivery has been failing with a 401 (masked bot token), so read the on-disk report.
 
 ### Step 3: Post on relevant subreddits
 For each draft from the radar that's in a SAFE subreddit:

@@ -23,18 +23,45 @@ GITHUB_API = "https://api.github.com/search/issues"
 TELEGRAM_CHAT = "369633431"
 # Bot token is read from the environment or the Hermes config
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
-# Fallback: try to read from Hermes config
-if not TELEGRAM_TOKEN:
+
+
+def _load_hermes_token() -> str:
+    """Read TELEGRAM_BOT_TOKEN from Hermes' own config files.
+
+    Cron runs this script as a plain subprocess, so Hermes' own environment is
+    not inherited and TELEGRAM_BOT_TOKEN is absent. The token lives in
+    ~/.hermes/.env as KEY=value, not in config.yaml.
+
+    It must be split on the first '=': a Telegram token is <bot_id>:<secret>,
+    so splitting on ':' drops the bot id and produces a token the API rejects
+    with 401.
+    """
+    env_path = os.path.expanduser("~/.hermes/.env")
     try:
-        config_path = os.path.expanduser("~/.hermes/config.yaml")
-        if os.path.exists(config_path):
-            with open(config_path) as f:
-                for line in f:
-                    if "telegram_bot_token" in line.lower() and ":" in line:
-                        TELEGRAM_TOKEN = line.split(":", 1)[1].strip().strip('"').strip("'")
-                        break
-    except Exception:
+        with open(env_path) as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith("TELEGRAM_BOT_TOKEN="):
+                    return line.split("=", 1)[1].strip().strip('"').strip("'")
+    except OSError:
         pass
+
+    # Older layouts kept it in config.yaml as `telegram_bot_token: <value>`.
+    config_path = os.path.expanduser("~/.hermes/config.yaml")
+    try:
+        with open(config_path) as f:
+            for line in f:
+                key, sep, value = line.partition(":")
+                if sep and key.strip().lower() == "telegram_bot_token":
+                    return value.strip().strip('"').strip("'")
+    except OSError:
+        pass
+
+    return ""
+
+
+if not TELEGRAM_TOKEN:
+    TELEGRAM_TOKEN = _load_hermes_token()
 
 SEARCH_QUERIES = [
     "openai bill expensive in:body in:comments",
