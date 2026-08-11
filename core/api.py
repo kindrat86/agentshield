@@ -220,6 +220,10 @@ class APIHandler(BaseHTTPRequestHandler):
                 self._serve_file(os.path.join(self.public_dir, 'comparisons', 'helicone.html'))
             elif path == '/comparisons/langsmith':
                 self._serve_file(os.path.join(self.public_dir, 'comparisons', 'langsmith.html'))
+            elif path == '/eval-gym-spec':
+                self._serve_file(os.path.join(self.public_dir, 'eval-gym-spec.html'))
+            elif path == '/blog/zeroclaw-preflight-enforcement' or path == '/blog/how-zeroclaw-implemented-preflight-enforcement':
+                self._serve_file(os.path.join(self.public_dir, 'blog', 'how-zeroclaw-implemented-preflight-enforcement.html'))
             else:
                 # Try to serve static assets from public/
                 safe_path = os.path.normpath(path).lstrip('/')

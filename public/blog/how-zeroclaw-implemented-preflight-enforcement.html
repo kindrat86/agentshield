@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How ZeroClaw Implemented Pre-Flight Cost Enforcement — And Why Post-Facto Monitoring Fails</title>
+<meta name="description" content="An engineering case study on ZeroClaw's pre-flight budget enforcement PR. Why observability tools can't stop runaway agent spending, and how to build enforcement that does.">
+<style>
+:root { --bg:#0a0a0a; --surface:#141414; --surface2:#1a1a1a; --border:#2a2a2a; --accent:#00d4aa; --text:#e8e8e8; --muted:#888; --danger:#ff4757; --warn:#ffa502; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+.container { max-width:800px; margin:0 auto; padding:40px 24px; }
+h1 { font-size:2em; margin-bottom:8px; line-height:1.2; }
+h2 { font-size:1.35em; margin:32px 0 12px; color:var(--accent); }
+h3 { margin:20px 0 8px; }
+p { margin-bottom:14px; color:#ccc; }
+ul, ol { margin:12px 0; padding-left:24px; }
+li { margin-bottom:8px; color:#ccc; }
+code { background:var(--surface2); padding:2px 6px; border-radius:4px; font-size:0.9em; color:var(--accent); }
+pre { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:16px; overflow-x:auto; margin:14px 0; }
+pre code { background:none; color:#e8e8e8; padding:0; }
+.nav { background:var(--surface); padding:12px 24px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); }
+.nav a { color:var(--accent); text-decoration:none; font-weight:600; }
+.meta { color:var(--muted); font-size:0.9em; margin-bottom:24px; }
+.diagram { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:24px; margin:20px 0; text-align:center; font-family:monospace; white-space:pre; overflow-x:auto; color:var(--accent); }
+.callout { border-left:3px solid var(--accent); padding:12px 16px; margin:16px 0; background:rgba(0,212,170,0.05); border-radius:0 8px 8px 0; }
+.callout p { color:#ddd; }
+.footer { text-align:center; padding:32px; color:var(--muted); font-size:0.85em; }
+blockquote { border-left:3px solid var(--muted); padding:8px 16px; margin:16px 0; color:var(--muted); font-style:italic; }
+</style>
+</head>
+<body>
+<nav class="nav">
+<a href="https://agentshield.fly.dev">🛡️ AgentShield</a>
+<a href="https://agentshield.fly.dev/eval-gym-spec">Eval Gym Spec →</a>
+</nav>
+
+<div class="container">
+
+<h1>How ZeroClaw Implemented Pre-Flight Cost Enforcement</h1>
+<p class="meta">An engineering case study · August 2026 · <a href="https://github.com/zeroclaw-labs/zeroclaw/pull/2333" style="color:var(--accent)">ZeroClaw PR #2333</a></p>
+
+<h2>The Problem: Observability Without Enforcement</h2>
+
+<p>In February 2026, ZeroClaw opened <a href="https://github.com/zeroclaw-labs/zeroclaw/issues/2269" style="color:var(--accent)">RFI #2269</a>: "Token consumption and cost management for productized agent workloads." The problem was clear — running real agent workloads through a single high-end model cost $5/hour per user. Existing mitigations (history compaction, model routing, daily budget alerts) were insufficient.</p>
+
+<p>The RFI identified a structural gap that every agent framework hits:</p>
+
+<blockquote>"Post-spend-only enforcement allows avoidable cost overruns in productized workloads and weakens operator budget controls."<br>— ZeroClaw PR #2333 description</blockquote>
+
+<p>This is the fundamental distinction:</p>
+
+<ul>
+<li><strong>Observability</strong> (LangSmith, Helicone, Datadog) tells you <em>what happened</em>. Your agent spent $2,800. Here is a beautiful dashboard showing exactly how.</li>
+<li><strong>Enforcement</strong> tells the agent <em>what it cannot do</em>. This call would cost $133 and your session budget has $50 remaining. Blocked. The call never executes.</li>
+</ul>
+
+<p>Observability tools are diagnostic. Enforcement tools are preventive. ZeroClaw needed both, but the enforcement layer did not exist in their runtime.</p>
+
+<h2>The Architecture: Pre-Flight Interception</h2>
+
+<p>ZeroClaw's solution, shipped in <a href="https://github.com/zeroclaw-labs/zeroclaw/pull/2333" style="color:var(--accent)">PR #2333</a>, added preflight budget checks in the agent loop execution — before model dispatch. The architectural pattern:</p>
+
+<div class="diagram">┌──────────────┐
+│  Agent Loop   │
+│  (next call)  │
+└──────┬───────┘
+       │
+       ▼
+┌──────────────────────┐
+│  PRE-FLIGHT CHECK     │
+│  ┌────────────────┐  │
+│  │ Cost Estimate  │  │
+│  │ (prompt tokens │  │
+│  │  × model rate) │  │
+│  └───────┬────────┘  │
+│          │           │
+│  ┌───────▼────────┐  │
+│  │ Budget Check   │  │
+│  │ (session total │  │
+│  │  vs threshold) │  │
+│  └───┬───────┬────┘  │
+│      │       │       │
+│   ALLOW    BLOCK     │
+└──────┼───────┼──────┘
+       │       │
+       ▼       ▼
+┌──────────┐ ┌──────────────┐
+│ API Call  │ │ Structured   │
+│ Executes  │ │ Error Return │
+└──────────┘ └──────────────┘</div>
+
+<p>The critical design decision: the check happens <em>before</em> the API call. Not during. Not after. The model provider never sees the request if the budget check fails. This means:</p>
+
+<ol>
+<li>The operator never pays for a blocked transaction</li>
+<li>The agent receives a structured error it can handle (retry with cheaper model, skip non-essential step, or abort)</li>
+<li>The budget enforcement is deterministic — same inputs always produce the same decision</li>
+</ol>
+
+<h2>The Implementation Pattern</h2>
+
+<p>The PR added <code>[cost.enforcement]</code> as a first-class configuration section. The enforcement logic runs as an interceptor in the agent loop — conceptually:</p>
+
+<pre><code># Pseudocode: pre-flight enforcement pattern
+def agent_loop_step(agent, task):
+    # Prepare the API call
+    estimated_cost = estimate_cost(task.prompt, task.model)
+    
+    # Pre-flight budget check
+    session_total = get_session_spend(agent.session_id)
+    if session_total + estimated_cost > agent.budget_limit:
+        return BudgetExceededError(
+            rule="session_budget",
+            spent=session_total,
+            limit=agent.budget_limit,
+            attempted_cost=estimated_cost
+        )
+    
+    # Execute the call (only if budget allows)
+    response = model_api.call(task)
+    record_spend(agent.session_id, estimated_cost)
+    return response</code></pre>
+
+<p>The structured error return is important. The agent does not crash — it receives a typed error it can act on:</p>
+
+<pre><code>{
+  "decision": "BLOCKED",
+  "rule": "session_budget",
+  "reason": "Session spend $45.00 + estimated call $8.00 exceeds session budget of $50.00",
+  "severity": "high"
+}</code></pre>
+
+<h2>The Edge Cases That Matter</h2>
+
+<p>Building pre-flight enforcement sounds simple until you hit the boundary cases. These are the ones that catch teams off-guard:</p>
+
+<h3>1. The Cascade Problem</h3>
+<p>A single API call looks cheap ($0.50). But it has a 30% failure probability, and each failure triggers a retry that costs $5. The <em>expected cost</em> of the call is not $0.50 — it's $0.50 + (0.3 × $5) = $2.00. A naive per-call budget check approves the $0.50 call. A cascade-aware check blocks it.</p>
+
+<p>This is what <code>cascade_cost</code> rule type solves: <code>expected_cost = call_cost + (fail_probability × reversal_cost)</code>.</p>
+
+<h3>2. The Session Burst</h3>
+<p>A daily budget of $500 seems generous. But a cron-triggered agent at 2 AM makes 200 calls in one session, each costing $2.50. By 2:03 AM, the daily budget is gone. The remaining 21 hours of the day have zero budget.</p>
+
+<p>Session-scoped budgets fix this. Set <code>max_session: $50</code> and the agent can spend at most $50 per session, regardless of how many sessions run in a day.</p>
+
+<h3>3. Silent Model Substitution</h3>
+<p>An agent configured to use <code>claude-haiku</code> silently resolves to <code>claude-opus</code> because the haiku model ID is invalid. Each call costs 50x more than expected. Cost dashboards show $0 because the cost tracking field is broken. The agent has no awareness it is spending $133/call instead of $2.50/call.</p>
+
+<p>Pre-flight enforcement catches this: the estimated cost from the prompt length × opus rate exceeds the transaction limit. The call is blocked before it executes.</p>
+
+<h2>What ZeroClaw Built vs What We Learned</h2>
+
+<p>ZeroClaw's PR added the enforcement layer at the runtime level — integrated into their agent loop. This is the right architecture for a framework that controls its own execution model.</p>
+
+<p>For teams who want a standalone, framework-agnostic enforcement engine, we built <a href="https://github.com/kindrat86/agentshield" style="color:var(--accent)">AgentShield</a> — a pure Python 3.11 stdlib spend-control firewall with 9 composable rule types and 56 labeled test scenarios.</p>
+
+<div class="callout">
+<p><strong>The 56-scenario eval gym</strong> is independently useful as a test suite for <em>any</em> spend-control implementation — including yours. If you're building enforcement logic, run it against these scenarios. They're MIT licensed. <a href="https://agentshield.fly.dev/eval-gym-spec" style="color:var(--accent)">View the spec →</a></p>
+</div>
+
+<h2>The Broader Pattern</h2>
+
+<p>ZeroClaw's implementation validates a shift happening across the AI agent ecosystem: <strong>spend control is moving from observability to enforcement.</strong></p>
+
+<p>The teams running production agents — ZeroClaw, OpenClaw (see <a href="https://github.com/openclaw/openclaw/issues/42475" style="color:var(--accent)">issue #42475</a>), and others — are all converging on the same architecture: pre-dispatch cost evaluation, structured block decisions, and session-scoped budgets with decay.</p>
+
+<p>If you're building an agent framework, the question is not <em>whether</em> to add enforcement — it's <em>which edge cases you handle</em>. The 56-scenario benchmark is our answer to that question.</p>
+
+<h2>Resources</h2>
+<ul>
+<li><a href="https://github.com/zeroclaw-labs/zeroclaw/pull/2333" style="color:var(--accent)">ZeroClaw PR #2333: Preflight budget enforcement policy</a></li>
+<li><a href="https://github.com/zeroclaw-labs/zeroclaw/issues/2269" style="color:var(--accent)">ZeroClaw RFI #2269: Token cost management for productized workloads</a></li>
+<li><a href="https://agentshield.fly.dev/eval-gym-spec" style="color:var(--accent)">Universal Eval Gym Spec (56 scenarios, MIT licensed)</a></li>
+<li><a href="https://github.com/kindrat86/agentshield/blob/main/tests/eval_gym.py" style="color:var(--accent)">Test scenarios source code</a></li>
+<li><a href="https://agentshield.fly.dev/eval" style="color:var(--accent)">Live eval gym (56/56 passing)</a></li>
+</ul>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:32px 0">
+<p style="color:var(--muted);font-size:0.9em">
+<em>This case study is based on publicly available GitHub issues and PRs. ZeroClaw is an open-source project. AgentShield is MIT licensed and independent. We wrote this because the architectural pattern is important and deserves clear documentation.</em>
+</p>
+
+</div>
+
+<div class="footer">
+<p><a href="https://agentshield.fly.dev" style="color:var(--accent)">AgentShield</a> — A firewall for AI agent spending. Pure Python 3.11 stdlib.</p>
+<p><a href="/eval-gym-spec" style="color:var(--accent)">Eval Gym Spec</a> · <a href="/comparisons/helicone" style="color:var(--accent)">vs Helicone</a> · <a href="/comparisons/langsmith" style="color:var(--accent)">vs LangSmith</a> · <a href="https://github.com/kindrat86/agentshield" style="color:var(--accent)">GitHub</a></p>
+</div>
+
+</body>
+</html>
