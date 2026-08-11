@@ -97,7 +97,7 @@
   "sender_identity": {
     "preferred": "sales@sipiteno.com",
     "resend_verified": "escape@invisibleexit.com",
-    "sipiteno_status": "not_started \u2014 needs 3 DNS records added manually",
+    "sipiteno_status": "pending (DKIM verified, SPF pending DNS propagation)",
     "cloudflare_access": "Login required (mkondratyuk86@gmail.com). Cannot automate.",
     "dns_records_needed": [
       {
@@ -118,7 +118,8 @@
       }
     ],
     "gmail_in_resend": "NOT accepted \u2014 Resend requires custom domains",
-    "resend_domain_id": "d77d146e-e2cb-4a44-aba4-11396aa4bd5e"
+    "resend_domain_id": "d77d146e-e2cb-4a44-aba4-11396aa4bd5e",
+    "verified_at": "2026-08-11T12:00:00+03:00 (pending SPF)"
   },
   "lead_outreach": [
     {
