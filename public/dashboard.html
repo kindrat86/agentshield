@@ -88,6 +88,16 @@ td { padding: 10px 12px; border-bottom: 1px solid var(--surface2); font-size: 0.
   </div>
 
   <div class="content">
+
+    <!-- Tier upgrade banner (shown for free tier users) -->
+    <div id="upgrade-banner" style="display:none;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;padding:16px 20px;border-radius:10px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div>
+        <strong>&#9888; You're on the Free Tier (1 Agent limit).</strong>
+        Unlock up to <strong>5 Agents</strong> and <strong>Custom Spend Rules</strong> with a 14-Day Free Trial of Dev Plan.
+      </div>
+      <a href="/api/billing/checkout" onclick="startCheckout(event,'dev')" style="background:white;color:#4f46e5;padding:8px 20px;border-radius:6px;text-decoration:none;font-weight:600;white-space:nowrap">Upgrade Now &rarr;</a>
+    </div>
+
     <!-- Overview -->
     <div class="panel active" id="panel-overview">
       <div class="stat-grid">
@@ -185,6 +195,10 @@ async function init() {
   document.getElementById('dashboard').style.display = 'block';
   document.getElementById('user-email').textContent = me.email;
   document.getElementById('user-tier').textContent = me.tier.toUpperCase();
+  // Show upgrade banner for free tier users
+  if (me.tier === 'free') {
+    document.getElementById('upgrade-banner').style.display = 'flex';
+  }
   loadStats(); loadAgents(); loadRules(); loadTransactions(); connectSSE();
 }
 
@@ -282,6 +296,16 @@ function switchTab(name) {
 async function logout() {
   await api('/api/auth/logout', 'POST');
   window.location.href = '/';
+}
+
+async function startCheckout(ev, tier) {
+  ev.preventDefault();
+  try {
+    const resp = await api('/api/billing/checkout', 'POST', { tier: tier });
+    if (resp.url) window.location.href = resp.url;
+  } catch (e) {
+    alert('Checkout requires a logged-in account. Please register first.');
+  }
 }
 
 init();
