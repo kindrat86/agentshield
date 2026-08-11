@@ -271,6 +271,10 @@ class APIHandler(BaseHTTPRequestHandler):
                 self._handle_login()
             elif path == '/api/auth/logout':
                 self._handle_logout()
+            elif path == '/api/auth/google':
+                self._handle_google_auth()
+            elif path == '/api/auth/google/callback':
+                self._handle_google_callback()
             elif path == '/api/agents':
                 self._handle_create_agent()
             elif path == '/api/rules':
@@ -351,6 +355,21 @@ class APIHandler(BaseHTTPRequestHandler):
         # Auto-login: create session
         token = self.store.create_session(account['id'])
         cookie = self._set_session_cookie(token)
+        # Telegram notification (non-blocking, fail-safe)
+        try:
+            import subprocess as _sp, urllib.request as _ur, urllib.parse as _up
+            bot_token = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+            if bot_token:
+                _tg_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+                _tg_data = _up.urlencode({
+                    "chat_id": "369633431",
+                    "text": f"🆕 New AgentShield registration: {email}",
+                    "parse_mode": "HTML"
+                }).encode()
+                _req = _ur.Request(_tg_url, data=_tg_data, method="POST")
+                _ur.urlopen(_req, timeout=5)
+        except Exception:
+            pass  # Registration must succeed even if Telegram is down
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
         self._send_cors_headers()
@@ -411,6 +430,97 @@ class APIHandler(BaseHTTPRequestHandler):
         self.send_header('Content-Length', '0')
         self.end_headers()
 
+    def _handle_google_auth(self):
+        """Initiate Google OAuth flow or return 501 if not configured."""
+        client_id = os.environ.get('GOOGLE_OAUTH_CLIENT_ID', '')
+        if not client_id:
+            self._send_json({
+                "error": "Google OAuth not configured. Set GOOGLE_OAUTH_CLIENT_ID and GOOGLE_OAUTH_CLIENT_SECRET.",
+                "fallback": "/auth"
+            }, 501)
+            return
+        redirect_uri = f"https://agentshield.fly.dev/api/auth/google/callback"
+        scope = "openid email profile"
+        auth_url = (
+            f"https://accounts.google.com/o/oauth2/v2/auth?"
+            f"client_id={client_id}&redirect_uri={redirect_uri}"
+            f"&response_type=code&scope={scope}&prompt=consent"
+        )
+        self.send_response(302)
+        self._send_cors_headers()
+        self.send_header('Location', auth_url)
+        self.send_header('Content-Length', '0')
+        self.end_headers()
+
+    def _handle_google_callback(self):
+        """Handle Google OAuth callback — exchange code for user info, create/login user."""
+        import urllib.request as _ur, urllib.parse as _up
+        parsed = urlparse(self.path)
+        params = parse_qs(parsed.query)
+        code = params.get('code', [None])[0]
+        if not code:
+            self._send_json({"error": "No authorization code"}, 400)
+            return
+        client_id = os.environ.get('GOOGLE_OAUTH_CLIENT_ID', '')
+        client_secret = os.environ.get('GOOGLE_OAUTH_CLIENT_SECRET', '')
+        if not client_id or not client_secret:
+            self._send_json({"error": "Google OAuth not configured"}, 501)
+            return
+        # Exchange code for tokens
+        token_data = _up.urlencode({
+            "code": code,
+            "client_id": client_id,
+            "client_secret": client_secret,
+            "redirect_uri": "https://agentshield.fly.dev/api/auth/google/callback",
+            "grant_type": "authorization_code"
+        }).encode()
+        try:
+            req = _ur.Request("https://oauth2.googleapis.com/token", data=token_data, method="POST")
+            with _ur.urlopen(req, timeout=10) as resp:
+                token_resp = json.loads(resp.read())
+            access_token = token_resp.get('access_token', '')
+            # Get user info
+            req2 = _ur.Request("https://www.googleapis.com/oauth2/v2/userinfo",
+                               headers={"Authorization": f"Bearer {access_token}"})
+            with _ur.urlopen(req2, timeout=10) as resp2:
+                userinfo = json.loads(resp2.read())
+            google_email = userinfo.get('email', '')
+            if not google_email:
+                self._send_json({"error": "No email from Google"}, 400)
+                return
+            # Try to register, if exists login
+            account = self.auth.register(google_email, uuid.uuid4().hex)
+            if not account:
+                # Account exists — login by creating a session directly
+                accounts = self.auth.find_by_email(google_email)
+                if accounts:
+                    account = accounts
+                else:
+                    self._send_json({"error": "Account lookup failed"}, 500)
+                    return
+            token = self.store.create_session(account['id'])
+            cookie = self._set_session_cookie(token)
+            # Telegram notification for new registrations via Google
+            try:
+                bot_token = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+                if bot_token:
+                    _tg_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+                    _tg_data = _up.urlencode({
+                        "chat_id": "369633431",
+                        "text": f"🆕 New AgentShield registration (Google): {google_email}"
+                    }).encode()
+                    _ur.urlopen(_ur.Request(_tg_url, data=_tg_data, method="POST"), timeout=5)
+            except Exception:
+                pass
+            self.send_response(302)
+            self._send_cors_headers()
+            self.send_header('Set-Cookie', cookie)
+            self.send_header('Location', '/dashboard')
+            self.send_header('Content-Length', '0')
+            self.end_headers()
+        except Exception as e:
+            self._send_json({"error": f"Google OAuth failed: {str(e)}"}, 500)
+
     def _handle_auth_me(self):
         account = self._get_session_account()
         if not account:
@@ -436,6 +546,9 @@ class APIHandler(BaseHTTPRequestHandler):
             return
         body = self._read_body()
         name = body.get('name', f'Agent-{datetime.now().strftime("%H%M%S")}')
+        # Sanitize name — strip HTML tags to prevent stored XSS
+        import html
+        name = html.escape(name, quote=True)[:100]
         agent = self.store.create_agent(account['id'], name)
         self._send_json(agent, 201)
 
@@ -852,7 +965,11 @@ h1{color:#00d4aa}.price{font-size:3em;color:#00d4aa;font-weight:700}
 
     def _handle_eval_results(self):
         try:
-            from tests.eval_gym import run_eval, generate_report
+            # Try package import first, then tests fallback
+            try:
+                from agentshield import run_eval
+            except ImportError:
+                from tests.eval_gym import run_eval
             results = run_eval()
             self._send_json(results)
         except Exception as e:
