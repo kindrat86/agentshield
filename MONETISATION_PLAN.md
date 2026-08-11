@@ -178,7 +178,7 @@ Currently: email capture stores to DB but does NOTHING with the emails. There's 
 
 **Action:** Create a 5-day email nurture sequence using Resend API.
 
-**Credentials:** Resend API key is `REDACTED` (in vault). Sender: `sales@sipiteno.com`. BCC: `sales@sipiteno.com`.
+**Credentials:** Resend API key is `REDACTED_RESEND_KEY` (in vault). Sender: `sales@sipiteno.com`. BCC: `sales@sipiteno.com`.
 
 Create file `/Users/sipi/agentshield/scripts/nurture_sequence.py`:
 
@@ -195,7 +195,7 @@ import os
 import sys
 from datetime import datetime, timezone
 
-RESEND_KEY = "REDACTED"
+RESEND_KEY = "REDACTED_RESEND_KEY"
 FROM = "AgentShield <sales@sipiteno.com>"
 BCC = "sales@sipiteno.com"
 

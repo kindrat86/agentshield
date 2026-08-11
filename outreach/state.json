@@ -126,7 +126,7 @@
     "resend_domain_id": "d77d146e-e2cb-4a44-aba4-11396aa4bd5e",
     "verified_at": "2026-08-11T12:00:00+03:00 (pending SPF)",
     "active_sender": "sales@sipiteno.com",
-    "resend_key": "REDACTED"
+    "resend_key": "REDACTED_RESEND_KEY"
   },
   "lead_outreach": [
     {

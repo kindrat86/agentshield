@@ -267,7 +267,7 @@ Use the templates from Phase 20 (framework pitch / observability partnership / a
 
 ```bash
 curl -s -X POST "https://api.resend.com/emails" \
-  -H "Authorization: Bearer REDACTED" \
+  -H "Authorization: Bearer REDACTED_RESEND_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "from": "AgentShield <sales@sipiteno.com>",

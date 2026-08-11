@@ -22,7 +22,7 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 - **GitHub:** 29 posts, 5 active conversations, 0 replies to our last 4 asks
 - **Eval gym spec:** Live at `/eval-gym-spec`
 - **3 Dev.to articles:** Architecture, OpenClaw plugin, ZeroClaw case study
-- **Resend API:** Key `REDACTED`, from `sales@sipiteno.com`, BCC `sales@sipiteno.com`
+- **Resend API:** Key `REDACTED_RESEND_KEY`, from `sales@sipiteno.com`, BCC `sales@sipiteno.com`
 - **Show HN draft:** `content/show-hn-post.md` ready (needs karma ≥ 2)
 - **HN karma:** Currently 1 (need ≥ 2 for Show HN)
 - **DNS:** Still NOT resolving (blocked on Cloudflare login)
@@ -238,7 +238,7 @@ Use shell curl directly (per memory: "Python's subprocess mangles Authorization 
 ```bash
 # For each email:
 curl -s -X POST "https://api.resend.com/emails" \
-  -H "Authorization: Bearer REDACTED" \
+  -H "Authorization: Bearer REDACTED_RESEND_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "from": "AgentShield <sales@sipiteno.com>",

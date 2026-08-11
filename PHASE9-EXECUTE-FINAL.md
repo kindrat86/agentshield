@@ -212,7 +212,7 @@ Add it to the "As featured on" strip. Then: `cd /Users/sipi/agentshield && fly d
 ## TASK 3: FIX RESEND KEY EXPOSURE + COMMIT ALL CHANGES
 
 ### 3.1 Understand the problem
-The Resend API key (`REDACTED`) is in plaintext in 4 prompt files:
+The Resend API key (`REDACTED_RESEND_KEY`) is in plaintext in 4 prompt files:
 - `PHASE6-EXECUTION-PROMPT.md`
 - `PHASE7-AUTONOMOUS-EXECUTION.md`
 - `AGENTSHIELD-MONETISATION-PROMPT.md`

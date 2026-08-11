@@ -34,7 +34,7 @@ AgentShield is a firewall for AI agent spending. Python 3.11 stdlib, zero deps, 
 ```
 
 ### Critical Credentials
-- **Resend:** `REDACTED` (full perms, from: sales@sipiteno.com, BCC: sales@sipiteno.com)
+- **Resend:** `REDACTED_RESEND_KEY` (full perms, from: sales@sipiteno.com, BCC: sales@sipiteno.com)
 - **GitHub:** Authenticated as `kindrat86` via `gh` CLI
 - **Fly.io:** `agentshield` app
 - **Product Hunt:** Signed in as Maryan K via GitHub

@@ -70,7 +70,7 @@ The email capture endpoint works (`/api/email-capture`). But there's no automate
 **Build:** `scripts/email_nurture.py` — a script that:
 1. Reads the `email_captures` table from the SQLite DB
 2. Finds emails captured in the last 24 hours that haven't received email #1
-3. Sends via Resend API (key: `REDACTED`, from: `sales@sipiteno.com`)
+3. Sends via Resend API (key: `REDACTED_RESEND_KEY`, from: `sales@sipiteno.com`)
 4. Tracks which email # each contact is on in a new `email_nurture_state` table
 
 **5-Day Email Sequence:**
@@ -483,7 +483,7 @@ A/B test a landing page variant that pitches: "AgentShield costs 10% of what it 
 
 - All changes must work with Python 3.11 stdlib (no new pip dependencies unless ABSOLUTELY necessary and added to requirements.txt)
 - The server runs on Fly.io with 256MB RAM and a ~39MB Docker image — don't add big dependencies
-- Resend API key: `REDACTED` (full permissions)
+- Resend API key: `REDACTED_RESEND_KEY` (full permissions)
 - Send from: `sales@sipiteno.com` (if verified) or `escape@invisibleexit.com` (fallback)
 - BCC `sales@sipiteno.com` on all outreach
 - All cron job results go to Telegram (chat ID: 369633431)

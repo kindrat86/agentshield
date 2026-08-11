@@ -27,7 +27,7 @@ Your job: execute everything that CAN be done autonomously, and clearly separate
 ```
 
 ### Key Credentials
-- **Resend API:** `REDACTED` (full perms, from: sales@sipiteno.com, BCC: sales@sipiteno.com)
+- **Resend API:** `REDACTED_RESEND_KEY` (full perms, from: sales@sipiteno.com, BCC: sales@sipiteno.com)
 - **Fly.io app:** `agentshield`
 - **GitHub repo:** `kindrat86/agentshield`
 - **Telegram delivery:** `telegram:369633431`

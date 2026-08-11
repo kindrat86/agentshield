@@ -21,7 +21,7 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 - **Twitter thread:** 2/8 tweets LIVE from @sipiteno (tweets 1-2 posted, 3-8 pending)
 - **GitHub:** 29 posts, 5 active conversations
 - **8 B2B emails sent:** Helicone, LangChain, Braintrust, Portkey x2, + 3 initial
-- **Resend API:** Key `REDACTED`, from `sales@sipiteno.com`, BCC `sales@sipiteno.com`. Use shell curl directly.
+- **Resend API:** Key `REDACTED_RESEND_KEY`, from `sales@sipiteno.com`, BCC `sales@sipiteno.com`. Use shell curl directly.
 - **Show HN draft:** `content/show-hn-post.md` ready (needs karma ≥ 2)
 - **HN karma:** Currently 1 (need ≥ 2 for Show HN)
 - **DNS:** Still NOT resolving (blocked on Cloudflare login)
@@ -268,7 +268,7 @@ Use shell curl directly (NOT Python — subprocess mangles Authorization header 
 ```bash
 # For each email:
 curl -s -X POST "https://api.resend.com/emails" \
-  -H "Authorization: Bearer REDACTED" \
+  -H "Authorization: Bearer REDACTED_RESEND_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "from": "AgentShield <sales@sipiteno.com>",

@@ -528,7 +528,7 @@ AgentShield
 Send via Resend (curl, not Python):
 ```bash
 curl -s -X POST "https://api.resend.com/emails" \
-  -H "Authorization: Bearer REDACTED" \
+  -H "Authorization: Bearer REDACTED_RESEND_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "from": "AgentShield <sales@sipiteno.com>",
