@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The $2,800 Wake-Up Call — AgentShield</title>
+<meta name="description" content="At 3 AM, an AI agent made 21 API calls at $133 each. This is the story of what happened next.">
+<style>
+:root{--bg:#0a0a0a;--card:#141414;--accent:#00d4aa;--accent2:#7c3aed;--danger:#ef4444;--text:#f5f5f5;--muted:#94a3b8;--border:#262626}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.7;max-width:720px;margin:0 auto;padding:40px 20px}
+h1,h2,h3{line-height:1.3;margin-bottom:16px}
+h1{font-size:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+h2{font-size:24px;color:var(--accent);margin-top:40px}
+.story{font-size:17px;letter-spacing:0.005em}
+.story p{margin-bottom:20px}
+.timestamp{color:var(--muted);font-size:14px;font-family:'SF Mono',Fira Code,monospace;letter-spacing:-0.02em}
+.amount{color:var(--danger);font-weight:700;font-size:20px}
+.emphasis{font-weight:600;color:var(--accent)}
+blockquote{border-left:3px solid var(--accent);padding-left:20px;margin:24px 0;color:var(--muted);font-style:italic}
+.email-sim{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin:24px 0;font-family:'SF Mono',monospace;font-size:14px;color:var(--muted)}
+.email-sim .from{color:var(--text);font-weight:600}
+.email-sim .subject{color:var(--accent);margin-top:8px}
+.cta{display:block;margin:40px auto;padding:18px 40px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;text-decoration:none;border-radius:10px;font-weight:700;font-size:18px;text-align:center;transition:transform 0.2s}
+.cta:hover{transform:translateY(-2px)}
+.offer-stack{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:32px 0}
+.offer-stack h3{color:var(--accent);margin-bottom:16px;font-size:18px}
+.offer-stack table{width:100%;border-collapse:collapse}
+.offer-stack td{padding:10px 0;border-bottom:1px solid var(--border);font-size:15px}
+.offer-stack td:last-child{text-align:right;font-weight:600}
+.offer-stack .free{color:var(--accent)}
+.offer-stack .total{font-size:13px;color:var(--muted);text-decoration:line-through}
+.offer-stack .your-price{font-size:20px;color:var(--accent)}
+footer{text-align:center;padding:32px 0;border-top:1px solid var(--border);margin-top:40px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<h1>The $2,800 Wake-Up Call</h1>
+<p class="timestamp">August 2026 · 3:14 AM</p>
+
+<div class="story">
+
+<p>My phone buzzed. Not a notification. An email from my cloud provider.</p>
+
+<div class="email-sim">
+<div class="from">From: billing@openai.com</div>
+<div class="subject">Subject: API Usage Alert — You've exceeded $2,000 in API spend</div>
+<div style="margin-top:12px">Your API usage has reached $2,793.00 in the last hour.<br>This exceeds your configured alert threshold of $2,000.00.</div>
+</div>
+
+<p>I sat up in bed. <span class="amount">$2,793.00.</span> In one hour. While I was asleep.</p>
+
+<p>The email arrived at <span class="timestamp">3:14 AM</span>. I read it at <span class="timestamp">6:17 AM</span>. Three hours too late.</p>
+
+<h2>What Happened</h2>
+
+<p>An AI agent I'd deployed that afternoon had entered a retry loop. It was calling a premium LLM endpoint that cost <span class="amount">$133 per call</span>. Each retry consumed the same 200K-token context window. And it retried <span class="emphasis">21 times</span> before the budget alert email even left the server.</p>
+
+<blockquote>The agent wasn't broken. It was doing exactly what I told it to do. The problem was that nobody told it how much money it was allowed to spend.</blockquote>
+
+<h2>What I Checked First</h2>
+
+<p>I checked my API rate limits. They were fine — the provider was happy to take 21 calls at $133 each. Rate limits protect the provider, not me.</p>
+
+<p>I checked my budget alert settings. They were set to trigger at $2,000. They triggered at <span class="timestamp">3:14 AM</span>. The alert email arrived in my inbox. I just didn't see it until morning.</p>
+
+<p>I checked my observability dashboard. It showed me exactly what happened: 21 calls, $133 each, starting at <span class="timestamp">3:01 AM</span>. Beautiful graphs. Clear breakdown. Zero prevention.</p>
+
+<h2>The Realization</h2>
+
+<p>Every tool I had was <span class="emphasis">reactive</span>. They told me what happened AFTER the money was spent. None of them could stop the transaction BEFORE it executed.</p>
+
+<p>Rate limits? They protect the API provider.</p>
+<p>Budget alerts? They arrive by email.</p>
+<p>Observability dashboards? They're beautiful tombstones for your wallet.</p>
+
+<h2>What I Built</h2>
+
+<p>I built <span class="emphasis">AgentShield</span> — a per-transaction spend firewall that evaluates every API call against configurable rules <em>before</em> it executes.</p>
+
+<p>If that agent had been running AgentShield, the second call — the first retry — would have been blocked at <span class="amount">$266</span>. Not $2,793.</p>
+
+<p>The evaluation takes less than 1 millisecond. Pure Python standard library. Zero dependencies. The agent gets a structured error. Your wallet stays closed.</p>
+
+<h2>The Offer</h2>
+
+<div class="offer-stack">
+<h3>The Complete Spend Control Stack</h3>
+<table>
+<tr><td>AgentShield Engine (MIT, open source)</td><td class="free">$0</td></tr>
+<tr><td>56-Scenario Eval Gym (MIT, benchmark)</td><td class="free">$0</td></tr>
+<tr><td>Risk Calculator (no signup, 30 seconds)</td><td class="free">$0</td></tr>
+<tr><td>Professional Spend Audit (money-back guarantee)</td><td>$299</td></tr>
+<tr><td>Managed AgentShield (14-day free trial)</td><td>$19/mo</td></tr>
+<tr><td class="total">Total value (one prevented incident)</td><td class="total">$2,800</td></tr>
+</table>
+<p style="text-align:center;margin-top:16px">Your cost: <span class="your-price">$0 to start</span> · $19/mo if you want managed</p>
+</div>
+
+<p style="text-align:center;font-size:18px;margin:32px 0">
+An unprotected runaway agent: <span class="amount">$2,800</span><br>
+A whole year of AgentShield: <span class="emphasis">$228</span>
+</p>
+
+<a href="/tools/risk-calculator/" class="cta">Check Your Risk Score (30 seconds, no signup) →</a>
+
+<a href="/audit" class="cta" style="background:transparent;border:2px solid var(--accent);color:var(--accent)">Get the $299 Spend Audit (money-back guarantee) →</a>
+
+</div>
+
+<footer>
+AgentShield — A firewall for AI agent spending.<br>
+pip install agentshield · <a href="/" style="color:var(--accent)">Home</a> · <a href="/eval" style="color:var(--accent)">Eval Gym (56 scenarios)</a> · <a href="https://github.com/kindrat86/agentshield" style="color:var(--accent)">GitHub (MIT)</a>
+</footer>
+
+</body>
+</html>

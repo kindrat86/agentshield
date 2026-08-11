@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free AI Spend Audit — AgentShield</title>
+<meta name="description" content="Get a free professional audit of your AI agent spending. 3 spots available. No commitment.">
+<style>
+:root{--bg:#0a0a0a;--card:#141414;--accent:#00d4aa;--accent2:#7c3aed;--danger:#ef4444;--text:#f5f5f5;--muted:#94a3b8;--border:#262626}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.7;max-width:640px;margin:0 auto;padding:40px 20px}
+h1{font-size:30px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:16px}
+h2{font-size:22px;color:var(--accent);margin:32px 0 12px}
+.scarcity{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:16px;text-align:center;margin:24px 0;font-weight:600;color:var(--danger)}
+.checklist{list-style:none;padding:0}
+.checklist li{padding:12px 0;border-bottom:1px solid var(--border);font-size:16px;display:flex;align-items:start;gap:12px}
+.checklist li::before{content:"✓";color:var(--accent);font-weight:bold;font-size:18px;flex-shrink:0}
+.form-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:24px 0}
+.form-box input,.form-box textarea,.form-box select{width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:15px;margin-bottom:12px}
+.form-box label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
+.cta{display:block;padding:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:700;font-size:17px;border:none;cursor:pointer;width:100%}
+.guarantee{text-align:center;font-size:14px;color:var(--muted);margin-top:12px}
+.guarantee span{color:var(--accent)}
+footer{text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:40px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<h1>3 Free AI Spend Audits</h1>
+
+<div class="scarcity">⚠️ 2 of 3 free spots claimed · 1 remaining</div>
+
+<p>You're looking at your monthly AI API bill and wondering: <strong>how much of this is waste?</strong></p>
+
+<p>I'll tell you. For free. No strings, no upsell, no commitment.</p>
+
+<h2>What You Get</h2>
+<ul class="checklist">
+<li><span>Complete spend analysis across all your AI API providers</span></li>
+<li><span>Identification of waste patterns (retry loops, idle calls, overprovisioning)</span></li>
+<li><span>Risk score based on the 56-scenario spend-control benchmark</span></li>
+<li><span>Custom rule recommendations to prevent future waste</span></li>
+<li><span>Comparison: your spend vs. industry benchmarks</span></li>
+<li><span>Action plan: what to fix first, in priority order</span></li>
+</ul>
+
+<h2>How It Works</h2>
+<p><strong>1.</strong> You share your API usage data (anonymized billing export is fine)</p>
+<p><strong>2.</strong> I run it through the AgentShield 56-scenario eval framework</p>
+<p><strong>3.</strong> You get a detailed report within 48 hours</p>
+
+<div class="form-box">
+<label>Your name</label>
+<input type="text" name="name" placeholder="Jane Developer">
+<label>Email (for the report)</label>
+<input type="email" name="email" placeholder="jane@company.com">
+<label>Monthly API spend (approximate)</label>
+<select name="spend">
+<option>Under $500/month</option>
+<option>$500 - $2,000/month</option>
+<option>$2,000 - $10,000/month</option>
+<option>$10,000+/option>
+</select>
+<label>What's your biggest cost concern? (optional)</label>
+<textarea name="concern" rows="3" placeholder="Agents entering retry loops, runaway cron jobs, etc."></textarea>
+<button class="cta" onclick="alert('Spot claimed! Send your billing export to sales@sipiteno.com and you\\'ll get your audit within 48 hours.')">Claim My Free Audit Spot →</button>
+<p class="guarantee">100% free · <span>No credit card</span> · No commitment · Report in 48 hours</p>
+</div>
+
+<h2>Why Free?</h2>
+<p>I built AgentShield after losing $2,800 in 60 seconds to a runaway agent. I want to prove the eval framework works on real-world data. Your audit helps me validate the benchmark. You get a free spend analysis. Win-win.</p>
+
+<p style="margin-top:24px"><a href="/the-2800-story">Read the $2,800 story →</a></p>
+
+<footer>
+AgentShield — A firewall for AI agent spending.<br>
+<a href="/" style="color:var(--accent)">Home</a> · <a href="/audit" style="color:var(--accent)">$299 Pro Audit</a> · <a href="/eval" style="color:var(--accent)">Eval Gym</a>
+</footer>
+
+</body>
+</html>

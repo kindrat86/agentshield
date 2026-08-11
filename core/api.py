@@ -226,6 +226,10 @@ class APIHandler(BaseHTTPRequestHandler):
                 self._serve_file(os.path.join(self.public_dir, 'blog', 'how-zeroclaw-implemented-preflight-enforcement.html'))
             elif path == '/audit':
                 self._serve_file(os.path.join(self.public_dir, 'audit.html'))
+            elif path == '/free-audit':
+                self._serve_file(os.path.join(self.public_dir, 'free-audit.html'))
+            elif path == '/the-2800-story':
+                self._serve_file(os.path.join(self.public_dir, 'the-2800-story.html'))
             else:
                 # Try to serve static assets from public/
                 safe_path = os.path.normpath(path).lstrip('/')
