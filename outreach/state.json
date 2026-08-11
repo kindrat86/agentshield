@@ -119,5 +119,72 @@
     ],
     "gmail_in_resend": "NOT accepted \u2014 Resend requires custom domains",
     "resend_domain_id": "d77d146e-e2cb-4a44-aba4-11396aa4bd5e"
-  }
+  },
+  "lead_outreach": [
+    {
+      "lead": "CloudAtler",
+      "to": "support@cloudatler.com",
+      "resend_id": "ab0fbb48",
+      "status": "sent",
+      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+    },
+    {
+      "lead": "Prefactor",
+      "to": "hello@prefactor.ai",
+      "resend_id": "84e2f694",
+      "status": "sent",
+      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+    },
+    {
+      "lead": "Hiflylabs",
+      "to": "hello@hiflylabs.com",
+      "resend_id": "f4081fda",
+      "status": "sent",
+      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+    },
+    {
+      "lead": "Airia",
+      "to": "hello@airia.com",
+      "resend_id": "5de6f9e8",
+      "status": "sent",
+      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+    },
+    {
+      "lead": "Larridin",
+      "to": "hello@larridin.com",
+      "resend_id": "923a4d2f",
+      "status": "sent",
+      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+    },
+    {
+      "lead": "Elvex",
+      "to": "info@elvex.com",
+      "resend_id": "11925093",
+      "status": "sent",
+      "sent_at": "2026-08-11T08:49:59.311727+00:00"
+    }
+  ],
+  "hn_leads_pending": [
+    {
+      "lead": "nthypes",
+      "url": "https://news.ycombinator.com/item?id=45914307",
+      "note": "$928 in AI coding agent costs"
+    },
+    {
+      "lead": "satgate",
+      "url": "https://news.ycombinator.com/item?id=46927422",
+      "note": "Enterprise security, agent cost problem"
+    },
+    {
+      "lead": "CharlesW",
+      "url": "https://news.ycombinator.com/item?id=48103104",
+      "note": "Morse code agent prompt injection"
+    }
+  ],
+  "unreachable_leads": [
+    {
+      "lead": "Byteiota",
+      "note": "Blog site, no contact email found"
+    }
+  ]
 }
