@@ -247,6 +247,8 @@ class APIHandler(BaseHTTPRequestHandler):
                 self._handle_evaluate()
             elif path == '/api/email-capture':
                 self._handle_email_capture()
+            elif path == '/api/track':
+                self._handle_track()
             elif path == '/api/billing/checkout':
                 self._handle_billing_checkout()
             elif path == '/api/billing/webhook':
@@ -592,6 +594,36 @@ class APIHandler(BaseHTTPRequestHandler):
             return
         capture_id = self.store.capture_email(email, source)
         self._send_json({"success": True, "id": capture_id}, 201)
+
+    # ─── Analytics Tracking ───────────────────────────────────────────────
+
+    def _handle_track(self):
+        """Lightweight event tracking — appends to a JSONL file. No PII."""
+        import json as _json
+        import time as _time
+        try:
+            length = int(self.headers.get('Content-Length', 0))
+            raw = self.rfile.read(length).decode('utf-8', errors='replace') if length else '{}'
+            event = _json.loads(raw) if raw.strip() else {}
+        except Exception:
+            event = {}
+        record = {
+            'e': str(event.get('e', 'unknown'))[:50],
+            'p': str(event.get('p', ''))[:100],
+            'r': str(event.get('r', ''))[:100],
+            'ts': _time.time()
+        }
+        try:
+            with open('/data/analytics.jsonl', 'a') as f:
+                f.write(_json.dumps(record) + '\n')
+        except OSError:
+            # Fallback for local dev without /data volume
+            try:
+                with open('analytics.jsonl', 'a') as f:
+                    f.write(_json.dumps(record) + '\n')
+            except OSError:
+                pass
+        self._send_json({"ok": True}, 200)
 
     # ─── Billing (Stripe) ─────────────────────────────────────────────────
 

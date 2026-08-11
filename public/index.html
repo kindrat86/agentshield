@@ -123,16 +123,56 @@ footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.
   .hero h1 { font-size: 2em; }
 }
 </style>
+<script>
+// Lightweight self-hosted analytics — no cookies, no external deps
+(function() {
+  function track(event) {
+    try {
+      navigator.sendBeacon('/api/track', JSON.stringify({
+        e: event,
+        p: location.pathname,
+        r: document.referrer.slice(0, 100),
+        t: Date.now()
+      }));
+    } catch (err) {}
+  }
+  // Page view
+  track('pageview');
+  // CTA clicks
+  document.addEventListener('click', function(ev) {
+    var a = ev.target.closest('a');
+    if (!a) return;
+    if (a.textContent.indexOf('Try it free') > -1) track('cta_try_free');
+    else if (a.textContent.indexOf('GitHub') > -1) track('cta_github');
+    else if (a.href && a.href.indexOf('#risk-calculator') > -1) track('cta_risk_calc');
+  });
+})();
+</script>
 </head>
 <body>
 
 <div class="hero">
   <div class="container">
+    <div class="as-seen" style="margin-bottom:16px;font-size:13px;opacity:0.75">
+      As featured on: <strong>Dev.to</strong> · <strong>OpenClaw #42475</strong> · <strong>GitHub</strong>
+    </div>
     <h1>Stop AI Agents From <span>Burning Your Budget</span></h1>
     <p>A firewall for autonomous AI agent spending. 7 composable rules, evaluated per-transaction in under 1ms. Python stdlib only — zero dependencies.</p>
-    <a href="#risk-calculator" class="cta-btn">Check Your Risk →</a>
+    <a href="#risk-calculator" class="cta-btn">Try it free →</a>
+    <a href="https://github.com/kindrat86/agentshield" class="cta-btn" style="background:transparent;border:1px solid currentColor;margin-left:12px">View on GitHub →</a>
   </div>
 </div>
+
+<section class="social-proof" style="padding:32px 0;text-align:center">
+  <div class="container">
+    <div class="stats-row" style="display:flex;justify-content:center;gap:48px;flex-wrap:wrap">
+      <div class="stat"><strong style="font-size:28px">50/50</strong><br/><span style="font-size:13px;opacity:0.7">Eval scenarios passing</span></div>
+      <div class="stat"><strong style="font-size:28px">&lt;1ms</strong><br/><span style="font-size:13px;opacity:0.7">Per-transaction eval</span></div>
+      <div class="stat"><strong style="font-size:28px">7</strong><br/><span style="font-size:13px;opacity:0.7">Composable rule types</span></div>
+      <div class="stat"><strong style="font-size:28px">0</strong><br/><span style="font-size:13px;opacity:0.7">Pip dependencies</span></div>
+    </div>
+  </div>
+</section>
 
 <section class="problem">
   <div class="container">
