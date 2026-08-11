@@ -224,6 +224,18 @@ class APIHandler(BaseHTTPRequestHandler):
                 self._serve_file(os.path.join(self.public_dir, 'comparisons', 'helicone.html'))
             elif path == '/comparisons/langsmith':
                 self._serve_file(os.path.join(self.public_dir, 'comparisons', 'langsmith.html'))
+            elif path == '/comparisons/portkey':
+                self._serve_file(os.path.join(self.public_dir, 'comparisons', 'portkey.html'))
+            elif path == '/comparisons/braintrust':
+                self._serve_file(os.path.join(self.public_dir, 'comparisons', 'braintrust.html'))
+            elif path == '/comparisons/agentops':
+                self._serve_file(os.path.join(self.public_dir, 'comparisons', 'agentops.html'))
+            elif path == '/comparisons/langfuse':
+                self._serve_file(os.path.join(self.public_dir, 'comparisons', 'langfuse.html'))
+            elif path == '/comparisons/wandb':
+                self._serve_file(os.path.join(self.public_dir, 'comparisons', 'wandb.html'))
+            elif path == '/comparisons/galileo':
+                self._serve_file(os.path.join(self.public_dir, 'comparisons', 'galileo.html'))
             elif path == '/eval-gym-spec':
                 self._serve_file(os.path.join(self.public_dir, 'eval-gym-spec.html'))
             elif path == '/blog/zeroclaw-preflight-enforcement' or path == '/blog/how-zeroclaw-implemented-preflight-enforcement':
@@ -876,7 +888,7 @@ class APIHandler(BaseHTTPRequestHandler):
             # Wrap in SEO-optimized HTML with Open Graph tags and JSON-LD schema
             import html as html_module
             title = "At 3 AM, My AI Agent Spent $2,800 in 60 Seconds — Here's What I Built"
-            description = "How I built AgentShield: a Python stdlib-only firewall for AI agent spending. 7 composable rules, evaluated per-transaction in under 1ms. 50/50 eval gym."
+            description = "How I built AgentShield: a Python stdlib-only firewall for AI agent spending. Composable spend rules evaluated per-transaction in under 1ms. 56/56 eval gym."
             url = "https://agentshield.fly.dev/blog"
             
             # Simple markdown to HTML conversion for body
