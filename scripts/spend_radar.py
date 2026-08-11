@@ -93,7 +93,7 @@ def build_report(results: list) -> str:
         lines.append(f"📅 {created}")
         lines.append(f"🔗 {url}")
         lines.append(f"💬 Draft comment:")
-        lines.append(f"  {draft[:200]}...")
+        lines.append(f"  {draft}")
         lines.append("")
 
     lines.append("→ Post manually from your GitHub account. Do NOT automate.")
