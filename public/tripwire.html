@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgentShield Starter Kit — $7 (Normally $97)</title>
+<style>
+:root{--bg:#0a0a0a;--surface:#141414;--surface2:#1a1a1a;--accent:#00d4aa;--danger:#ff4757;--text:#e8e8e8;--muted:#888;--border:#2a2a2a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.7}
+.container{max-width:600px;margin:0 auto;padding:40px 20px}
+.headline{text-align:center;font-size:2em;line-height:1.3;margin-bottom:8px}
+.headline strong{color:var(--accent)}
+.urgency{text-align:center;color:var(--danger);font-weight:600;margin:16px 0 32px;font-size:1.1em}
+.stack{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;margin:24px 0}
+.stack-item{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);font-size:1.05em}
+.stack-item .name{flex:1}
+.stack-item .value{text-decoration:line-through;color:var(--muted)}
+.stack-total{display:flex;justify-content:space-between;padding:16px 0 8px;font-size:1.2em;font-weight:700}
+.stack-total .value{text-decoration:line-through;color:var(--danger)}
+.price-tag{text-align:center;margin:24px 0}
+.price-tag .amount{font-size:4em;font-weight:900;color:var(--accent)}
+.price-tag .period{font-size:0.4em;color:var(--muted)}
+.guarantee{text-align:center;background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:8px;padding:20px;margin:24px 0}
+.cta-btn{display:block;text-align:center;padding:20px;background:linear-gradient(135deg,var(--accent),#00b894);color:#000;border:none;border-radius:12px;font-weight:800;font-size:1.3em;text-decoration:none;margin:24px 0;transition:transform .2s}
+.cta-btn:hover{transform:translateY(-2px)}
+.decline{text-align:center;margin:32px 0}
+.decline a{color:var(--muted);font-size:0.95em;text-decoration:none}
+.decline a:hover{color:var(--text)}
+.contents-list{background:var(--surface2);border-radius:8px;padding:24px;margin:24px 0}
+.contents-list h3{color:var(--accent);margin-bottom:12px}
+.contents-list ul{list-style:none;padding:0}
+.contents-list li{padding:8px 0;padding-left:28px;position:relative}
+.contents-list li:before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:bold}
+footer{text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:40px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="headline">Get the Complete AgentShield <strong>Starter Kit</strong> for <strong>$7</strong></h1>
+<p class="urgency">⚠️ Normally $97 — this price is ONLY available right now. Leave this page and it's $97.</p>
+
+<div class="contents-list">
+<h3>What's Inside:</h3>
+<ul>
+<li>Pre-configured rule templates for OpenAI, Anthropic, and LangChain (import-ready JSON)</li>
+<li>The $2,800 Post-Mortem Playbook — the exact rules that would have prevented it</li>
+<li>Rule-Tuning Checklist by Agent Type (cron agents, chatbots, research agents, multi-tool)</li>
+<li>30-Minute Setup Walkthrough (text-based, step-by-step)</li>
+<li>Copy of the 56-Scenario Eval Gym (MIT licensed test suite)</li>
+</ul>
+</div>
+
+<div class="stack">
+<div class="stack-item"><span class="name">Rule Template Pack (OpenAI + Anthropic + LangChain configs)</span><span class="value">$47</span></div>
+<div class="stack-item"><span class="name">The $2,800 Post-Mortem Playbook</span><span class="value">$27</span></div>
+<div class="stack-item"><span class="name">Rule-Tuning Checklist by Agent Type</span><span class="value">$17</span></div>
+<div class="stack-item"><span class="name">30-Minute Setup Walkthrough</span><span class="value">$6</span></div>
+<div class="stack-total"><span>Total Real Value</span><span class="value">$97</span></div>
+</div>
+
+<div class="price-tag">
+<div class="amount">$7<span class="period"> one-time</span></div>
+</div>
+
+<a href="/api/billing/checkout" class="cta-btn" onclick="fetch('/api/billing/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tier:'tripwire'})}).then(r=>r.json()).then(d=>{if(d.url)location.href=d.url;else if(d.checkout_url)location.href=d.checkout_url;else alert('Redirecting to checkout...')}).catch(e=>alert('Please log in first at /auth'));return false">Get the Starter Kit for $7 →</a>
+
+<div class="guarantee">
+<strong style="color:var(--accent)"> ironclad guarantee:</strong><br>
+If the starter kit doesn't save you $7 in the first week, email me and I'll refund you. <strong>Keep the kit.</strong>
+</div>
+
+<a href="/#pricing" class="cta-btn" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-size:1em;padding:14px">No thanks, I'll pay full price later →</a>
+
+<footer>
+AgentShield — The Safety Layer for Autonomous AI Agents<br>
+<a href="/" style="color:var(--accent)">Home</a> · <a href="/the-2800-story" style="color:var(--accent)">The $2,800 Story</a> · <a href="https://github.com/kindrat86/agentshield" style="color:var(--accent)">GitHub</a>
+</footer>
+</div>
+</body>
+</html>

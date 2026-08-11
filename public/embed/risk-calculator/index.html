@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>AI Agent Spend Risk Calculator — AgentShield</title>
+<style>
+:root { --bg: #0a0a0a; --surface: #141414; --surface2: #1a1a1a; --border: #2a2a2a; --accent: #00d4aa; --text: #e8e8e8; --muted: #888; --warn: #ffa502; --danger: #ff4757; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: transparent; color: var(--text); line-height: 1.5; font-size: 14px; padding: 16px; }
+h2 { font-size: 1.1em; margin-bottom: 6px; }
+.subtitle { color: var(--muted); margin-bottom: 16px; font-size: 0.85em; }
+.tool { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+.form-row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+.form-group { flex: 1; min-width: 120px; }
+.form-group label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 0.8em; color: var(--muted); }
+.form-group input { width: 100%; padding: 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-size: 0.95em; }
+.form-group input:focus { outline: none; border-color: var(--accent); }
+.toggle { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.85em; }
+.toggle input { width: 16px; height: 16px; accent-color: var(--accent); }
+.btn { display: block; width: 100%; padding: 12px; background: var(--accent); color: #000; border: none; border-radius: 6px; font-weight: 700; font-size: 0.95em; cursor: pointer; }
+.btn:hover { opacity: 0.9; }
+.results { margin-top: 16px; display: none; }
+.results.show { display: block; }
+.result-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 10px; }
+.gauge { text-align: center; padding: 12px 0; }
+.gauge .score { font-size: 2.8em; font-weight: 800; line-height: 1; }
+.gauge .label { font-size: 0.85em; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.1em; }
+.metric-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 0.85em; }
+.metric-row:last-child { border-bottom: none; }
+.metric-label { color: var(--muted); }
+.metric-val { font-weight: 700; }
+.config-box { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 10px; margin-top: 8px; overflow-x: auto; font-size: 0.75em; }
+.config-box code { white-space: pre; }
+.attribution { text-align: center; margin-top: 14px; font-size: 0.75em; color: var(--muted); }
+.attribution a { color: var(--accent); text-decoration: none; }
+.share-row { display: flex; gap: 6px; margin-top: 8px; }
+.share-row textarea { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); padding: 6px; font-size: 0.75em; resize: none; height: 36px; }
+.share-btn { padding: 6px 12px; background: var(--accent); color: #000; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.8em; white-space: nowrap; }
+</style>
+</head>
+<body>
+<h2>AI Agent Spend Risk Calculator</h2>
+<p class="subtitle">See your financial exposure in real time — all browser-side, nothing leaves your machine.</p>
+<div class="tool">
+  <div class="form-row">
+    <div class="form-group"><label>AI Agents</label><input type="number" id="agents" value="3" min="0"></div>
+    <div class="form-group"><label>Avg TX Amount ($)</label><input type="number" id="amount" value="0.50" min="0" step="0.01"></div>
+    <div class="form-group"><label>TX/Hour/Agent</label><input type="number" id="freq" value="20" min="0"></div>
+    <div class="form-group"><label>Monthly Budget ($)</label><input type="number" id="budget" value="500" min="0"></div>
+  </div>
+  <div class="toggle"><input type="checkbox" id="always-on" checked><label for="always-on">Agents run 24/7</label></div>
+  <button class="btn" onclick="calculate()">Calculate My Risk Score</button>
+</div>
+<div class="results" id="results">
+  <div class="result-card"><div class="gauge"><div class="score" id="score">—</div><div class="label" id="score-label">Risk Score</div></div></div>
+  <div class="result-card">
+    <div class="metric-row"><span class="metric-label">Projected monthly</span><span class="metric-val" id="monthly-cost">—</span></div>
+    <div class="metric-row"><span class="metric-label">Worst-case daily</span><span class="metric-val" id="worst-daily" style="color:var(--danger)">—</span></div>
+    <div class="metric-row"><span class="metric-label">Monthly overage</span><span class="metric-val" id="overage">—</span></div>
+  </div>
+  <div class="result-card"><strong style="font-size:0.85em">Recommended Rules</strong><div class="config-box"><code id="config-json"></code></div></div>
+  <div class="share-row"><textarea id="share-text" rows="1" readonly></textarea><button class="share-btn" onclick="copyShare()">Copy</button></div>
+</div>
+<div class="attribution">Powered by <a href="https://agentshield.fly.dev" target="_blank" rel="noopener">AgentShield</a> — Safety Layer for AI Agents</div>
+<script>
+function calculate() {
+  const agents = parseFloat(document.getElementById('agents').value) || 0;
+  const amount = parseFloat(document.getElementById('amount').value) || 0;
+  const freq = parseFloat(document.getElementById('freq').value) || 0;
+  const budget = parseFloat(document.getElementById('budget').value) || 0;
+  const alwaysOn = document.getElementById('always-on').checked;
+  const hoursPerDay = alwaysOn ? 24 : 8;
+  const daysPerMonth = 30;
+  const monthlyCost = agents * amount * freq * hoursPerDay * daysPerMonth;
+  const worstDaily = agents * amount * freq * hoursPerDay * 10;
+  const overage = Math.max(0, monthlyCost - budget);
+  let score = 0;
+  if (budget > 0) score += Math.min(60, (monthlyCost / budget) * 30);
+  score += Math.min(25, (agents * freq * amount) / 10);
+  score += Math.min(15, worstDaily / Math.max(1, budget) * 5);
+  score = Math.min(100, Math.round(score));
+  const sc = document.getElementById('score'), sl = document.getElementById('score-label');
+  sc.textContent = score + '/100';
+  if (score < 33) { sc.style.color = '#00d4aa'; sl.textContent = 'LOW RISK'; }
+  else if (score < 66) { sc.style.color = '#ffa502'; sl.textContent = 'MODERATE RISK'; }
+  else { sc.style.color = '#ff4757'; sl.textContent = 'HIGH RISK'; }
+  document.getElementById('monthly-cost').textContent = '$' + monthlyCost.toFixed(2);
+  document.getElementById('worst-daily').textContent = '$' + worstDaily.toFixed(2);
+  const ov = document.getElementById('overage'); ov.textContent = '$' + overage.toFixed(2);
+  ov.style.color = overage > 0 ? '#ff4757' : '#00d4aa';
+  const rules = [];
+  if (amount > 0) rules.push({id:"rule_001",type:"transaction_limit",priority:1,params:{max_amount:+(amount*5).toFixed(2)},action:"BLOCK"});
+  if (budget > 0 && agents > 0) rules.push({id:"rule_002",type:"daily_total",priority:2,params:{max_daily:+((budget/30)*0.8).toFixed(2)},action:"BLOCK"});
+  if (freq > 0) rules.push({id:"rule_003",type:"velocity",priority:3,params:{window_minutes:60,max_count:Math.ceil(freq*1.5)},action:"FLAGGED"});
+  rules.push({id:"rule_004",type:"merchant_allowlist",priority:4,params:{allowed:["openai-api","anthropic-api","stripe-api"]},action:"BLOCK"});
+  document.getElementById('config-json').textContent = JSON.stringify(rules, null, 2);
+  document.getElementById('share-text').value = 'My AI agent spend risk score: ' + score + '/100. Projected: $' + monthlyCost.toFixed(2) + '/mo. Check yours: agentshield.fly.dev/tools/risk-calculator';
+  document.getElementById('results').classList.add('show');
+}
+function copyShare() {
+  const ta = document.getElementById('share-text'); ta.select();
+  navigator.clipboard.writeText(ta.value).then(() => { const b = document.querySelector('.share-btn'); const o = b.textContent; b.textContent = 'Copied!'; setTimeout(() => b.textContent = o, 2000); });
+}
+</script>
+</body>
+</html>

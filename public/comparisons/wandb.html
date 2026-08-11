@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgentShield vs Weights & Biases: Spend Control vs ML Experiment Tracking</title>
+<meta name="description" content="W&B tracks ML experiments. AgentShield blocks runaway AI agent spending. Experiment tracking vs production guardrails — different stages, complementary tools.">
+<style>
+:root { --bg:#0a0a0a; --surface:#141414; --accent:#00d4aa; --text:#e8e8e8; --muted:#888; --danger:#ff4757; --green:#22c55e; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+h1 { font-size:2.2em; margin-bottom:8px; }
+h2 { font-size:1.4em; margin:32px 0 12px; color:var(--accent); }
+h3 { margin:20px 0 8px; }
+p { margin-bottom:12px; color:#ccc; }
+.nav { background:var(--surface); padding:12px 24px; display:flex; justify-content:space-between; align-items:center; }
+.nav a { color:var(--accent); text-decoration:none; }
+.cta { display:inline-block; background:var(--accent); color:#0a0a0a; padding:12px 28px; border-radius:8px; text-decoration:none; font-weight:700; margin:16px 0; }
+table { width:100%; border-collapse:collapse; margin:20px 0; }
+th,td { padding:12px 16px; text-align:left; border-bottom:1px solid #2a2a2a; }
+th { background:var(--surface); color:var(--accent); font-size:0.9em; text-transform:uppercase; }
+.feature-check { color:var(--green); font-size:1.2em; }
+.feature-x { color:var(--danger); font-size:1.2em; }
+.callout { background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.3); border-radius:8px; padding:20px; margin:24px 0; }
+.footer { text-align:center; padding:32px; color:var(--muted); font-size:0.85em; }
+</style>
+</head>
+<body>
+<nav class="nav">
+<a href="https://agentshield.fly.dev">🛡️ AgentShield</a>
+<a href="/">Home</a>
+</nav>
+<div class="container">
+<h1>AgentShield vs Weights & Biases: Spend Control vs ML Experiment Tracking</h1>
+<p style="font-size:1.1em;color:var(--muted);margin-bottom:32px">W&B tracks ML experiments. AgentShield blocks runaway AI agent spending. Experiment tracking vs production guardrails — different stages, complementary tools.</p>
+
+<h2>What Weights & Biases Does</h2>
+<p>Weights & Biases is the leading ML experiment tracking and model monitoring platform. It logs training runs, tracks hyperparameters, visualizes metrics, and provides model registry and evaluation tools.</p>
+
+<h2>What AgentShield Does</h2>
+<p>AgentShield operates at a different layer: production API call enforcement. When your trained model or agent is making real API calls that cost real money, AgentShield ensures costs stay within budget.</p>
+
+<h2>Feature Comparison</h2>
+<table>
+<thead><tr><th>Capability</th><th>AgentShield</th><th>Weights & Biases</th></tr></thead>
+<tbody>
+<tr><td>Blocks transactions before execution</td><td><span class="feature-check">✅ <1ms eval</span></td><td><span class="feature-x">❌ Not a firewall</span></td></tr>
+<tr><td>Transaction limit rules</td><td><span class="feature-check">✅ Per-call caps</span></td><td><span class="feature-x">❌ Not applicable</span></td></tr>
+<tr><td>Daily spend caps</td><td><span class="feature-check">✅ Per-agent caps</span></td><td><span class="feature-x">❌ Usage tracking only</span></td></tr>
+<tr><td>Experiment tracking</td><td><span class="feature-check">❌ Runtime enforcement</span></td><td><span class="feature-x">✅ Core feature</span></td></tr>
+<tr><td>Model registry</td><td><span class="feature-check">❌ Not an ML platform</span></td><td><span class="feature-x">✅ Full registry</span></td></tr>
+<tr><td>Training visualization</td><td><span class="feature-check">❌ Not a viz tool</span></td><td><span class="feature-x">✅ Rich dashboards</span></td></tr>
+<tr><td>API cost enforcement</td><td><span class="feature-check">✅ Core feature</span></td><td><span class="feature-x">❌ Not available</span></td></tr>
+<tr><td>Zero dependencies</td><td><span class="feature-check">✅ Python stdlib only</span></td><td><span class="feature-x">❌ Requires SDK</span></td></tr>
+
+</tbody>
+</table>
+
+<h2>When to Use Weights & Biases</h2>
+<ul style="color:#ccc;margin-bottom:20px;padding-left:20px">
+<li>You are training models and need experiment tracking</li><li>You want hyperparameter optimization and visualization</li><li>Model registry and versioning is your priority</li>
+</ul>
+
+<h2>When to Use AgentShield</h2>
+<ul style="color:#ccc;margin-bottom:20px;padding-left:20px">
+<li>Your AI agents are in production incurring API costs</li><li>You need spend limits that block, not just track</li><li>You want per-agent, per-merchant budget controls</li>
+</ul>
+
+<h2>Use Both Together</h2>
+<p>Track training experiments with W&B. Protect production spend with AgentShield. Different stages of the ML lifecycle.</p>
+<div class="callout">
+<h2 style="margin-top:0">The $2,800 Test</h2>
+<p>If an AI agent makes 21 API calls at $133 each in 60 seconds at 3 AM:</p>
+<p><strong style="color:var(--danger)">Weights & Biases</strong> logs it. You see the damage in the morning dashboard.</p>
+<p><strong style="color:var(--accent)">AgentShield</strong> blocks it in under 1ms. The agent never spends the money.</p>
+<p style="margin-top:12px"><strong>Prevention costs $19/month. A single runaway agent costs $2,800 in 60 seconds.</strong></p>
+<a href="/dashboard" class="cta">Start 14-Day Free Trial →</a>
+</div>
+</div>
+<footer class="footer">AgentShield — The Safety Layer for Autonomous AI Agents. <a href="/" style="color:var(--accent)">Home</a> · <a href="/comparisons/helicone" style="color:var(--muted)">vs Helicone</a> · <a href="/comparisons/langsmith" style="color:var(--muted)">vs LangSmith</a></footer>
+</body>
+</html>

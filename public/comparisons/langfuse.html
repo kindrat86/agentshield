@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgentShield vs LangFuse: Enforcement vs LLM Tracing</title>
+<meta name="description" content="LangFuse traces LLM calls. AgentShield blocks runaway spending before it happens. Tracing vs prevention — see why you need both for production AI agents.">
+<style>
+:root { --bg:#0a0a0a; --surface:#141414; --accent:#00d4aa; --text:#e8e8e8; --muted:#888; --danger:#ff4757; --green:#22c55e; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+h1 { font-size:2.2em; margin-bottom:8px; }
+h2 { font-size:1.4em; margin:32px 0 12px; color:var(--accent); }
+h3 { margin:20px 0 8px; }
+p { margin-bottom:12px; color:#ccc; }
+.nav { background:var(--surface); padding:12px 24px; display:flex; justify-content:space-between; align-items:center; }
+.nav a { color:var(--accent); text-decoration:none; }
+.cta { display:inline-block; background:var(--accent); color:#0a0a0a; padding:12px 28px; border-radius:8px; text-decoration:none; font-weight:700; margin:16px 0; }
+table { width:100%; border-collapse:collapse; margin:20px 0; }
+th,td { padding:12px 16px; text-align:left; border-bottom:1px solid #2a2a2a; }
+th { background:var(--surface); color:var(--accent); font-size:0.9em; text-transform:uppercase; }
+.feature-check { color:var(--green); font-size:1.2em; }
+.feature-x { color:var(--danger); font-size:1.2em; }
+.callout { background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.3); border-radius:8px; padding:20px; margin:24px 0; }
+.footer { text-align:center; padding:32px; color:var(--muted); font-size:0.85em; }
+</style>
+</head>
+<body>
+<nav class="nav">
+<a href="https://agentshield.fly.dev">🛡️ AgentShield</a>
+<a href="/">Home</a>
+</nav>
+<div class="container">
+<h1>AgentShield vs LangFuse: Enforcement vs LLM Tracing</h1>
+<p style="font-size:1.1em;color:var(--muted);margin-bottom:32px">LangFuse traces LLM calls. AgentShield blocks runaway spending before it happens. Tracing vs prevention — see why you need both for production AI agents.</p>
+
+<h2>What LangFuse Does</h2>
+<p>LangFuse is an open-source LLM observability platform. It captures traces, tracks token usage, scores outputs, and provides cost analytics. It's widely used for debugging LLM pipelines and understanding cost patterns.</p>
+
+<h2>What AgentShield Does</h2>
+<p>AgentShield is not an observability tool. It's an enforcement engine that evaluates each transaction against spend rules BEFORE the API call executes. We prevent bad transactions; we don't just log them.</p>
+
+<h2>Feature Comparison</h2>
+<table>
+<thead><tr><th>Capability</th><th>AgentShield</th><th>LangFuse</th></tr></thead>
+<tbody>
+<tr><td>Blocks transactions before execution</td><td><span class="feature-check">✅ <1ms eval</span></td><td><span class="feature-x">❌ Logs after execution</span></td></tr>
+<tr><td>Transaction limit rules</td><td><span class="feature-check">✅ Per-call caps</span></td><td><span class="feature-x">❌ Cost tracking only</span></td></tr>
+<tr><td>Daily spend caps</td><td><span class="feature-check">✅ Per-agent enforcement</span></td><td><span class="feature-x">❌ Budget alerts only</span></td></tr>
+<tr><td>Velocity detection</td><td><span class="feature-check">✅ Rolling window</span></td><td><span class="feature-x">❌ Not available</span></td></tr>
+<tr><td>LLM trace / span capture</td><td><span class="feature-check">❌ Not a tracing tool</span></td><td><span class="feature-x">✅ Core feature</span></td></tr>
+<tr><td>Token-level cost analytics</td><td><span class="feature-check">✅ Decision audit trail</span></td><td><span class="feature-x">✅ Detailed breakdown</span></td></tr>
+<tr><td>Open source</td><td><span class="feature-check">✅ MIT license</span></td><td><span class="feature-x">✅ MIT license</span></td></tr>
+<tr><td>Zero dependencies</td><td><span class="feature-check">✅ Python stdlib only</span></td><td><span class="feature-x">❌ Requires SDK + infra</span></td></tr>
+<tr><td>Self-hostable</td><td><span class="feature-check">✅ 60-second Docker deploy</span></td><td><span class="feature-x">✅ Docker Compose</span></td></tr>
+
+</tbody>
+</table>
+
+<h2>When to Use LangFuse</h2>
+<ul style="color:#ccc;margin-bottom:20px;padding-left:20px">
+<li>You need detailed LLM call tracing and debugging</li><li>You want per-token cost analytics and dashboards</li><li>Quality scoring and evaluation of LLM outputs matters to you</li>
+</ul>
+
+<h2>When to Use AgentShield</h2>
+<ul style="color:#ccc;margin-bottom:20px;padding-left:20px">
+<li>You need hard financial limits, not cost analytics</li><li>You run autonomous agents that could trigger retry storms</li><li>Prevention is more important to you than post-hoc analysis</li>
+</ul>
+
+<h2>Use Both Together</h2>
+<p>Trace calls with LangFuse. Enforce limits with AgentShield. One tells you what happened; the other prevents it from happening.</p>
+<div class="callout">
+<h2 style="margin-top:0">The $2,800 Test</h2>
+<p>If an AI agent makes 21 API calls at $133 each in 60 seconds at 3 AM:</p>
+<p><strong style="color:var(--danger)">LangFuse</strong> logs it. You see the damage in the morning dashboard.</p>
+<p><strong style="color:var(--accent)">AgentShield</strong> blocks it in under 1ms. The agent never spends the money.</p>
+<p style="margin-top:12px"><strong>Prevention costs $19/month. A single runaway agent costs $2,800 in 60 seconds.</strong></p>
+<a href="/dashboard" class="cta">Start 14-Day Free Trial →</a>
+</div>
+</div>
+<footer class="footer">AgentShield — The Safety Layer for Autonomous AI Agents. <a href="/" style="color:var(--accent)">Home</a> · <a href="/comparisons/helicone" style="color:var(--muted)">vs Helicone</a> · <a href="/comparisons/langsmith" style="color:var(--muted)">vs LangSmith</a></footer>
+</body>
+</html>

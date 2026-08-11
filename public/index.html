@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AgentShield — Safety Layer for Autonomous AI Agents</title>
-<meta name="description" content="The safety layer for autonomous AI agents. 7 composable rules + emergency kill switch, evaluated per-transaction in under 1ms. No dependencies beyond Python 3 stdlib.">
+<meta name="description" content="The safety layer for autonomous AI agents. 9 composable rules + emergency kill switch, evaluated per-transaction in under 1ms. No dependencies beyond Python 3 stdlib.">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="AgentShield — Safety Layer for Autonomous AI Agents">
-<meta property="og:description" content="The safety layer for autonomous AI agents. 7 composable rules + kill switch, evaluated per-transaction in under 1ms. Python stdlib only — zero dependencies.">
+<meta property="og:description" content="The safety layer for autonomous AI agents. 9 composable rules + kill switch, evaluated per-transaction in under 1ms. Python stdlib only — zero dependencies.">
 <meta property="og:url" content="https://agentshield.fly.dev">
 <meta property="og:site_name" content="AgentShield">
 <!-- Twitter Card -->
@@ -47,7 +47,7 @@ a { color: var(--accent); text-decoration: none; }
 .hero { padding: 80px 0 60px; text-align: center; }
 .hero h1 { font-size: 2.8em; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.03em; }
 .hero h1 span { color: var(--accent); }
-.hero p { font-size: 1.2em; color: var(--muted); max-width: 600px; margin: 0 auto 32px; }
+.hero p { font-size: 1.2em; color: var(--muted); max-width: 680px; margin: 0 auto 32px; }
 .cta-btn { display: inline-block; padding: 16px 36px; background: var(--accent); color: #000; border-radius: 8px; font-weight: 700; font-size: 1.1em; transition: transform .15s; }
 .cta-btn:hover { transform: translateY(-2px); }
 
@@ -67,6 +67,23 @@ a { color: var(--accent); text-decoration: none; }
 .compare .old li::before { content: "✗"; color: var(--danger); }
 .compare .new li::before { content: "✓"; color: var(--accent); }
 
+/* False Beliefs */
+.false-beliefs { padding: 60px 0; }
+.false-beliefs h2 { text-align: center; font-size: 2em; margin-bottom: 40px; }
+.belief-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.belief-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+.belief-card .lie { font-size: 1.1em; font-weight: 700; color: var(--danger); margin-bottom: 12px; }
+.belief-card .desc { color: var(--muted); font-size: 0.95em; margin-bottom: 16px; }
+.belief-card .truth { background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.3); border-radius: 8px; padding: 14px; font-size: 0.9em; }
+.belief-card .truth strong { color: var(--accent); }
+
+/* Epiphany */
+.epiphany { padding: 80px 0; background: #050505; }
+.epiphany .quote { max-width: 720px; margin: 0 auto; text-align: center; }
+.epiphany .quote p { font-size: 1.25em; color: var(--text); margin-bottom: 18px; line-height: 1.7; }
+.epiphany .quote .key { font-size: 1.45em; font-weight: 800; color: var(--danger); }
+.epiphany .quote .resolve { font-size: 1.35em; font-weight: 800; color: var(--accent); margin-top: 24px; }
+
 /* How it works */
 .how { padding: 60px 0; }
 .how h2 { text-align: center; font-size: 2em; margin-bottom: 40px; }
@@ -75,6 +92,19 @@ a { color: var(--accent); text-decoration: none; }
 .step .num { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); color: #000; font-size: 1.5em; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
 .step h3 { margin-bottom: 8px; }
 .step p { color: var(--muted); font-size: 0.95em; }
+
+/* Named Framework */
+.framework { padding: 60px 0; background: var(--surface); }
+.framework h2 { text-align: center; font-size: 2em; margin-bottom: 40px; }
+.framework h2 span { color: var(--accent); }
+.framework-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 32px; }
+.framework-col { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; }
+.framework-col .icon { font-size: 2.5em; margin-bottom: 12px; }
+.framework-col h3 { font-size: 1.3em; margin-bottom: 8px; }
+.framework-col p { color: var(--muted); font-size: 0.95em; }
+.framework .bottom-line { text-align: center; font-size: 1.1em; color: var(--text); max-width: 800px; margin: 0 auto; }
+.framework .bottom-line strong { color: var(--danger); }
+.framework .bottom-line .green { color: var(--accent); }
 
 /* Risk Calculator */
 .risk-calc { padding: 60px 0; background: var(--surface); }
@@ -92,6 +122,20 @@ a { color: var(--accent); text-decoration: none; }
 .score-label { color: var(--muted); font-size: 0.9em; }
 .overage { font-size: 1.4em; margin-top: 12px; }
 
+/* Value Stack */
+.value-stack { padding: 60px 0; }
+.value-stack h2 { text-align: center; font-size: 2em; margin-bottom: 32px; }
+.value-table { max-width: 640px; margin: 0 auto 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.value-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-bottom: 1px solid var(--border); }
+.value-row:last-child { border-bottom: none; }
+.value-row .item { color: var(--text); font-size: 1em; }
+.value-row .val { color: var(--muted); font-size: 1em; }
+.value-row .val s { color: var(--danger); }
+.value-total { max-width: 640px; margin: 0 auto 32px; display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; background: var(--surface2); border: 2px solid var(--accent); border-radius: 12px; }
+.value-total .label { font-size: 1.15em; font-weight: 700; color: var(--text); }
+.value-total .price-final { font-size: 1.8em; font-weight: 800; color: var(--accent); }
+.value-total .price-final s { font-size: 0.6em; color: var(--danger); font-weight: 400; }
+
 /* Pricing */
 .pricing { padding: 60px 0; }
 .pricing h2 { text-align: center; font-size: 2em; margin-bottom: 40px; }
@@ -106,6 +150,33 @@ a { color: var(--accent); text-decoration: none; }
 .price-card li { padding: 4px 0; color: var(--muted); font-size: 0.88em; }
 .price-card li::before { content: "✓ "; color: var(--accent); }
 
+/* Founder */
+.founder { padding: 60px 0; background: var(--surface); }
+.founder .bio { max-width: 680px; margin: 0 auto; text-align: center; }
+.founder .bio p { font-size: 1.1em; color: var(--text); margin-bottom: 16px; }
+.founder .bio .small { color: var(--muted); font-size: 0.95em; }
+.founder .bio a { font-weight: 600; }
+
+/* FAQ */
+.faq { padding: 60px 0; }
+.faq h2 { text-align: center; font-size: 2em; margin-bottom: 40px; }
+.faq-item { max-width: 760px; margin: 0 auto 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; }
+.faq-item .q { font-size: 1.1em; font-weight: 700; color: var(--text); margin-bottom: 8px; cursor: pointer; }
+.faq-item .a { color: var(--muted); font-size: 0.98em; }
+
+/* Two Futures */
+.two-futures { padding: 80px 0; background: var(--surface); }
+.two-futures h2 { text-align: center; font-size: 2em; margin-bottom: 40px; }
+.futures-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; margin: 0 auto 40px; }
+.futures-col { padding: 32px; border-radius: 12px; }
+.futures-col .without { background: rgba(255,71,87,0.08); border: 1px solid rgba(255,71,87,0.3); }
+.futures-col .with { background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.3); }
+.futures-col h3 { font-size: 1.3em; margin-bottom: 16px; }
+.futures-col .without h3 { color: var(--danger); }
+.futures-col .with h3 { color: var(--accent); }
+.futures-col ul { list-style: none; }
+.futures-col li { padding: 6px 0; color: var(--muted); font-size: 0.98em; }
+
 /* Email capture */
 .capture { padding: 60px 0; background: var(--surface); text-align: center; }
 .capture h2 { font-size: 2em; margin-bottom: 12px; }
@@ -116,9 +187,18 @@ a { color: var(--accent); text-decoration: none; }
 
 footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.85em; border-top: 1px solid var(--border); }
 
+/* Exit-intent popup */
+.exit-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; }
+.exit-overlay.show { display: flex; }
+.exit-box { background: var(--surface); border: 2px solid var(--accent); border-radius: 16px; padding: 40px; max-width: 460px; text-align: center; margin: 20px; }
+.exit-box h3 { font-size: 1.6em; margin-bottom: 12px; color: var(--text); }
+.exit-box p { color: var(--muted); margin-bottom: 24px; }
+.exit-box .price-tag { font-size: 2.5em; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
+.exit-close { position: absolute; top: 20px; right: 24px; background: none; border: none; color: var(--muted); font-size: 1.8em; cursor: pointer; }
+
 @media (max-width: 768px) {
-  .steps, .price-grid { grid-template-columns: 1fr; }
-  .compare { grid-template-columns: 1fr; }
+  .steps, .price-grid, .belief-grid, .framework-grid { grid-template-columns: 1fr; }
+  .compare, .futures-grid { grid-template-columns: 1fr; }
   .capture-form { flex-direction: column; }
   .hero h1 { font-size: 2em; }
 }
@@ -157,9 +237,9 @@ footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.
       As featured on: <strong>Dev.to</strong> · <strong>OpenClaw #42475</strong> · <strong>GitHub</strong>
     </div>
     <h1>The Safety Layer for <span>Autonomous AI Agents</span></h1>
-    <p>AgentShield evaluates every API call against your budget rules in under 1ms — BEFORE it executes. 7 composable rules + emergency kill switch. Pure Python stdlib, zero dependencies. <a href="/the-2800-story" style="color:var(--accent)">Read the $2,800 story →</a></p>
-    <a href="#risk-calculator" class="cta-btn">Check Your Risk Score (30 sec) &rarr;</a>
-    <a href="/audit" class="cta-btn" style="background:transparent;border:1px solid var(--accent);color:var(--accent);margin-left:12px">Get $299 Audit →</a>
+    <p>Last month, an autonomous agent spent $2,800 in 60 seconds — while its developer slept. AgentShield evaluates every API call against your rules in under 1ms, BEFORE it executes. 9 composable rules. Zero dependencies. One kill switch.</p>
+    <a href="#risk-calculator" class="cta-btn">Calculate Your Risk Score (30 sec, no signup) &rarr;</a>
+    <a href="/the-2800-story" class="cta-btn" style="background:transparent;border:1px solid var(--accent);color:var(--accent);margin-left:12px">Read the $2,800 Story &rarr;</a>
   </div>
 </div>
 
@@ -170,6 +250,29 @@ footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.
       <div class="stat"><strong style="font-size:28px">&lt;1ms</strong><br/><span style="font-size:13px;opacity:0.7">Per-transaction eval</span></div>
       <div class="stat"><strong style="font-size:28px">9</strong><br/><span style="font-size:13px;opacity:0.7">Enforcement rule types</span></div>
       <div class="stat"><strong style="font-size:28px">0</strong><br/><span style="font-size:13px;opacity:0.7">Pip dependencies</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="false-beliefs">
+  <div class="container">
+    <h2>What You Believe vs. What's True</h2>
+    <div class="belief-grid">
+      <div class="belief-card">
+        <div class="lie">❌ "API rate limits already protect me"</div>
+        <div class="desc">Rate limits cap requests per minute. They don't cap spend per transaction. A single $133 API call passes every rate limit you have — and your agent can make 21 of them in 60 seconds.</div>
+        <div class="truth"><strong>Truth:</strong> Rate limits throttle speed, not cost. A $133-per-call endpoint is invisible to your rate limiter.</div>
+      </div>
+      <div class="belief-card">
+        <div class="lie">❌ "I set up budget alerts. I'd notice."</div>
+        <div class="desc">Budget alerts are emails. They arrive after the spend happens. At 3 AM, you're asleep. By the time you wake up, the agent has moved on — and your wallet is $2,800 lighter.</div>
+        <div class="truth"><strong>Truth:</strong> Alerts tell you about the fire after the house burned down. AgentShield stops the match before it strikes.</div>
+      </div>
+      <div class="belief-card">
+        <div class="lie">❌ "I only run a few agents. I can monitor manually."</div>
+        <div class="desc">Today you run 3 agents. Tomorrow it's 10. Next month it's 50 agents across 4 vendors, each making 200 calls/hour. Manual monitoring doesn't scale — and it breaks exactly when you're tired.</div>
+        <div class="truth"><strong>Truth:</strong> Human monitoring fails at the exact moment you need it most: 3 AM, weekend, holiday, or when you simply forget.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -195,13 +298,26 @@ footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.
           <h3>With AgentShield</h3>
           <ul>
             <li>Every transaction evaluated in &lt;1ms</li>
-            <li>7 rule types: limit, daily, velocity, allowlist, category, session budget, cascade cost</li>
+            <li>9 rule types: limit, daily, velocity, allowlist, category, session budget, cascade cost, and more</li>
             <li>Real-time SSE alerts the instant a block fires</li>
             <li>Multi-tenant isolation out of the box</li>
             <li>Offline cryptographic licensing — no server dependency</li>
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="epiphany">
+  <div class="container">
+    <div class="quote">
+      <p>I sat in bed at 6:17 AM, staring at the email. <strong style="color:var(--danger)">$2,793.00.</strong></p>
+      <p>I scrolled through 21 identical charges. The agent was doing exactly what I told it to do — optimize, iterate, don't stop until the task is done.</p>
+      <p>My rate limiter was happy. My budget alert fired. My dashboard showed the spike. Everything worked exactly as designed.</p>
+      <p class="key">But every tool I had was reactive.</p>
+      <p>They told me about the fire. None of them could prevent it.</p>
+      <p class="resolve">So I built one that could.</p>
     </div>
   </div>
 </section>
@@ -229,6 +345,32 @@ footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.
   </div>
 </section>
 
+<section class="framework">
+  <div class="container">
+    <h2>The <span>Pre-Flight Enforcement Protocol™</span></h2>
+    <div class="framework-grid">
+      <div class="framework-col">
+        <div class="icon">🔍</div>
+        <h3>SCREEN</h3>
+        <p>Every transaction is intercepted before it hits the API. Merchant, amount, category, velocity — all captured in real time.</p>
+      </div>
+      <div class="framework-col">
+        <div class="icon">⚡</div>
+        <h3>EVALUATE</h3>
+        <p>Your composable rules run in &lt;1ms. Transaction limits, daily caps, velocity thresholds, allowlists — all checked, all at once.</p>
+      </div>
+      <div class="framework-col">
+        <div class="icon">🛡️</div>
+        <h3>ENFORCE</h3>
+        <p>Dangerous transactions are blocked before execution. Not alerted. Not logged. Blocked. The API call never fires.</p>
+      </div>
+    </div>
+    <div class="bottom-line">
+      <p><strong>Monitor</strong> = watch it burn. <strong>Alert</strong> = email about the fire. <span class="green"><strong>Enforce</strong> = stop the match before it strikes.</span></p>
+    </div>
+  </div>
+</section>
+
 <section class="risk-calc" id="risk-calculator">
   <div class="container">
     <h2>Agent Spend Risk Calculator</h2>
@@ -249,6 +391,27 @@ footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.
         <div class="overage" id="overage"></div>
         <div id="recommendation" style="margin-top:16px;color:var(--muted);font-size:0.9em"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="value-stack">
+  <div class="container">
+    <h2>What You Actually Get (Dev Tier)</h2>
+    <div class="value-table">
+      <div class="value-row"><span class="item">5 AI agents</span><span class="val"><s>$95/mo</s></span></div>
+      <div class="value-row"><span class="item">10 custom rules</span><span class="val"><s>$50/mo</s></span></div>
+      <div class="value-row"><span class="item">1K daily evaluations</span><span class="val"><s>$29/mo</s></span></div>
+      <div class="value-row"><span class="item">Real-time alerts (SSE)</span><span class="val"><s>$19/mo</s></span></div>
+      <div class="value-row"><span class="item">API access + dashboard</span><span class="val"><s>$15/mo</s></span></div>
+      <div class="value-row"><span class="item">One prevented $2,800 incident</span><span class="val"><s>$2,800</s></span></div>
+    </div>
+    <div class="value-total">
+      <span class="label">Total value: <s>$3,008/mo</s><br>Your price:</span>
+      <span class="price-final">$19/mo</span>
+    </div>
+    <div style="text-align:center">
+      <a href="/auth" class="cta-btn">Start Free Trial &rarr;</a>
     </div>
   </div>
 </section>
@@ -312,13 +475,76 @@ footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.
    </div>
 </section>
 
-<section style="padding:0 0 40px">
+<section class="founder">
   <div class="container">
-    <div style="padding:24px;border-radius:12px;background:linear-gradient(135deg,rgba(0,212,170,0.1),rgba(124,58,237,0.1));border:1px solid rgba(0,212,170,0.2);text-align:center">
-      <h3 style="color:#00d4aa;margin-bottom:8px">Don't want to install software? Get a professional audit.</h3>
-      <p style="color:#888;margin-bottom:12px">Upload your API bill. We analyze it against 56 spend-control scenarios. You get a report in 48 hours with exact dollar amounts of preventable waste. <strong style="color:#22c55e">If we don't find $299 in waste, full refund.</strong></p>
-      <a href="/audit" style="display:inline-block;padding:12px 32px;background:#00d4aa;color:#000;border-radius:8px;text-decoration:none;font-weight:700">Get a $299 Audit &rarr;</a>
-      <p style="color:#ffa502;font-size:0.85em;margin-top:8px">First 10 teams get lifetime pricing + free consultation (7 spots left)</p>
+    <div class="bio">
+      <p>Hi, I'm Maryan. I'm a developer who lost $2,800 in 60 seconds because my AI agent didn't know when to stop.</p>
+      <p>The agent was doing its job. My tools were doing theirs. The problem was that "doing their job" meant watching the disaster happen and emailing me about it afterward.</p>
+      <p>So I built AgentShield — a pre-flight enforcement layer that blocks dangerous transactions <em>before</em> they execute, not after. It's open source under the MIT license. The core engine runs on Python 3 stdlib with zero pip dependencies.</p>
+      <p class="small">Read the full story: <a href="/the-2800-story">The $2,800 Story</a> · Star the repo: <a href="https://github.com/kindrat86/agentshield">GitHub</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="container">
+    <h2>Questions, Answered</h2>
+    <div class="faq-item">
+      <div class="q">Will this slow down my agents?</div>
+      <div class="a">No. Every evaluation runs in under 1ms. That's faster than a single network round-trip. Your agents won't notice AgentShield is there — until it saves them from a $133 API call.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">Do I need to rewrite my agent code?</div>
+      <div class="a">No. You route transactions through a single endpoint (<code>/v1/transactions/evaluate</code>) before they execute. One line in your HTTP client. That's it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">What if a rule blocks a legitimate transaction?</div>
+      <div class="a">The rules are yours. You set the limits, thresholds, and allowlists. If something gets blocked that shouldn't, adjust the rule — or add a merchant to the allowlist. You're always in control.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">Is this just another monitoring tool?</div>
+      <div class="a">No. Monitoring tools watch transactions after they happen. AgentShield blocks them before they execute. The API call never fires. That's the difference between a smoke alarm and a fire extinguisher.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">Can I just use rate limits and alerts?</div>
+      <div class="a">You can — and you'll get the same result I did: a $2,800 bill at 3 AM. Rate limits cap speed, not spend. Alerts arrive after the damage. <a href="/the-2800-story">Read the $2,800 story</a> to see exactly how they fail.</div>
+    </div>
+  </div>
+</section>
+
+<section class="two-futures">
+  <div class="container">
+    <h2>Two Futures. One Choice.</h2>
+    <div class="futures-grid">
+      <div class="futures-col">
+        <div class="without">
+          <h3>Without AgentShield</h3>
+          <ul>
+            <li>✗ You wake up to a $2,800 API bill</li>
+            <li>✗ Budget alerts arrive after the spend</li>
+            <li>✗ Rate limits don't cap cost-per-call</li>
+            <li>✗ Manual monitoring breaks at 3 AM</li>
+            <li>✗ Every new agent is a new risk surface</li>
+            <li>✗ You're one prompt away from a costly mistake</li>
+          </ul>
+        </div>
+      </div>
+      <div class="futures-col">
+        <div class="with">
+          <h3>With AgentShield</h3>
+          <ul>
+            <li>✓ Dangerous transactions blocked before execution</li>
+            <li>✓ Every API call evaluated in &lt;1ms</li>
+            <li>✓ 9 composable rules, fully customizable</li>
+            <li>✓ Real-time SSE alerts the instant a block fires</li>
+            <li>✓ Scale to 100+ agents without losing sleep</li>
+            <li>✓ One kill switch for instant emergency shutdown</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <a href="#risk-calculator" class="cta-btn">Start With Your Free Risk Score &rarr;</a>
     </div>
   </div>
 </section>
@@ -407,6 +633,51 @@ async function submitEmail(e) {
   }
   msg.style.display = 'block';
 }
+</script>
+
+<!-- Exit-intent popup -->
+<div class="exit-overlay" id="exitOverlay">
+  <div class="exit-box" style="position:relative">
+    <button class="exit-close" onclick="closeExit()">&times;</button>
+    <h3>Wait — Before You Go</h3>
+    <div class="price-tag">$7</div>
+    <p>Get the AgentShield Starter Kit: a plug-and-play ruleset template, a 5-minute setup guide, and a pre-configured eval gym. Everything you need to protect your first agent tonight.</p>
+    <a href="/tripwire" class="cta-btn">Get the $7 Starter Kit &rarr;</a>
+  </div>
+</div>
+<script>
+(function() {
+  var overlay = document.getElementById('exitOverlay');
+  var shown = false;
+  var lastY = window.scrollY;
+
+  function show() {
+    if (shown) return;
+    shown = true;
+    overlay.classList.add('show');
+  }
+  function closeExit() {
+    overlay.classList.remove('show');
+  }
+  window.closeExit = closeExit;
+
+  // Desktop: mouseleave top of viewport
+  document.addEventListener('mouseleave', function(e) {
+    if (e.clientY <= 0) show();
+  });
+
+  // Mobile: scroll-up detection
+  window.addEventListener('scroll', function() {
+    var curY = window.scrollY;
+    if (curY < lastY && curY > 200) show();
+    lastY = curY;
+  }, { passive: true });
+
+  // Close on overlay click (outside the box)
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeExit();
+  });
+})();
 </script>
 
 <div style="background:#141414;padding:24px;text-align:center;border-top:1px solid #2a2a2a">

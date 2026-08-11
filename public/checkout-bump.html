@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout — AgentShield</title>
+<style>
+:root{--bg:#0a0a0a;--surface:#141414;--accent:#00d4aa;--text:#e8e8e8;--muted:#888;--border:#2a2a2a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.7}
+.container{max-width:500px;margin:0 auto;padding:40px 20px}
+h1{font-size:1.6em;text-align:center;margin-bottom:8px}
+.bump-box{background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:32px;margin:24px 0}
+.bump-title{font-size:1.3em;color:var(--accent);margin-bottom:12px;text-align:center}
+.bump-desc{color:var(--muted);margin-bottom:20px;text-align:center}
+.bump-option{display:flex;align-items:center;gap:12px;padding:16px;border:1px solid var(--border);border-radius:8px;margin-bottom:12px;cursor:pointer;transition:border-color .2s}
+.bump-option:hover{border-color:var(--accent)}
+.bump-option input{width:20px;height:20px;accent-color:var(--accent)}
+.bump-option label{cursor:pointer;flex:1}
+.bump-option .price{font-weight:700;color:var(--accent)}
+.btn{display:block;width:100%;padding:16px;border:none;border-radius:10px;font-weight:700;font-size:1.1em;cursor:pointer;text-align:center;text-decoration:none;margin-top:16px}
+.btn-primary{background:var(--accent);color:#000}
+.btn-secondary{background:transparent;border:1px solid var(--border);color:var(--muted)}
+footer{text-align:center;padding:24px 0;margin-top:32px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Checkout</h1>
+
+<div class="bump-box">
+<div class="bump-title">Wait — Add the Rule Template Pack for $7?</div>
+<p class="bump-desc">Pre-configured enforcement rule templates for OpenAI, Anthropic, LangChain, and common agent patterns. Import-ready JSON. Normally $47 — add it for just $7.</p>
+
+<div class="bump-option" onclick="selectOption('yes')">
+<input type="radio" name="bump" id="bump-yes" value="yes">
+<label for="bump-yes">Yes, add the Rule Template Pack <span class="price">(+$7)</span></label>
+</div>
+
+<div class="bump-option" onclick="selectOption('no')">
+<input type="radio" name="bump" id="bump-no" value="no" checked>
+<label for="bump-no">No thanks, just the subscription</label>
+</div>
+
+<a href="#" id="proceed-btn" class="btn btn-primary" onclick="proceed(event)">Continue to Payment →</a>
+</div>
+
+<a href="/" class="btn btn-secondary">← Back to Home</a>
+
+<footer>AgentShield · <a href="/" style="color:var(--accent)">Home</a> · <a href="/tripwire" style="color:var(--accent)">$7 Starter Kit</a></footer>
+</div>
+
+<script>
+function selectOption(val) {
+    document.getElementById('bump-yes').checked = val === 'yes';
+    document.getElementById('bump-no').checked = val === 'no';
+}
+function proceed(e) {
+    e.preventDefault();
+    var params = new URLSearchParams(location.search);
+    var tier = params.get('tier') || 'dev';
+    var wantBump = document.getElementById('bump-yes').checked;
+    // Redirect to Stripe checkout
+    fetch('/api/billing/checkout', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({tier: tier, bump: wantBump})
+    }).then(r => r.json()).then(d => {
+        if (d.url) location.href = d.url;
+        else if (d.checkout_url) location.href = d.checkout_url;
+        else alert('Redirecting to checkout...');
+    }).catch(e => {
+        window.location.href = '/auth';
+    });
+}
+</script>
+</body>
+</html>

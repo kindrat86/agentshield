@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Embed the AgentShield Risk Calculator — Free Widget</title>
+<meta name="description" content="Embed the AI Agent Spend Risk Calculator on your site. Free, no signup, nothing leaves the browser. Perfect for AI/ML blogs, docs sites, and developer portfolios.">
+<style>
+:root { --bg:#0a0a0a; --surface:#141414; --surface2:#1a1a1a; --border:#2a2a2a; --accent:#00d4aa; --text:#e8e8e8; --muted:#888; --danger:#ff4757; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:800px; margin:0 auto; padding:40px 24px; }
+h1 { font-size:2em; margin-bottom:8px; }
+h2 { font-size:1.3em; margin:32px 0 12px; color:var(--accent); }
+p { margin-bottom:12px; color:#ccc; }
+.subtitle { color:var(--muted); margin-bottom:32px; font-size:1.05em; }
+.code-block { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:20px; margin:16px 0; position:relative; overflow-x:auto; }
+.code-block code { font-size:0.85em; white-space:pre; color:var(--text); }
+.copy-btn { position:absolute; top:8px; right:8px; padding:6px 14px; background:var(--accent); color:#000; border:none; border-radius:4px; cursor:pointer; font-weight:600; font-size:0.8em; }
+.audience-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin:20px 0; }
+.audience-card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:20px; }
+.audience-card h3 { font-size:1em; margin-bottom:6px; color:var(--accent); }
+.audience-card p { font-size:0.9em; color:var(--muted); }
+.preview-frame { border:1px solid var(--border); border-radius:8px; overflow:hidden; margin:16px 0; background:var(--bg); }
+.preview-frame iframe { width:100%; height:420px; border:none; }
+.faq { margin:24px 0; }
+.faq dt { font-weight:700; margin:16px 0 4px; color:var(--accent); }
+.faq dd { color:var(--muted); margin-bottom:8px; }
+.nav-back { display:inline-block; margin-bottom:24px; color:var(--accent); text-decoration:none; font-size:0.9em; }
+.cta { display:inline-block; background:var(--accent); color:#000; padding:14px 32px; border-radius:8px; text-decoration:none; font-weight:700; margin:20px 0; }
+</style>
+</head>
+<body>
+<div class="container">
+<a href="/" class="nav-back">← Back to AgentShield</a>
+<h1>Embed the Risk Calculator</h1>
+<p class="subtitle">Add the AI Agent Spend Risk Calculator to your site. Free forever. Nothing leaves the browser — all computation is client-side.</p>
+
+<h2>Who This Is For</h2>
+<div class="audience-cards">
+  <div class="audience-card"><h3>AI/ML Blogs</h3><p>Give readers an interactive tool to check their agent spend risk while reading your content.</p></div>
+  <div class="audience-card"><h3>Documentation Sites</h3><p>Help your users understand their risk profile before they integrate AI agents.</p></div>
+  <div class="audience-card"><h3>Developer Portfolios</h3><p>Show you understand AI agent safety with an interactive tool on your site.</p></div>
+  <div class="audience-card"><h3>Newsletters</h3><p>Embed in your Substack or Ghost post — readers calculate their risk without leaving the page.</p></div>
+</div>
+
+<h2>Live Preview</h2>
+<div class="preview-frame"><iframe src="/embed/risk-calculator" loading="lazy" title="AI Agent Spend Risk Calculator" style="width:100%;height:480px;border:none;"></iframe></div>
+
+<h2>Copy & Paste</h2>
+<div class="code-block">
+  <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+  <code id="embed-code">&lt;iframe src="https://agentshield.fly.dev/embed/risk-calculator" loading="lazy" title="AI Agent Spend Risk Calculator" style="width:100%;max-width:700px;height:520px;border:none;border-radius:8px;"&gt;&lt;/iframe&gt;</code>
+</div>
+<p style="color:var(--muted);font-size:0.85em">Adjust <code>max-width</code> and <code>height</code> to fit your layout. The widget is responsive and works on mobile.</p>
+
+<h2>FAQ</h2>
+<dl class="faq">
+  <dt>Is it really free?</dt><dd>Yes. The widget is free to embed on any site, commercial or personal. No attribution required (but appreciated).</dd>
+  <dt>Do you collect data?</dt><dd>No. All computation happens in the browser. Nothing is sent to our servers. No cookies, no tracking, no signup.</dd>
+  <dt>Can I customize the colors?</dt><dd>The widget uses CSS custom properties. You can override them by setting <code>--accent</code>, <code>--bg</code>, etc. on the parent page — the widget inherits from its container.</dd>
+  <dt>Will it slow down my site?</dt><dd>No. The widget is static HTML with inline CSS and JS. Under 10KB total. It loads asynchronously via the iframe.</dd>
+</dl>
+
+<a href="/tools/risk-calculator" class="cta">Try the Full Calculator →</a>
+</div>
+<script>
+function copyCode() { const code = document.getElementById('embed-code').textContent; navigator.clipboard.writeText(code).then(() => { const b = document.querySelector('.copy-btn'); const o = b.textContent; b.textContent = 'Copied!'; setTimeout(() => b.textContent = o, 2000); }); }
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgentShield vs Galileo: Enforcement vs AI Observability</title>
+<meta name="description" content="Galileo observes AI systems. AgentShield blocks runaway spending. Observability vs enforcement — why you need both for autonomous AI agents in production.">
+<style>
+:root { --bg:#0a0a0a; --surface:#141414; --accent:#00d4aa; --text:#e8e8e8; --muted:#888; --danger:#ff4757; --green:#22c55e; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+h1 { font-size:2.2em; margin-bottom:8px; }
+h2 { font-size:1.4em; margin:32px 0 12px; color:var(--accent); }
+h3 { margin:20px 0 8px; }
+p { margin-bottom:12px; color:#ccc; }
+.nav { background:var(--surface); padding:12px 24px; display:flex; justify-content:space-between; align-items:center; }
+.nav a { color:var(--accent); text-decoration:none; }
+.cta { display:inline-block; background:var(--accent); color:#0a0a0a; padding:12px 28px; border-radius:8px; text-decoration:none; font-weight:700; margin:16px 0; }
+table { width:100%; border-collapse:collapse; margin:20px 0; }
+th,td { padding:12px 16px; text-align:left; border-bottom:1px solid #2a2a2a; }
+th { background:var(--surface); color:var(--accent); font-size:0.9em; text-transform:uppercase; }
+.feature-check { color:var(--green); font-size:1.2em; }
+.feature-x { color:var(--danger); font-size:1.2em; }
+.callout { background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.3); border-radius:8px; padding:20px; margin:24px 0; }
+.footer { text-align:center; padding:32px; color:var(--muted); font-size:0.85em; }
+</style>
+</head>
+<body>
+<nav class="nav">
+<a href="https://agentshield.fly.dev">🛡️ AgentShield</a>
+<a href="/">Home</a>
+</nav>
+<div class="container">
+<h1>AgentShield vs Galileo: Enforcement vs AI Observability</h1>
+<p style="font-size:1.1em;color:var(--muted);margin-bottom:32px">Galileo observes AI systems. AgentShield blocks runaway spending. Observability vs enforcement — why you need both for autonomous AI agents in production.</p>
+
+<h2>What Galileo Does</h2>
+<p>Galileo is an AI observability platform focused on LLM and GenAI monitoring. It provides hallucination detection, quality metrics, prompt analytics, and cost tracking across AI workflows.</p>
+
+<h2>What AgentShield Does</h2>
+<p>AgentShield is a preventive layer. We don't observe quality — we enforce financial rules. Every transaction is evaluated against your budget policy in under 1ms and blocked if it violates any rule.</p>
+
+<h2>Feature Comparison</h2>
+<table>
+<thead><tr><th>Capability</th><th>AgentShield</th><th>Galileo</th></tr></thead>
+<tbody>
+<tr><td>Blocks transactions before execution</td><td><span class="feature-check">✅ <1ms eval</span></td><td><span class="feature-x">❌ Observes, doesn't block</span></td></tr>
+<tr><td>Transaction limit rules</td><td><span class="feature-check">✅ Per-call caps</span></td><td><span class="feature-x">❌ Cost monitoring only</span></td></tr>
+<tr><td>Daily spend caps</td><td><span class="feature-check">✅ Per-agent enforcement</span></td><td><span class="feature-x">❌ Budget tracking</span></td></tr>
+<tr><td>Hallucination detection</td><td><span class="feature-check">❌ Financial enforcement</span></td><td><span class="feature-x">✅ Core feature</span></td></tr>
+<tr><td>Quality / accuracy metrics</td><td><span class="feature-check">❌ Not a quality tool</span></td><td><span class="feature-x">✅ Full metrics suite</span></td></tr>
+<tr><td>Prompt analytics</td><td><span class="feature-check">❌ Not an analytics tool</span></td><td><span class="feature-x">✅ Detailed analytics</span></td></tr>
+<tr><td>Real-time alerts</td><td><span class="feature-check">✅ SSE instant block alerts</span></td><td><span class="feature-x">✅ Quality alerts</span></td></tr>
+<tr><td>Zero dependencies</td><td><span class="feature-check">✅ Python stdlib only</span></td><td><span class="feature-x">❌ Requires integration</span></td></tr>
+
+</tbody>
+</table>
+
+<h2>When to Use Galileo</h2>
+<ul style="color:#ccc;margin-bottom:20px;padding-left:20px">
+<li>You need to detect hallucinations and quality issues</li><li>You want prompt-level analytics and optimization</li><li>GenAI output quality monitoring is your focus</li>
+</ul>
+
+<h2>When to Use AgentShield</h2>
+<ul style="color:#ccc;margin-bottom:20px;padding-left:20px">
+<li>You need hard budget enforcement on agent API calls</li><li>Financial safety is more urgent than quality metrics</li><li>You want per-agent, rule-based spend control</li>
+</ul>
+
+<h2>Use Both Together</h2>
+<p>Galileo monitors AI quality. AgentShield protects your AI budget. Quality matters, but not at $2,800 per mistake.</p>
+<div class="callout">
+<h2 style="margin-top:0">The $2,800 Test</h2>
+<p>If an AI agent makes 21 API calls at $133 each in 60 seconds at 3 AM:</p>
+<p><strong style="color:var(--danger)">Galileo</strong> logs it. You see the damage in the morning dashboard.</p>
+<p><strong style="color:var(--accent)">AgentShield</strong> blocks it in under 1ms. The agent never spends the money.</p>
+<p style="margin-top:12px"><strong>Prevention costs $19/month. A single runaway agent costs $2,800 in 60 seconds.</strong></p>
+<a href="/dashboard" class="cta">Start 14-Day Free Trial →</a>
+</div>
+</div>
+<footer class="footer">AgentShield — The Safety Layer for Autonomous AI Agents. <a href="/" style="color:var(--accent)">Home</a> · <a href="/comparisons/helicone" style="color:var(--muted)">vs Helicone</a> · <a href="/comparisons/langsmith" style="color:var(--muted)">vs LangSmith</a></footer>
+</body>
+</html>

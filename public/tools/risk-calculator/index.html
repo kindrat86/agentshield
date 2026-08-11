@@ -105,6 +105,17 @@ h1 { font-size: 2em; margin-bottom: 8px; }
     </div>
   </div>
 
+  
+    <div class="result-card" style="margin-top:24px">
+      <h3 style="margin-bottom:8px">Embed This Calculator</h3>
+      <p style="color:var(--muted);font-size:0.9em;margin-bottom:8px">Add this calculator to your site. Free, no signup, nothing leaves the browser.</p>
+      <div class="share-box">
+        <textarea id="embed-code" rows="2" readonly style="font-size:0.75em">&lt;iframe src="https://agentshield.fly.dev/embed/risk-calculator" loading="lazy" title="AI Agent Spend Risk Calculator" style="width:100%;max-width:700px;height:520px;border:none;border-radius:8px;"&gt;&lt;/iframe&gt;</textarea>
+        <button class="share-btn" onclick="copyEmbed()" style="font-size:0.85em">Copy</button>
+      </div>
+      <p style="color:var(--muted);font-size:0.8em;margin-top:6px"><a href="/embed" style="color:var(--accent)">See embed options →</a></p>
+    </div>
+
   <div id="trial-cta" style="display:none;margin-top:24px;padding:24px;background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.3);border-radius:10px;text-align:center">
     <h3 style="color:#00d4aa;margin-bottom:8px;font-size:1.3em">Protect Your Agents in 60 Seconds</h3>
     <p style="color:#888;margin-bottom:16px;font-size:1.05em">
@@ -186,6 +197,18 @@ function copyShare() {
     setTimeout(() => btn.textContent = orig, 2000);
   });
 }
+
+function copyEmbed() {
+  const textarea = document.getElementById('embed-code');
+  textarea.select();
+  navigator.clipboard.writeText(textarea.value).then(() => {
+    const btn = document.querySelectorAll('.share-btn')[1];
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+
 </script>
 </body>
 </html>
