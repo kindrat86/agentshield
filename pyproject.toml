@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentshield"
+version = "1.0.0"
+description = "A firewall for AI agent spending. 9 composable rules evaluated per-transaction in <1ms. Pure Python stdlib — zero dependencies."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [
+    {name = "Maryan Kondratyuk", email = "sales@sipiteno.com"}
+]
+keywords = [
+    "ai", "agent", "cost", "budget", "firewall", "spend",
+    "openai", "anthropic", "langchain", "llm", "api-costs",
+    "spend-control", "cost-management", "rate-limit", "token"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Networking :: Firewalls",
+]
+
+[project.urls]
+Homepage = "https://agentshield.fly.dev"
+Repository = "https://github.com/kindrat86/agentshield"
+Documentation = "https://agentshield.fly.dev/eval-gym-spec"
+"Bug Tracker" = "https://github.com/kindrat86/agentshield/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["agentshield*"]

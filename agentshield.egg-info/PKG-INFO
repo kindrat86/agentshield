@@ -1,3 +1,29 @@
+Metadata-Version: 2.4
+Name: agentshield
+Version: 1.0.0
+Summary: A firewall for AI agent spending. 9 composable rules evaluated per-transaction in <1ms. Pure Python stdlib — zero dependencies.
+Author-email: Maryan Kondratyuk <sales@sipiteno.com>
+License: MIT
+Project-URL: Homepage, https://agentshield.fly.dev
+Project-URL: Repository, https://github.com/kindrat86/agentshield
+Project-URL: Documentation, https://agentshield.fly.dev/eval-gym-spec
+Project-URL: Bug Tracker, https://github.com/kindrat86/agentshield/issues
+Keywords: ai,agent,cost,budget,firewall,spend,openai,anthropic,langchain,llm,api-costs,spend-control,cost-management,rate-limit,token
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Networking :: Firewalls
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
 # AgentShield — Firewall for AI Agent Spending
 
 Stop runaway AI agents before they burn your budget. 9 composable rules evaluated per-transaction in <1ms. Pure Python stdlib — zero dependencies.

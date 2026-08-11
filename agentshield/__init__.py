@@ -1,23 +1,26 @@
 """
-AgentShield — Firewall for AI Agent Spending
+AgentShield — A firewall for AI agent spending.
 
-Pure Python 3.11 stdlib. Zero dependencies.
-9 composable rule types evaluated per-transaction in <1ms.
+9 composable rules evaluated per-transaction in <1ms.
+Pure Python 3.11 stdlib — zero dependencies.
 
 Quick Start:
-    from agentshield import SpendControlEngine
+    from agentshield import SpendControlEngine, run_eval
 
     engine = SpendControlEngine()
     result = engine.evaluate(transaction, rules, prior_transactions)
-    # result['decision'] -> 'APPROVED', 'BLOCKED', or 'FLAGGED'
+    print(result["decision"])  # APPROVED, BLOCKED, or FLAGGED
 
-Run the 56-scenario eval gym:
-    from agentshield import run_eval
+    # Run the 56-scenario eval gym:
     results = run_eval()
     print(f"{results['passed']}/{results['total']} passed")
 """
-from .engine import SpendControlEngine
-from .eval_gym import run_eval, SCENARIOS
+
+from agentshield.engine import SpendControlEngine
+from agentshield.eval_gym import run_eval, SCENARIOS
 
 __version__ = "1.0.0"
+__author__ = "Maryan Kondratyuk"
+__license__ = "MIT"
+
 __all__ = ["SpendControlEngine", "run_eval", "SCENARIOS"]

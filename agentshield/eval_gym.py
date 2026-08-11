@@ -14,7 +14,11 @@ Categories (50 total):
   - edge_cases (5):              Boundary values, malformed inputs, empty rules
 """
 
-from .engine import SpendControlEngine
+import sys
+import os
+# Package import - no sys.path manipulation needed
+
+from agentshield.engine import SpendControlEngine
 
 
 def _txn(txn_id, amount=10.00, merchant="openai-api", category="llm_inference",
