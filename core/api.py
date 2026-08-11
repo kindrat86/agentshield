@@ -946,7 +946,26 @@ class APIHandler(BaseHTTPRequestHandler):
 
     def _handle_billing_checkout(self):
         """Create a Stripe Checkout Session and redirect the user."""
-        account = self._get_session_account()
+        # Read session cookie inline (not via _get_session_account) so we
+        # can send a friendly redirect hint instead of bare "Unauthorized"
+        cookie_header = self.headers.get('Cookie', '')
+        token = None
+        if cookie_header:
+            cookie = SimpleCookie()
+            try:
+                cookie.load(cookie_header)
+                if 'session_token' in cookie:
+                    token = cookie['session_token'].value
+            except Exception:
+                pass
+        if not token:
+            auth_header = self.headers.get('Authorization', '')
+            if auth_header.startswith('Bearer '):
+                token = auth_header[7:]
+        if not token:
+            self._send_json({"error": "Please log in to continue", "redirect": "/auth?next=checkout"}, 401)
+            return
+        account = self.auth.account_from_token(token)
         if not account:
             self._send_json({"error": "Please log in to continue", "redirect": "/auth?next=checkout"}, 401)
             return
