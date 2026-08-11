@@ -216,6 +216,10 @@ class APIHandler(BaseHTTPRequestHandler):
             elif path.startswith('/tools/risk-calculator'):
                 fpath = os.path.join(self.public_dir, 'tools', 'risk-calculator', 'index.html')
                 self._serve_file(fpath)
+            elif path == '/comparisons/helicone':
+                self._serve_file(os.path.join(self.public_dir, 'comparisons', 'helicone.html'))
+            elif path == '/comparisons/langsmith':
+                self._serve_file(os.path.join(self.public_dir, 'comparisons', 'langsmith.html'))
             else:
                 # Try to serve static assets from public/
                 safe_path = os.path.normpath(path).lstrip('/')

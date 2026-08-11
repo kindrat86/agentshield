@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgentShield vs LangSmith: Spend Control vs LLM Debugging</title>
+<meta name="description" content="AgentShield enforces spend rules before each API call. LangSmith debugs LLM applications. Different tools for different problems.">
+<style>
+:root { --bg:#0a0a0a; --surface:#141414; --accent:#00d4aa; --text:#e8e8e8; --muted:#888; --danger:#ff4757; --green:#22c55e; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+h1 { font-size:2.2em; margin-bottom:8px; }
+h2 { font-size:1.4em; margin:32px 0 12px; color:var(--accent); }
+h3 { margin:20px 0 8px; }
+p { margin-bottom:12px; color:#ccc; }
+.nav { background:var(--surface); padding:12px 24px; display:flex; justify-content:space-between; align-items:center; }
+.nav a { color:var(--accent); text-decoration:none; }
+.cta { display:inline-block; background:var(--accent); color:#0a0a0a; padding:12px 28px; border-radius:8px; text-decoration:none; font-weight:700; margin:16px 0; }
+table { width:100%; border-collapse:collapse; margin:20px 0; }
+th,td { padding:12px 16px; text-align:left; border-bottom:1px solid #2a2a2a; }
+th { background:var(--surface); color:var(--accent); font-size:0.9em; text-transform:uppercase; }
+.feature-check { color:var(--green); font-size:1.2em; }
+.feature-x { color:var(--danger); font-size:1.2em; }
+.footer { text-align:center; padding:32px; color:var(--muted); font-size:0.85em; }
+</style>
+</head>
+<body>
+<nav class="nav">
+<a href="https://agentshield.fly.dev">🛡️ AgentShield</a>
+<a href="https://agentshield.fly.dev/tools/risk-calculator/">Risk Calculator →</a>
+</nav>
+<div class="container">
+<h1>AgentShield vs LangSmith</h1>
+<p style="font-size:1.15em;color:var(--muted)">Spend enforcement vs LLM application debugging — complementary, not competing.</p>
+
+<h2>The Core Difference</h2>
+<p><strong>LangSmith</strong> (by LangChain) is an LLM application development platform. It traces chains, evaluates prompts, and helps you debug complex agent workflows. It's the right tool when you're building and testing agent behavior.</p>
+<p><strong>AgentShield</strong> is a transaction-level spend firewall. Once your agent is in production, it evaluates every API call against budget rules before execution. It catches the failure modes that cost money: retry storms, context accumulation, tool call loops.</p>
+
+<a href="https://agentshield.fly.dev/tools/risk-calculator/" class="cta">Check Your Risk Score →</a>
+
+<h2>Feature Comparison</h2>
+<table>
+<thead>
+<tr><th>Capability</th><th>AgentShield</th><th>LangSmith</th></tr>
+</thead>
+<tbody>
+<tr><td>Block transactions before execution</td><td class="feature-check">✅ &lt;1ms eval</td><td class="feature-x">❌ No spend blocking</td></tr>
+<tr><td>Transaction limit rules</td><td class="feature-check">✅ Per-call dollar limits</td><td class="feature-x">❌ Not available</td></tr>
+<tr><td>Daily spend caps per agent</td><td class="feature-check">✅ Hard enforcement</td><td class="feature-x">❌ Alerts only</td></tr>
+<tr><td>Velocity / burst detection</td><td class="feature-check">✅ Rolling window alerts</td><td class="feature-x">❌ Not available</td></tr>
+<tr><td>Merchant allowlists</td><td class="feature-check">✅ Block unknown APIs</td><td class="feature-x">❌ Not available</td></tr>
+<tr><td>Chain tracing & debugging</td><td class="feature-x">❌ Not a debugging tool</td><td class="feature-check">✅ Core feature</td></tr>
+<tr><td>Prompt evaluation</td><td class="feature-x">❌ Not available</td><td class="feature-check">✅ Built-in evaluation</td></tr>
+<tr><td>Datasets & test cases</td><td class="feature-check">✅ 50-scenario eval gym</td><td class="feature-check">✅ Custom datasets</td></tr>
+<tr><td>LangChain integration</td><td class="feature-check">✅ Callback handler</td><td class="feature-check">✅ Native (same company)</td></tr>
+<tr><td>Self-hosted option</td><td class="feature-check">✅ 60-second deploy</td><td class="feature-x">❌ Cloud-only</td></tr>
+<tr><td>Zero dependencies</td><td class="feature-check">✅ Python stdlib</td><td class="feature-x">❌ Requires LangChain ecosystem</td></tr>
+<tr><td>Pricing model</td><td class="feature-check">✅ Flat $19/mo (Dev tier)</td><td class="feature-x">❌ Per-seat + usage</td></tr>
+</tbody>
+</table>
+
+<h2>When to Use Which</h2>
+<h3>Use LangSmith when:</h3>
+<p>You're developing an LLM application and need to trace execution chains, evaluate prompt quality, and debug why your agent made a specific decision.</p>
+
+<h3>Use AgentShield when:</h3>
+<p>Your agent is in production and you need to prevent runaway spending. You want hard dollar limits that block transactions before they execute, not alerts that arrive after.</p>
+
+<h3>Use both together:</h3>
+<p>LangSmith during development to build and debug. AgentShield in production to enforce spend limits. The AgentShield LangChain callback handler integrates seamlessly — it sits alongside LangSmith's tracing without conflict.</p>
+
+<h2>The $2,800 Test</h2>
+<p>If an agent enters a retry loop at 3 AM, making 21 premium API calls:</p>
+<ul style="margin:12px 0;padding-left:24px">
+<li><strong>LangSmith:</strong> Produces a detailed trace showing exactly how the loop happened. Cost: $2,800.</li>
+<li><strong>AgentShield:</strong> Blocks the loop after the velocity rule triggers. Cost: $133. You investigate with LangSmith the next morning.</li>
+</ul>
+
+<a href="https://agentshield.fly.dev/tools/risk-calculator/" class="cta">See Your Risk Profile →</a>
+
+</div>
+<div class="footer">
+AgentShield — A firewall for AI agent spending. <a href="https://agentshield.fly.dev" style="color:var(--accent)">agentshield.fly.dev</a>
+</div>
+</body>
+</html>

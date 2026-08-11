@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgentShield vs Helicone: Enforcement vs Observability</title>
+<meta name="description" content="AgentShield blocks runaway AI agent spending before it happens. Helicone shows you the bill after it's too late. See the difference.">
+<style>
+:root { --bg:#0a0a0a; --surface:#141414; --accent:#00d4aa; --text:#e8e8e8; --muted:#888; --danger:#ff4757; --green:#22c55e; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+h1 { font-size:2.2em; margin-bottom:8px; }
+h2 { font-size:1.4em; margin:32px 0 12px; color:var(--accent); }
+h3 { margin:20px 0 8px; }
+p { margin-bottom:12px; color:#ccc; }
+.nav { background:var(--surface); padding:12px 24px; display:flex; justify-content:space-between; align-items:center; }
+.nav a { color:var(--accent); text-decoration:none; }
+.cta { display:inline-block; background:var(--accent); color:#0a0a0a; padding:12px 28px; border-radius:8px; text-decoration:none; font-weight:700; margin:16px 0; }
+table { width:100%; border-collapse:collapse; margin:20px 0; }
+th,td { padding:12px 16px; text-align:left; border-bottom:1px solid #2a2a2a; }
+th { background:var(--surface); color:var(--accent); font-size:0.9em; text-transform:uppercase; }
+.feature-check { color:var(--green); font-size:1.2em; }
+.feature-x { color:var(--danger); font-size:1.2em; }
+.footer { text-align:center; padding:32px; color:var(--muted); font-size:0.85em; }
+</style>
+</head>
+<body>
+<nav class="nav">
+<a href="https://agentshield.fly.dev">🛡️ AgentShield</a>
+<a href="https://agentshield.fly.dev/tools/risk-calculator/">Risk Calculator →</a>
+</nav>
+<div class="container">
+<h1>AgentShield vs Helicone</h1>
+<p style="font-size:1.15em;color:var(--muted)">Enforcement vs Observability — why watching costs after they happen isn't enough.</p>
+
+<h2>The Core Difference</h2>
+<p><strong>Helicone</strong> is an observability platform. It tracks your LLM API calls, logs token usage, and shows you dashboards of what already happened. It's excellent for understanding costs <em>after</em> they've been incurred.</p>
+<p><strong>AgentShield</strong> is an enforcement engine. It evaluates each API call against spend rules <em>before</em> it executes. If a transaction violates a rule — transaction limit, daily cap, velocity threshold — it's blocked instantly in under 1ms.</p>
+
+<a href="https://agentshield.fly.dev/tools/risk-calculator/" class="cta">Check Your Risk Score →</a>
+
+<h2>Feature Comparison</h2>
+<table>
+<thead>
+<tr><th>Capability</th><th>AgentShield</th><th>Helicone</th></tr>
+</thead>
+<tbody>
+<tr><td>Block transactions before execution</td><td class="feature-check">✅ &lt;1ms eval</td><td class="feature-x">❌ After-the-fact only</td></tr>
+<tr><td>Transaction limit rules</td><td class="feature-check">✅ Per-call limits</td><td class="feature-x">❌ Not supported</td></tr>
+<tr><td>Daily spend caps</td><td class="feature-check">✅ Per-agent caps</td><td class="feature-x">❌ Alerts only</td></tr>
+<tr><td>Velocity detection</td><td class="feature-check">✅ Rolling window</td><td class="feature-x">❌ Not available</td></tr>
+<tr><td>Merchant allowlists</td><td class="feature-check">✅ Approved providers only</td><td class="feature-x">❌ Not available</td></tr>
+<tr><td>Category blocks</td><td class="feature-check">✅ Crypto, gambling, etc.</td><td class="feature-x">❌ Not available</td></tr>
+<tr><td>Real-time SSE alerts</td><td class="feature-check">✅ Instant block notifications</td><td class="feature-check">✅ Webhooks</td></tr>
+<tr><td>API call logging</td><td class="feature-check">✅ Decision audit trail</td><td class="feature-check">✅ Full request logging</td></tr>
+<tr><td>Request/response inspection</td><td class="feature-x">❌ Not a debugging tool</td><td class="feature-check">✅ Core feature</td></tr>
+<tr><td>Token-level cost breakdown</td><td class="feature-x">❌ Focus is prevention</td><td class="feature-check">✅ Detailed analytics</td></tr>
+<tr><td>Zero dependencies</td><td class="feature-check">✅ Python stdlib only</td><td class="feature-x">❌ Requires SDK + dependencies</td></tr>
+<tr><td>Self-hostable in 60s</td><td class="feature-check">✅ Single Docker image</td><td class="feature-x">❌ Complex setup</td></tr>
+</tbody>
+</table>
+
+<h2>When to Use Which</h2>
+<h3>Use Helicone when:</h3>
+<p>You need to understand <em>why</em> costs are high. You want to inspect individual prompts and responses. You're debugging agent behavior and need full request/response logging.</p>
+
+<h3>Use AgentShield when:</h3>
+<p>You need to <em>prevent</em> costs from spiraling. You want hard limits that block transactions before they execute. You're running autonomous agents that could enter infinite loops or retry storms.</p>
+
+<h3>Use both together:</h3>
+<p>Route API calls through AgentShield for enforcement, then log to Helicone for observability. They solve different problems — AgentShield stops the bleeding, Helicone diagnoses it.</p>
+
+<h2>The $2,800 Test</h2>
+<p>If an agent makes 21 API calls at $133 each in 60 seconds at 3 AM:</p>
+<ul style="margin:12px 0;padding-left:24px">
+<li><strong>Helicone:</strong> Shows you a beautiful dashboard at 6 AM. The $2,800 is already gone.</li>
+<li><strong>AgentShield:</strong> Blocks the second call. Total cost: $133. You sleep through the night.</li>
+</ul>
+
+<a href="https://agentshield.fly.dev/tools/risk-calculator/" class="cta">See Your Risk Profile →</a>
+
+</div>
+<div class="footer">
+AgentShield — A firewall for AI agent spending. <a href="https://agentshield.fly.dev" style="color:var(--accent)">agentshield.fly.dev</a>
+</div>
+</body>
+</html>
