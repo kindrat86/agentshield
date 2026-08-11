@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>$1,000 Bounty — Break AgentShield, Win $1,000</title>
+<meta name="description" content="Find a transaction that should be blocked but isn't, or one that's wrongly blocked. Win $1,000.">
+<style>
+:root{--bg:#0a0a0a;--card:#141414;--accent:#00d4aa;--gold:#fbbf24;--danger:#ef4444;--text:#f5f5f5;--muted:#94a3b8;--border:#262626}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.7;max-width:680px;margin:0 auto;padding:40px 20px}
+h1{font-size:36px;background:linear-gradient(135deg,var(--gold),var(--danger));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:8px}
+.subtitle{text-align:center;color:var(--muted);font-size:18px;margin-bottom:32px}
+.bounty-amount{text-align:center;font-size:64px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--danger));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:16px 0}
+.section{margin:32px 0}
+.section h2{font-size:22px;color:var(--accent);margin-bottom:12px}
+.code-block{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0;font-family:'SF Mono',Fira Code,monospace;font-size:14px;color:var(--accent);overflow-x:auto}
+.rules{list-style:none;padding:0}
+.rules li{padding:12px 0;border-bottom:1px solid var(--border);font-size:16px}
+.rules li strong{color:var(--accent)}
+.cta{display:block;text-align:center;padding:18px;background:linear-gradient(135deg,var(--gold),var(--danger));color:#fff;text-decoration:none;border-radius:10px;font-weight:700;font-size:18px;margin:24px 0}
+footer{text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:40px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<h1>$1,000 Bounty</h1>
+<p class="subtitle">Break the rules engine. Prove it's wrong. Win $1,000.</p>
+
+<div class="bounty-amount">$1,000</div>
+
+<div class="section">
+<h2>The Challenge</h2>
+<p>AgentShield's rules engine processes 56 test scenarios across 9 rule types. All 56 pass. But no test suite is perfect.</p>
+<p style="margin-top:12px"><strong>Find a transaction that the engine handles incorrectly, and I'll pay you $1,000.</strong></p>
+</div>
+
+<div class="section">
+<h2>What Counts as a "Break"</h2>
+<ul class="rules">
+<li><strong>False negative</strong> — a transaction that SHOULD be blocked but passes through</li>
+<li><strong>False positive</strong> — a legitimate transaction that gets wrongly blocked</li>
+<li><strong>Precision bug</strong> — Decimal arithmetic edge case producing wrong amounts</li>
+<li><strong>Rule priority conflict</strong> — two rules matching the same transaction with contradictory actions</li>
+<li><strong>Velocity race condition</strong> — concurrent transactions evading the velocity counter</li>
+<li><strong>Session budget miscalculation</strong> — decay tightening producing incorrect thresholds</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>How to Submit</h2>
+<p>Reproduce the issue using the eval gym framework:</p>
+<div class="code-block">pip install agentshield
+
+# Write a failing test case
+python3 -c "
+from agentshield import SpendControlEngine
+from decimal import Decimal
+
+engine = SpendControlEngine()
+# ... your reproduction code ...
+# Show expected vs actual result
+"</div>
+<p>Submit your reproduction to: <a href="https://github.com/kindrat86/agentshield/issues/new" style="color:var(--accent)">GitHub Issues</a> with the label <code>bounty</code>.</p>
+</div>
+
+<div class="section">
+<h2>The Rules</h2>
+<ul class="rules">
+<li>First person to report each unique bug wins</li>
+<li>Bug must be reproducible using the published eval gym</li>
+<li>Payout via PayPal or GitHub Sponsors within 7 days of confirmation</li>
+<li>Max $1,000 per bug. Max 5 bounties total ($5,000 max payout).</li>
+<li>Decision of the maintainer (Maryan K.) is final</li>
+<li>Bounty runs until December 31, 2026 or 5 valid bugs found</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Why a Bounty?</h2>
+<p>Because the best way to prove correctness is to invite people to break it. If nobody can find a bug in 4 months, that's stronger proof than any test suite.</p>
+<p style="margin-top:12px">And if someone DOES find a bug — great. We fix it, the reporter gets $1,000, and the engine gets stronger.</p>
+</div>
+
+<a href="https://github.com/kindrat86/agentshield" class="cta">Start Hunting →</a>
+
+<p style="text-align:center;color:var(--muted);font-size:14px;margin-top:16px">
+Live eval gym: <a href="/eval" style="color:var(--accent)">56 scenarios</a> · 
+Engine source: <a href="https://github.com/kindrat86/agentshield/blob/main/core/engine.py" style="color:var(--accent)">core/engine.py</a>
+</p>
+
+<footer>
+AgentShield — A firewall for AI agent spending.<br>
+<a href="/" style="color:var(--accent)">Home</a> · <a href="/challenge" style="color:var(--accent)">$2,800 Challenge</a> · <a href="/the-2800-story" style="color:var(--accent)">The Story</a>
+</footer>
+
+</body>
+</html>

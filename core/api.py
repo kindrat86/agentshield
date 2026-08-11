@@ -230,6 +230,10 @@ class APIHandler(BaseHTTPRequestHandler):
                 self._serve_file(os.path.join(self.public_dir, 'free-audit.html'))
             elif path == '/the-2800-story':
                 self._serve_file(os.path.join(self.public_dir, 'the-2800-story.html'))
+            elif path == '/challenge':
+                self._serve_file(os.path.join(self.public_dir, 'challenge.html'))
+            elif path == '/bounty':
+                self._serve_file(os.path.join(self.public_dir, 'bounty.html'))
             else:
                 # Try to serve static assets from public/
                 safe_path = os.path.normpath(path).lstrip('/')
