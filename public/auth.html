@@ -98,18 +98,8 @@ function switchTab(tab) {
 
 async function handleGoogleLogin(e) {
   e.preventDefault();
-  // Try Google OAuth first
-  try {
-    const resp = await fetch('/api/auth/google');
-    if (resp.ok) {
-      window.location.href = '/api/auth/google';
-      return;
-    }
-  } catch(e) {}
-  // Fallback: Google OAuth not available, use email/password form instead
-  document.getElementById('tab-register').click();
-  document.getElementById('reg-error').textContent = 'Google sign-in not available yet. Please register with email.';
-  document.getElementById('reg-error').style.display = 'block';
+  // Google OAuth is configured server-side — redirect directly
+  window.location.href = '/api/auth/google';
 }
 
 async function handleLogin(event) {
