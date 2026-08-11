@@ -958,7 +958,7 @@ class APIHandler(BaseHTTPRequestHandler):
             'managed': os.getenv('STRIPE_PRICE_MANAGED'),
             'tripwire': os.getenv('STRIPE_PRICE_TRIPWIRE'),
             'bump': os.getenv('STRIPE_PRICE_BUMP'),
-            'audit': os.getenv('STRIPE_PRICE_AUDIT', os.getenv('STRIPE_PRICE_MANAGED')),
+            'audit': os.getenv('STRIPE_PRICE_AUDIT', os.getenv('STRIPE_PRICE_DEV')),
         }
         price_id = price_map.get(tier)
         if not price_id:
@@ -976,7 +976,7 @@ class APIHandler(BaseHTTPRequestHandler):
         import urllib.parse
         import base64
 
-        is_one_time = tier in ('tripwire', 'bump', 'audit')
+        is_one_time = tier in ('tripwire', 'bump')
         checkout_mode = 'payment' if is_one_time else 'subscription'
         checkout_data = urllib.parse.urlencode({
             'mode': checkout_mode,
