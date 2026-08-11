@@ -1,12 +1,13 @@
 # PyPI Publish — One Command Left (2 minutes)
 
-**Status (2026-08-11):**
-- ✅ Package built and verified: `dist/agentshield_spend-1.0.0-py3-none-any.whl` + `.tar.gz`
+**Status (2026-08-11, updated after fixup commit 19efdb6):**
+- ✅ Package renamed to **`agentshield-spend`** in pyproject.toml (the names `agentshield` and `agentshield-firewall` are both taken on PyPI by unrelated projects)
+- ✅ Rebuilt: `dist/agentshield_spend-1.0.0-py3-none-any.whl` + `.tar.gz`
 - ✅ `twine check` PASSED on both artifacts
-- ✅ Clean-venv install test: `56/56 passed`, version 1.0.0
-- ❌ Not published — no PyPI credentials on this machine (`~/.pypirc` absent, no token in env or `~/.hermes/.env`)
+- ✅ Clean-venv install test: **56/56 passed, v1.0.0, 56 scenarios**
+- ❌ Not published — PyPI account creation requires human email verification + 2FA
 
-**Name note:** `agentshield` is TAKEN on PyPI (agent-shield.com, v0.1.2) and `agentshield-firewall` is also taken (squatter "Antigravity", May 2026). The package is named **`agentshield-spend`** — verified available (404 on PyPI). The import name is still `agentshield`:
+**Import name is unchanged** — only the pip install name differs:
 
 ```python
 pip install agentshield-spend
