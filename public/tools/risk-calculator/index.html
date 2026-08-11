@@ -104,9 +104,19 @@ h1 { font-size: 2em; margin-bottom: 8px; }
       </div>
     </div>
   </div>
-</div>
 
-<script>
+  <div id="trial-cta" style="display:none;margin-top:24px;padding:24px;background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.3);border-radius:10px;text-align:center">
+    <h3 style="color:#00d4aa;margin-bottom:8px;font-size:1.3em">Protect Your Agents in 60 Seconds</h3>
+    <p style="color:#888;margin-bottom:16px;font-size:1.05em">
+      Your risk score: <strong id="risk-score-display" style="color:#ff4757">—</strong>.<br>
+      AgentShield Dev prevents this for $19/month. 14-day free trial. No credit card required.
+    </p>
+    <a href="/dashboard" style="display:inline-block;padding:14px 32px;background:#00d4aa;color:#000;border-radius:8px;font-weight:700;text-decoration:none;font-size:1.05em">Start 14-Day Free Trial &rarr;</a>
+    <p style="color:#666;font-size:0.85em;margin-top:12px">
+      Or <a href="https://github.com/kindrat86/agentshield" style="color:#00d4aa">self-host for free</a> (MIT license, 60-second deploy)
+    </p>
+  </div>
+</div>
 function calculate() {
   const agents = parseFloat(document.getElementById('agents').value) || 0;
   const amount = parseFloat(document.getElementById('amount').value) || 0;
@@ -155,6 +165,15 @@ function calculate() {
   document.getElementById('share-text').value = shareText;
 
   document.getElementById('results').classList.add('show');
+  
+  // Show trial CTA with risk score
+  const cta = document.getElementById('trial-cta');
+  const ctaScore = document.getElementById('risk-score-display');
+  if (cta && ctaScore) {
+    ctaScore.textContent = score + '/100';
+    ctaScore.style.color = score >= 66 ? '#ff4757' : score >= 33 ? '#ffa502' : '#00d4aa';
+    cta.style.display = 'block';
+  }
 }
 
 function copyShare() {
