@@ -1,6 +1,6 @@
 {
   "created": "2026-08-11",
-  "status": "awaiting_approval",
+  "last_updated": "2026-08-11T09:00:00+03:00",
   "emails": [
     {
       "to": "okhattab@mit.edu",
@@ -8,16 +8,77 @@
       "subject": "DSPy agents burning budget? We built guardrails",
       "hook": "Saw your work on DSPy — the programmatic approach to LLM optimization is exactly right.",
       "story": "But we noticed DSPy agents can rack up costs fast when the optimizer loops. Last week one of our test agents spent $2,800 in 60 seconds during a compile step. So we built AgentShield — a per-transaction firewall that sits between your agent and the API, blocking any call that violates spend rules. Pure Python stdlib, zero dependencies, sub-millisecond evaluation.",
-      "offer": "Here's the architecture if you're curious: https://dev.to/maryan_k_bef6cf83fa64e809/i-built-a-firewall-for-ai-agent-spending-here-is-the-architecture-2560",
+      "offer": "Here's the architecture: https://dev.to/maryan_k_bef6cf83fa64e809/i-built-a-firewall-for-ai-agent-spending-here-is-the-architecture-2560",
       "link": "https://agentshield.fly.dev/tools/risk-calculator/",
       "status": "draft",
       "source": "dream100"
     }
   ],
+  "real_leads": [
+    {
+      "name": "Omrikos / Genway AI",
+      "problem": "OpenClaw agent runaway loop, $300 damage",
+      "source": "https://news.ycombinator.com/item?id=47351950",
+      "email": null,
+      "outreach_method": "HN reply on original thread",
+      "status": "needs_hn_karma"
+    },
+    {
+      "name": "dipampaul17 / AgentGuard",
+      "problem": "Built competitor after seeing $2K overnight spend posts",
+      "source": "https://news.ycombinator.com/item?id=44742710",
+      "email": null,
+      "outreach_method": "HN reply or GitHub outreach",
+      "status": "potential_partner",
+      "notes": "Built AgentGuard — potential collaborator, not competitor. Could integrate AgentShield rules."
+    },
+    {
+      "name": "Prefactor",
+      "problem": "Customer spend jumped $9K to $38K/month",
+      "source": "https://prefactor.tech/problems/runaway-agent-costs",
+      "email": null,
+      "outreach_method": "Company contact form",
+      "status": "b2b_partner_opportunity"
+    },
+    {
+      "name": "Braintrust",
+      "problem": "$12K monthly increase unattributed",
+      "source": "https://www.braintrust.dev/articles/how-to-track-llm-costs-2026",
+      "email": null,
+      "outreach_method": "Company contact form or article comment",
+      "status": "b2b_partner_opportunity"
+    },
+    {
+      "name": "CloudZero",
+      "problem": "$5K to $50K overnight spike from batch jobs",
+      "source": "https://www.cloudzero.com/blog/llm-api-pricing-comparison",
+      "email": null,
+      "outreach_method": "Company contact form",
+      "status": "b2b_partner_opportunity"
+    },
+    {
+      "name": "AgentBudget (OSS)",
+      "problem": "The Loop Problem: 200 calls in 10 min, $50-200",
+      "source": "https://github.com/AgentBudget/agentbudget",
+      "email": null,
+      "outreach_method": "GitHub issue/PR on their repo",
+      "status": "integration_opportunity"
+    },
+    {
+      "name": "hkochar (OpenClaw contributor)",
+      "problem": "Filed feature request for per-agent budget caps",
+      "source": "https://github.com/openclaw/openclaw/issues/42475",
+      "email": null,
+      "outreach_method": "GitHub comment on issue #42475",
+      "status": "integration_opportunities"
+    }
+  ],
   "stats": {
-    "total_contacts": 100,
-    "verified_emails": 1,
-    "unfindable": 99,
-    "drafts_queued": 1
+    "dream100_verified_emails": 1,
+    "real_leads": 8,
+    "real_leads_with_email": 0,
+    "drafts_queued": 1,
+    "partner_opportunities": 4,
+    "integration_opportunities": 2
   }
 }
