@@ -5,8 +5,10 @@ Stop runaway AI agents before they burn your budget. 9 composable rules evaluate
 ## Install
 
 ```bash
-pip install agentshield
+pip install agentshield-spend
 ```
+
+(The import name is `agentshield` — the PyPI name `agentshield` belongs to an unrelated project.)
 
 ## Quick Start
 

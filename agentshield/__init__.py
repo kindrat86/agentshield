@@ -19,7 +19,7 @@ Quick Start:
 from agentshield.engine import SpendControlEngine
 from agentshield.eval_gym import run_eval, SCENARIOS
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "Maryan Kondratyuk"
 __license__ = "MIT"
 

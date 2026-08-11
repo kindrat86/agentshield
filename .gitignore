@@ -9,3 +9,4 @@ __pycache__/
 .devto_api_key
 dist/
 *.egg-info/
+.pypi_token
