@@ -63,7 +63,34 @@ footer{text-align:center;padding:24px 0;border-top:1px solid var(--border);margi
 <div class="amount">$7<span class="period"> one-time</span></div>
 </div>
 
-<a href="/api/billing/checkout" class="cta-btn" onclick="fetch('/api/billing/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tier:'tripwire'})}).then(r=>r.json()).then(d=>{if(d.url)location.href=d.url;else if(d.checkout_url)location.href=d.checkout_url;else alert('Redirecting to checkout...')}).catch(e=>alert('Please log in first at /auth'));return false">Get the Starter Kit for $7 →</a>
+<a href="/api/billing/checkout" class="cta-btn" onclick="startTripwireCheckout(event)">Get the Starter Kit for $7 →</a>
+
+<script>
+async function startTripwireCheckout(e) {
+    e.preventDefault();
+    try {
+        const resp = await fetch('/api/billing/checkout', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({tier: 'tripwire'})
+        });
+        if (resp.ok) {
+            const d = await resp.json();
+            if (d.url) { window.location.href = d.url; return; }
+        }
+        if (resp.status === 401) {
+            // Not logged in — redirect to auth, come back here after
+            window.location.href = '/auth?next=/tripwire';
+            return;
+        }
+        // Some other error
+        const err = await resp.json().catch(() => ({}));
+        alert('Checkout error: ' + (err.error || 'Please try again'));
+    } catch(e) {
+        window.location.href = '/auth?next=/tripwire';
+    }
+}
+</script>
 
 <div class="guarantee">
 <strong style="color:var(--accent)"> ironclad guarantee:</strong><br>

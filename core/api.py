@@ -948,7 +948,7 @@ class APIHandler(BaseHTTPRequestHandler):
         """Create a Stripe Checkout Session and redirect the user."""
         account = self._get_session_account()
         if not account:
-            self._send_json({"error": "Please log in to upgrade", "redirect": "/auth"}, 401)
+            self._send_json({"error": "Please log in to continue", "redirect": "/auth?next=checkout"}, 401)
             return
         body = self._read_body()
         tier = body.get('tier')
@@ -958,6 +958,7 @@ class APIHandler(BaseHTTPRequestHandler):
             'managed': os.getenv('STRIPE_PRICE_MANAGED'),
             'tripwire': os.getenv('STRIPE_PRICE_TRIPWIRE'),
             'bump': os.getenv('STRIPE_PRICE_BUMP'),
+            'audit': os.getenv('STRIPE_PRICE_AUDIT', os.getenv('STRIPE_PRICE_MANAGED')),
         }
         price_id = price_map.get(tier)
         if not price_id:
@@ -975,8 +976,10 @@ class APIHandler(BaseHTTPRequestHandler):
         import urllib.parse
         import base64
 
+        is_one_time = tier in ('tripwire', 'bump', 'audit')
+        checkout_mode = 'payment' if is_one_time else 'subscription'
         checkout_data = urllib.parse.urlencode({
-            'mode': 'subscription',
+            'mode': checkout_mode,
             'line_items[0][price]': price_id,
             'line_items[0][quantity]': '1',
             'success_url': f"https://agentshield.fly.dev/dashboard?upgrade=success&tier={tier}",

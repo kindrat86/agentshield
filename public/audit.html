@@ -141,26 +141,20 @@ Start My Audit →
 <script>
 function startAuditCheckout(e) {
   e.preventDefault();
-  // Redirect to Stripe checkout for audit tier
-  // For now, use the existing billing endpoint which will need an 'audit' tier
   fetch('/api/billing/checkout', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({tier: 'audit'}),
-    credentials: 'include'
+    body: JSON.stringify({tier: 'audit'})
   }).then(r => {
-    if (r.redirected) {
-      window.location.href = r.url;
-    } else {
-      // Not logged in or no audit tier — redirect to register
-      window.location.href = '/dashboard';
-    }
-  }).catch(() => {
-    window.location.href = '/dashboard';
+    if (r.ok) return r.json();
+    if (r.status === 401) { window.location.href = '/auth?next=/audit'; return; }
+    return r.json().then(d => { throw new Error(d.error || 'Checkout failed'); });
+  }).then(d => {
+    if (d.url) window.location.href = d.url;
+  }).catch(e => {
+    window.location.href = '/auth?next=/audit';
   });
 }
-// Track page view
-navigator.sendBeacon('/api/track', JSON.stringify({e:'audit_page_view', p:'/audit', t:Date.now()}));
 </script>
 
 </body>
