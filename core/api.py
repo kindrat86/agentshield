@@ -234,6 +234,8 @@ class APIHandler(BaseHTTPRequestHandler):
                 self._serve_file(os.path.join(self.public_dir, 'challenge.html'))
             elif path == '/bounty':
                 self._serve_file(os.path.join(self.public_dir, 'bounty.html'))
+            elif path == '/auth' or path == '/login' or path == '/register':
+                self._serve_file(os.path.join(self.public_dir, 'auth.html'))
             elif path == '/api/stats/prevented':
                 if self.store:
                     conn = self.store._get_conn()
@@ -661,6 +663,7 @@ class APIHandler(BaseHTTPRequestHandler):
         """Create a Stripe Checkout Session and redirect the user."""
         account = self._get_session_account()
         if not account:
+            self._send_json({"error": "Please log in to upgrade", "redirect": "/auth"}, 401)
             return
         body = self._read_body()
         tier = body.get('tier')
