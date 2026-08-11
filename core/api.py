@@ -179,7 +179,7 @@ class APIHandler(BaseHTTPRequestHandler):
         return agent
 
     def _set_session_cookie(self, token: str) -> str:
-        return f"session_token={token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400"
+        return f"session_token={token}; Path=/; SameSite=Lax; Max-Age=86400"
 
     # ─── Main Router ──────────────────────────────────────────────────────
 
@@ -713,11 +713,7 @@ class APIHandler(BaseHTTPRequestHandler):
                 session_data = json.loads(resp.read().decode())
             checkout_url = session_data.get('url')
             if checkout_url:
-                self.send_response(302)
-                self._send_cors_headers()
-                self.send_header('Location', checkout_url)
-                self.send_header('Content-Length', '0')
-                self.end_headers()
+                self._send_json({"url": checkout_url, "session_id": session_data.get('id', '')}, 200)
             else:
                 self._send_json({"error": "Failed to create checkout session"}, 500)
         except urllib.error.HTTPError as e:

@@ -181,10 +181,10 @@ function getCookie(name) {
 const token = getCookie('session_token');
 
 async function api(path, method='GET', body=null) {
-  const opts = {method, headers: {}};
+  const opts = {method, headers: {}, credentials: 'same-origin'};
   if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
   const resp = await fetch(path, opts);
-  if (resp.status === 401) { window.location.href = '/'; return null; }
+  if (resp.status === 401) { document.getElementById('auth-required').style.display = 'block'; return null; }
   return resp.json();
 }
 
