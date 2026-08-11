@@ -125,14 +125,18 @@ class SpendControlEngine:
         if max_daily is None:
             return None
 
-        txn_date = self._extract_date(transaction.get('timestamp'))
+        txn_ts = self._parse_ts(transaction.get('timestamp'))
+        txn_date = txn_ts.astimezone(timezone.utc).date() if txn_ts else None
         agent_id = transaction.get('agent_id')
 
         daily_total = txn_amount  # Start with current transaction
         for prior in prior_transactions:
             if agent_id and prior.get('agent_id') != agent_id:
                 continue
-            prior_date = self._extract_date(prior.get('timestamp'))
+            if prior.get('decision') == 'BLOCKED' or prior.get('status') == 'BLOCKED':
+                continue
+            prior_ts = self._parse_ts(prior.get('timestamp'))
+            prior_date = prior_ts.astimezone(timezone.utc).date() if prior_ts else None
             if txn_date and prior_date and prior_date == txn_date:
                 prior_amount = self._to_decimal_safe(prior.get('amount'))
                 if prior_amount is not None:
