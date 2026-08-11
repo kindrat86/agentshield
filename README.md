@@ -1,6 +1,6 @@
 # AgentShield — Firewall for AI Agent Spending
 
-Stop runaway AI agents before they burn your budget. 9 composable rules evaluated per-transaction in <1ms. Pure Python stdlib — zero dependencies.
+Stop runaway AI agents before they burn your budget. 7 composable rules evaluated per-transaction in <1ms. Pure Python stdlib — zero dependencies.
 
 ## Install
 
