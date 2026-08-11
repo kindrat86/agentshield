@@ -1,12 +1,11 @@
 {
   "created": "2026-08-11",
-  "last_updated": "2026-08-11T09:30:00+03:00",
+  "last_updated": "2026-08-11T10:00:00+03:00",
   "github_outreach": [
     {
       "action": "issue_created",
       "repo": "AgentBudget/agentbudget",
       "url": "https://github.com/AgentBudget/agentbudget/issues/29",
-      "title": "Integration proposal: AgentShield rules engine for transaction-level spend control",
       "status": "posted",
       "posted_at": "2026-08-11T09:30:00+03:00"
     },
@@ -19,6 +18,32 @@
       "posted_at": "2026-08-11T09:30:00+03:00"
     }
   ],
+  "b2b_drafts": [
+    {
+      "company": "Portal26",
+      "url": "https://portal26.ai",
+      "subject": "Healthcare enterprise $6M token overrun — AgentShield prevents this in <1ms",
+      "body": "Saw your case study on the healthcare enterprise that consumed 1 trillion tokens in 6 months. That's exactly the scenario AgentShield was built for. It's a per-transaction spend firewall: each API call is evaluated against configurable rules (transaction limits, daily caps, velocity) before it executes. Sub-millisecond evaluation, pure Python stdlib, zero dependencies. Would love to explore whether AgentShield could integrate with Portal26's Shadow AI Discovery Engine as an enforcement layer. Risk calculator: https://agentshield.fly.dev/tools/risk-calculator/",
+      "contact_method": "Contact form at portal26.ai or press@portal26.ai",
+      "status": "draft"
+    },
+    {
+      "company": "CloudZero",
+      "url": "https://www.cloudzero.com",
+      "subject": "Integration: AgentShield transaction-level spend rules + CloudZero cost intelligence",
+      "body": "Your AI cost monitoring article covers the visibility problem perfectly. We built the enforcement layer — AgentShield evaluates each agent transaction against spend rules (limits, velocity, daily caps) in under 1ms, blocking runaway calls before they execute. CloudZero shows WHERE the money went; AgentShield stops it from being spent in the first place. They're complementary. Would CloudZero be interested in an integration partnership? Risk calculator: https://agentshield.fly.dev/tools/risk-calculator/",
+      "contact_method": "Contact form at cloudzero.com or LinkedIn",
+      "status": "draft"
+    },
+    {
+      "company": "Nevermined",
+      "url": "https://nevermined.ai",
+      "subject": "AgentShield + Nevermined: spend rules + agent billing = complete cost control",
+      "body": "Your x402 agent billing work is solving the payment side. AgentShield solves the enforcement side: per-transaction spend rules evaluated before each API call. Together: Nevermined handles billing/settlement, AgentShield handles spend authorization. The architecture is pure Python stdlib, sub-millisecond, multi-tenant. Would there be interest in exploring how AgentShield's rules engine could complement x402 billing?",
+      "contact_method": "nevermined.ai contact or blog comment",
+      "status": "draft"
+    }
+  ],
   "emails": [
     {
       "to": "okhattab@mit.edu",
@@ -28,20 +53,10 @@
       "source": "dream100"
     }
   ],
-  "real_leads": [
-    {"name": "sampleSal", "problem": "$1,100/week Anthropic API", "outreach": "HN reply after karma", "status": "pending"},
-    {"name": "Portal26", "problem": "$6M enterprise token overrun", "outreach": "B2B contact form", "status": "pending"},
-    {"name": "AgentBudget", "problem": "OSS competitor", "outreach": "GitHub issue #29 ✅", "status": "posted"},
-    {"name": "OpenClaw #42475", "problem": "Per-agent cost budget enforcement", "outreach": "GitHub comment ✅", "status": "posted"},
-    {"name": "dipampaul17 / AgentGuard", "problem": "Built competitor after $2K spend", "outreach": "HN/GitHub", "status": "pending"},
-    {"name": "Prefactor", "problem": "$9K→$38K monthly spend", "outreach": "Contact form", "status": "pending"},
-    {"name": "Braintrust", "problem": "$12K unattributed increase", "outreach": "Contact form", "status": "pending"},
-    {"name": "CloudZero", "problem": "$5K→$50K overnight", "outreach": "Contact form", "status": "pending"}
-  ],
   "stats": {
     "github_outreach_posted": 2,
-    "emails_drafts_queued": 1,
-    "leads_with_outreach_action": 8,
-    "leads_remaining": 5
+    "b2b_drafts_queued": 3,
+    "email_drafts_queued": 1,
+    "total_outreach_actions": 6
   }
 }

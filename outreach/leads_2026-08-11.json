@@ -1,115 +1,72 @@
-{
-  "date": "2026-08-11",
-  "queries_run": [
-    "\"AI agent\" spend OR budget OR billing",
-    "site:news.ycombinator.com \"agent cost\" OR \"agent spend\""
-  ],
-  "total_leads": 9,
-  "leads_with_dollar_amounts": 7,
-  "top_3_by_dollar_amount": [
-    {
-      "rank": 1,
-      "name": "Portal26 / healthcare enterprise case",
-      "source_url": "https://portal26.ai/ai-agent-cost-control-stop-agents-burning-budget",
-      "dollar_amount": "$6,000,000+ unplanned costs (1 trillion tokens / 6 months)",
-      "summary": "A healthcare enterprise consumed 1 trillion tokens over six months, generating $6M+ in unplanned costs before finance even understood what was driving it. 85% of companies miss AI cost forecasts by >10%, and nearly 25% underestimate by 50%+."
-    },
-    {
-      "rank": 2,
-      "name": "sampleSal (HN user)",
-      "source_url": "https://news.ycombinator.com/item?id=47062591",
-      "dollar_amount": "$1,100/week ($57,200/year) on Anthropic API",
-      "summary": "Burning $1,100/week on Anthropic API for AI agents built on OpenClaw — $700/week on coding agents and $400/week on assistant tasks. Has zero visibility into whether this is normal or if routing to cheaper models could cut costs 60%."
-    },
-    {
-      "rank": 3,
-      "name": "AgentBudget.dev",
-      "source_url": "https://agentbudget.dev",
-      "dollar_amount": "$50–$200 per runaway loop incident",
-      "summary": "Agents stuck in retry loops burn $50-$200 in 10 minutes before anyone notices. Multi-provider chaos — one session calls OpenAI, Anthropic, Google, and 3 APIs, each with separate billing. 1,000 concurrent sessions with 5% failure rate = 50 runaway agents."
-    }
-  ],
-  "all_leads": [
-    {
-      "source_url": "https://news.ycombinator.com/item?id=47062591",
-      "name": "sampleSal (HN user)",
-      "company": null,
-      "problem_summary": "Burning $1,100/week on Anthropic API for AI agents built on OpenClaw — $700/week on coding agents and $400/week on assistant tasks. Has zero visibility into whether this is normal or if routing to cheaper models could cut costs 60%.",
-      "dollar_amount": "$1,100/week ($57,200/year)",
-      "product_mentioned": "local001.com/tokens (benchmarking tool they built)",
-      "source_type": "Hacker News"
-    },
-    {
-      "source_url": "https://agentbudget.dev",
-      "name": "AgentBudget",
-      "company": "AgentBudget (OSS)",
-      "problem_summary": "Agents stuck in retry loops burn $50-$200 in 10 minutes before anyone notices. Multi-provider chaos — one session calls OpenAI, Anthropic, Google, and 3 APIs, each with separate billing. 1,000 concurrent sessions with 5% failure rate = 50 runaway agents.",
-      "dollar_amount": "$50–$200 per runaway loop incident; $5.00 budget example",
-      "product_mentioned": "agentbudget.dev (Python/Go/TS OSS library)",
-      "source_type": "Product page"
-    },
-    {
-      "source_url": "https://news.ycombinator.com/item?id=47778922",
-      "name": "bbatha (HN user)",
-      "company": null,
-      "problem_summary": "Predicts project estimates will shift from time-based to capex/token-spend model, where businesses say 'I want that feature for $1,000 in tokens.' Current frontier models like o3 cost over $100/hr, making cost-benefit vs hiring SWEs a live question.",
-      "dollar_amount": "$1,000/feature in tokens; o3 at $100+/hr; $10k local system (dual RTX 5090)",
-      "product_mentioned": null,
-      "source_type": "Hacker News"
-    },
-    {
-      "source_url": "https://portal26.ai/ai-agent-cost-control-stop-agents-burning-budget",
-      "name": "Portal26 (via healthcare enterprise case)",
-      "company": "Portal26.ai",
-      "problem_summary": "A healthcare enterprise consumed 1 trillion tokens over six months, generating $6M+ in unplanned costs before finance even understood what was driving it. 85% of companies miss AI cost forecasts by >10%, and nearly 25% underestimate by 50%+. Only 12% of CEOs say AI has delivered both cost AND revenue benefits.",
-      "dollar_amount": "$6,000,000+ unplanned (single enterprise); $2.52 trillion worldwide AI spend forecast 2026",
-      "product_mentioned": "portal26.ai (agentic AI governance platform)",
-      "source_type": "Vendor blog / industry analysis"
-    },
-    {
-      "source_url": "https://www.reworked.co/digital-workplace/ai-agent-costs-who-pays",
-      "name": "Paul Malott (CEO Automations24) + Johnny Halife (CTO Southworks)",
-      "company": "Automations24 / Southworks",
-      "problem_summary": "When a user asks a simple question, the agent interprets it as an execution task and compute costs compound before anyone in finance sees the request. Claude Code users report unexpected token burn just from asking questions. Cost is now tied to autonomous system behavior, not human spending decisions.",
-      "dollar_amount": "No specific dollar amount cited",
-      "product_mentioned": "Claude Code (unexpected token burn)",
-      "source_type": "Industry publication (Reworked)"
-    },
-    {
-      "source_url": "https://news.ycombinator.com/item?id=47778922",
-      "name": "aisaasbuilder (HN user)",
-      "company": "Traeco",
-      "problem_summary": "Most teams see only a monthly AI total, not per-agent or per-step cost attribution. The decision math for AI vs SWE spend only works if both sides of the equation are real numbers. Building traeco.dev to close this gap.",
-      "dollar_amount": "None specified",
-      "product_mentioned": "traeco.dev",
-      "source_type": "Hacker News"
-    },
-    {
-      "source_url": "https://news.ycombinator.com/item?id=47371289",
-      "name": "HN discussion on agents spending money",
-      "company": null,
-      "problem_summary": "Community consensus: agents proposing actions with cost estimates, humans approving via notification, prepaid virtual cards with low limits. Trust threshold for autonomous agent spending is around $500 in API credits vs e-commerce.",
-      "dollar_amount": "$500 trust threshold for autonomous agent spending",
-      "product_mentioned": null,
-      "source_type": "Hacker News"
-    },
-    {
-      "source_url": "https://news.ycombinator.com/item?id=46993479",
-      "name": "avaer (HN user)",
-      "company": null,
-      "problem_summary": "People running 15 agents to write software could use 1-2 with a better multi-page prompt for the same results at a fraction of the cost. Modern agentic coding tools spin up sub-agents on their own — the AI bill goes 'BRR.'",
-      "dollar_amount": "\"fraction of the cost\" (no exact figure)",
-      "product_mentioned": null,
-      "source_type": "Hacker News"
-    },
-    {
-      "source_url": "https://nevermined.ai/blog/ai-agent-billing-patterns",
-      "name": "Nevermined",
-      "company": "Nevermined",
-      "problem_summary": "Traditional seat-based pricing fails when a single conversation triggers hundreds of micro-activities with sub-cent costs, making unit economics nearly impossible to track. Need AI-native billing for variable compute costs, sub-cent micro-transactions, and agent-to-agent payments.",
-      "dollar_amount": "Sub-cent per micro-transaction",
-      "product_mentioned": "Nevermined (AI-native billing platform)",
-      "source_type": "Company blog"
-    }
-  ]
-}
+[
+  {
+    "source_url": "https://airia.com/ai-cost-optimization-when-ai-spending-spirals-out-of-control/",
+    "name": "Uber (cited by Portal26.ai)",
+    "problem_summary": "Uber rolled out Claude Code access to ~5,000 engineers in December 2025. Usage nearly doubled by February 2026, 84% of developers were classified as agentic coding users by March, and by April the company had burned through its entire 2026 AI budget — four months in. The CTO acknowledged being 'back to the drawing board' on AI spend governance.",
+    "amount_mentioned": "Entire annual AI budget (specific figure undisclosed)",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://byteiota.com/ai-agent-cost-runaway-enterprise-budget-500m-bill/",
+    "name": "Unnamed Enterprise (cited by Portal26.ai)",
+    "problem_summary": "A separate enterprise reportedly spent $500 million in a single month after deploying AI access with no usage caps. Microsoft simultaneously began canceling most internal Claude Code licenses, citing runaway token bills that made consumption unsustainable at scale.",
+    "amount_mentioned": "$500,000,000 (single month)",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://www.elvex.com/blog/ai-token-cost-enterprise-budget-control",
+    "name": "Unnamed Healthcare Enterprise (cited by Portal26.ai)",
+    "problem_summary": "A healthcare enterprise consumed one trillion tokens over six months, generating more than $6 million in unplanned costs. The finance team didn't understand what was driving the spend until well after the fact — costs were invisible by design, accumulated through normal agent activity that no one had instrumented or governed.",
+    "amount_mentioned": "$6,000,000+ (over 6 months)",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://cloudatler.com/blog/the-50-000-loop-how-to-stop-runaway-ai-agent-costs",
+    "name": "CloudAtler (Muthupandian A)",
+    "problem_summary": "Autonomous AI agents can get stuck in infinite loops retrying failing tasks — a single agent using OpenAI o1 at $60/1M tokens can consume $20–50 per hour. Scale to a fleet of 500 concurrent agents in a CI/CD pipeline and you can burn $25,000 in a single night. Runaway agent spend is cited as the #1 cause of budget variance in AI engineering teams for 2025.",
+    "amount_mentioned": "$25,000/single night, $50,000 per loop incident",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=45914307",
+    "name": "nthypes (HN user, Founder & CTO of AI-First CRM)",
+    "problem_summary": "Spent $928.45 on AI coding agents (Cursor/Claude) over 70 days. Reports that 340M tokens felt wasteful — models using 50K tokens exploring dead ends for solutions that could have been expressed in 5K tokens. Calls out that at $5,500+/year per developer, AI coding changes the unit economics for early-stage startups and the pricing model hasn't stabilized.",
+    "amount_mentioned": "$928.45 (70 days), projected $5,500+/year",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=46927422",
+    "name": "satgate (HN user, 25+ years enterprise security)",
+    "problem_summary": "Describes the agent cost problem as fundamentally economic, not technical. Most teams discover their agent burned through $10K in API calls only after the invoice hits — there's no identity, authorization, or cost control layer for machine-to-machine traffic. Calls agentic AI 'the Wild West' until governance catches up.",
+    "amount_mentioned": "$10,000 (typical surprise invoice)",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://news.ycombinator.com/item?id=48103104",
+    "name": "CharlesW / YouTube (Morse Code Hack)",
+    "problem_summary": "A security researcher demonstrated how hidden Morse code in prompts tricked an AI agent into spending $200K autonomously. The critical variable identified is not intelligence level but permission scope combined with reversibility of agent actions — agents with broad financial access can be exploited.",
+    "amount_mentioned": "$200,000",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://hiflylabs.com/blog/2026/7/16/cap-llm-api-use-avoid-runaway-llm-costs",
+    "name": "Gábor Horváth / Hiflylabs",
+    "problem_summary": "Describes Denial of Wallet (DoW) and OverThink attacks on LLM APIs where a single malicious prompt can cost 3,000x more than a normal request. Reasoning-token attacks can force models to generate up to 46x more hidden thinking tokens than needed. Clients came to Hiflylabs after internal pilot API bills did things 'nobody signed off on' — and that was just enthusiastic internal users, not malicious actors.",
+    "amount_mentioned": "3,000x cost variance per request, up to 46x reasoning tokens",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://larridin.com/blog/ai-agent-cost-governance",
+    "name": "Larridin / Forrester (Greg Zorella)",
+    "problem_summary": "Forrester analyst Greg Zorella warned that one AI agent can 'go crazy' and consume the budget of nine other agents. Larridin enterprise scans find an average of 47 orphaned agents per organization — agents still running after the project ended, the pilot completed, or the team moved on, with no owner accountable for spend.",
+    "amount_mentioned": "1 agent consuming 9 agents' worth of budget; 47 orphaned agents average per org",
+    "discovered_at": "2026-08-11"
+  },
+  {
+    "source_url": "https://prefactor.tech/problems/runaway-agent-costs",
+    "name": "Prefactor.tech (AI cost governance startup)",
+    "problem_summary": "Documented a case where an agent's cost per task tripled in one week with no code change — traced to a knowledge-base update that made one retrieval step return far more documents, causing context to grow on every subsequent turn. Most teams only see aggregate monthly totals, not per-agent or per-step cost attribution, making it impossible to connect spend to outcomes.",
+    "amount_mentioned": "Cost per task tripled (specific dollar amount undisclosed)",
+    "discovered_at": "2026-08-11"
+  }
+]
