@@ -137,6 +137,59 @@ class APIHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    # ─── Badge Handler ────────────────────────────────────────────────────
+
+    def _handle_badge(self, path: str):
+        """Serve dynamic SVG badges. /badge/protected → 'Protected by AgentShield' badge.
+           /badge/score/<n> → color-coded risk score badge."""
+        badge_type = path.split('/badge/', 1)[1] if '/badge/' in path else ''
+
+        if badge_type == 'protected' or badge_type == 'protected/':
+            svg = self._badge_protected_svg()
+            self._serve_svg(svg, 86400)
+        elif badge_type.startswith('score/'):
+            try:
+                score_str = badge_type.split('score/', 1)[1].rstrip('/')
+                score = max(0, min(100, int(score_str)))
+                svg = self._badge_score_svg(score)
+                self._serve_svg(svg, 3600)
+            except (ValueError, IndexError):
+                self._send_json({"error": "Invalid score. Use /badge/score/0-100"}, 400)
+        else:
+            self._send_json({"error": "Badge not found. Try /badge/protected or /badge/score/85"}, 404)
+
+    def _serve_svg(self, svg: str, max_age: int = 86400):
+        body = svg.encode('utf-8')
+        self.send_response(200)
+        self.send_header('Content-Type', 'image/svg+xml')
+        self.send_header('Cache-Control', f'public, max-age={max_age}')
+        self._send_cors_headers()
+        self.send_header('Content-Length', str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _badge_protected_svg(self) -> str:
+        return '''<svg xmlns="http://www.w3.org/2000/svg" width="210" height="28" role="img" aria-label="Protected by AgentShield">
+  <title>Protected by AgentShield</title>
+  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#141414"/><stop offset="100%" stop-color="#1a1a1a"/></linearGradient></defs>
+  <rect width="210" height="28" rx="6" fill="url(#g)" stroke="#00d4aa" stroke-width="1"/>
+  <text x="10" y="19" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="700" fill="#00d4aa">🛡 Protected by</text>
+  <text x="130" y="19" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="700" fill="#e8e8e8">AgentShield</text>
+</svg>'''
+
+    def _badge_score_svg(self, score: int) -> str:
+        if score < 33: color, label = '#00d4aa', 'LOW RISK'
+        elif score < 66: color, label = '#ffa502', 'MODERATE'
+        else: color, label = '#ff4757', 'HIGH RISK'
+        return f'''<svg xmlns="http://www.w3.org/2000/svg" width="260" height="28" role="img" aria-label="Agent Risk Score: {score}/100 — {label}">
+  <title>Agent Spend Risk Score: {score}/100 ({label})</title>
+  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#141414"/><stop offset="100%" stop-color="#1a1a1a"/></linearGradient></defs>
+  <rect width="260" height="28" rx="6" fill="url(#g)" stroke="{color}" stroke-width="1"/>
+  <text x="10" y="19" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="600" fill="#888">Agent Risk Score</text>
+  <text x="138" y="19" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="800" fill="{color}">{score}/100</text>
+  <text x="193" y="19" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="10" font-weight="700" fill="{color}">{label}</text>
+</svg>'''
+
     # ─── Auth Helpers ─────────────────────────────────────────────────────
 
     def _get_session_account(self) -> dict | None:
@@ -250,8 +303,20 @@ class APIHandler(BaseHTTPRequestHandler):
                 self._serve_file(os.path.join(self.public_dir, 'challenge.html'))
             elif path == '/bounty':
                 self._serve_file(os.path.join(self.public_dir, 'bounty.html'))
+            elif path == '/sitemap.xml':
+                self._serve_file(os.path.join(self.public_dir, 'sitemap.xml'))
+            elif path == '/embed' or path == '/embed/':
+                self._serve_file(os.path.join(self.public_dir, 'embed.html'))
+            elif path == '/embed/risk-calculator' or path == '/embed/risk-calculator/':
+                self._serve_file(os.path.join(self.public_dir, 'embed', 'risk-calculator', 'index.html'))
+            elif path.startswith('/badge/'):
+                self._handle_badge(path)
             elif path == '/auth' or path == '/login' or path == '/register':
                 self._serve_file(os.path.join(self.public_dir, 'auth.html'))
+            elif path == '/tripwire':
+                self._serve_file(os.path.join(self.public_dir, 'tripwire.html'))
+            elif path == '/checkout':
+                self._serve_file(os.path.join(self.public_dir, 'checkout-bump.html'))
             elif path == '/api/stats/prevented':
                 if self.store:
                     conn = self.store._get_conn()
@@ -299,6 +364,8 @@ class APIHandler(BaseHTTPRequestHandler):
                 self._handle_evaluate()
             elif path == '/api/email-capture':
                 self._handle_email_capture()
+            elif path == '/api/email-cron':
+                self._handle_email_cron()
             elif path == '/api/track':
                 self._handle_track()
             elif path == '/api/billing/checkout':
@@ -746,6 +813,40 @@ class APIHandler(BaseHTTPRequestHandler):
 
     # ─── Email Capture ────────────────────────────────────────────────────
 
+    def _send_resend_email(self, to_email, subject, html_body):
+        """Send email via Resend API using stdlib urllib."""
+        api_key = os.getenv('RESEND_API_KEY', '')
+        if not api_key:
+            return False
+        import urllib.request as _ur, urllib.error as _ue
+        data = json.dumps({
+            "from": "AgentShield <noreply@sipiteno.com>",
+            "to": [to_email],
+            "subject": subject,
+            "html": html_body
+        }).encode('utf-8')
+        req = _ur.Request('https://api.resend.com/emails', data=data,
+                         headers={'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'},
+                         method='POST')
+        try:
+            with _ur.urlopen(req, timeout=10) as resp:
+                return resp.status == 200
+        except Exception:
+            return False
+
+    def _get_email_bodies(self):
+        """Return dict of step -> (subject, html_body) for email sequence."""
+        return {
+            'soap_day1': ("I lost $2,800 while I was sleeping", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h1 style="color:#ff4757">I lost $2,800 while I was sleeping</h1><p>At 3:14 AM, my phone buzzed. An email from my API provider.</p><p><strong>$2,793.00. In one hour. While I was asleep.</strong></p><p>An AI agent I deployed had entered a retry loop. Each retry cost $133. It retried 21 times before the budget alert even arrived.</p><p>The alert came at 3:14 AM. I read it at 6:17 AM. Three hours too late.</p><p>Every tool I had was reactive. Rate limits protect the provider. Budget alerts arrive by email. Dashboards show what happened after the money is gone.</p><p>Tomorrow I will show you what I built to stop this from ever happening again.</p><p>— Maryan K.<br>AgentShield<br><a href="https://agentshield.fly.dev">https://agentshield.fly.dev</a></p></body></html>'),
+            'soap_day2': ("What if your agent asked permission before spending?", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>Yesterday I told you about losing $2,800 in 60 seconds.</h2><p>Heres what I built: a per-transaction firewall that sits between your agent and the API. Every call is evaluated against rules you set BEFORE it executes.</p><p>Transaction over $500? Blocked. Daily spend over $2,000? Blocked. More than 10 calls in an hour? Flagged.</p><p>The evaluation takes less than 1ms. Pure Python stdlib. Zero dependencies.</p><p>If Id had this running that night, the second call would have been blocked at $266. Not $2,793.</p><p>Tomorrow: the two rules that came from production feedback at HeartFlow.</p><p>— Maryan K.<br>AgentShield</p></body></html>'),
+            'soap_day3': ("The rule that catches what daily budgets miss", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>The rule that catches what daily budgets miss</h2><p>session_budget catches the 2 AM cron burst where one session eats the whole day budget. Session-scoped budgets with decay tightening fix this.</p><p>And cascade_cost: a $0.50 call with 30% failure rate and $5 retry = $2 expected cost. Blocks calls that look cheap but compound on failure.</p><p>Tomorrow: the 56-scenario eval gym.</p><p>— Maryan K.<br>AgentShield</p></body></html>'),
+            'soap_day4': ("56 test scenarios that prove your spend control works", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>56 test scenarios that prove your spend control works</h2><p>You cant claim spend control without test cases. So I wrote 56 of them.</p><p>The Eval Gym covers clean approvals, transaction limits, daily totals, velocity, allowlists, category blocks, session budgets, cascade costs, and edge cases.</p><p>All MIT licensed: https://agentshield.fly.dev/eval</p><p>Tomorrow: how to get started in 60 seconds.</p><p>— Maryan K.<br>AgentShield</p></body></html>'),
+            'soap_day5': ("Your agents are running right now. Do they have a firewall?", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>Your agents are running right now</h2><p>Free options: pip install agentshield, risk calculator, eval gym.</p><p>Paid options: $299 Professional Audit, $19/mo Managed.</p><p>The question isnt whether you need spend control. Its whether you set it up before or after your first incident.</p><p>I wish I had done it before.</p><p>— Maryan K.<br>AgentShield</p></body></html>'),
+            'seinfeld_1': ("The cheapest API call that cost $2,800", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><p>Each individual API call was only $133. Thats less than a coffee subscription. But 21 of them in 60 seconds? Thats $2,793.</p><p>The lesson: its not the individual call cost that kills you. Its the loop. The retry. The accumulation.</p><p>AgentShield blocks the second call. Not the 21st.</p><p>— Maryan K.</p></body></html>'),
+            'seinfeld_2': ("Why your rate limit is a speed bump, not a firewall", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><p>Rate limits cap requests per second. They dont cap dollars.</p><p>Your provider is happy to let you make 100 calls at $133 each. They get paid either way.</p><p>AgentShield caps dollars. Thats the difference.</p><p>— Maryan K.</p></body></html>'),
+            'seinfeld_3': ("The 3 AM test: would your agent survive it?", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><p>If your agent ran unattended from midnight to 6 AM, what would your bill look like?</p><p>Thats the 3 AM test. If you dont know the answer, you need AgentShield.</p><p>Risk calculator: https://agentshield.fly.dev/tools/risk-calculator/</p><p>— Maryan K.</p></body></html>'),
+        }
+
     def _handle_email_capture(self):
         body = self._read_body()
         email = body.get('email', '').strip()
@@ -754,7 +855,61 @@ class APIHandler(BaseHTTPRequestHandler):
             self._send_json({"error": "Valid email required"}, 400)
             return
         capture_id = self.store.capture_email(email, source)
-        self._send_json({"success": True, "id": capture_id}, 201)
+        # Send Soap Opera Day 1 immediately
+        bodies = self._get_email_bodies()
+        day1 = bodies.get('soap_day1', ('', ''))
+        sent = self._send_resend_email(email, day1[0], day1[1])
+        # Schedule remaining emails
+        try:
+            import time as _time
+            now = _time.time()
+            day = 86400
+            steps = [
+                ('soap_day2', now + day),
+                ('soap_day3', now + day*2),
+                ('soap_day4', now + day*3),
+                ('soap_day5', now + day*4),
+                ('seinfeld_1', now + day*7),
+                ('seinfeld_2', now + day*10),
+                ('seinfeld_3', now + day*14),
+            ]
+            conn = self.store._get_conn()
+            for step, send_at in steps:
+                conn.execute(
+                    "INSERT OR IGNORE INTO email_sequence (email, capture_id, step, send_at, sent) VALUES (?,?,?,?,0)",
+                    (email, capture_id, step, send_at)
+                )
+            conn.commit()
+        except Exception:
+            pass  # Email capture must succeed even if scheduling fails
+        self._send_json({"success": True, "id": capture_id, "email_sent": sent}, 201)
+
+    def _handle_email_cron(self):
+        """Daily email sequence sender. Protected by CRON_SECRET."""
+        cron_secret = os.getenv('CRON_SECRET', 'changeme')
+        auth = self.headers.get('X-Cron-Secret', '')
+        if auth != cron_secret:
+            self._send_json({"error": "Unauthorized"}, 403)
+            return
+        import time as _time
+        now = _time.time()
+        conn = self.store._get_conn()
+        rows = conn.execute(
+            "SELECT id, email, step FROM email_sequence WHERE sent = 0 AND send_at <= ? ORDER BY send_at LIMIT 50",
+            (now,)
+        ).fetchall()
+        bodies = self._get_email_bodies()
+        sent_count = 0
+        for row in rows:
+            eid, email, step = row
+            entry = bodies.get(step, None)
+            if entry:
+                ok = self._send_resend_email(email, entry[0], entry[1])
+                if ok:
+                    conn.execute("UPDATE email_sequence SET sent = 1 WHERE id = ?", (eid,))
+                    sent_count += 1
+        conn.commit()
+        self._send_json({"sent": sent_count, "checked": len(rows)}, 200)
 
     # ─── Analytics Tracking ───────────────────────────────────────────────
 
@@ -799,7 +954,9 @@ class APIHandler(BaseHTTPRequestHandler):
         price_map = {
             'dev': os.getenv('STRIPE_PRICE_DEV'),
             'team': os.getenv('STRIPE_PRICE_TEAM'),
-            'managed': os.getenv('STRIPE_PRICE_MANAGED')
+            'managed': os.getenv('STRIPE_PRICE_MANAGED'),
+            'tripwire': os.getenv('STRIPE_PRICE_TRIPWIRE'),
+            'bump': os.getenv('STRIPE_PRICE_BUMP'),
         }
         price_id = price_map.get(tier)
         if not price_id:

@@ -103,6 +103,15 @@ class Store:
                     FOREIGN KEY (account_id) REFERENCES accounts(id)
                 );
 
+                CREATE TABLE IF NOT EXISTS email_sequence (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    email TEXT,
+                    capture_id TEXT,
+                    step TEXT,
+                    send_at REAL,
+                    sent INTEGER DEFAULT 0
+                );
+
                 CREATE TABLE IF NOT EXISTS email_captures (
                     id TEXT PRIMARY KEY,
                     email TEXT NOT NULL,
