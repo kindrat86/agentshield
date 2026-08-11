@@ -1,8 +1,9 @@
 """
-AgentShield — A firewall for AI agent spending.
+AgentShield — The Safety Layer for Autonomous AI
 
-9 composable rules evaluated per-transaction in <1ms.
-Pure Python 3.11 stdlib — zero dependencies.
+A per-transaction enforcement engine for AI agents.
+Evaluates every API call against your rules in <1ms before it executes.
+Pure Python 3.11 stdlib. Zero dependencies. MIT licensed.
 
 Quick Start:
     from agentshield import SpendControlEngine, run_eval
@@ -14,13 +15,19 @@ Quick Start:
     # Run the 56-scenario eval gym:
     results = run_eval()
     print(f"{results['passed']}/{results['total']} passed")
+
+    # Emergency scan:
+    # python -m agentshield.emergency
+
+    # Kill switch:
+    # python -m agentshield.kill
 """
 
 from agentshield.engine import SpendControlEngine
 from agentshield.eval_gym import run_eval, SCENARIOS
 
-__version__ = "1.0.1"
-__author__ = "Maryan Kondratyuk"
+__version__ = "1.2.0"
+__author__ = "Maryan K."
 __license__ = "MIT"
 
 __all__ = ["SpendControlEngine", "run_eval", "SCENARIOS"]
