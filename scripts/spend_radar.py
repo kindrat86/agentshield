@@ -57,10 +57,22 @@ Would this help your situation?"""
 def search_github(query: str, max_results: int = 3) -> list:
     """Search GitHub issues for the given query."""
     url = f"{GITHUB_API}?q={urllib.parse.quote(query)}&sort=created&order=desc&per_page={max_results}"
-    req = urllib.request.Request(url, headers={
+
+    headers = {
         "Accept": "application/vnd.github.v3+json",
         "User-Agent": "AgentShield-SpendRadar/1.0",
-    })
+    }
+
+    # Use authenticated requests if gh CLI token is available
+    import subprocess
+    try:
+        token = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True, timeout=5).stdout.strip()
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+    except Exception:
+        pass
+
+    req = urllib.request.Request(url, headers=headers)
 
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
@@ -148,12 +160,22 @@ def main():
         print(f"    Found: {len(results)} results")
 
     # Filter: only issues from the last 30 days with real engagement
+    # Also exclude false positives (PR review rosters, internal tooling)
+    FALSE_POSITIVE_PATTERNS = [
+        "review roster", "comment only", "carrier pr", "roster",
+        "changelog", "release notes", "contributing guide",
+    ]
+
     filtered = []
     for item in all_results:
         score = item.get("score", 0)
         comments = item.get("comments", 0)
+        title = item.get("title", "").lower()
         if score > 1 or comments > 0:  # Basic quality filter
-            filtered.append(item)
+            # Check for false positives
+            is_fp = any(fp in title for fp in FALSE_POSITIVE_PATTERNS)
+            if not is_fp:
+                filtered.append(item)
 
     print(f"\nTotal unique results: {len(all_results)}")
     print(f"Filtered (score>1 or comments>0): {len(filtered)}")
