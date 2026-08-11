@@ -22,18 +22,20 @@
     {
       "company": "Portal26",
       "url": "https://portal26.ai",
-      "subject": "Healthcare enterprise $6M token overrun — AgentShield prevents this in <1ms",
+      "subject": "Healthcare enterprise $6M token overrun \u2014 AgentShield prevents this in <1ms",
       "body": "Saw your case study on the healthcare enterprise that consumed 1 trillion tokens in 6 months. That's exactly the scenario AgentShield was built for. It's a per-transaction spend firewall: each API call is evaluated against configurable rules (transaction limits, daily caps, velocity) before it executes. Sub-millisecond evaluation, pure Python stdlib, zero dependencies. Would love to explore whether AgentShield could integrate with Portal26's Shadow AI Discovery Engine as an enforcement layer. Risk calculator: https://agentshield.fly.dev/tools/risk-calculator/",
       "contact_method": "Contact form at portal26.ai or press@portal26.ai",
-      "status": "draft"
+      "status": "requires_manual_scheduling",
+      "notes": "No text contact form. Uses Calendly widget at portal26.ai/schedule-a-demo. Maryan must book a 30-min demo slot."
     },
     {
       "company": "CloudZero",
       "url": "https://www.cloudzero.com",
       "subject": "Integration: AgentShield transaction-level spend rules + CloudZero cost intelligence",
-      "body": "Your AI cost monitoring article covers the visibility problem perfectly. We built the enforcement layer — AgentShield evaluates each agent transaction against spend rules (limits, velocity, daily caps) in under 1ms, blocking runaway calls before they execute. CloudZero shows WHERE the money went; AgentShield stops it from being spent in the first place. They're complementary. Would CloudZero be interested in an integration partnership? Risk calculator: https://agentshield.fly.dev/tools/risk-calculator/",
+      "body": "Your AI cost monitoring article covers the visibility problem perfectly. We built the enforcement layer \u2014 AgentShield evaluates each agent transaction against spend rules (limits, velocity, daily caps) in under 1ms, blocking runaway calls before they execute. CloudZero shows WHERE the money went; AgentShield stops it from being spent in the first place. They're complementary. Would CloudZero be interested in an integration partnership? Risk calculator: https://agentshield.fly.dev/tools/risk-calculator/",
       "contact_method": "Contact form at cloudzero.com or LinkedIn",
-      "status": "draft"
+      "status": "requires_manual_scheduling",
+      "notes": "No text contact form. Has Schedule Demo + Take Tour buttons (HubSpot). Emails are CloudFlare-protected. Maryan must use cloudzero.com/contact to schedule."
     },
     {
       "company": "Nevermined",
@@ -41,7 +43,8 @@
       "subject": "AgentShield + Nevermined: spend rules + agent billing = complete cost control",
       "body": "Your x402 agent billing work is solving the payment side. AgentShield solves the enforcement side: per-transaction spend rules evaluated before each API call. Together: Nevermined handles billing/settlement, AgentShield handles spend authorization. The architecture is pure Python stdlib, sub-millisecond, multi-tenant. Would there be interest in exploring how AgentShield's rules engine could complement x402 billing?",
       "contact_method": "nevermined.ai contact or blog comment",
-      "status": "draft"
+      "status": "requires_manual_scheduling",
+      "notes": "No text contact form. Has Book a Call link (calendar.app.google.pl). Maryan must book directly."
     }
   ],
   "emails": [

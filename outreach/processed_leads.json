@@ -1,0 +1,102 @@
+{
+  "processed_at": "2026-08-11",
+  "source_file": "leads_2026-08-11.json",
+  "total_processed": 10,
+  "summary": {
+    "CUSTOMER": 4,
+    "PARTNER": 4,
+    "COMMUNITY": 2
+  },
+  "leads": [
+    {
+      "name": "nthypes (HN user, Founder & CTO of AI-First CRM)",
+      "source_url": "https://news.ycombinator.com/item?id=45914307",
+      "classification": "CUSTOMER",
+      "priority": 1,
+      "priority_rationale": "Directly reachable, actively spending real money ($928/70 days, $5,500+/yr/dev projected), explicitly frustrated with waste (50K tokens for 5K-token solutions), early-stage startup = fast decision cycle.",
+      "outreach_approach": "Reply on the HN thread (organic, not salesy): acknowledge the 340M-token waste pattern, share that per-transaction velocity/daily-cap rules would have flagged the dead-end exploration loops in real time, and link the risk calculator (https://agentshield.fly.dev/tools/risk-calculator/) with his own numbers pre-framed: '$928/70 days = ~$13/day; a $15/day cap with velocity alerts costs nothing to run (pure stdlib, <1ms/check)'. Offer a 15-min setup walkthrough if he bites. Do NOT pitch in first message -- validate his economics point first.",
+      "status": "drafted"
+    },
+    {
+      "name": "Gabor Horvath / Hiflylabs",
+      "source_url": "https://hiflylabs.com/blog/2026/7/16/cap-llm-api-use-avoid-runaway-llm-costs",
+      "classification": "PARTNER",
+      "priority": 2,
+      "priority_rationale": "Consultancy with multiple clients already burned by runaway pilot bills = channel partner with built-in distribution. Named author, published thought leadership on exactly our problem (DoW/OverThink attacks). One partnership = many customers.",
+      "integration_proposal": "Email/contact Gabor directly referencing his cap-LLM-API-use post: 'Your DoW/OverThink writeup describes 3,000x cost variance per request -- AgentShield is the enforcement layer for exactly that: per-transaction rules (limits, velocity, daily caps) evaluated in <1ms before the call executes, pure Python stdlib, zero deps. Proposal: Hiflylabs deploys AgentShield as the standard guardrail in client LLM pilots; we support integration, you own the client relationship. Happy to build a Hiflylabs-branded config template for the attack patterns you documented (reasoning-token amplification caps, per-prompt cost ceilings).' Include risk calculator link.",
+      "status": "drafted"
+    },
+    {
+      "name": "Larridin (Forrester / Greg Zorella citation)",
+      "source_url": "https://larridin.com/blog/ai-agent-cost-governance",
+      "classification": "PARTNER",
+      "priority": 3,
+      "priority_rationale": "Their core finding (47 orphaned agents/org avg) is a discovery capability; AgentShield is the enforcement complement. Clean 'they find it, we stop it' story. Enterprise scan business = warm intros to exactly our ICP.",
+      "integration_proposal": "Contact via larridin.com: 'Your scans find an average of 47 orphaned agents per org -- but discovery without enforcement means the orphans keep spending until someone acts. Proposal: Larridin scan output feeds AgentShield policy generation -- every discovered agent automatically gets a spend envelope (daily cap + velocity rule), orphans get a decay-to-zero budget. Sub-ms evaluation, multi-tenant, stdlib-only so it deploys anywhere your scanner runs. Joint case study: one agent consuming 9 agents' budget (Zorella's warning) becomes structurally impossible.'",
+      "status": "drafted"
+    },
+    {
+      "name": "Uber (via Portal26.ai / Airia citation)",
+      "source_url": "https://airia.com/ai-cost-optimization-when-ai-spending-spirals-out-of-control/",
+      "classification": "CUSTOMER",
+      "priority": 4,
+      "priority_rationale": "Massive validated pain (entire 2026 AI budget gone in 4 months, 5,000 engineers, CTO publicly 'back to the drawing board') but low direct reachability. Long-cycle enterprise play; better approached via content + warm intro than cold outreach.",
+      "outreach_approach": "Two-track: (1) Publish a teardown post 'How Uber could have kept Claude Code and its 2026 budget' modeling their public numbers (5,000 engineers, 84% agentic by March) against per-seat daily caps + org velocity rules -- distribute on HN/LinkedIn to attract Uber platform-eng eyeballs organically. (2) Identify Uber developer-platform/AI-governance leads on LinkedIn for a warm-intro path; reference the CTO's 'drawing board' quote. No cold email yet -- content-first.",
+      "status": "drafted"
+    },
+    {
+      "name": "Prefactor.tech",
+      "source_url": "https://prefactor.tech/problems/runaway-agent-costs",
+      "classification": "PARTNER",
+      "priority": 5,
+      "priority_rationale": "AI cost governance startup focused on attribution/observability (per-agent, per-step cost tracing). Adjacent, possibly semi-competitive -- vet before deep integration, but their 'teams only see aggregate monthly totals' framing pairs naturally with real-time enforcement.",
+      "integration_proposal": "Contact via prefactor.tech: 'Your KB-update case (cost/task tripled in a week, no code change) is a perfect example of drift that attribution catches after the fact. AgentShield adds the before: per-transaction rules that would have tripped a velocity alert on day one of the context bloat. Proposal: Prefactor attribution data informs AgentShield rule thresholds (auto-tighten caps when cost-per-task drifts >X%); AgentShield block events flow back as Prefactor annotations. Explore co-marketing: attribution + enforcement joint post.' CAVEAT: verify they don't already ship enforcement before sending.",
+      "status": "drafted"
+    },
+    {
+      "name": "CloudAtler (Muthupandian A)",
+      "source_url": "https://cloudatler.com/blog/the-50-000-loop-how-to-stop-runaway-ai-agent-costs",
+      "classification": "PARTNER",
+      "priority": 6,
+      "priority_rationale": "Cloud tooling company writing 'how to stop runaway agent costs' content -- complementary infra angle, named author. Their $25K/night CI/CD fleet scenario is a textbook AgentShield use case.",
+      "integration_proposal": "Email Muthupandian referencing the $50K-loop post: 'Your 500-concurrent-agents CI/CD scenario ($25K/night) is exactly what per-agent velocity rules kill: an o1 agent looping at $20-50/hr trips a velocity threshold in minutes, not at invoice time. AgentShield is stdlib-only and multi-tenant -- trivially embeddable in a cloud management platform. Proposal: CloudAtler bundles AgentShield as its agent-spend guardrail; alternatively a guest-post swap to start (we write implementing-the-loop-breaker as a follow-up to your post).'",
+      "status": "drafted"
+    },
+    {
+      "name": "Unnamed Healthcare Enterprise (via Portal26.ai)",
+      "source_url": "https://www.elvex.com/blog/ai-token-cost-enterprise-budget-control",
+      "classification": "CUSTOMER",
+      "priority": 7,
+      "priority_rationale": "$6M unplanned spend = ideal ICP, but anonymous -- unreachable directly. Route is via Portal26 partnership (B2B draft to Portal26 already queued in state.json). Treat as case-study ammo + partner-channel lead.",
+      "outreach_approach": "No direct outreach possible. Action: (1) fold the 1-trillion-token/$6M figure into the Portal26 partnership email already drafted (done -- it references this case); (2) use as headline stat in healthcare-vertical content ('costs invisible by design' is a strong hook for compliance-heavy buyers).",
+      "status": "routed_via_partner"
+    },
+    {
+      "name": "Unnamed Enterprise $500M/month (via Portal26.ai / byteiota)",
+      "source_url": "https://byteiota.com/ai-agent-cost-runaway-enterprise-budget-500m-bill/",
+      "classification": "CUSTOMER",
+      "priority": 8,
+      "priority_rationale": "Largest dollar figure in the batch ($500M/month, no usage caps) but fully anonymous; Microsoft license-cancellation detail is market signal, not a lead. Value is as proof-point content, plus Portal26 channel.",
+      "outreach_approach": "No direct outreach possible. Action: use as the anchor stat in outbound copy and the risk calculator's worst-case preset. The Microsoft internal-license-cancellation angle supports a 'even hyperscalers cannot eyeball this -- you need per-transaction enforcement' narrative in content.",
+      "status": "routed_via_partner"
+    },
+    {
+      "name": "satgate (HN user, 25+ yrs enterprise security)",
+      "source_url": "https://news.ycombinator.com/item?id=46927422",
+      "classification": "COMMUNITY",
+      "priority": 9,
+      "priority_rationale": "Influential voice framing the problem exactly as we do ('no identity, authorization, or cost control layer for M2M traffic') -- validator, not buyer. Engage organically to build credibility.",
+      "engagement_note": "Reply in-thread agreeing with the 'economic not technical' framing; add substance on what an authorization layer for agent spend looks like in practice (pre-execution rule evaluation, velocity windows). No product link in first reply -- establish expertise, link only if asked or in a natural follow-up. Their 'Wild West until governance catches up' phrasing is quotable in our content (with attribution).",
+      "status": "noted"
+    },
+    {
+      "name": "CharlesW / YouTube Morse Code Hack ($200K agent exploit)",
+      "source_url": "https://news.ycombinator.com/item?id=48103104",
+      "classification": "COMMUNITY",
+      "priority": 10,
+      "priority_rationale": "Viral security demo, not a buyer -- but the 'permission scope x reversibility' framing is the strongest security-angle hook in the batch for content and HN engagement.",
+      "engagement_note": "Engage in the HN thread on the reversibility point: spend caps make financially-scoped agent actions reversible-by-default (a $200K exploit becomes a $50 blocked transaction + alert). Strong candidate for a blog post: 'Prompt injection cannot spend what the firewall will not authorize.' Track the YouTube video for a comment once our account has organic history.",
+      "status": "noted"
+    }
+  ]
+}
