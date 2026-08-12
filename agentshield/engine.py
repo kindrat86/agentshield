@@ -215,12 +215,16 @@ class SpendControlEngine:
         agent_id = transaction.get('agent_id')
         decay_factor = params.get('decay_factor')
 
+        if session_id is None:
+            return self._make_result(action, rule_id,
+                "Missing session identifier required for session budget enforcement")
+
         # Sum prior transactions in the same session
         session_total = txn_amount
         for prior in prior_transactions:
             if agent_id and prior.get('agent_id') != agent_id:
                 continue
-            if session_id and prior.get(session_field) == session_id:
+            if prior.get(session_field) == session_id:
                 prior_amount = self._to_decimal_safe(prior.get('amount'))
                 if prior_amount is not None:
                     session_total += prior_amount

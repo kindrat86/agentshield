@@ -405,6 +405,17 @@ SCENARIOS = [
      "expected": "APPROVED",
      "description": "Prior transaction in different session — not counted"},
 
+    {"id": 53.5, "category": "session_budget",
+     "transaction": {**_txn("t053b", amount=100.00), "session_id": None},
+     "rules": [{"id": "sb4", "type": "session_budget", "priority": 1,
+                "params": {"max_session": 500}, "action": "BLOCK"}],
+     "prior_transactions": [
+         {**_txn("t053c", amount=450.00), "session_id": "sess_5"},
+         {**_txn("t053d", amount=450.00), "session_id": None},
+     ],
+     "expected": "BLOCKED",
+     "description": "Missing session_id must not bypass session budget enforcement"},
+
     # ─── Cascade Cost (inspired by HeartFlow / @yun520-1) ───
     {"id": 54, "category": "cascade_cost",
      "transaction": {**_txn("t054", amount=50.00), "fail_probability": 0.3, "reversal_cost": 200},
