@@ -1,0 +1,153 @@
+{
+  "date": "2026-08-12",
+  "queries_used": [
+    "\"AI agent\" spend OR budget OR billing",
+    "site:reddit.com \"AI agent\" spending",
+    "site:news.ycombinator.com \"agent cost\" OR \"agent spend\" 2026",
+    "site:github.com \"agent\" \"spend\" \"budget\" AI cost control"
+  ],
+  "total_leads": 11,
+  "leads": [
+    {
+      "id": 1,
+      "source_url": "https://www.briefs.co/news/uber-torches-entire-2026-ai-budget-on-claude-code-in-four-months/",
+      "discussion_url": "https://news.ycombinator.com/item?id=47976415",
+      "name": "Uber",
+      "platform": "Hacker News / Briefs.co",
+      "problem_summary": "Uber exhausted its entire 2026 AI budget in just four months on Claude Code agentic coding. HN commenters report individual engineers burning $5,000–$10,000/month on AI coding agents, with one user noting a single 2–4 hour Claude Opus session cost $20.",
+      "dollar_amount": "$10,000/month (reported by HN commenter abuani as plausible per-engineer spend); $5,000–$10,000/month range cited; enterprise-level budget exhaustion in 4 months (annual budget implied 6–7 figures)",
+      "relevance": "HIGH — Enterprise-scale agent cost runaway. Perfect AgentShield use case.",
+      "date_found": "2026-08-12"
+    },
+    {
+      "id": 2,
+      "source_url": "https://portal26.ai/ai-agent-cost-control-stop-agents-burning-budget",
+      "name": "Portal26 (enterprise thought leadership)",
+      "platform": "portal26.ai blog",
+      "problem_summary": "Enterprise AI agent deployments are creating a 'financial governance crisis' — agents spending autonomously with no finance visibility until the bill arrives. Only 17% of orgs have deployed agents but 60% expect to within 2 years, and only 12% of CEOs say AI has delivered both cost and revenue benefits.",
+      "dollar_amount": "$2.52 trillion (Gartner's 2026 worldwide AI spending forecast, 44% YoY increase); $5.5 million/year for 50-engineer team running agents (cited example)",
+      "relevance": "HIGH — Validates the entire AgentShield thesis with enterprise stats and dollar figures.",
+      "date_found": "2026-08-12"
+    },
+    {
+      "id": 3,
+      "source_url": "https://agentbudget.dev",
+      "name": "AgentBudget (open-source project)",
+      "platform": "agentbudget.dev",
+      "problem_summary": "Open-source library for real-time dollar-denominated cost enforcement for AI agents. Identifies the 'loop problem' where stuck agents burn $50–$200 in minutes via repeated LLM calls, and the scaling problem where 1,000 concurrent sessions at 5% failure rate yields 50 runaway agents.",
+      "dollar_amount": "$50–$200 (loop problem — agent stuck retrying burns this in 10 minutes); $5.00 budget example shown in product demo",
+      "relevance": "HIGH — Direct competitor/adjacent tool. Open source, gaining traction. GitHub stars growing.",
+      "date_found": "2026-08-12"
+    },
+    {
+      "id": 4,
+      "source_url": "https://www.reddit.com/r/replit/comments/1mybhip/why_is_agent_spending_money_when_im_not_even_on",
+      "name": "r/replit user (anonymous)",
+      "platform": "Reddit r/replit",
+      "problem_summary": "User's Replit AI agent autonomously spent ~$23 ($10+$10+$3) while the user was not even active on the app. Agent admitted 'I should have stopped working when you went away' but continued spending minutes later. Billing showed charges from the agent AI despite the user not requesting anything.",
+      "dollar_amount": "$23 total ($10 + $10 + $3 across three unauthorized spending events within minutes)",
+      "relevance": "MEDIUM — Real user pain. Shows lack of agent spend controls in consumer tools. Viral-worthy anecdote.",
+      "date_found": "2026-08-12"
+    },
+    {
+      "id": 5,
+      "source_url": "https://www.reddit.com/r/AgentsOfAI/comments/1put5m0/would_you_trust_an_ai_agent_with_a_10_onchain",
+      "name": "r/AgentsOfAI community",
+      "platform": "Reddit r/AgentsOfAI",
+      "problem_summary": "Community discussion on whether users would trust AI agents with autonomous spending capabilities, even with a $10 hard cap. Explores the trust gap between agent autonomy and financial control — users want agents to transact but fear runaway spending.",
+      "dollar_amount": "$10 (proposed on-chain spending limit for autonomous agent transactions)",
+      "relevance": "MEDIUM — Signals market readiness for AgentShield's spend-control value prop.",
+      "date_found": "2026-08-12"
+    },
+    {
+      "id": 6,
+      "source_url": "https://github.com/orgs/community/discussions/191147",
+      "name": "GitHub (official)",
+      "platform": "GitHub Community Discussions",
+      "problem_summary": "Official GitHub guide on controlling autonomous AI agent costs across Copilot, Spark, and Claude Code. Outlines budget strategies from simple spend caps to SKU-level budgets and overage policies, acknowledging that agentic AI spending is fundamentally different from traditional SaaS.",
+      "dollar_amount": "No explicit dollar amount, but discusses per-user premium request budgets and overage-control policies at enterprise scale",
+      "relevance": "HIGH — Even GitHub is publishing cost-control guidance. Validates market need at the platform level.",
+      "date_found": "2026-08-12"
+    },
+    {
+      "id": 7,
+      "source_url": "https://github.com/nyx-builds/agent-budget",
+      "name": "agent-cost-guard by nyx-builds",
+      "platform": "GitHub",
+      "problem_summary": "Open-source MCP server for budget enforcement and spend tracking for autonomous agents. Provides per-agent limits, threshold alerts, and cost analysis. Tagged: 'Stop surprise AI bills.'",
+      "dollar_amount": "No explicit dollar amount — tool for enforcing budgets",
+      "relevance": "MEDIUM — Adjacent open-source tool. MCP server approach, different from AgentShield's 'upload your bill' positioning.",
+      "date_found": "2026-08-12"
+    },
+    {
+      "id": 8,
+      "source_url": "https://github.com/marketinglior-pixel/agentbill",
+      "name": "agentbill by marketinglior-pixel",
+      "platform": "GitHub",
+      "problem_summary": "Spend control and billing for AI agents — 'Prevent API bill shock with 3 lines of code.' Supports OpenAI, Claude, and MCP. Provides preflight cost estimation before agent execution.",
+      "dollar_amount": "No explicit dollar amount — prevents bill shock through preflight checks",
+      "relevance": "MEDIUM — Direct adjacent tool. Simpler than AgentShield but validates the 'bill shock' pain point.",
+      "date_found": "2026-08-12"
+    },
+    {
+      "id": 9,
+      "source_url": "https://github.com/ofershap/cursor-usage",
+      "name": "cursor-usage by ofershap",
+      "platform": "GitHub",
+      "problem_summary": "MCP server that lets users query their team's Cursor AI spending via natural language. Wraps the Cursor Enterprise API to surface per-engineer and per-model costs that are otherwise buried in billing dashboards.",
+      "dollar_amount": "No explicit dollar amount — surfaces Cursor Enterprise spend data",
+      "relevance": "LOW-MEDIUM — Narrower scope (Cursor-only) but proves demand for LLM spend visibility tools.",
+      "date_found": "2026-08-12"
+    },
+    {
+      "id": 10,
+      "source_url": "https://nevermined.ai/blog/ai-agent-billing-system",
+      "name": "Nevermined",
+      "platform": "nevermined.ai blog",
+      "problem_summary": "Explores build-vs-buy for AI agent billing infrastructure. Argues traditional payment processors (Stripe) fail for AI agents because costs are variable, agents operate 24/7 autonomously, and margin erosion from unpredictable model costs is the primary profitability threat.",
+      "dollar_amount": "No explicit dollar amount — focuses on margin erosion from unpredictable model costs and hidden infrastructure spend",
+      "relevance": "MEDIUM — Enterprise billing perspective. Complements AgentShield's monitoring angle with monetization angle.",
+      "date_found": "2026-08-12"
+    },
+    {
+      "id": 11,
+      "source_url": "https://www.reddit.com/r/CryptoTechnology/comments/1qiy4qq/i_built_spending_controls_for_ai_agents_so_they",
+      "name": "r/CryptoTechnology builder (anonymous)",
+      "platform": "Reddit r/CryptoTechnology",
+      "problem_summary": "Builder created spending controls for AI agents on-chain using Safe multisig. Agents submit a reason for every transaction ('sent $50 to 0x742d for API credits'), with per-transaction caps, daily/weekly rolling limits, and behavioral anomaly detection for drain attacks.",
+      "dollar_amount": "$50 (example transaction: 'sent $50 to 0x742d for API credits'); per-transaction caps and daily/weekly rolling limits mentioned",
+      "relevance": "LOW — Crypto/Web3 angle, but the spend-control patterns (per-transaction caps, reason logging, anomaly detection) are directly applicable.",
+      "date_found": "2026-08-12"
+    }
+  ],
+  "top_3_with_dollar_amounts": [
+    {
+      "rank": 1,
+      "name": "Uber",
+      "url": "https://news.ycombinator.com/item?id=47976415",
+      "dollar_amount": "$5,000–$10,000/month per engineer; entire 2026 AI budget torched in 4 months",
+      "summary": "Uber exhausted its annual AI budget in 4 months on Claude Code. HN engineers report $5K-$10K/month individual spend on agentic coding. $20 for a 2-4 hour Claude Opus session."
+    },
+    {
+      "rank": 2,
+      "name": "Portal26 / Gartner AI Spending Report",
+      "url": "https://portal26.ai/ai-agent-cost-control-stop-agents-burning-budget",
+      "dollar_amount": "$2.52 trillion global AI spending (2026); $5.5M/year for 50-engineer agent team",
+      "summary": "Enterprise AI cost governance crisis: 60% of orgs deploying agents within 2 years, only 12% of CEOs seeing ROI. Agents spend autonomously with zero finance visibility."
+    },
+    {
+      "rank": 3,
+      "name": "AgentBudget.dev",
+      "url": "https://agentbudget.dev",
+      "dollar_amount": "$50–$200 per incident (agent loop problem); $5 budget enforcement demo",
+      "summary": "Open-source dollar-denominated cost enforcement for agents. Loop problem burns $50-$200 in 10 min. 1,000 concurrent sessions at 5% failure = 50 runaway agents."
+    }
+  ],
+  "market_signals": {
+    "total_adjacent_tools_found": 5,
+    "adjacent_tools": ["AgentBudget.dev", "agent-cost-guard", "agentbill", "cursor-usage", "Portal26"],
+    "enterprise_validation": "GitHub publishing official cost-control guides; Gartner forecasting $2.52T AI spend; Uber as enterprise cautionary tale",
+    "consumer_pain": "Reddit users reporting unauthorized agent spending ($23 while inactive); trust gap around autonomous agent transactions",
+    "agentShield_positioning": "None of the found tools offer 'upload your bill' audit model. All are SDKs/MCP servers requiring integration. AgentShield's external-audit approach remains differentiated."
+  }
+}

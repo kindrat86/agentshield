@@ -429,6 +429,57 @@ SCENARIOS = [
      "prior_transactions": [],
      "expected": "BLOCKED",
      "description": "Pre-computed cascade cost $150 exceeds $100 limit"},
+
+    # ─── Non-Negativity Validation (reported by @sharkwon) ───
+    {"id": 57, "category": "daily_total_block",
+     "transaction": _txn("t057", amount=500.00),
+     "rules": [{"id": "r1", "type": "daily_total", "priority": 1,
+                "params": {"max_daily": 100}, "action": "BLOCK"}],
+     "prior_transactions": [_prior("agent_a", -1000.00, "2026-08-10T09:00:00Z")],
+     "expected": "BLOCKED",
+     "description": "Negative prior amount ($-1000) should not reduce daily total — $500 > $100 cap → BLOCKED"},
+
+    {"id": 58, "category": "session_budget",
+     "transaction": {**_txn("t058", amount=190.00), "session_id": "s1"},
+     "rules": [{"id": "r1", "type": "session_budget", "priority": 1,
+                "params": {"max_session": 100}, "action": "BLOCK"}],
+     "prior_transactions": [
+         {**_prior("a", -95.00, "2026-08-10T09:00:00Z"), "session_id": "s1"}
+     ],
+     "expected": "BLOCKED",
+     "description": "Negative prior session amount ($-95) should not reduce session total — $190 > $100 → BLOCKED"},
+
+    {"id": 59, "category": "transaction_limit_block",
+     "transaction": _txn("t059", amount=-1000000.00),
+     "rules": [{"id": "r1", "type": "transaction_limit", "priority": 1,
+                "params": {"max_amount": 500}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Negative amount should be rejected by transaction_limit"},
+
+    {"id": 60, "category": "transaction_limit_block",
+     "transaction": _txn("t060", amount=0.00),
+     "rules": [{"id": "r1", "type": "transaction_limit", "priority": 1,
+                "params": {"max_amount": 500}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Zero amount transaction should be rejected"},
+
+    {"id": 61, "category": "cascade_cost",
+     "transaction": {**_txn("t061", amount=50.00), "estimated_cascade_cost": -10},
+     "rules": [{"id": "cc4", "type": "cascade_cost", "priority": 1,
+                "params": {"max_cascade_cost": 100}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Negative pre-computed cascade cost should be rejected"},
+
+    {"id": 62, "category": "cascade_cost",
+     "transaction": {**_txn("t062", amount=50.00), "reversal_cost": -100, "fail_probability": 0.5},
+     "rules": [{"id": "cc5", "type": "cascade_cost", "priority": 1,
+                "params": {"max_cascade_cost": 100}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Negative reversal cost should be rejected in cascade calculation"},
 ]
 
 

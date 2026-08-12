@@ -1,6 +1,6 @@
 {
   "created": "2026-08-11",
-  "last_updated": "2026-08-11T12:30:00+03:00",
+  "last_updated": "2026-08-12T10:30:00+03:00",
   "github_outreach": [
     {
       "action": "issue_created",
@@ -16,6 +16,39 @@
       "url": "https://github.com/openclaw/openclaw/issues/42475#issuecomment-5249629164",
       "status": "posted",
       "posted_at": "2026-08-11T09:30:00+03:00"
+    },
+    {
+      "action": "discussion_comment",
+      "repo": "community/community",
+      "discussion": 191147,
+      "url": "https://github.com/community/community/discussions/191147#discussioncomment-17985589",
+      "status": "posted",
+      "posted_at": "2026-08-12T10:18:00+03:00",
+      "source": "market-scout-2026-08-12"
+    },
+    {
+      "action": "issue_created",
+      "repo": "nyx-builds/agent-budget",
+      "url": "https://github.com/nyx-builds/agent-budget/issues/2",
+      "status": "posted",
+      "posted_at": "2026-08-12T10:18:00+03:00",
+      "source": "market-scout-2026-08-12"
+    },
+    {
+      "action": "issue_created",
+      "repo": "marketinglior-pixel/agentbill",
+      "url": "https://github.com/marketinglior-pixel/agentbill/issues/7",
+      "status": "posted",
+      "posted_at": "2026-08-12T10:18:00+03:00",
+      "source": "market-scout-2026-08-12"
+    },
+    {
+      "action": "issue_created",
+      "repo": "ofershap/cursor-usage",
+      "url": "https://github.com/ofershap/cursor-usage/issues/3",
+      "status": "posted",
+      "posted_at": "2026-08-12T10:18:00+03:00",
+      "source": "market-scout-2026-08-12"
     }
   ],
   "b2b_drafts": [
@@ -199,6 +232,16 @@
     {
       "lead": "Byteiota",
       "note": "Blog site, no contact email found"
+    }
+  ],
+  "pending_approval": [
+    {
+      "action": "email",
+      "to": "info@nevermined.io",
+      "company": "Nevermined",
+      "subject": "Your AI agent billing post \u2014 the spend-control half",
+      "status": "awaiting_user_approval_resend",
+      "drafted_at": "2026-08-12T10:20:00+03:00"
     }
   ]
 }
