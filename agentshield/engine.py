@@ -320,7 +320,8 @@ class SpendControlEngine:
     @staticmethod
     def _fmt(d: Decimal) -> str:
         """Format a Decimal as a 2-decimal-place string."""
-        quantized = d.quantize(Decimal('0.01'))
+        from decimal import ROUND_HALF_UP
+        quantized = d.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
         return f"{quantized}"
 
     @staticmethod
