@@ -1,6 +1,6 @@
-# MISSION: Generate AgentShield's First Revenue — No Infrastructure, Pure Outreach
+# MISSION: Generate AgentShield's First Revenue, No Infrastructure, Pure Outreach
 
-## ⚠️ READ THIS FIRST — IT CHANGES EVERYTHING
+## ⚠️ READ THIS FIRST, IT CHANGES EVERYTHING
 
 You are NOT here to build infrastructure. You are NOT here to debug cron jobs. You are NOT here to fix memory or clean up prompt files.
 
@@ -28,17 +28,17 @@ Every claim must be backed by visible tool output in your response. If `gh` retu
 
 ## WHAT EXISTS (don't rebuild this)
 
-- **Product:** https://agentshield.fly.dev — landing page, dashboard, blog, risk calculator
+- **Product:** https://agentshield.fly.dev, landing page, dashboard, blog, risk calculator
 - **Comparison pages:** `/comparisons/helicone`, `/comparisons/langsmith` (both live, 200 OK)
 - **GitHub:** https://github.com/kindrat86/agentshield (MIT, 50 stars target)
-- **Stripe:** Dev $19/mo, Team $99/mo, Managed $499/mo — checkout endpoint live
+- **Stripe:** Dev $19/mo, Team $99/mo, Managed $499/mo, checkout endpoint live
 - **Email capture:** POST `/api/email-capture` → SQLite → nurture cron sends 5-day sequence via Resend
 - **Credentials:** `gh` CLI authenticated as `kindrat86`. Resend key in `~/.hermes/.env` as `RESEND_API_KEY`.
 - **Content files:** `/Users/sipi/agentshield/content/outreach-comments-2026-08-11.md` has 3 draft comments. `/Users/sipi/agentshield/content/producthunt-listing.md` has PH listing content.
 
 ---
 
-## PHASE 1: FIND PEOPLE IN PAIN (15 min — repeatable loop)
+## PHASE 1: FIND PEOPLE IN PAIN (15 min, repeatable loop)
 
 Search for developers actively complaining about AI costs RIGHT NOW. Post in threads that are OPEN and ACTIVE (created or commented on in the last 30 days).
 
@@ -65,7 +65,7 @@ gh search issues "budget" "spend" "control" OR "limit" "agent" --limit 10 --stat
 
 For each qualifying issue:
 1. **Read the full issue** to understand the EXACT pain point
-2. **Check if someone already posted an AgentShield comment** — don't duplicate
+2. **Check if someone already posted an AgentShield comment**, don't duplicate
 3. **Craft a reply that:**
    - Acknowledges their specific problem (quote their words)
    - Explains WHY it happens (agents lack budget awareness)
@@ -103,7 +103,7 @@ web_search "\"openai bill\" OR \"claude expensive\" OR \"runaway agent\" develop
 For results on platforms where you can post:
 - **Hacker News:** Use the HN API if possible, or create draft comments for Maryan
 - **Dev.to:** Use the REST API if authenticated, or draft comments
-- **Reddit:** Genuinely blocked at network level — draft comments only
+- **Reddit:** Genuinely blocked at network level, draft comments only
 - **Other forums:** Draft comments with exact URLs
 
 ---
@@ -117,12 +117,12 @@ Every comment must follow this structure:
 ```
 [1-2 sentences acknowledging their specific problem, quoting their words]
 
-This is a structural problem with autonomous AI agents: [one-sentence explanation of WHY this happens — agents don't know they're spending money].
+This is a structural problem with autonomous AI agents: [one-sentence explanation of WHY this happens, agents don't know they're spending money].
 
 We built AgentShield to solve exactly this: a per-transaction spend firewall that evaluates every API call against rules YOU set before it executes. [One specific rule that would have prevented THEIR scenario].
 
 - <1ms evaluation overhead
-- Pure Python 3.11 stdlib — zero dependencies
+- Pure Python 3.11 stdlib, zero dependencies
 - Self-host in 60 seconds, or managed from $19/mo
 
 Risk calculator (no signup, 30 seconds): https://agentshield.fly.dev/tools/risk-calculator/
@@ -132,11 +132,11 @@ Disclosure: I built it after an AI agent spent $2,800 in 60 seconds while I was 
 ```
 
 ### Anti-Patterns (DO NOT USE)
-- "Great question!" — fake enthusiasm
-- "I think you'll find..." — condescending
-- "Our solution is..." — corporate tone
-- Multi-paragraph explanations — get to the point
-- Generic copy-paste — every comment must reference specifics from their issue
+- "Great question!", fake enthusiasm
+- "I think you'll find...", condescending
+- "Our solution is...", corporate tone
+- Multi-paragraph explanations, get to the point
+- Generic copy-paste, every comment must reference specifics from their issue
 
 ---
 
@@ -157,7 +157,7 @@ If any have replies, respond promptly. A conversation is worth 100 one-off comme
 
 ---
 
-## PHASE 4: DNS — ONE ATTEMPT, THEN MOVE ON (10 min max)
+## PHASE 4: DNS, ONE ATTEMPT, THEN MOVE ON (10 min max)
 
 The `agentshield.sipiteno.com` domain is still not resolving. This hurts credibility but is not a revenue blocker.
 
@@ -178,10 +178,10 @@ Wait 3 seconds. Capture: `computer_use action='capture' mode='som' app='Safari'`
 open -a Safari "https://dash.cloudflare.com/"
 ```
 Capture. Click sipiteno.com. Navigate to DNS → Records. Add:
-- A: agentshield → 66.241.125.16 (proxy OFF — grey cloud)
+- A: agentshield → 66.241.125.16 (proxy OFF, grey cloud)
 - AAAA: agentshield → 2a09:8280:1::166:9212:0 (proxy OFF)
 
-**If no Google session or Cloudflare shows login** → stop. Do not spend more time on this. Report: "DNS blocked — no active Cloudflare session in Safari. Requires Maryan to log into mkondratyuk86@gmail.com in Safari, then retry."
+**If no Google session or Cloudflare shows login** → stop. Do not spend more time on this. Report: "DNS blocked, no active Cloudflare session in Safari. Requires Maryan to log into mkondratyuk86@gmail.com in Safari, then retry."
 
 ---
 
@@ -206,15 +206,15 @@ Fill ALL text fields first (name, tagline, website, GitHub, description, maker s
 ### 5D. Upload logo
 Generate 240x240 green PNG at `/tmp/agentshield-logo.png`, click upload area, type path in native file dialog via foreground keystrokes.
 
-### 5E. Tags — 3 attempts then fall back
-Attempt: set_value → JavaScript injection → foreground type. If all fail, mark PH as "blocked by autocomplete — needs Maryan to type 'Developer Tools' in tags field."
+### 5E. Tags, 3 attempts then fall back
+Attempt: set_value → JavaScript injection → foreground type. If all fail, mark PH as "blocked by autocomplete, needs Maryan to type 'Developer Tools' in tags field."
 
 ### 5F. If submitted
 Capture confirmation page → record URL → add badge to index.html → fly deploy.
 
 ---
 
-## PHASE 6: REDDIT — SAVE DRAFTS ONLY (5 min)
+## PHASE 6: REDDIT, SAVE DRAFTS ONLY (5 min)
 
 Reddit is network-blocked on this connection. DO NOT attempt to post. Instead:
 
@@ -249,7 +249,7 @@ gh issue list --search "kindrat86" --state all --limit 10 2>/dev/null || echo "g
 ## REPORT FORMAT
 
 ```
-## Outreach Session Report — $(date +%Y-%m-%d)
+## Outreach Session Report, $(date +%Y-%m-%d)
 
 ### New Comments Posted Today
 | # | Platform | Issue/Discussion | URL | Status |
@@ -257,7 +257,7 @@ gh issue list --search "kindrat86" --state all --limit 10 2>/dev/null || echo "g
 | 1 | GitHub | repo#issue | https://github.com/... | Posted |
 | 2 | ... | ... | ... | ... |
 
-### Existing Outreach — New Replies
+### Existing Outreach, New Replies
 | # | Original Post | New Reply? | Action |
 |---|---------------|------------|--------|
 | 1 | zeroclaw#2269 | Yes/No | Responded/Waiting |

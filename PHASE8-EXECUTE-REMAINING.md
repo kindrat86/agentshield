@@ -18,12 +18,12 @@ AgentShield is a firewall for AI agent spending. Python 3.11 stdlib, zero deps, 
 
 ## YOUR TOOLKIT
 
-- `computer_use` — drives macOS desktop GUI (Safari, Comet) in the background
-- Safari — carries Google OAuth session for Cloudflare, GitHub OAuth for PH
-- Comet — carries Reddit session for u/Worth_Wealth_6811
-- `terminal` — shell access
-- `gh` CLI — GitHub API authenticated as kindrat86
-- `web_extract`, `web_search` — internet access
+- `computer_use`, drives macOS desktop GUI (Safari, Comet) in the background
+- Safari, carries Google OAuth session for Cloudflare, GitHub OAuth for PH
+- Comet, carries Reddit session for u/Worth_Wealth_6811
+- `terminal`, shell access
+- `gh` CLI, GitHub API authenticated as kindrat86
+- `web_extract`, `web_search`, internet access
 
 ## REFERENCE SKILLS (load before starting)
 
@@ -35,7 +35,7 @@ skill_view name="macos-browser-driving"
 
 The cloudflare skill confirms: `sipiteno.com` is in Acct2 (Google login: `mkondratyuk86@gmail.com`). No API token exists for it. The ONLY path is the Safari dashboard.
 
-The macos-browser-driving skill Section 2 says: the target window must be frontmost for hit-test clicks. Section 5 says: `open -a Safari "<url>"` is the reliable way to open a URL (this also fronts the app). Section 12 says: React forms can be filled via JavaScript native setter + dispatchEvent. Section 3 says: any navigation invalidates the snapshot — always capture fresh before acting.
+The macos-browser-driving skill Section 2 says: the target window must be frontmost for hit-test clicks. Section 5 says: `open -a Safari "<url>"` is the reliable way to open a URL (this also fronts the app). Section 12 says: React forms can be filled via JavaScript native setter + dispatchEvent. Section 3 says: any navigation invalidates the snapshot, always capture fresh before acting.
 
 ---
 
@@ -57,13 +57,13 @@ computer_use action='capture' mode='som' app='Safari'
 ```
 Read the capture. There are 3 possible states:
 
-**State A — Gmail loads showing an inbox:**
+**State A, Gmail loads showing an inbox:**
 Look at the top-right corner. If you see an avatar or profile picture, check if it belongs to `mkondratyuk86@gmail.com`. If yes → great, session is active. Proceed to Step 1B.
 
-**State B — Google account chooser page:**
-If you see "Choose an account" with a list of accounts, look for `mkondratyuk86@gmail.com`. Click it by element index. Then capture again. If it asks for a password → this path is blocked. Report: "Cloudflare: Google session expired — needs password re-entry."
+**State B, Google account chooser page:**
+If you see "Choose an account" with a list of accounts, look for `mkondratyuk86@gmail.com`. Click it by element index. Then capture again. If it asks for a password → this path is blocked. Report: "Cloudflare: Google session expired, needs password re-entry."
 
-**State C — Gmail login page (email field):**
+**State C, Gmail login page (email field):**
 The session is not active. Report: "Cloudflare: no active Google session in Safari."
 
 ### 1B. Navigate to Cloudflare dashboard
@@ -137,7 +137,7 @@ curl -s -o /dev/null -w "%{http_code}" https://agentshield.sipiteno.com
 
 ## TASK 2: PRODUCT HUNT SUBMISSION
 
-**Content file:** `/Users/sipi/agentshield/content/producthunt-listing.md` — read this first.
+**Content file:** `/Users/sipi/agentshield/content/producthunt-listing.md`, read this first.
 
 ### 2A. Read the listing content
 ```bash
@@ -172,13 +172,13 @@ osascript -e 'tell application "Safari" to do JavaScript "
 
 Fill these fields with values from the content file:
 
-1. **Product name** — selector: `input[name="post[name]"]` — value: `"AgentShield — AI Agent Spend Firewall"`
-2. **Tagline** — selector: `textarea[name="post[tagline]"]` — use textarea setter (not input setter) — value: `"A firewall for AI agent spending"`
-3. **Website URL** — selector: `input[name="post[website_url]"]` — value: `"https://agentshield.sipiteno.com"` (if DNS worked) or `"https://agentshield.fly.dev"`
-4. **GitHub URL** — value: `"https://github.com/kindrat86/agentshield"`
-5. **Description** — use textarea setter — value from content file (260 chars max — COUNT before injecting)
-6. **Maker story** — use textarea setter — full maker comment from content file
-7. **Twitter** — value: `"@Sipiteno"`
+1. **Product name**, selector: `input[name="post[name]"]`, value: `"AgentShield, AI Agent Spend Firewall"`
+2. **Tagline**, selector: `textarea[name="post[tagline]"]`, use textarea setter (not input setter), value: `"A firewall for AI agent spending"`
+3. **Website URL**, selector: `input[name="post[website_url]"]`, value: `"https://agentshield.sipiteno.com"` (if DNS worked) or `"https://agentshield.fly.dev"`
+4. **GitHub URL**, value: `"https://github.com/kindrat86/agentshield"`
+5. **Description**, use textarea setter, value from content file (260 chars max, COUNT before injecting)
+6. **Maker story**, use textarea setter, full maker comment from content file
+7. **Twitter**, value: `"@Sipiteno"`
 
 For textarea fields, use this pattern instead:
 ```javascript
@@ -218,7 +218,7 @@ PYEOF
 
 Per the macos-browser-driving skill: "Native browser dialogs DO accept foreground keystrokes." This should work.
 
-### 2E. Handle Launch Tags — THE MAIN CHALLENGE
+### 2E. Handle Launch Tags, THE MAIN CHALLENGE
 
 The PH form has a "Launch Tags" autocomplete/combobox. This React component is known to be a HARD WALL for automation. Try these approaches ONCE each:
 
@@ -226,7 +226,7 @@ The PH form has a "Launch Tags" autocomplete/combobox. This React component is k
 ```
 computer_use action='set_value' element=N value='Developer Tools'
 ```
-(Find element N from the capture — look for input with role="combobox")
+(Find element N from the capture, look for input with role="combobox")
 
 **Attempt 2:** JavaScript injection
 ```bash
@@ -249,7 +249,7 @@ computer_use action='type' text='Developer Tools' delivery_mode='foreground'
 ```
 Then wait 1 second for dropdown to appear, capture, and if a suggestion is visible, click it.
 
-**If all 3 fail — ESCAPE HATCH:**
+**If all 3 fail, ESCAPE HATCH:**
 Tell the user: *"Everything is filled except one field. Type 'Developer Tools' in the launch tags box and press Enter. That's it."* Then wait for them to do it, capture again, and proceed.
 
 ### 2F. Submit
@@ -259,7 +259,7 @@ Once all fields are filled and images uploaded:
 3. If everything looks correct, click "Submit" or "Launch"
 4. **Capture the confirmation page and record the URL**
 
-### 2G. After submission — add PH badge
+### 2G. After submission, add PH badge
 Once you have the real PH URL, add the badge to the landing page:
 
 Read `/Users/sipi/agentshield/public/index.html` and find the "As featured on" strip. Add after the GitHub link:

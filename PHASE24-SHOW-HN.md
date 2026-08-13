@@ -1,9 +1,9 @@
 # MISSION: Post Show HN + 5 More B2B Emails + Reach Out to YC Startups
 
 ## ⚠️ YOUR 3 KPIS
-1. **Post Show HN** — via Safari `do JavaScript` (HN is server-rendered HTML, no React)
-2. **Send 5 more B2B emails** — to YC AI startups and agent platforms
-3. **Post 1 more HN comment** — to build karma resilience
+1. **Post Show HN**, via Safari `do JavaScript` (HN is server-rendered HTML, no React)
+2. **Send 5 more B2B emails**, to YC AI startups and agent platforms
+3. **Post 1 more HN comment**, to build karma resilience
 
 ---
 
@@ -18,7 +18,7 @@ In Phases 22-23, we discovered that **Safari's `do JavaScript` AppleScript comma
 
 - **HN comment posted** via `osascript -e 'tell application "Safari" to do JavaScript "..."'`
 - **8 Twitter tweets posted** via `document.execCommand('insertText')` + button clicks
-- **No browser automation tools needed** — no SOM captures, no cua_browser, no React wall
+- **No browser automation tools needed**, no SOM captures, no cua_browser, no React wall
 
 **This technique works on ANY server-rendered or React page in Safari.** Use it for ALL browser tasks in this session.
 
@@ -71,7 +71,7 @@ if (urlInput) {
     urlInput.value = \"https://agentshield.fly.dev\";
 }
 
-// If there is a text field (for text posts), leave it empty — this is a link post
+// If there is a text field (for text posts), leave it empty, this is a link post
 titleInput ? \"Title set: \" + titleInput.value : \"Title field not found\";" in document 1' 2>&1
 ```
 
@@ -139,7 +139,7 @@ curl -s -X POST "https://api.resend.com/emails" \
     "to": ["RECIPIENT_EMAIL"],
     "bcc": ["sales@sipiteno.com"],
     "subject": "Spend-control enforcement for [Company] agents",
-    "html": "<p>Hi [name],</p><p>Saw [Company] in the latest YC batch — great work on [specific product feature].</p><p>We built AgentShield, an open-source per-transaction spend firewall for AI agents. It sits between the agent and the API, evaluating every call against configurable rules in <1ms before it executes. Pure Python stdlib, zero dependencies.</p><p><code>pip install agentshield-spend</code></p><p>The 56-scenario eval gym covers 9 rule types including transaction limits, daily totals, velocity detection, session budgets, and cascade cost estimation.</p><p>Would [Company] be interested in integrating AgentShield as a built-in spend-control option? We can co-build the integration.</p><p>Eval gym: https://agentshield.fly.dev/eval<br>GitHub: https://github.com/kindrat86/agentshield</p><p>Maryan K.<br>AgentShield</p>"
+    "html": "<p>Hi [name],</p><p>Saw [Company] in the latest YC batch, great work on [specific product feature].</p><p>We built AgentShield, an open-source per-transaction spend firewall for AI agents. It sits between the agent and the API, evaluating every call against configurable rules in <1ms before it executes. Pure Python stdlib, zero dependencies.</p><p><code>pip install agentshield-spend</code></p><p>The 56-scenario eval gym covers 9 rule types including transaction limits, daily totals, velocity detection, session budgets, and cascade cost estimation.</p><p>Would [Company] be interested in integrating AgentShield as a built-in spend-control option? We can co-build the integration.</p><p>Eval gym: https://agentshield.fly.dev/eval<br>GitHub: https://github.com/kindrat86/agentshield</p><p>Maryan K.<br>AgentShield</p>"
   }'
 ```
 
@@ -266,7 +266,7 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 24 — Mass Distribution Report
+## Phase 24, Mass Distribution Report
 
 ### Show HN
 - Attempted: [YES / NO]

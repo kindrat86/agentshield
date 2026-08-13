@@ -1,4 +1,4 @@
-# MISSION: Zero-Human Autonomous Execution — Complete All Remaining AgentShield Tasks
+# MISSION: Zero-Human Autonomous Execution, Complete All Remaining AgentShield Tasks
 
 ## ⚠️ READ THIS ENTIRE DOCUMENT BEFORE ANY ACTION
 
@@ -39,20 +39,20 @@ AgentShield is a firewall for AI agent spending. Python 3.11 stdlib, zero deps, 
 - **Fly.io:** `agentshield` app
 - **Product Hunt:** Signed in as Maryan K via GitHub
 - **Reddit:** u/Worth_Wealth_6811
-- **Cloudflare sipiteno.com:** Account is `mkondratyuk86@gmail.com` (Acct2) — NO API TOKEN. Must use Safari dashboard.
+- **Cloudflare sipiteno.com:** Account is `mkondratyuk86@gmail.com` (Acct2), NO API TOKEN. Must use Safari dashboard.
 
-### Real Cron IDs — all in the `architector` profile
+### Real Cron IDs, all in the `architector` profile
 ```
-6f33fb6cd459 — agentshield-market-scout    — 09:00 daily
-707dd2d06308 — agentshield-nurture         — 09:00 daily
-5a5a7d42e61a — agentshield-lead-processor  — 10:00 daily
-73198eb477c9 — hn-karma-warmup             — 11:00 daily
-490d890b0e6a — agentshield-github-monitor  — 12:00 daily
-c52aa796f78f — agentshield-spend-radar     — 12:00 daily
-a0c2caef4e81 — reddit-karma-warmup         — 14:00 daily
-1861dbcffbaf — warmup-weekly-report        — Mon 10:00
+6f33fb6cd459, agentshield-market-scout , 09:00 daily
+707dd2d06308, agentshield-nurture      , 09:00 daily
+5a5a7d42e61a, agentshield-lead-processor, 10:00 daily
+73198eb477c9, hn-karma-warmup          , 11:00 daily
+490d890b0e6a, agentshield-github-monitor, 12:00 daily
+c52aa796f78f, agentshield-spend-radar  , 12:00 daily
+a0c2caef4e81, reddit-karma-warmup      , 14:00 daily
+1861dbcffbaf, warmup-weekly-report     , Mon 10:00
 ```
-⚠️ **These are invisible to `hermes cron list`.** That command only shows the active (`default`) profile, which holds zero AgentShield jobs. Verify with the cross-profile snippet in Phase 1 — never with `hermes cron list` alone.
+⚠️ **These are invisible to `hermes cron list`.** That command only shows the active (`default`) profile, which holds zero AgentShield jobs. Verify with the cross-profile snippet in Phase 1, never with `hermes cron list` alone.
 
 *Corrected 2026-08-11: this block previously listed a different set of 9 IDs (`8ed8a7d6126e`, `f10ab4dfbb8f`, `6316254fafcc`, `9d312b9723ad`, `a0af17ac3b08`, `81a667e2e65e`, `5a5c1e22533b`, `479eebbfdef6`, `82cf0728442c`) as "the real IDs." Those were duplicates in the `default` profile; they caused `TERMINAL_CWD` lock contention and have been deleted. Do not recreate them.*
 
@@ -70,11 +70,11 @@ The cron jobs have been a source of confusion across sessions. The cause is now 
 
 **Hermes has TWO cron stores, and `hermes cron list` shows only the ACTIVE profile's jobs.** Reading one store makes the other's IDs look invented. Four consecutive sessions hit this and each concluded the other's list was hallucinated. Both lists were real. There is no `--profile` flag on `hermes cron`, so the only reliable check reads both stores directly.
 
-- `~/.hermes/cron/` — **default** profile (currently active). Holds **zero** AgentShield jobs.
-- `~/.hermes/profiles/architector/cron/` — **architector** profile. Holds **all 8** live AgentShield jobs.
+- `~/.hermes/cron/`, **default** profile (currently active). Holds **zero** AgentShield jobs.
+- `~/.hermes/profiles/architector/cron/`, **architector** profile. Holds **all 8** live AgentShield jobs.
 
 ### 1A. Enumerate BOTH cron stores
-Do **not** use `hermes cron list` for verification — it is profile-blind:
+Do **not** use `hermes cron list` for verification, it is profile-blind:
 ```bash
 python3 - <<'EOF'
 import json, glob, os
@@ -94,20 +94,20 @@ EOF
 
 Expect exactly these 8, all under `[profile: architector]`:
 ```
-6f33fb6cd459 — agentshield-market-scout    — 09:00
-707dd2d06308 — agentshield-nurture         — 09:00
-5a5a7d42e61a — agentshield-lead-processor  — 10:00
-73198eb477c9 — hn-karma-warmup             — 11:00
-490d890b0e6a — agentshield-github-monitor  — 12:00
-c52aa796f78f — agentshield-spend-radar     — 12:00
-a0c2caef4e81 — reddit-karma-warmup         — 14:00
-1861dbcffbaf — warmup-weekly-report        — Mon 10:00
+6f33fb6cd459, agentshield-market-scout , 09:00
+707dd2d06308, agentshield-nurture      , 09:00
+5a5a7d42e61a, agentshield-lead-processor, 10:00
+73198eb477c9, hn-karma-warmup          , 11:00
+490d890b0e6a, agentshield-github-monitor, 12:00
+c52aa796f78f, agentshield-spend-radar  , 12:00
+a0c2caef4e81, reddit-karma-warmup      , 14:00
+1861dbcffbaf, warmup-weekly-report     , Mon 10:00
 ```
 
 **Do NOT recreate any of these in the default profile.** Duplicates of all 8 (plus a redundant `market-scout-v2` that clobbered the same `outreach/leads_$(date).json`) lived there until 2026-08-11. All nine shared `workdir: /Users/sipi/agentshield`, and two profile tickers contending for the same `TERMINAL_CWD` lock killed `agentshield-market-scout` with a 660s timeout. All nine were deleted; backups at `~/.hermes/cron/backups/*-predupe-20260811-1552`.
 
 ### 1B. Do not "clean" cron IDs out of memory
-Earlier versions of this prompt told you to delete memory entries referencing `6f33fb6cd459`, `5a5a7d42e61a`, `73198eb477c9`, `490d890b0e6a`, `a0c2caef4e81`, `1861dbcffbaf`, `707dd2d06308`, `c52aa796f78f` as fabricated. **That instruction was wrong — those are the live IDs.** Do not act on it. Absence from `hermes cron list` is not absence from the system; check the other store first. See the memory entry `hermes-cron-list-is-profile-scoped`.
+Earlier versions of this prompt told you to delete memory entries referencing `6f33fb6cd459`, `5a5a7d42e61a`, `73198eb477c9`, `490d890b0e6a`, `a0c2caef4e81`, `1861dbcffbaf`, `707dd2d06308`, `c52aa796f78f` as fabricated. **That instruction was wrong, those are the live IDs.** Do not act on it. Absence from `hermes cron list` is not absence from the system; check the other store first. See the memory entry `hermes-cron-list-is-profile-scoped`.
 
 ---
 
@@ -163,7 +163,7 @@ Step-by-step:
    - Name: `agentshield`
    - IPv4 address: `66.241.125.16`
    - TTL: Auto
-   - Proxy status: DNS only (grey cloud — turn OFF the orange cloud proxy)
+   - Proxy status: DNS only (grey cloud, turn OFF the orange cloud proxy)
    - Click Save
 
 5. **Add the AAAA record:**
@@ -177,9 +177,9 @@ Step-by-step:
 
 **Filling DNS record fields on macOS:**
 - Use `set_value` for dropdowns (type select)
-- Use `type` for text fields — deliver in foreground mode if background returns 0 chars
+- Use `type` for text fields, deliver in foreground mode if background returns 0 chars
 - Verify every field write with a fresh capture
-- The "Save" button is often a `<button>` element — click by element index after the form is complete
+- The "Save" button is often a `<button>` element, click by element index after the form is complete
 
 ### 2D. Verify DNS Records Were Added
 After saving both records, capture the DNS records list and verify both `agentshield` entries are visible.
@@ -210,7 +210,7 @@ Should return 200 once DNS propagates and the cert is active.
 
 **Target:** Submit the AgentShield listing to Product Hunt autonomously.
 
-**Content file:** `/Users/sipi/agentshield/content/producthunt-listing.md` — read this FIRST to get all the text.
+**Content file:** `/Users/sipi/agentshield/content/producthunt-listing.md`, read this FIRST to get all the text.
 
 ### 3A. Load the PH form DOM reference
 ```
@@ -241,19 +241,19 @@ Per the `macos-browser-driving` skill Section 12, React-controlled forms on PH c
 osascript -e 'tell application "Safari" to do JavaScript "
 var nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, \"value\").set;
 var input = document.querySelector(\"[name=\\\"post[name]\\\"]\");
-nativeSetter.call(input, \"AgentShield — AI Agent Spend Firewall\");
+nativeSetter.call(input, \"AgentShield, AI Agent Spend Firewall\");
 input.dispatchEvent(new Event(\"input\", { bubbles: true }));
 input.dispatchEvent(new Event(\"change\", { bubbles: true }));
 "'
 ```
 
 **Field mapping (from the listing content):**
-- **Name:** "AgentShield — AI Agent Spend Firewall" (note: emphasize "spend firewall" to differentiate from tomsun28's rollback tool)
-- **Tagline (40 chars max):** "A firewall for AI agent spending" — COUNT the characters: 35 chars. If the form complains it's too short, use: "A firewall for AI agent spending — stop runaway costs"
-- **Description (260 chars max):** Read from `producthunt-listing.md` — the full description. COUNT characters before submitting. If over 260, trim.
+- **Name:** "AgentShield, AI Agent Spend Firewall" (note: emphasize "spend firewall" to differentiate from tomsun28's rollback tool)
+- **Tagline (40 chars max):** "A firewall for AI agent spending", COUNT the characters: 35 chars. If the form complains it's too short, use: "A firewall for AI agent spending, stop runaway costs"
+- **Description (260 chars max):** Read from `producthunt-listing.md`, the full description. COUNT characters before submitting. If over 260, trim.
 - **Website URL:** `https://agentshield.fly.dev` (or `https://agentshield.sipiteno.com` if DNS is propagated)
 - **GitHub URL:** `https://github.com/kindrat86/agentshield`
-- **Maker comment:** Read from `producthunt-listing.md` — the full "Maker Comment" section. Paste into the textarea.
+- **Maker comment:** Read from `producthunt-listing.md`, the full "Maker Comment" section. Paste into the textarea.
 
 **For textarea fields:**
 ```javascript
@@ -270,7 +270,7 @@ ta.dispatchEvent(new Event("input", { bubbles: true }));
 **The escape hatch:** Fill EVERY other field via JavaScript injection. Then:
 1. Capture the form and verify all fields are populated
 2. Present the browser window to the user with this exact instruction:
-   > "One field left: type 'Developer Tools' in the launch tags box and press Enter. That's it — I'll handle everything else."
+   > "One field left: type 'Developer Tools' in the launch tags box and press Enter. That's it, I'll handle everything else."
 3. After the user types the tag and hits Enter, capture again, verify the "Next step" button is enabled, and click it.
 
 **BUT FIRST, try these automated approaches (each ONCE, then fall back):**
@@ -304,7 +304,7 @@ PH requires at least a logo (240x240). The listing content mentions this.
    If Pillow is not installed: `pip3 install Pillow` (use a temp venv if needed, but Pillow is small).
 
 2. **Upload the logo to PH:**
-   The PH form has an image upload button. Click it — a native macOS "Paste URL" or file picker dialog opens. Per the skill Section 12 note, native dialogs CAN be filled with foreground `type`:
+   The PH form has an image upload button. Click it, a native macOS "Paste URL" or file picker dialog opens. Per the skill Section 12 note, native dialogs CAN be filled with foreground `type`:
    - After clicking the upload button, a macOS file dialog opens
    - Use foreground `type` to type the file path: `/tmp/agentshield-logo.png`
    - Press `return` to confirm
@@ -333,7 +333,7 @@ print('Screenshot created')
 EOF
 ```
 
-Upload screenshots the same way as the logo — click the upload area, type the path in the file dialog.
+Upload screenshots the same way as the logo, click the upload area, type the path in the file dialog.
 
 ### 3G. Submit the Listing
 
@@ -418,7 +418,7 @@ query {
 
 Same approach for `orgs/community` discussion #198015.
 
-Read the draft from `outreach-comments-2026-08-11.md` — if a specific draft doesn't exist for this one, craft a comment based on the thread's content (developers angry about Copilot billing costs).
+Read the draft from `outreach-comments-2026-08-11.md`, if a specific draft doesn't exist for this one, craft a comment based on the thread's content (developers angry about Copilot billing costs).
 
 ---
 
@@ -488,7 +488,7 @@ cat /Users/sipi/agentshield/.env 2>/dev/null
 grep -r "TELEGRAM\|BOT_TOKEN" /Users/sipi/agentshield/scripts/spend_radar.py
 ```
 
-If the token is masked but a real one exists somewhere, find it and add it to the script's config. If no real token exists, note this in the final report — the cron delivers via Hermes's built-in delivery mechanism (which does work), so Telegram delivery is a nice-to-have, not critical.
+If the token is masked but a real one exists somewhere, find it and add it to the script's config. If no real token exists, note this in the final report, the cron delivers via Hermes's built-in delivery mechanism (which does work), so Telegram delivery is a nice-to-have, not critical.
 
 ### 6B. Add GITHUB_TOKEN
 
@@ -561,7 +561,7 @@ cd /Users/sipi/agentshield && fly deploy
 At the end, produce a clean report:
 
 ```
-## Phase 7 Complete — Autonomous Execution Report
+## Phase 7 Complete, Autonomous Execution Report
 
 ### DNS (agentshield.sipiteno.com)
 - Records added: YES/NO (with screenshot evidence)

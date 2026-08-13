@@ -1,4 +1,4 @@
-# AgentShield — Handoff Document
+# AgentShield, Handoff Document
 
 **Last updated:** August 11, 2026
 **Status:** BUILD COMPLETE → DISTRIBUTED → MONITORING ACTIVE
@@ -42,7 +42,7 @@
 **Current sender:** escape@invisibleexit.com (verified in Resend)
 **Preferred sender:** sales@sipiteno.com (NOT verified)
 
-**To verify sipiteno.com — add these 3 DNS records in Cloudflare:**
+**To verify sipiteno.com, add these 3 DNS records in Cloudflare:**
 
 1. TXT: Name=`resend._domainkey`, Value=`p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDC2aZWYYgX9+AALN/rnWGgPgGNfgg8JTt8GCgk85AL8pXJLU+L8mV7Tl2BF09V01cc1nP4qz+3AjLdKeZEkrjypR3J982rCLltxPFnU3NOZ0jFkQBHkur6Gzch2UQ7TIsr7pha150NP1NRRwgR9wBwBR9EdYg03GFSod02DzsiaQIDAQAB`
 2. MX: Name=`send`, Server=`feedback-smtp.eu-west-1.amazonses.com`, Priority=10
@@ -78,9 +78,9 @@ Leads stored in: `outreach/leads_2026-08-11.json`
 
 ## GitHub Outreach (ALL LIVE, posted by kindrat86)
 
-1. **AgentBudget/agentbudget #29** — Integration proposal
-2. **openclaw/openclaw #42475** — Solution comment for per-agent budget enforcement
-3. **dipampaul17/AgentGuard #2** — Partnership proposal (complementary approaches)
+1. **AgentBudget/agentbudget #29**, Integration proposal
+2. **openclaw/openclaw #42475**, Solution comment for per-agent budget enforcement
+3. **dipampaul17/AgentGuard #2**, Partnership proposal (complementary approaches)
 
 ## What Needs Human Action
 
@@ -93,7 +93,7 @@ Leads stored in: `outreach/leads_2026-08-11.json`
 ### MEDIUM PRIORITY
 2. **Post Reddit comment** (suggested by warm-up cron)
    - Post: https://www.reddit.com/r/programming/comments/1rpd00d/returning_to_rails_in_2026
-   - Comment: "I keep coming back to Rails too. It's not the shiny new thing but the productivity is real — you ship features while other stacks are still configuring their build tools. What's kept you away, and what brought you back?"
+   - Comment: "I keep coming back to Rails too. It's not the shiny new thing but the productivity is real, you ship features while other stacks are still configuring their build tools. What's kept you away, and what brought you back?"
    - Log in as u/Worth_Wealth_6811, paste, submit once
 
 3. **Post HN comment** (after 24h cool-off from rate limit)

@@ -181,7 +181,7 @@ class APIHandler(BaseHTTPRequestHandler):
         if score < 33: color, label = '#00d4aa', 'LOW RISK'
         elif score < 66: color, label = '#ffa502', 'MODERATE'
         else: color, label = '#ff4757', 'HIGH RISK'
-        return f'''<svg xmlns="http://www.w3.org/2000/svg" width="260" height="28" role="img" aria-label="Agent Risk Score: {score}/100 — {label}">
+        return f'''<svg xmlns="http://www.w3.org/2000/svg" width="260" height="28" role="img" aria-label="Agent Risk Score: {score}/100, {label}">
   <title>Agent Spend Risk Score: {score}/100 ({label})</title>
   <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#141414"/><stop offset="100%" stop-color="#1a1a1a"/></linearGradient></defs>
   <rect width="260" height="28" rx="6" fill="url(#g)" stroke="{color}" stroke-width="1"/>
@@ -538,7 +538,7 @@ class APIHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def _handle_google_callback(self):
-        """Handle Google OAuth callback — exchange code for user info, create/login user."""
+        """Handle Google OAuth callback, exchange code for user info, create/login user."""
         import urllib.request as _ur, urllib.parse as _up
         parsed = urlparse(self.path)
         params = parse_qs(parsed.query)
@@ -576,7 +576,7 @@ class APIHandler(BaseHTTPRequestHandler):
             # Try to register, if exists login
             account = self.auth.register(google_email, uuid.uuid4().hex)
             if not account:
-                # Account exists — login by creating a session directly
+                # Account exists, login by creating a session directly
                 accounts = self.auth.find_by_email(google_email)
                 if accounts:
                     account = accounts
@@ -631,7 +631,7 @@ class APIHandler(BaseHTTPRequestHandler):
             return
         body = self._read_body()
         name = body.get('name', f'Agent-{datetime.now().strftime("%H%M%S")}')
-        # Sanitize name — strip HTML tags to prevent stored XSS
+        # Sanitize name, strip HTML tags to prevent stored XSS
         import html
         name = html.escape(name, quote=True)[:100]
         agent = self.store.create_agent(account['id'], name)
@@ -859,14 +859,14 @@ class APIHandler(BaseHTTPRequestHandler):
     def _get_email_bodies(self):
         """Return dict of step -> (subject, html_body) for email sequence."""
         return {
-            'soap_day1': ("I lost $2,800 while I was sleeping", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h1 style="color:#ff4757">I lost $2,800 while I was sleeping</h1><p>At 3:14 AM, my phone buzzed. An email from my API provider.</p><p><strong>$2,793.00. In one hour. While I was asleep.</strong></p><p>An AI agent I deployed had entered a retry loop. Each retry cost $133. It retried 21 times before the budget alert even arrived.</p><p>The alert came at 3:14 AM. I read it at 6:17 AM. Three hours too late.</p><p>Every tool I had was reactive. Rate limits protect the provider. Budget alerts arrive by email. Dashboards show what happened after the money is gone.</p><p>Tomorrow I will show you what I built to stop this from ever happening again.</p><p>— Maryan K.<br>AgentShield<br><a href="https://agentshield.fly.dev">https://agentshield.fly.dev</a></p></body></html>'),
-            'soap_day2': ("What if your agent asked permission before spending?", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>Yesterday I told you about losing $2,800 in 60 seconds.</h2><p>Heres what I built: a per-transaction firewall that sits between your agent and the API. Every call is evaluated against rules you set BEFORE it executes.</p><p>Transaction over $500? Blocked. Daily spend over $2,000? Blocked. More than 10 calls in an hour? Flagged.</p><p>The evaluation takes less than 1ms. Pure Python stdlib. Zero dependencies.</p><p>If Id had this running that night, the second call would have been blocked at $266. Not $2,793.</p><p>Tomorrow: the two rules that came from production feedback at HeartFlow.</p><p>— Maryan K.<br>AgentShield</p></body></html>'),
-            'soap_day3': ("The rule that catches what daily budgets miss", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>The rule that catches what daily budgets miss</h2><p>session_budget catches the 2 AM cron burst where one session eats the whole day budget. Session-scoped budgets with decay tightening fix this.</p><p>And cascade_cost: a $0.50 call with 30% failure rate and $5 retry = $2 expected cost. Blocks calls that look cheap but compound on failure.</p><p>Tomorrow: the 56-scenario eval gym.</p><p>— Maryan K.<br>AgentShield</p></body></html>'),
-            'soap_day4': ("56 test scenarios that prove your spend control works", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>56 test scenarios that prove your spend control works</h2><p>You cant claim spend control without test cases. So I wrote 56 of them.</p><p>The Eval Gym covers clean approvals, transaction limits, daily totals, velocity, allowlists, category blocks, session budgets, cascade costs, and edge cases.</p><p>All MIT licensed: https://agentshield.fly.dev/eval</p><p>Tomorrow: how to get started in 60 seconds.</p><p>— Maryan K.<br>AgentShield</p></body></html>'),
-            'soap_day5': ("Your agents are running right now. Do they have a firewall?", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>Your agents are running right now</h2><p>Free options: pip install agentshield, risk calculator, eval gym.</p><p>Paid options: $299 Professional Audit, $19/mo Managed.</p><p>The question isnt whether you need spend control. Its whether you set it up before or after your first incident.</p><p>I wish I had done it before.</p><p>— Maryan K.<br>AgentShield</p></body></html>'),
-            'seinfeld_1': ("The cheapest API call that cost $2,800", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><p>Each individual API call was only $133. Thats less than a coffee subscription. But 21 of them in 60 seconds? Thats $2,793.</p><p>The lesson: its not the individual call cost that kills you. Its the loop. The retry. The accumulation.</p><p>AgentShield blocks the second call. Not the 21st.</p><p>— Maryan K.</p></body></html>'),
-            'seinfeld_2': ("Why your rate limit is a speed bump, not a firewall", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><p>Rate limits cap requests per second. They dont cap dollars.</p><p>Your provider is happy to let you make 100 calls at $133 each. They get paid either way.</p><p>AgentShield caps dollars. Thats the difference.</p><p>— Maryan K.</p></body></html>'),
-            'seinfeld_3': ("The 3 AM test: would your agent survive it?", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><p>If your agent ran unattended from midnight to 6 AM, what would your bill look like?</p><p>Thats the 3 AM test. If you dont know the answer, you need AgentShield.</p><p>Risk calculator: https://agentshield.fly.dev/tools/risk-calculator/</p><p>— Maryan K.</p></body></html>'),
+            'soap_day1': ("I lost $2,800 while I was sleeping", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h1 style="color:#ff4757">I lost $2,800 while I was sleeping</h1><p>At 3:14 AM, my phone buzzed. An email from my API provider.</p><p><strong>$2,793.00. In one hour. While I was asleep.</strong></p><p>An AI agent I deployed had entered a retry loop. Each retry cost $133. It retried 21 times before the budget alert even arrived.</p><p>The alert came at 3:14 AM. I read it at 6:17 AM. Three hours too late.</p><p>Every tool I had was reactive. Rate limits protect the provider. Budget alerts arrive by email. Dashboards show what happened after the money is gone.</p><p>Tomorrow I will show you what I built to stop this from ever happening again.</p><p>, Maryan K.<br>AgentShield<br><a href="https://agentshield.fly.dev">https://agentshield.fly.dev</a></p></body></html>'),
+            'soap_day2': ("What if your agent asked permission before spending?", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>Yesterday I told you about losing $2,800 in 60 seconds.</h2><p>Heres what I built: a per-transaction firewall that sits between your agent and the API. Every call is evaluated against rules you set BEFORE it executes.</p><p>Transaction over $500? Blocked. Daily spend over $2,000? Blocked. More than 10 calls in an hour? Flagged.</p><p>The evaluation takes less than 1ms. Pure Python stdlib. Zero dependencies.</p><p>If Id had this running that night, the second call would have been blocked at $266. Not $2,793.</p><p>Tomorrow: the two rules that came from production feedback at HeartFlow.</p><p>, Maryan K.<br>AgentShield</p></body></html>'),
+            'soap_day3': ("The rule that catches what daily budgets miss", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>The rule that catches what daily budgets miss</h2><p>session_budget catches the 2 AM cron burst where one session eats the whole day budget. Session-scoped budgets with decay tightening fix this.</p><p>And cascade_cost: a $0.50 call with 30% failure rate and $5 retry = $2 expected cost. Blocks calls that look cheap but compound on failure.</p><p>Tomorrow: the 56-scenario eval gym.</p><p>, Maryan K.<br>AgentShield</p></body></html>'),
+            'soap_day4': ("56 test scenarios that prove your spend control works", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>56 test scenarios that prove your spend control works</h2><p>You cant claim spend control without test cases. So I wrote 56 of them.</p><p>The Eval Gym covers clean approvals, transaction limits, daily totals, velocity, allowlists, category blocks, session budgets, cascade costs, and edge cases.</p><p>All MIT licensed: https://agentshield.fly.dev/eval</p><p>Tomorrow: how to get started in 60 seconds.</p><p>, Maryan K.<br>AgentShield</p></body></html>'),
+            'soap_day5': ("Your agents are running right now. Do they have a firewall?", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><h2>Your agents are running right now</h2><p>Free options: pip install agentshield, risk calculator, eval gym.</p><p>Paid options: $299 Professional Audit, $19/mo Managed.</p><p>The question isnt whether you need spend control. Its whether you set it up before or after your first incident.</p><p>I wish I had done it before.</p><p>, Maryan K.<br>AgentShield</p></body></html>'),
+            'seinfeld_1': ("The cheapest API call that cost $2,800", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><p>Each individual API call was only $133. Thats less than a coffee subscription. But 21 of them in 60 seconds? Thats $2,793.</p><p>The lesson: its not the individual call cost that kills you. Its the loop. The retry. The accumulation.</p><p>AgentShield blocks the second call. Not the 21st.</p><p>, Maryan K.</p></body></html>'),
+            'seinfeld_2': ("Why your rate limit is a speed bump, not a firewall", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><p>Rate limits cap requests per second. They dont cap dollars.</p><p>Your provider is happy to let you make 100 calls at $133 each. They get paid either way.</p><p>AgentShield caps dollars. Thats the difference.</p><p>, Maryan K.</p></body></html>'),
+            'seinfeld_3': ("The 3 AM test: would your agent survive it?", '<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a1a"><p>If your agent ran unattended from midnight to 6 AM, what would your bill look like?</p><p>Thats the 3 AM test. If you dont know the answer, you need AgentShield.</p><p>Risk calculator: https://agentshield.fly.dev/tools/risk-calculator/</p><p>, Maryan K.</p></body></html>'),
         }
 
     def _handle_email_capture(self):
@@ -936,7 +936,7 @@ class APIHandler(BaseHTTPRequestHandler):
     # ─── Analytics Tracking ───────────────────────────────────────────────
 
     def _handle_track(self):
-        """Lightweight event tracking — appends to a JSONL file. No PII."""
+        """Lightweight event tracking, appends to a JSONL file. No PII."""
         import json as _json
         import time as _time
         try:
@@ -1088,7 +1088,7 @@ class APIHandler(BaseHTTPRequestHandler):
                 md_content = f.read()
             # Wrap in SEO-optimized HTML with Open Graph tags and JSON-LD schema
             import html as html_module
-            title = "At 3 AM, My AI Agent Spent $2,800 in 60 Seconds — Here's What I Built"
+            title = "At 3 AM, My AI Agent Spent $2,800 in 60 Seconds, Here's What I Built"
             description = "How I built AgentShield: a Python stdlib-only firewall for AI agent spending. Composable spend rules evaluated per-transaction in under 1ms. 56/56 eval gym."
             url = "https://agentshield.fly.dev/blog"
             

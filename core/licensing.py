@@ -29,7 +29,7 @@ MASTER_SECRET = os.environ.get('LICENSING_MASTER_SECRET') or 'dev_fallback_secre
 if not os.environ.get('LICENSING_MASTER_SECRET'):
     import warnings
     warnings.warn(
-        "LICENSING_MASTER_SECRET not set — using insecure dev fallback. "
+        "LICENSING_MASTER_SECRET not set, using insecure dev fallback. "
         "Set it in production: python3.11 -c 'import secrets; print(secrets.token_hex(32))'",
         stacklevel=2
     )

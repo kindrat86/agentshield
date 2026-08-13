@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, follow">
-<title>AI Agent Spend Risk Calculator — AgentShield</title>
+<title>AI Agent Spend Risk Calculator, AgentShield</title>
 <style>
 :root { --bg: #0a0a0a; --surface: #141414; --surface2: #1a1a1a; --border: #2a2a2a; --accent: #00d4aa; --text: #e8e8e8; --muted: #888; --warn: #ffa502; --danger: #ff4757; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,7 +42,7 @@ h2 { font-size: 1.1em; margin-bottom: 6px; }
 </head>
 <body>
 <h2>AI Agent Spend Risk Calculator</h2>
-<p class="subtitle">See your financial exposure in real time — all browser-side, nothing leaves your machine.</p>
+<p class="subtitle">See your financial exposure in real time, all browser-side, nothing leaves your machine.</p>
 <div class="tool">
   <div class="form-row">
     <div class="form-group"><label>AI Agents</label><input type="number" id="agents" value="3" min="0"></div>
@@ -54,16 +54,16 @@ h2 { font-size: 1.1em; margin-bottom: 6px; }
   <button class="btn" onclick="calculate()">Calculate My Risk Score</button>
 </div>
 <div class="results" id="results">
-  <div class="result-card"><div class="gauge"><div class="score" id="score">—</div><div class="label" id="score-label">Risk Score</div></div></div>
+  <div class="result-card"><div class="gauge"><div class="score" id="score">, </div><div class="label" id="score-label">Risk Score</div></div></div>
   <div class="result-card">
-    <div class="metric-row"><span class="metric-label">Projected monthly</span><span class="metric-val" id="monthly-cost">—</span></div>
-    <div class="metric-row"><span class="metric-label">Worst-case daily</span><span class="metric-val" id="worst-daily" style="color:var(--danger)">—</span></div>
-    <div class="metric-row"><span class="metric-label">Monthly overage</span><span class="metric-val" id="overage">—</span></div>
+    <div class="metric-row"><span class="metric-label">Projected monthly</span><span class="metric-val" id="monthly-cost">, </span></div>
+    <div class="metric-row"><span class="metric-label">Worst-case daily</span><span class="metric-val" id="worst-daily" style="color:var(--danger)">, </span></div>
+    <div class="metric-row"><span class="metric-label">Monthly overage</span><span class="metric-val" id="overage">, </span></div>
   </div>
   <div class="result-card"><strong style="font-size:0.85em">Recommended Rules</strong><div class="config-box"><code id="config-json"></code></div></div>
   <div class="share-row"><textarea id="share-text" rows="1" readonly></textarea><button class="share-btn" onclick="copyShare()">Copy</button></div>
 </div>
-<div class="attribution">Powered by <a href="https://agentshield.fly.dev" target="_blank" rel="noopener">AgentShield</a> — Safety Layer for AI Agents</div>
+<div class="attribution">Powered by <a href="https://agentshield.fly.dev" target="_blank" rel="noopener">AgentShield</a>, Safety Layer for AI Agents</div>
 <script>
 function calculate() {
   const agents = parseFloat(document.getElementById('agents').value) || 0;

@@ -1,4 +1,4 @@
-HN POST READY — copy-paste this into https://news.ycombinator.com/submit
+HN POST READY, copy-paste this into https://news.ycombinator.com/submit
 
 TITLE: AgentShield – A firewall for AI agent spending (stdlib, 56/56 eval)
 URL: https://agentshield.fly.dev
@@ -14,7 +14,7 @@ Existing solutions failed:
 - Budget alerts: emailed me while I was asleep
 - Manual monitoring: doesn't scale past 3 agents
 
-So I built AgentShield — 5 composable spending rules evaluated per-transaction in under 1ms.
+So I built AgentShield, 5 composable spending rules evaluated per-transaction in under 1ms.
 
 What it does:
 - Per-transaction limit (max $500/single call)
@@ -37,6 +37,6 @@ Try the risk calculator (no signup): https://agentshield.fly.dev/tools/risk-calc
 Live eval results: https://agentshield.fly.dev/eval
 
 Feedback wanted:
-1. Rule composition model — does first-match-wins cover real-world agent spending?
+1. Rule composition model, does first-match-wins cover real-world agent spending?
 2. What rules would you add for your own AI agents?
 3. Worth adding Slack/Teams alert integration?

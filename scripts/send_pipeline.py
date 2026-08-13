@@ -114,7 +114,7 @@ def main():
 
 Try the risk calculator (no signup): {email.get('link', 'https://agentshield.fly.dev/tools/risk-calculator/')}
 
-— Adrian
+- Adrian
 AgentShield | agentshield.fly.dev
 """
         

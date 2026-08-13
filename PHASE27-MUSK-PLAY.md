@@ -1,4 +1,4 @@
-# MISSION: The Musk Play — Rebrand to Safety, Post the Mirrors vs Seatbelts Challenge, Update Package
+# MISSION: The Musk Play, Rebrand to Safety, Post the Mirrors vs Seatbelts Challenge, Update Package
 
 ## ⚠️ YOUR 4 KPIS
 1. **Post the "Mirrors vs Seatbelts" challenge tweet** from @sipiteno
@@ -29,11 +29,11 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 
 ---
 
-## TASK 1: POST THE "MIRRORS VS SEATBELTS" TWEET (15 min — PRIORITY #1)
+## TASK 1: POST THE "MIRRORS VS SEATBELTS" TWEET (15 min, PRIORITY #1)
 
 ### The Tweet
 
-This is tweet 10 in the @sipiteno thread (reply to tweet 9 — the $2,800 Challenge):
+This is tweet 10 in the @sipiteno thread (reply to tweet 9, the $2,800 Challenge):
 
 ```
 Monitoring your AI agent's spending is like watching the Titanic sink in real-time.
@@ -64,7 +64,7 @@ This is the proven method from Phases 22-23.
 
 ---
 
-## TASK 2: REBRAND ALL WEB PAGES (30 min — PRIORITY #2)
+## TASK 2: REBRAND ALL WEB PAGES (30 min, PRIORITY #2)
 
 ### The Pivot
 
@@ -79,7 +79,7 @@ This is the proven method from Phases 22-23.
 
 Read the current file and update:
 
-1. **Title tag:** `<title>AgentShield — The Safety Layer for Autonomous AI</title>`
+1. **Title tag:** `<title>AgentShield, The Safety Layer for Autonomous AI</title>`
 2. **Meta description:** `The safety layer for autonomous AI. Per-transaction enforcement that blocks runaway agents before they execute. Kill switch. Emergency scanner. 56 eval scenarios.`
 3. **H1 headline:** "The Safety Layer for Autonomous AI"
 4. **Subheadline:** "AgentShield blocks runaway API calls BEFORE they execute. Kill switch. Emergency scanner. No dashboards. No 3 AM alerts. Just hard limits that prevent the damage."
@@ -115,12 +115,12 @@ Add a section after the "How It Works" section:
 ### 2C. Update the other pages
 
 For each of these pages, update the header/branding:
-- `/the-2800-story` — Add kill switch mention in the solution section
-- `/challenge` — Add kill switch to the offer stack
-- `/audit` — Mention "kill switch + enforcement rules" in deliverables
-- `/free-audit` — Mention "emergency scan + kill switch" in what you get
+- `/the-2800-story`, Add kill switch mention in the solution section
+- `/challenge`, Add kill switch to the offer stack
+- `/audit`, Mention "kill switch + enforcement rules" in deliverables
+- `/free-audit`, Mention "emergency scan + kill switch" in what you get
 
-Use `read_file` + `patch` for each. Don't rewrite entire files — just update the key phrases.
+Use `read_file` + `patch` for each. Don't rewrite entire files, just update the key phrases.
 
 ### 2D. Deploy
 ```bash
@@ -130,7 +130,7 @@ curl -s https://agentshield.sipiteno.com/ | grep -c "Safety Layer\|Kill Switch\|
 
 ---
 
-## TASK 3: UPDATE PyPI TO v1.2.0 WITH KILL SWITCH (20 min — PRIORITY #3)
+## TASK 3: UPDATE PyPI TO v1.2.0 WITH KILL SWITCH (20 min, PRIORITY #3)
 
 ### 3A. Copy new files into the package directory
 
@@ -195,7 +195,7 @@ TOKEN=$(cat /Users/sipi/agentshield/.pypi_token 2>/dev/null)
 if [ -n "$TOKEN" ]; then
     TWINE_USERNAME=__token__ TWINE_PASSWORD="$TOKEN" python3.11 -m twine upload dist/agentshield_spend-1.2.0* 2>&1
 else
-    echo "No PyPI token — package built and tested locally"
+    echo "No PyPI token, package built and tested locally"
 fi
 ```
 
@@ -208,7 +208,7 @@ python3.11 -c "import agentshield; print(agentshield.__version__)"
 
 ---
 
-## TASK 4: POST THE $1,000 BOUNTY ON GITHUB (10 min — PRIORITY #4)
+## TASK 4: POST THE $1,000 BOUNTY ON GITHUB (10 min, PRIORITY #4)
 
 ### 4A. Create the bounty issue
 
@@ -219,7 +219,7 @@ cat << 'BODY' > /tmp/bounty.md
 ### The Challenge
 Find a transaction that SHOULD be blocked by AgentShield's rules engine but ISN'T.
 
-If you can construct a transaction + rules combination where the engine SHOULD block/flag the transaction based on the rule logic, but the engine returns APPROVED instead — you win $1,000.
+If you can construct a transaction + rules combination where the engine SHOULD block/flag the transaction based on the rule logic, but the engine returns APPROVED instead, you win $1,000.
 
 ### Rules
 1. Transaction must have valid required fields (amount, merchant, category)
@@ -293,10 +293,10 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 27 — The Musk Play Report
+## Phase 27, The Musk Play Report
 
 ### Mirrors vs Seatbelts Tweet
-- Posted: [YES/NO — URL]
+- Posted: [YES/NO, URL]
 
 ### Web Rebrand
 - Landing page updated to "Safety Layer": [YES/NO]
@@ -307,11 +307,11 @@ git log --oneline -3
 ### PyPI v1.2.0
 - Package rebuilt: [YES/NO]
 - Clean venv test (emergency + kill + eval 56/56): [YES/NO]
-- Published: [YES/NO — show pip show version]
+- Published: [YES/NO, show pip show version]
 - pip install works: [YES/NO]
 
 ### $1,000 Bounty
-- GitHub issue created: [YES/NO — URL]
+- GitHub issue created: [YES/NO, URL]
 - Issue number: [number]
 
 ### Quality
@@ -342,7 +342,7 @@ git log --oneline -3
 
 4. **KPI 4: Post the $1,000 bounty as a GitHub issue.** Not a web page. A real issue with the `bounty` label.
 
-5. **The kill switch file already exists and works** (`agentshield/kill.py`). It was tested and found 20 processes in dry-run mode. Don't rewrite it — just package and deploy it.
+5. **The kill switch file already exists and works** (`agentshield/kill.py`). It was tested and found 20 processes in dry-run mode. Don't rewrite it, just package and deploy it.
 
 6. **Never mention cron. Never touch memory. Never fabricate. Sign as "Maryan K."**
 

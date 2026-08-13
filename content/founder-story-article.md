@@ -7,7 +7,7 @@ description: After an AI agent drained my API budget while I slept, I built a pe
 
 # I Lost $2,800 in 60 Seconds to an AI Agent
 
-At 3:14 AM on a Tuesday, my phone buzzed. Not a notification I'd asked for — a billing alert from my API provider.
+At 3:14 AM on a Tuesday, my phone buzzed. Not a notification I'd asked for, a billing alert from my API provider.
 
 > Your API usage has reached $2,793.00 in the last hour.
 
@@ -23,7 +23,7 @@ Here's the thing that bothered me most: every system I had was working correctly
 
 - **API rate limits**: Fine. The provider was happy to take 21 calls at $133 each. Rate limits protect the provider, not me.
 - **Budget alerts**: Set to trigger at $2,000. They triggered at 3:14 AM. The email arrived in my inbox. I just didn't see it until morning.
-- **Observability dashboard**: Showed me exactly what happened — 21 calls, $133 each, starting at 3:01 AM. Beautiful graphs. Clear breakdown. Zero prevention.
+- **Observability dashboard**: Showed me exactly what happened, 21 calls, $133 each, starting at 3:01 AM. Beautiful graphs. Clear breakdown. Zero prevention.
 
 Every tool was reactive. None of them could stop the transaction before it executed.
 
@@ -37,7 +37,7 @@ The gap: nothing evaluates whether a transaction **should be allowed to execute*
 
 ## What I Built
 
-I built [AgentShield](https://github.com/kindrat86/agentshield) — a per-transaction spend firewall that sits between your agent and the API.
+I built [AgentShield](https://github.com/kindrat86/agentshield), a per-transaction spend firewall that sits between your agent and the API.
 
 Every API call is evaluated against configurable rules in under 1 millisecond. If a rule matches and the action is "block," the call never reaches the API provider. The agent gets a structured error. Your wallet stays closed.
 
@@ -54,17 +54,17 @@ The engine is pure Python 3.11 standard library. Zero dependencies. Runs on 256M
 
 ### 9 Rule Types
 
-1. **transaction_limit** — block any single call over $X
-2. **daily_total** — cap cumulative spend per agent per day
-3. **velocity** — flag if N+ calls happen in a time window
-4. **merchant_allowlist** — only allow approved API providers
-5. **category_block** — block entire spending categories
-6. **session_budget** — session-scoped spend cap with decay tightening
-7. **cascade_cost** — pre-dispatch EV: call_cost + fail_probability × reversal_cost
-8. **clean_approval** — explicit allow for known-good patterns
-9. **edge_cases** — precision handling for Decimal arithmetic edge cases
+1. **transaction_limit**, block any single call over $X
+2. **daily_total**, cap cumulative spend per agent per day
+3. **velocity**, flag if N+ calls happen in a time window
+4. **merchant_allowlist**, only allow approved API providers
+5. **category_block**, block entire spending categories
+6. **session_budget**, session-scoped spend cap with decay tightening
+7. **cascade_cost**, pre-dispatch EV: call_cost + fail_probability × reversal_cost
+8. **clean_approval**, explicit allow for known-good patterns
+9. **edge_cases**, precision handling for Decimal arithmetic edge cases
 
-The last two rules — **session_budget** and **cascade_cost** — came from an engineer at HeartFlow who's building production cost-gating. Real-world rules from real-world pain.
+The last two rules, **session_budget** and **cascade_cost**, came from an engineer at HeartFlow who's building production cost-gating. Real-world rules from real-world pain.
 
 ### session_budget
 
@@ -98,7 +98,7 @@ The [Eval Gym](https://agentshield.fly.dev/eval) covers:
 
 All MIT licensed. You can grab the raw test definitions from [tests/eval_gym.py](https://github.com/kindrat86/agentshield/blob/main/tests/eval_gym.py) and use them to test YOUR spend-control implementation.
 
-A team called ZeroClaw actually implemented pre-flight budget enforcement after seeing this work. They merged a PR. That's the strongest validation possible — a team read the argument, agreed, and shipped code.
+A team called ZeroClaw actually implemented pre-flight budget enforcement after seeing this work. They merged a PR. That's the strongest validation possible, a team read the argument, agreed, and shipped code.
 
 ## Quick Start
 
@@ -139,4 +139,4 @@ I wish I'd built it before the $2,800 incident. But at least it's open source no
 
 ---
 
-*AgentShield is MIT licensed and built with pure Python 3.11 stdlib. The eval gym is a universal benchmark — steal whatever test cases help you. Feedback on the rule types is welcome.*
+*AgentShield is MIT licensed and built with pure Python 3.11 stdlib. The eval gym is a universal benchmark, steal whatever test cases help you. Feedback on the rule types is welcome.*

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The $2,800 Wake-Up Call — AgentShield</title>
+<title>The $2,800 Wake-Up Call, AgentShield</title>
 <meta name="description" content="At 3 AM, an AI agent made 21 API calls at $133 each. This is the story of what happened next.">
 <style>
 :root{--bg:#0a0a0a;--card:#141414;--accent:#00d4aa;--accent2:#7c3aed;--danger:#ef4444;--text:#f5f5f5;--muted:#94a3b8;--border:#262626}
@@ -45,7 +45,7 @@ footer{text-align:center;padding:32px 0;border-top:1px solid var(--border);margi
 
 <div class="email-sim">
 <div class="from">From: billing@openai.com</div>
-<div class="subject">Subject: API Usage Alert — You've exceeded $2,000 in API spend</div>
+<div class="subject">Subject: API Usage Alert, You've exceeded $2,000 in API spend</div>
 <div style="margin-top:12px">Your API usage has reached $2,793.00 in the last hour.<br>This exceeds your configured alert threshold of $2,000.00.</div>
 </div>
 
@@ -61,7 +61,7 @@ footer{text-align:center;padding:32px 0;border-top:1px solid var(--border);margi
 
 <h2>What I Checked First</h2>
 
-<p>I checked my API rate limits. They were fine — the provider was happy to take 21 calls at $133 each. Rate limits protect the provider, not me.</p>
+<p>I checked my API rate limits. They were fine, the provider was happy to take 21 calls at $133 each. Rate limits protect the provider, not me.</p>
 
 <p>I checked my budget alert settings. They were set to trigger at $2,000. They triggered at <span class="timestamp">3:14 AM</span>. The alert email arrived in my inbox. I just didn't see it until morning.</p>
 
@@ -77,9 +77,9 @@ footer{text-align:center;padding:32px 0;border-top:1px solid var(--border);margi
 
 <h2>What I Built</h2>
 
-<p>I built <span class="emphasis">AgentShield</span> — a per-transaction spend firewall that evaluates every API call against configurable rules <em>before</em> it executes.</p>
+<p>I built <span class="emphasis">AgentShield</span>, a per-transaction spend firewall that evaluates every API call against configurable rules <em>before</em> it executes.</p>
 
-<p>If that agent had been running AgentShield, the second call — the first retry — would have been blocked at <span class="amount">$266</span>. Not $2,793.</p>
+<p>If that agent had been running AgentShield, the second call, the first retry, would have been blocked at <span class="amount">$266</span>. Not $2,793.</p>
 
 <p>The evaluation takes less than 1 millisecond. Pure Python standard library. Zero dependencies. The agent gets a structured error. Your wallet stays closed.</p>
 
@@ -110,7 +110,7 @@ A whole year of AgentShield: <span class="emphasis">$228</span>
 </div>
 
 <footer>
-AgentShield — A firewall for AI agent spending.<br>
+AgentShield, A firewall for AI agent spending.<br>
 pip install agentshield · <a href="/" style="color:var(--accent)">Home</a> · <a href="/eval" style="color:var(--accent)">Eval Gym (56 scenarios)</a> · <a href="https://github.com/kindrat86/agentshield" style="color:var(--accent)">GitHub (MIT)</a>
 </footer>
 

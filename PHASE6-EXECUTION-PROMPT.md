@@ -6,9 +6,9 @@
 
 ## CONTEXT
 
-AgentShield is a firewall for AI agent spending. Python 3.11 stdlib, zero deps, 50/50 eval gym. Deployed at `https://agentshield.fly.dev`. The product is real and working. The funnel infrastructure is complete — all 8 cron jobs exist and run.
+AgentShield is a firewall for AI agent spending. Python 3.11 stdlib, zero deps, 50/50 eval gym. Deployed at `https://agentshield.fly.dev`. The product is real and working. The funnel infrastructure is complete, all 8 cron jobs exist and run.
 
-*Corrected 2026-08-11: this paragraph previously claimed the nurture and spend-radar crons "were FABRICATED (the IDs 81a667e2e65e and 5a5c1e22533b do not appear in `cronjob list`)." That was profile-blindness, not fabrication — both jobs existed the whole time in the `architector` profile as `707dd2d06308` (nurture) and `c52aa796f78f` (spend-radar), invisible to `hermes cron list`. The IDs `81a667e2e65e` / `5a5c1e22533b` were later-created duplicates in the `default` profile; they have since been deleted. Do not recreate them.*
+*Corrected 2026-08-11: this paragraph previously claimed the nurture and spend-radar crons "were FABRICATED (the IDs 81a667e2e65e and 5a5c1e22533b do not appear in `cronjob list`)." That was profile-blindness, not fabrication, both jobs existed the whole time in the `architector` profile as `707dd2d06308` (nurture) and `c52aa796f78f` (spend-radar), invisible to `hermes cron list`. The IDs `81a667e2e65e` / `5a5c1e22533b` were later-created duplicates in the `default` profile; they have since been deleted. Do not recreate them.*
 
 Your job: execute everything that CAN be done autonomously, and clearly separate what CAN be done from what requires the human (Maryan).
 
@@ -33,20 +33,20 @@ Your job: execute everything that CAN be done autonomously, and clearly separate
 - **Telegram delivery:** `telegram:369633431`
 - **Stripe Dev price ID:** `price_1U31cUCwGoUDklRe41V2eDvn`
 
-### Current REAL Cron Jobs — all in the `architector` profile
+### Current REAL Cron Jobs, all in the `architector` profile
 ```
-6f33fb6cd459 — agentshield-market-scout    — 09:00 daily
-707dd2d06308 — agentshield-nurture         — 09:00 daily
-5a5a7d42e61a — agentshield-lead-processor  — 10:00 daily
-73198eb477c9 — hn-karma-warmup             — 11:00 daily
-490d890b0e6a — agentshield-github-monitor  — 12:00 daily
-c52aa796f78f — agentshield-spend-radar     — 12:00 daily
-a0c2caef4e81 — reddit-karma-warmup         — 14:00 daily
-1861dbcffbaf — warmup-weekly-report        — Mon 10:00
+6f33fb6cd459, agentshield-market-scout , 09:00 daily
+707dd2d06308, agentshield-nurture      , 09:00 daily
+5a5a7d42e61a, agentshield-lead-processor, 10:00 daily
+73198eb477c9, hn-karma-warmup          , 11:00 daily
+490d890b0e6a, agentshield-github-monitor, 12:00 daily
+c52aa796f78f, agentshield-spend-radar  , 12:00 daily
+a0c2caef4e81, reddit-karma-warmup      , 14:00 daily
+1861dbcffbaf, warmup-weekly-report     , Mon 10:00
 ```
 **TOTAL: 8 jobs**, all under `~/.hermes/profiles/architector/cron/`, all verified running as of 2026-08-11.
 
-⚠️ These are **invisible to `hermes cron list`**, which only shows the active (`default`) profile. Do not conclude they are missing or fabricated — see Phase 1 of `PHASE7-AUTONOMOUS-EXECUTION.md` for the cross-profile check.
+⚠️ These are **invisible to `hermes cron list`**, which only shows the active (`default`) profile. Do not conclude they are missing or fabricated, see Phase 1 of `PHASE7-AUTONOMOUS-EXECUTION.md` for the cross-profile check.
 
 *Corrected 2026-08-11: this section previously read "TOTAL: 6 jobs. The nurture and spend-radar jobs DO NOT EXIST." Both exist and both ran successfully that day (`707dd2d06308` at 15:06, `c52aa796f78f` at 15:09).*
 
@@ -54,7 +54,7 @@ a0c2caef4e81 — reddit-karma-warmup         — 14:00 daily
 
 ## VERIFICATION PROTOCOL (Anti-Fabrication Rule)
 
-After creating ANY cron job, you MUST include the ACTUAL output of `cronjob list` in your final report. The output must show these specific fields for every job: `job_id`, `name`, `schedule`, `last_status`. If you claim a job was created but it's not in the list, your entire report will be treated as fabricated. Do NOT invent IDs — show the real ones.
+After creating ANY cron job, you MUST include the ACTUAL output of `cronjob list` in your final report. The output must show these specific fields for every job: `job_id`, `name`, `schedule`, `last_status`. If you claim a job was created but it's not in the list, your entire report will be treated as fabricated. Do NOT invent IDs, show the real ones.
 
 ---
 
@@ -95,7 +95,7 @@ Run `cronjob list` and confirm you now have 8 total jobs (6 original + 2 new). B
 
 ---
 
-## PHASE B: DNS & DOMAIN — What Maryan Must Do
+## PHASE B: DNS & DOMAIN, What Maryan Must Do
 
 The Fly.io certificate for `agentshield.sipiteno.com` was created. But DNS records must be added to Cloudflare for it to work.
 
@@ -128,7 +128,7 @@ Once Maryan adds those records:
 
 ### C1. Verify the PH Listing Content
 Read `/Users/sipi/agentshield/content/producthunt-listing.md` and verify:
-- Tagline (40 chars max): "A firewall for AI agent spending" — counts the characters
+- Tagline (40 chars max): "A firewall for AI agent spending", counts the characters
 - Description (260 chars max): Check character count
 - Maker comment: Complete and compelling
 - Screenshot references: Are the URLs correct?
@@ -139,8 +139,8 @@ Search Product Hunt to confirm `agentshield` is taken:
 web_search "producthunt.com posts agentshield"
 ```
 If tomsun28's tool still occupies the URL, suggest naming variations for Maryan:
-- "AgentShield — AI Agent Spend Firewall" (emphasize differentiation)
-- "AgentShield — Stop AI Agents From Burning Your Budget"
+- "AgentShield, AI Agent Spend Firewall" (emphasize differentiation)
+- "AgentShield, Stop AI Agents From Burning Your Budget"
 
 ### C3. Create PH Launch Day Brief
 Create `/Users/sipi/agentshield/content/ph-launch-checklist.md` with:
@@ -172,7 +172,7 @@ For each article, check:
 - Number of reactions, comments, reads
 - Are there unanswered comments? If so, draft replies
 
-Read `/Users/sipi/agentshield/content/devto-comments.md` — these are draft comments for OTHER people's articles to drive traffic. But Maryan must post them manually (Dev.to has anti-bot protections).
+Read `/Users/sipi/agentshield/content/devto-comments.md`, these are draft comments for OTHER people's articles to drive traffic. But Maryan must post them manually (Dev.to has anti-bot protections).
 
 ### D2. GitHub Star Campaign
 ```bash
@@ -182,7 +182,7 @@ gh repo view kindrat86/agentshield --json stargazerCount
 ```
 
 To increase stars:
-1. Post in relevant GitHub Discussions (NOT issues — discussions are for community)
+1. Post in relevant GitHub Discussions (NOT issues, discussions are for community)
 2. Target: LangChain discussions, OpenAI Cookbook, CrewAI community
 3. Post template: genuine contribution first, AgentShield mention second
 
@@ -277,7 +277,7 @@ At the end of your run, produce a clean summary. It must contain:
 
 2. SUBMIT PRODUCT HUNT:
    - Go to: https://www.producthunt.com/posts/new
-   - Name: "AgentShield — AI Agent Spend Firewall"
+   - Name: "AgentShield, AI Agent Spend Firewall"
    - Tagline: "A firewall for AI agent spending"
    - Content: Copy from /Users/sipi/agentshield/content/producthunt-listing.md
    - After submission, TELL ME the new URL so I can add the badge
@@ -306,7 +306,7 @@ Confirm delivery works. Then produce the final handoff report.
 ---
 
 ## DO NOT:
-- Fabricate cron job IDs — show real `cronjob list` output
+- Fabricate cron job IDs, show real `cronjob list` output
 - Post on Reddit or Product Hunt (Maryan must do this)
 - Change the core engine, store, or auth code
 - Remove or downgrade the free tier

@@ -1,9 +1,9 @@
-# MISSION: Break Through the Browser Walls — Twitter, HN, DNS
+# MISSION: Break Through the Browser Walls, Twitter, HN, DNS
 
 ## ⚠️ YOUR 3 KPIS (Complete ALL 3)
-1. **Complete the $2,800 Twitter thread** — post tweets 3-8 as replies to tweet 2 from @sipiteno
-2. **Build HN karma** — post 1+ genuine value comment on an active thread  
-3. **Add DNS records** — make agentshield.sipiteno.com resolve
+1. **Complete the $2,800 Twitter thread**, post tweets 3-8 as replies to tweet 2 from @sipiteno
+2. **Build HN karma**, post 1+ genuine value comment on an active thread  
+3. **Add DNS records**, make agentshield.sipiteno.com resolve
 
 ---
 
@@ -12,10 +12,10 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 
 ---
 
-## THE BROWSER AUTOMATION PROBLEM — AND THE SOLUTION
+## THE BROWSER AUTOMATION PROBLEM, AND THE SOLUTION
 
 ### Why Previous Sessions Failed
-X.com, Cloudflare, and Product Hunt are complex React SPAs. Using `computer_use action='capture' mode='som'` on these sites returns 600+ elements per snapshot — menu bars, sidebars, ad iframes, trending topics. This burns 80% of the context budget before the actual target element is found. Previous agents correctly identified this as a limitation and stopped.
+X.com, Cloudflare, and Product Hunt are complex React SPAs. Using `computer_use action='capture' mode='som'` on these sites returns 600+ elements per snapshot, menu bars, sidebars, ad iframes, trending topics. This burns 80% of the context budget before the actual target element is found. Previous agents correctly identified this as a limitation and stopped.
 
 ### The Solution: Typed Browser Page Rung
 The `computer_use` skill documents a specific toolset for exactly this problem: the `cua_browser_*` actions. Instead of pixel-hunting through AX elements, this binds directly to the browser's DevTools protocol. It provides clean, numbered semantic snapshots. It is designed for complex web apps.
@@ -28,11 +28,11 @@ skill_view name="computer-use"
 Read the section: "Typed browser page rung" and "Verify → escalate ladder."
 
 The workflow for a typed browser page:
-1. `computer_use action='cua_browser_state'` — bind to the browser window using exact `(pid, window_id)`
+1. `computer_use action='cua_browser_state'`, bind to the browser window using exact `(pid, window_id)`
 2. Require `binding_quality='exact'` and `mutation_allowed=true`
-3. `computer_use action='cua_browser_state'` — take a semantic snapshot, get a `tab_id` and element `ref`s
-4. `computer_use action='cua_browser_click' ref='CURRENT_REF'` — click by semantic ref
-5. `computer_use action='cua_browser_type' ref='INPUT_REF' text='...'` — type by semantic ref
+3. `computer_use action='cua_browser_state'`, take a semantic snapshot, get a `tab_id` and element `ref`s
+4. `computer_use action='cua_browser_click' ref='CURRENT_REF'`, click by semantic ref
+5. `computer_use action='cua_browser_type' ref='INPUT_REF' text='...'`, type by semantic ref
 6. After every mutation, call `cua_browser_state` again before another action
 
 **If `cua_browser_*` is unavailable or fails to bind:** fall back to `mode='som'` captures, but cap at 2 attempts per site to avoid context exhaustion. Use the `max_elements` parameter (e.g., `max_elements=50`) to limit snapshot size.
@@ -165,7 +165,7 @@ show(d)
 
 Comments must:
 1. Share a real technical insight from building/deploying AI agents
-2. Add to the discussion — correct a misconception, provide a data point
+2. Add to the discussion, correct a misconception, provide a data point
 3. Be 3-6 sentences
 4. **Do NOT mention AgentShield, GitHub, or any link to our project**
 5. Sound like a real developer
@@ -210,10 +210,10 @@ open -a Safari "https://dash.cloudflare.com/"
 ```
 
 Use `cua_browser_*` actions to navigate:
-1. `cua_browser_state` — snapshot the dashboard
+1. `cua_browser_state`, snapshot the dashboard
 2. Find `sipiteno.com` ref
 3. `cua_browser_click ref='SIPITENO_REF'`
-4. `cua_browser_state` — snapshot the zone page
+4. `cua_browser_state`, snapshot the zone page
 5. Find DNS → Records navigation ref
 6. `cua_browser_click ref='DNS_REF'`
 
@@ -249,7 +249,7 @@ dig agentshield.sipiteno.com AAAA +short
 
 ---
 
-## TASK 4: SEND 5 MORE B2B EMAILS (Priority #4 — if time permits)
+## TASK 4: SEND 5 MORE B2B EMAILS (Priority #4, if time permits)
 
 ### 4A. Find 5 new targets
 
@@ -294,7 +294,7 @@ dig agentshield.sipiteno.com A +short
 curl -s "https://hacker-news.firebaseio.com/v0/user/SipitenoMK.json" | python3 -c "import sys,json; print(f'Karma: {json.load(sys.stdin).get(\"karma\",0)}')" 2>/dev/null
 
 # Commit
-cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 21: Typed browser rung — Twitter thread, HN karma, DNS records"
+cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 21: Typed browser rung, Twitter thread, HN karma, DNS records"
 git log --oneline -3
 ```
 
@@ -303,22 +303,22 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 21 — Browser Breakthrough Report
+## Phase 21, Browser Breakthrough Report
 
 ### Twitter Thread
 - Typed browser bound: [YES / NO]
-- Tweets 3-8 posted: [count/6 — include URLs]
+- Tweets 3-8 posted: [count/6, include URLs]
 - Method used: [cua_browser_type / keystrokes / foreground type / manual fallback]
 - Context budget: [did the typed rung solve the 600-element problem?]
 
 ### HN Karma
-- Comments posted: [count — include HN URLs]
+- Comments posted: [count, include HN URLs]
 - Starting karma: 1
 - Ending karma: [number]
 
 ### DNS
 - Safari Google session: [Active / Not active]
-- Records added: [YES / NO — via typed browser or set_value]
+- Records added: [YES / NO, via typed browser or set_value]
 - dig A: [output]
 - dig AAAA: [output]
 
@@ -352,6 +352,6 @@ git log --oneline -3
 
 6. **Sign all emails as "Maryan K."** (not full surname).
 
-7. **If the typed browser rung works on X.com**, that changes everything — it means Product Hunt submission, Cloudflare, and all other React SPA targets are now viable. Document the technique clearly.
+7. **If the typed browser rung works on X.com**, that changes everything, it means Product Hunt submission, Cloudflare, and all other React SPA targets are now viable. Document the technique clearly.
 
 8. **If the typed browser rung does NOT work or is unavailable**, fall back to foreground `type` with `max_elements=50` captures. Attempt max 2 tweets this way. If context is still a problem, document manual steps.

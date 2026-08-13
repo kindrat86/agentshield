@@ -1,5 +1,5 @@
 """
-AgentShield E2E Multi-Tenant Test Suite — 14 Tests
+AgentShield E2E Multi-Tenant Test Suite, 14 Tests
 ====================================================
 Integration tests using real Store, AuthManager, and SpendControlEngine
 against a temporary SQLite database. Each test gets a fresh DB.
@@ -85,11 +85,11 @@ class TestAgentShield(unittest.TestCase):
         # Account A creates an agent
         agent_a = self.store.create_agent(acct_a['id'], 'Agent Alpha')
 
-        # Account B lists agents — should be empty
+        # Account B lists agents, should be empty
         agents_b = self.store.list_agents(acct_b['id'])
         self.assertEqual(len(agents_b), 0, "Account B should see zero agents")
 
-        # Account A lists agents — should have 1
+        # Account A lists agents, should have 1
         agents_a = self.store.list_agents(acct_a['id'])
         self.assertEqual(len(agents_a), 1, "Account A should see 1 agent")
 
@@ -249,7 +249,7 @@ class TestAgentShield(unittest.TestCase):
         # Account is 'free' tier by default
         self.assertEqual(acct['tier'], 'free')
 
-        # Create first agent — should work
+        # Create first agent, should work
         agent1 = self.store.create_agent(acct['id'], 'Agent 1')
         self.assertIsNotNone(agent1)
 
@@ -264,7 +264,7 @@ class TestAgentShield(unittest.TestCase):
         # In production, the API layer would enforce this limit.
         # Here we verify the check logic: count >= max_agents means blocked.
         self.assertGreaterEqual(count, limits['max_agents'],
-                                "Free tier at limit — second agent should be rejected")
+                                "Free tier at limit, second agent should be rejected")
 
 
 if __name__ == '__main__':

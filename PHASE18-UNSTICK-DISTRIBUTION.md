@@ -1,4 +1,4 @@
-# MISSION: Unstick Distribution — Post The Thread, Build HN Karma, DNS, Direct Outreach
+# MISSION: Unstick Distribution, Post The Thread, Build HN Karma, DNS, Direct Outreach
 
 ## ⚠️ YOUR KPIS
 1. Twitter thread posted from @MaryanK499484 or @Sipiteno (not just drafted)
@@ -14,7 +14,7 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 ---
 
 ## WHAT EXISTS (verified)
-- **Product:** https://agentshield.fly.dev — 56/56 eval, 9 rules, 14/14 tests, health OK
+- **Product:** https://agentshield.fly.dev, 56/56 eval, 9 rules, 14/14 tests, health OK
 - **PyPI:** `pip install agentshield-spend` works worldwide
 - **Audit page:** `/audit` live (9.8KB, scarcity + guarantee)
 - **Landing page:** Scarcity banner + guarantee + audit cross-sell
@@ -32,7 +32,7 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 
 ---
 
-## TASK 1: POST THE TWITTER THREAD (20 min — PRIORITY #1)
+## TASK 1: POST THE TWITTER THREAD (20 min, PRIORITY #1)
 
 ### Why This Is The Single Highest-Leverage Action
 The $2,800 Twitter thread is the nuclear weapon. It's 8 tweets, crafted to convert. It reaches developers in the format they consume. Every hour it sits in a markdown file is an hour of zero reach.
@@ -137,9 +137,9 @@ show(d)
 
 For the 2 best threads, draft comments that:
 1. **Share a real technical insight** from building AI agents
-2. **Add to the discussion** — don't just agree
-3. **Are 3-6 sentences** — substantive but not walls of text
-4. **Do NOT mention AgentShield** — zero product mentions. The goal is karma, not distribution.
+2. **Add to the discussion**, don't just agree
+3. **Are 3-6 sentences**, substantive but not walls of text
+4. **Do NOT mention AgentShield**, zero product mentions. The goal is karma, not distribution.
 
 Save to `/Users/sipi/agentshield/content/hn-karma-comments-$(date +%Y%m%d).md`.
 
@@ -201,7 +201,7 @@ If DNS doesn't resolve immediately, wait 3 minutes and retry.
 
 ---
 
-## TASK 4: DIRECT OUTREACH — FIND BUYERS AND MESSAGE THEM (20 min)
+## TASK 4: DIRECT OUTREACH, FIND BUYERS AND MESSAGE THEM (20 min)
 
 ### Why This Matters
 Zero personal outreach has been done. Every "ask" has been an agent posting in a GitHub thread. The conversion rate of personal messages is 10x higher.
@@ -259,11 +259,11 @@ Hi [name],
 
 I saw your [tweet/post/comment] about [exact complaint, e.g., "$500 OpenAI bill overnight"].
 
-We built AgentShield to solve exactly this — a per-transaction spend firewall that sits between your agents and the API. Every call is evaluated against your budget rules in <1ms before it executes. If a call would blow the budget, it gets blocked. The agent never sees the difference.
+We built AgentShield to solve exactly this, a per-transaction spend firewall that sits between your agents and the API. Every call is evaluated against your budget rules in <1ms before it executes. If a call would blow the budget, it gets blocked. The agent never sees the difference.
 
 It's open source (MIT) and installs via pip: pip install agentshield-spend.
 
-If you'd rather not install anything, we offer a professional spend audit — send us your last 30 days of API bills and we'll map every wasteful transaction to the specific rules that would prevent it. $299, fully refundable if we don't find $299 in preventable waste.
+If you'd rather not install anything, we offer a professional spend audit, send us your last 30 days of API bills and we'll map every wasteful transaction to the specific rules that would prevent it. $299, fully refundable if we don't find $299 in preventable waste.
 
 Live demo: https://agentshield.fly.dev
 Audit: https://agentshield.fly.dev/audit
@@ -321,18 +321,18 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 18 — Distribution Unstuck Report
+## Phase 18, Distribution Unstuck Report
 
 ### Twitter Thread
 - Browser session active: [YES / NO]
-- Thread posted: [YES — profile URL / NO — saved for Maryan]
+- Thread posted: [YES, profile URL / NO, saved for Maryan]
 - Tweets posted: [count/8]
 
 ### HN Karma
 - Starting karma: 1
 - Threads found: [count]
 - Comments drafted: [count]
-- Comments posted: [count — include URLs]
+- Comments posted: [count, include URLs]
 - Ending karma: [number]
 
 ### DNS
@@ -372,7 +372,7 @@ git log --oneline -3
 
 3. **KPI 3: DNS records added.** One attempt via Safari. If blocked, document for Maryan.
 
-4. **KPI 4: 5+ direct outreach messages drafted.** Personal messages to people who publicly complained about AI costs. Not GitHub comments — personal messages.
+4. **KPI 4: 5+ direct outreach messages drafted.** Personal messages to people who publicly complained about AI costs. Not GitHub comments, personal messages.
 
 5. **Never mention cron. Never touch memory. Never fabricate.**
 

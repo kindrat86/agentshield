@@ -108,12 +108,12 @@ def post_show_hn():
     return result.stdout.strip() or result.stderr.strip()
 
 def main():
-    print(f"=== AgentShield Show HN Monitor — {time.strftime('%Y-%m-%d %H:%M:%S')} ===")
+    print(f"=== AgentShield Show HN Monitor, {time.strftime('%Y-%m-%d %H:%M:%S')} ===")
 
     # Check karma
     karma, submitted = get_hn_karma()
     if karma is None:
-        print("RESULT: [BLOCKED] — HN API unreachable")
+        print("RESULT: [BLOCKED], HN API unreachable")
         print("[SILENT]")
         return
 
@@ -122,7 +122,7 @@ def main():
     # Check if Show HN already posted
     already_posted, post_url = check_already_posted_show_hn(submitted)
     if already_posted:
-        print(f"RESULT: [ALREADY POSTED] — Show HN is live at {post_url}")
+        print(f"RESULT: [ALREADY POSTED], Show HN is live at {post_url}")
         print(f"SHOWHN_LIVE:{post_url}")
         return
 
@@ -133,18 +133,18 @@ def main():
         print(f"Last submission: {hours_since:.1f} hours ago")
         if hours_since < COOLDOWN_HOURS:
             remaining = COOLDOWN_HOURS - hours_since
-            print(f"RESULT: [COOLDOWN] — {remaining:.1f} hours remaining until Show HN can be posted")
+            print(f"RESULT: [COOLDOWN], {remaining:.1f} hours remaining until Show HN can be posted")
             print(f"COOLDOWN:{remaining:.1f}")
             return
 
     # Check minimum karma
     if karma < MIN_KARMA:
-        print(f"RESULT: [LOW_KARMA] — karma {karma} < {MIN_KARMA} required")
+        print(f"RESULT: [LOW_KARMA], karma {karma} < {MIN_KARMA} required")
         print(f"LOWKARMA:{karma}")
         return
 
-    # All conditions met — POST SHOW HN
-    print(f"RESULT: [ATTEMPTING] — karma {karma} >= {MIN_KARMA}, cooldown expired")
+    # All conditions met, POST SHOW HN
+    print(f"RESULT: [ATTEMPTING], karma {karma} >= {MIN_KARMA}, cooldown expired")
     print("Posting Show HN via Safari do JavaScript...")
 
     result = post_show_hn()
@@ -156,7 +156,7 @@ def main():
     posted_after, post_url_after = check_already_posted_show_hn(submitted_after)
 
     if posted_after:
-        print(f"RESULT: [SUCCESS] — Show HN posted at {post_url_after}")
+        print(f"RESULT: [SUCCESS], Show HN posted at {post_url_after}")
         print(f"SHOWHN_LIVE:{post_url_after}")
     else:
         # Check if we got rate limited
@@ -166,10 +166,10 @@ def main():
         )
         body = verify_result.stdout.strip()
         if "too fast" in body.lower() or "slow down" in body.lower():
-            print("RESULT: [RATE_LIMITED] — HN anti-spam triggered. Try again later.")
+            print("RESULT: [RATE_LIMITED], HN anti-spam triggered. Try again later.")
             print("RATE_LIMITED")
         else:
-            print(f"RESULT: [UNCERTAIN] — Submission attempted. Page content: {body[:200]}")
+            print(f"RESULT: [UNCERTAIN], Submission attempted. Page content: {body[:200]}")
             print(f"UNCERTAIN:{body[:200]}")
 
 if __name__ == "__main__":

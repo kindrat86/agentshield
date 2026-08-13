@@ -2,11 +2,11 @@
 
 *August 11, 2026*
 
-At 3 AM last Tuesday, an AI agent I built made 21 API calls to a premium LLM endpoint. Each call cost $133. That's $2,800 gone in 60 seconds — while I was asleep.
+At 3 AM last Tuesday, an AI agent I built made 21 API calls to a premium LLM endpoint. Each call cost $133. That's $2,800 gone in 60 seconds, while I was asleep.
 
 The budget alert email arrived at 6:14 AM. By then, the agent had already moved on to its next task, oblivious to the damage.
 
-This is the dark side of autonomous AI agents. They're powerful, fast, and relentless — and they can drain your budget before you even wake up.
+This is the dark side of autonomous AI agents. They're powerful, fast, and relentless, and they can drain your budget before you even wake up.
 
 ## Why Existing Tools Fail for Autonomous Agents
 
@@ -14,7 +14,7 @@ I tried everything before building my own solution:
 
 **API rate limits** kicked in too late. By the time the provider's rate limiter engaged, 18 of the 21 calls had already gone through. Rate limits are designed to protect the provider's infrastructure, not your wallet.
 
-**Budget alert emails** arrived hours after the damage was done. Email is asynchronous by design — it's the wrong medium for real-time cost control.
+**Budget alert emails** arrived hours after the damage was done. Email is asynchronous by design, it's the wrong medium for real-time cost control.
 
 **Manual monitoring** doesn't scale. I was running 7 agents across 3 projects. Checking dashboards every hour isn't a system; it's a job.
 
@@ -50,7 +50,7 @@ Tracks cumulative spend per agent per day. When the daily total exceeds the cap,
 }
 ```
 
-This prevents death-by-a-thousand-cuts — the scenario where individual transactions are small but the cumulative spend is massive.
+This prevents death-by-a-thousand-cuts, the scenario where individual transactions are small but the cumulative spend is massive.
 
 ### 3. Velocity
 
@@ -64,7 +64,7 @@ Counts transactions in a rolling time window. If an agent fires too many calls t
 }
 ```
 
-Velocity catches the $2,800-in-60-seconds scenario. Instead of blocking, you can set it to FLAG — letting the transaction through but alerting you to investigate.
+Velocity catches the $2,800-in-60-seconds scenario. Instead of blocking, you can set it to FLAG, letting the transaction through but alerting you to investigate.
 
 ### 4. Merchant Allowlist
 
@@ -150,16 +150,16 @@ Every transaction flows through the engine before reaching the provider. The eng
 
 ### Key design decisions:
 
-- **Python 3.11 stdlib only** — no pip install required on the server. The entire engine, storage, auth, and API run on the standard library.
-- **SQLite in WAL mode** — thread-safe, zero-config storage. Multi-tenant isolation enforced at the query level (every query scopes by `account_id`).
-- **Decimal for money** — never use float for monetary arithmetic. The engine uses `decimal.Decimal` throughout.
-- **Offline licensing** — HMAC-SHA256 signed license keys validated locally. No server dependency for license checks.
+- **Python 3.11 stdlib only**, no pip install required on the server. The entire engine, storage, auth, and API run on the standard library.
+- **SQLite in WAL mode**, thread-safe, zero-config storage. Multi-tenant isolation enforced at the query level (every query scopes by `account_id`).
+- **Decimal for money**, never use float for monetary arithmetic. The engine uses `decimal.Decimal` throughout.
+- **Offline licensing**, HMAC-SHA256 signed license keys validated locally. No server dependency for license checks.
 
 ## Try It Yourself
 
-**[Risk Calculator →](/tools/risk-calculator/)** — See your agent spend risk profile in 30 seconds. No signup required.
+**[Risk Calculator →](/tools/risk-calculator/)**, See your agent spend risk profile in 30 seconds. No signup required.
 
-**[Dashboard →](/dashboard)** — Register for a free account and configure your own rules.
+**[Dashboard →](/dashboard)**, Register for a free account and configure your own rules.
 
 The core engine is open-source and runs on Python 3.11 stdlib. No dependencies. No frameworks. Just 7 composable rules, evaluated fast. **[56/56 eval gym results →](/eval)**
 

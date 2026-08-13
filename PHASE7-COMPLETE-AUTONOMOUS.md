@@ -1,4 +1,4 @@
-# MISSION: Zero-Human Execution — DNS + PH + Reddit + Memory
+# MISSION: Zero-Human Execution, DNS + PH + Reddit + Memory
 
 ## CRITICAL: Read fully. Execute in order. Never fabricate. Verify with tools.
 
@@ -7,12 +7,12 @@
 ## WHAT YOU ARE
 
 An autonomous agent running on the user's Mac. You have access to:
-- `computer_use` — drives macOS GUI applications in the background
-- `terminal` — shell access
-- `gh` CLI — GitHub authenticated as `kindrat86`
-- `fly` CLI — Fly.io authenticated
-- Safari browser — carries Google + GitHub OAuth sessions
-- Comet browser — carries Reddit session
+- `computer_use`, drives macOS GUI applications in the background
+- `terminal`, shell access
+- `gh` CLI, GitHub authenticated as `kindrat86`
+- `fly` CLI, Fly.io authenticated
+- Safari browser, carries Google + GitHub OAuth sessions
+- Comet browser, carries Reddit session
 
 ## WHAT MUST BE DONE (4 tasks, zero human)
 
@@ -32,14 +32,14 @@ After claiming ANY action is complete, prove it with tool output. Never claim a 
 
 **Read this before touching any cron job.** Hermes has TWO cron stores, and `hermes cron list` shows only the **active** profile's jobs. Reading one store makes the other's IDs look fabricated. That is exactly what happened: four consecutive sessions accused each other of hallucinating cron IDs, and two competing "verified" lists got written into these prompts. **Both lists were real.** Neither was a hallucination.
 
-- `~/.hermes/cron/` — **default** profile (currently active). Holds **zero** AgentShield jobs.
-- `~/.hermes/profiles/architector/cron/` — **architector** profile. Holds **all 8** live AgentShield jobs.
+- `~/.hermes/cron/`, **default** profile (currently active). Holds **zero** AgentShield jobs.
+- `~/.hermes/profiles/architector/cron/`, **architector** profile. Holds **all 8** live AgentShield jobs.
 
 There is no `--profile` flag on `hermes cron`. The only reliable check reads both stores directly.
 
 ### Action:
 
-**Step 1 — enumerate BOTH stores.** Do **not** use `hermes cron list` for this; it is profile-blind. Run this exactly as written (the heredoc body must stay at column 0 — indenting it produces `IndentationError`):
+**Step 1, enumerate BOTH stores.** Do **not** use `hermes cron list` for this; it is profile-blind. Run this exactly as written (the heredoc body must stay at column 0, indenting it produces `IndentationError`):
 
 ```bash
 python3 - <<'EOF'
@@ -58,22 +58,22 @@ for p in paths:
 EOF
 ```
 
-**Step 2 — expect exactly these 8 jobs**, all under `[profile: architector]`:
+**Step 2, expect exactly these 8 jobs**, all under `[profile: architector]`:
 
 ```
-6f33fb6cd459 — agentshield-market-scout    — 09:00
-707dd2d06308 — agentshield-nurture         — 09:00
-5a5a7d42e61a — agentshield-lead-processor  — 10:00
-73198eb477c9 — hn-karma-warmup             — 11:00
-490d890b0e6a — agentshield-github-monitor  — 12:00
-c52aa796f78f — agentshield-spend-radar     — 12:00
-a0c2caef4e81 — reddit-karma-warmup         — 14:00
-1861dbcffbaf — warmup-weekly-report        — Mon 10:00
+6f33fb6cd459, agentshield-market-scout , 09:00
+707dd2d06308, agentshield-nurture      , 09:00
+5a5a7d42e61a, agentshield-lead-processor, 10:00
+73198eb477c9, hn-karma-warmup          , 11:00
+490d890b0e6a, agentshield-github-monitor, 12:00
+c52aa796f78f, agentshield-spend-radar  , 12:00
+a0c2caef4e81, reddit-karma-warmup      , 14:00
+1861dbcffbaf, warmup-weekly-report     , Mon 10:00
 ```
 
-**Step 3 — do NOT recreate any of these in the default profile.** Duplicates of all 8 (plus a redundant `market-scout-v2`) existed there until 2026-08-11. All nine shared `workdir: /Users/sipi/agentshield`, and two profile tickers contending for the same `TERMINAL_CWD` lock killed `agentshield-market-scout` with a 660s lock timeout. The duplicate `nurture` job also created a check-then-send race against Resend. All nine were deleted; backups are at `~/.hermes/cron/backups/*-predupe-20260811-1552`.
+**Step 3, do NOT recreate any of these in the default profile.** Duplicates of all 8 (plus a redundant `market-scout-v2`) existed there until 2026-08-11. All nine shared `workdir: /Users/sipi/agentshield`, and two profile tickers contending for the same `TERMINAL_CWD` lock killed `agentshield-market-scout` with a 660s lock timeout. The duplicate `nurture` job also created a check-then-send race against Resend. All nine were deleted; backups are at `~/.hermes/cron/backups/*-predupe-20260811-1552`.
 
-**Step 4 — there is no blocklist of "fake" IDs**, and earlier versions of this prompt were wrong to publish one. If an ID is missing from the active profile, check the other store before drawing any conclusion. Absence from `hermes cron list` is not absence from the system.
+**Step 4, there is no blocklist of "fake" IDs**, and earlier versions of this prompt were wrong to publish one. If an ID is missing from the active profile, check the other store before drawing any conclusion. Absence from `hermes cron list` is not absence from the system.
 
 ---
 
@@ -95,13 +95,13 @@ Look for evidence of which Google account is signed in:
 - Look at the top-right avatar/profile picture
 - If it shows `mkondratyuk86@gmail.com` → session active, proceed to Step 2
 - If it shows a login page → check if clicking "Sign in" presents mkondratyuk86 in the account chooser
-- If no Google session at all → this path is blocked — skip to Phase 3
+- If no Google session at all → this path is blocked, skip to Phase 3
 
 ### Step 2: Navigate to Cloudflare DNS
 ```bash
 open -a Safari "https://dash.cloudflare.com/"
 ```
-Capture. If you see the Cloudflare dashboard (domains list), click `sipiteno.com`. If you see a login page, click "Continue with Google" — it should auto-authenticate using the Gmail session verified in Step 1.
+Capture. If you see the Cloudflare dashboard (domains list), click `sipiteno.com`. If you see a login page, click "Continue with Google", it should auto-authenticate using the Gmail session verified in Step 1.
 
 ### Step 3: Navigate to DNS Records
 Once on the sipiteno.com zone page, navigate to DNS → Records:
@@ -153,7 +153,7 @@ Should return 200.
 ## PHASE 3: PRODUCT HUNT SUBMISSION VIA SAFARI (20 min)
 
 ### Context
-PH uses GitHub OAuth. The user is signed in as "Maryan K" via GitHub. Safari carries this session. The submission form is a React SPA. Per the `macos-browser-driving` skill Section 12, React text inputs and textareas CAN be filled via JavaScript native setter + dispatchEvent. The launch tags autocomplete is a HARD WALL — but we have a strategy.
+PH uses GitHub OAuth. The user is signed in as "Maryan K" via GitHub. Safari carries this session. The submission form is a React SPA. Per the `macos-browser-driving` skill Section 12, React text inputs and textareas CAN be filled via JavaScript native setter + dispatchEvent. The launch tags autocomplete is a HARD WALL, but we have a strategy.
 
 ### Content
 Read `/Users/sipi/agentshield/content/producthunt-listing.md` to get all text.
@@ -171,7 +171,7 @@ Capture. If you see a login page, click "Sign in with GitHub." If you see the su
 osascript -e 'tell application "Safari" to do JavaScript "
   var nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, \"value\").set;
   var input = document.querySelector(\"input[name='post[name]']\");
-  nativeSetter.call(input, \"AgentShield — AI Agent Spend Firewall\");
+  nativeSetter.call(input, \"AgentShield, AI Agent Spend Firewall\");
   input.dispatchEvent(new Event(\"input\", { bubbles: true }));
   input.dispatchEvent(new Event(\"change\", { bubbles: true }));
 "'
@@ -179,7 +179,7 @@ osascript -e 'tell application "Safari" to do JavaScript "
 
 Fill these fields using this technique, reading values from `producthunt-listing.md`:
 
-1. **Product name:** "AgentShield — AI Agent Spend Firewall"
+1. **Product name:** "AgentShield, AI Agent Spend Firewall"
 2. **Tagline (40 chars):** "A firewall for AI agent spending" (35 chars). If too short: "A firewall for AI agent budgets & safety"
 3. **Website URL:** `https://agentshield.sipiteno.com` (if Phase 2 succeeded) OR `https://agentshield.fly.dev` (fallback)
 4. **GitHub URL:** `https://github.com/kindrat86/agentshield`
@@ -242,11 +242,11 @@ PYEOF
 2. Save as PNG
 3. Upload via file dialog
 
-### Step 4: THE HARD WALL — Launch Tags
+### Step 4: THE HARD WALL, Launch Tags
 
 **Problem:** The launch tags autocomplete/combobox React component cannot be bypassed with JS, foreground type, or any known technique. The PH form's "Next step" button stays disabled until at least one tag is selected.
 
-**Strategy — attempt these ONCE each, then escalate:**
+**Strategy, attempt these ONCE each, then escalate:**
 
 **Attempt A:** Use `set_value` on the combobox input:
 ```
@@ -301,7 +301,7 @@ cd /Users/sipi/agentshield && fly deploy
 ## PHASE 4: POST GITHUB DISCUSSION COMMENTS (10 min)
 
 ### Context
-Drafts at `/Users/sipi/agentshield/content/outreach-comments-2026-08-11.md`. GitHub Discussions use the GraphQL API — `gh api graphql` works for this.
+Drafts at `/Users/sipi/agentshield/content/outreach-comments-2026-08-11.md`. GitHub Discussions use the GraphQL API, `gh api graphql` works for this.
 
 ### Step 1: Post on Gemini CLI Discussion #4472
 
@@ -359,7 +359,7 @@ Check: do you see a logged-in user (avatar in top-right, karma count)? If yes �
 ls -la /Users/sipi/.hermes/profiles/architector/cron/output/c52aa796f78f/ 2>/dev/null || echo "No output yet"
 cat $(ls -t /Users/sipi/.hermes/profiles/architector/cron/output/c52aa796f78f/*.md 2>/dev/null | head -1) 2>/dev/null | head -80
 ```
-Note: the spend radar is `c52aa796f78f` in the **architector** profile — its output is NOT under `~/.hermes/cron/output/`. Telegram delivery has been failing with a 401 (masked bot token), so read the on-disk report.
+Note: the spend radar is `c52aa796f78f` in the **architector** profile, its output is NOT under `~/.hermes/cron/output/`. Telegram delivery has been failing with a 401 (masked bot token), so read the on-disk report.
 
 ### Step 3: Post on relevant subreddits
 For each draft from the radar that's in a SAFE subreddit:
@@ -396,7 +396,7 @@ cd /Users/sipi/agentshield && LICENSING_MASTER_SECRET=test python3.11 tests/run_
 curl -s https://agentshield.fly.dev/eval
 
 # Commit
-cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 7: DNS, PH, discussions, Reddit — autonomous execution" && git log --oneline -3
+cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 7: DNS, PH, discussions, Reddit, autonomous execution" && git log --oneline -3
 ```
 
 ---
@@ -406,10 +406,10 @@ cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 7: DNS, PH, dis
 Produce a report with these exact sections:
 
 ```
-## Phase 7 — Final Autonomous Execution Report
+## Phase 7, Final Autonomous Execution Report
 
 ### DNS (agentshield.sipiteno.com)
-- Records added: [YES/NO — with screenshot filename or dig output]
+- Records added: [YES/NO, with screenshot filename or dig output]
 - A record verified: [dig output]
 - AAAA record verified: [dig output]
 - Domain serves content: [HTTP code]
@@ -421,9 +421,9 @@ Produce a report with these exact sections:
 - Images uploaded: [count]
 
 ### GitHub Discussions
-- Gemini CLI #4472: [POSTED/FAILED] — [URL]
-- Copilot #192948: [POSTED/FAILED] — [URL]  
-- Copilot #198015: [POSTED/FAILED] — [URL]
+- Gemini CLI #4472: [POSTED/FAILED], [URL]
+- Copilot #192948: [POSTED/FAILED], [URL]  
+- Copilot #198015: [POSTED/FAILED], [URL]
 
 ### Reddit
 - Session active: [YES/NO]

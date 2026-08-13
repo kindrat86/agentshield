@@ -1,6 +1,6 @@
-# Show HN Draft — Ready for Manual Submission
+# Show HN Draft, Ready for Manual Submission
 
-**Status:** HN karma for SipitenoMK is **1** (checked 2026-08-11 via Firebase API). Show HN posts from ~0-karma accounts are typically dead-on-arrival or auto-flagged. Submit manually when karma has grown, or submit anyway accepting the risk — the previous link post (item 49250917) got no traction, and a *text* Show HN generally performs better.
+**Status:** HN karma for SipitenoMK is **1** (checked 2026-08-11 via Firebase API). Show HN posts from ~0-karma accounts are typically dead-on-arrival or auto-flagged. Submit manually when karma has grown, or submit anyway accepting the risk, the previous link post (item 49250917) got no traction, and a *text* Show HN generally performs better.
 
 **Submit at:** https://news.ycombinator.com/submit (leave URL blank, put body in the text field)
 

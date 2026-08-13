@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AgentShield Dashboard</title>
-<meta name="description" content="AgentShield dashboard — manage your AI agent spend control rules, monitor transactions, and view real-time blocked alerts.">
+<meta name="description" content="AgentShield dashboard, manage your AI agent spend control rules, monitor transactions, and view real-time blocked alerts.">
 <style>
 :root {
   --bg: #0a0a0a; --surface: #141414; --surface2: #1a1a1a; --border: #2a2a2a;
@@ -101,10 +101,10 @@ td { padding: 10px 12px; border-bottom: 1px solid var(--surface2); font-size: 0.
     <!-- Overview -->
     <div class="panel active" id="panel-overview">
       <div class="stat-grid">
-        <div class="stat-card"><div class="label">Total Transactions</div><div class="value" id="stat-total">—</div></div>
-        <div class="stat-card"><div class="label">Blocked</div><div class="value danger" id="stat-blocked">—</div></div>
-        <div class="stat-card"><div class="label">Active Agents</div><div class="value accent" id="stat-agents">—</div></div>
-        <div class="stat-card"><div class="label">Tier</div><div class="value" id="stat-tier">—</div></div>
+        <div class="stat-card"><div class="label">Total Transactions</div><div class="value" id="stat-total">, </div></div>
+        <div class="stat-card"><div class="label">Blocked</div><div class="value danger" id="stat-blocked">, </div></div>
+        <div class="stat-card"><div class="label">Active Agents</div><div class="value accent" id="stat-agents">, </div></div>
+        <div class="stat-card"><div class="label">Tier</div><div class="value" id="stat-tier">, </div></div>
       </div>
       <h3 style="margin-bottom:12px">Recent Transactions</h3>
       <table>
@@ -266,15 +266,15 @@ async function loadTransactions() {
   if (!data) return;
   const txns = data.transactions || [];
   const html = txns.map(t => `<tr>
-    <td>$${t.amount.toFixed(2)}</td><td>${t.merchant || '—'}</td><td>${t.category || '—'}</td>
+    <td>$${t.amount.toFixed(2)}</td><td>${t.merchant || ', '}</td><td>${t.category || ', '}</td>
     <td><span class="badge badge-${(t.decision||'').toLowerCase()}">${t.decision}</span></td>
-    <td>${t.rule_triggered || '—'}</td><td>${new Date(t.created_at).toLocaleString()}</td>
+    <td>${t.rule_triggered || ', '}</td><td>${new Date(t.created_at).toLocaleString()}</td>
   </tr>`).join('');
   document.getElementById('all-txns').innerHTML = html || '<tr><td colspan="6" style="color:var(--muted);text-align:center">No transactions yet</td></tr>';
   const recent = txns.slice(0, 5).map(t => `<tr>
-    <td>$${t.amount.toFixed(2)}</td><td>${t.merchant || '—'}</td>
+    <td>$${t.amount.toFixed(2)}</td><td>${t.merchant || ', '}</td>
     <td><span class="badge badge-${(t.decision||'').toLowerCase()}">${t.decision}</span></td>
-    <td>${t.rule_triggered || '—'}</td><td>${new Date(t.created_at).toLocaleTimeString()}</td>
+    <td>${t.rule_triggered || ', '}</td><td>${new Date(t.created_at).toLocaleTimeString()}</td>
   </tr>`).join('');
   document.getElementById('recent-txns').innerHTML = recent || '<tr><td colspan="5" style="color:var(--muted)">No transactions yet</td></tr>';
 }

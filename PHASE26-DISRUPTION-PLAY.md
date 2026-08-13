@@ -1,9 +1,9 @@
-# MISSION: The Disruption Play — Challenge, Emergency, Bounty, Counter
+# MISSION: The Disruption Play, Challenge, Emergency, Bounty, Counter
 
 ## ⚠️ YOUR 5 KPIS
-1. **Build `agentshield emergency` command** — one-command crisis response
-2. **Post the $2,800 Challenge on Twitter** — negative-risk offer
-3. **Post the $1,000 Bounty on GitHub** — viral attention magnet
+1. **Build `agentshield emergency` command**, one-command crisis response
+2. **Post the $2,800 Challenge on Twitter**, negative-risk offer
+3. **Post the $1,000 Bounty on GitHub**, viral attention magnet
 4. **Add live "dollars prevented" counter** to the landing page
 5. **Publish the challenge page** at `/challenge`
 
@@ -16,7 +16,7 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 
 ## WHAT EXISTS (verified)
 
-- **Product:** https://agentshield.sipiteno.com — 56/56 eval, 9 rules, 14/14 tests
+- **Product:** https://agentshield.sipiteno.com, 56/56 eval, 9 rules, 14/14 tests
 - **PyPI:** `pip install agentshield-spend` works worldwide (import as `agentshield`)
 - **DNS:** agentshield.sipiteno.com LIVE
 - **Twitter:** 8-tweet thread LIVE from @sipiteno
@@ -36,10 +36,10 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 
 ---
 
-## TASK 1: BUILD THE `agentshield emergency` COMMAND (30 min — PRIORITY #1)
+## TASK 1: BUILD THE `agentshield emergency` COMMAND (30 min, PRIORITY #1)
 
 ### Why This Works
-Developers don't install firewalls. They install **emergency response tools** when they're bleeding. The `emergency` command is the "911 for AI spending" — one command that stops the bleeding immediately.
+Developers don't install firewalls. They install **emergency response tools** when they're bleeding. The `emergency` command is the "911 for AI spending", one command that stops the bleeding immediately.
 
 ### 1A. Create the emergency module
 
@@ -69,7 +69,7 @@ import os
 from datetime import datetime, timezone
 
 
-# Default crisis rules — conservative, designed to stop bleeding immediately
+# Default crisis rules, conservative, designed to stop bleeding immediately
 CRISIS_RULES = [
     {
         "id": "emergency_transaction_limit",
@@ -127,7 +127,7 @@ BANNER = """
 """
 
 INTEGRATION_GUIDE = """
-NEXT STEPS — Integrate with your agent:
+NEXT STEPS, Integrate with your agent:
 
 1. Python (any agent):
    from agentshield import SpendControlEngine
@@ -189,7 +189,7 @@ if len(sys.argv) > 1 and sys.argv[1] in ("emergency", "--emergency", "-e"):
     main()
 elif len(sys.argv) > 1 and sys.argv[1] in ("--help", "-h", "help"):
     print("""
-AgentShield — Firewall for AI Agent Spending
+AgentShield, Firewall for AI Agent Spending
 
 Commands:
     python -m agentshield emergency    Apply crisis spending limits immediately
@@ -259,13 +259,13 @@ TOKEN=$(cat /Users/sipi/agentshield/.pypi_token 2>/dev/null)
 if [ -n "$TOKEN" ]; then
     TWINE_USERNAME=__token__ TWINE_PASSWORD="$TOKEN" python3.11 -m twine upload dist/agentshield_spend-* --skip-existing 2>&1
 else
-    echo "No PyPI token found — package built and tested locally"
+    echo "No PyPI token found, package built and tested locally"
 fi
 ```
 
 ---
 
-## TASK 2: THE $2,800 CHALLENGE PAGE (20 min — PRIORITY #2)
+## TASK 2: THE $2,800 CHALLENGE PAGE (20 min, PRIORITY #2)
 
 ### 2A. Create `public/challenge.html`
 
@@ -313,7 +313,7 @@ Because I've been there. $2,800 gone in 60 seconds.
 I built AgentShield because budget alerts shouldn't arrive by email.
 I'm so confident this works that I'm putting my own money on the line.
 
-If it doesn't work for you, I want to know — and I'll pay for the lesson.
+If it doesn't work for you, I want to know, and I'll pay for the lesson.
 ```
 
 **CTA:**
@@ -367,7 +367,7 @@ This is the proven method from Phases 22-23.
 
 ---
 
-## TASK 4: POST THE $1,000 BOUNTY ON GITHUB (15 min — PRIORITY #3)
+## TASK 4: POST THE $1,000 BOUNTY ON GITHUB (15 min, PRIORITY #3)
 
 ### 4A. Create the bounty issue
 
@@ -378,12 +378,12 @@ cat << 'BODY' > /tmp/bounty-issue.md
 ### The Challenge
 Find a transaction that SHOULD be blocked by AgentShield's rules engine but ISN'T.
 
-If you can construct a transaction + rules combination where the engine SHOULD block (or flag) the transaction based on the rule logic, but the engine returns APPROVED instead — you win $1,000.
+If you can construct a transaction + rules combination where the engine SHOULD block (or flag) the transaction based on the rule logic, but the engine returns APPROVED instead, you win $1,000.
 
 ### The Rules
 1. The transaction must have valid required fields (amount, merchant, category)
 2. The rules must be valid (correct type, correct params structure)
-3. The engine's decision must be WRONG — it should have blocked/flagged but didn't
+3. The engine's decision must be WRONG, it should have blocked/flagged but didn't
 4. The bug must be reproducible using `pip install agentshield-spend`
 
 ### What's Covered
@@ -410,7 +410,7 @@ All 9 rule types:
 - If nobody breaks it: "AgentShield's rules engine held against every attempt. 56 scenarios. Zero breaches. $1,000 unclaimed."
 
 ### Why I'm Doing This
-I'm so confident the engine is correct that I'm putting $1,000 on it. The 56-scenario eval gym has zero failures. But I know there are edge cases I haven't thought of. If you find one, I want to know — and I'll pay you for it.
+I'm so confident the engine is correct that I'm putting $1,000 on it. The 56-scenario eval gym has zero failures. But I know there are edge cases I haven't thought of. If you find one, I want to know, and I'll pay you for it.
 
 ### Quick Start
 ```bash
@@ -461,7 +461,7 @@ elif path == '/api/stats/prevented':
 
 ### 5B. Add the counter to the landing page
 
-Patch `public/index.html` — add above the social proof band:
+Patch `public/index.html`, add above the social proof band:
 
 ```html
 <div id="prevented-counter" style="text-align:center;padding:40px 0;background:var(--surface)">
@@ -483,7 +483,7 @@ fetch('/api/stats/prevented')
 </script>
 ```
 
-The counter starts at $2,800 (the original story amount — honest) and grows as real blocked transactions are recorded.
+The counter starts at $2,800 (the original story amount, honest) and grows as real blocked transactions are recorded.
 
 ### 5C. Deploy
 ```bash
@@ -572,24 +572,24 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 26 — Disruption Play Report
+## Phase 26, Disruption Play Report
 
 ### Emergency Command
 - emergency.py created: [YES/NO]
 - __main__.py created: [YES/NO]
-- python -m agentshield.emergency works: [YES/NO — show banner output]
+- python -m agentshield.emergency works: [YES/NO, show banner output]
 - crisis_rules.json saved: [YES/NO]
-- PyPI package updated: [YES/NO — show pip install result]
+- PyPI package updated: [YES/NO, show pip install result]
 
 ### $2,800 Challenge Page
-- /challenge live: [YES/NO — HTTP code]
+- /challenge live: [YES/NO, HTTP code]
 - Negative-risk offer present: [YES/NO]
 
 ### $2,800 Challenge Tweet
-- Tweet 9 posted: [YES/NO — URL]
+- Tweet 9 posted: [YES/NO, URL]
 
 ### $1,000 Bounty
-- GitHub issue created: [YES/NO — URL]
+- GitHub issue created: [YES/NO, URL]
 - Pinned: [YES/NO]
 
 ### Live Counter
@@ -607,10 +607,10 @@ git log --oneline -3
 - Git: [hash]
 
 ### Disruption Assets Now Live
-1. [Emergency command — one-command crisis response]
-2. [Challenge page — negative-risk offer]
-3. [Bounty — viral attention magnet]
-4. [Live counter — social proof]
+1. [Emergency command, one-command crisis response]
+2. [Challenge page, negative-risk offer]
+3. [Bounty, viral attention magnet]
+4. [Live counter, social proof]
 5. [Challenge tweets + emails]
 ```
 
@@ -624,7 +624,7 @@ git log --oneline -3
 
 3. **KPI 3: The $1,000 Bounty is posted on GitHub.** Clear rules, clear prize, clear deadline (30 days).
 
-4. **KPI 4: The live counter is on the landing page.** Starting at $2,800 (honest — that's the original prevented amount).
+4. **KPI 4: The live counter is on the landing page.** Starting at $2,800 (honest, that's the original prevented amount).
 
 5. **KPI 5: The challenge is broadcast on Twitter + email.** Tweet 9 as a reply to the thread. 5 emails with the challenge angle.
 

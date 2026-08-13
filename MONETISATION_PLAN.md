@@ -1,6 +1,6 @@
 # AgentShield Monetisation Execution Plan
 
-## CRITICAL: Read this entire document before taking any action. Execute phases sequentially — do not skip ahead.
+## CRITICAL: Read this entire document before taking any action. Execute phases sequentially, do not skip ahead.
 
 ---
 
@@ -12,18 +12,18 @@ AgentShield is a firewall for AI agent spending. It sits between an AI agent and
 
 | Asset | Status | Detail |
 |-------|--------|--------|
-| **Live product** | ✅ Fly.io | https://agentshield.fly.dev — Landing, Dashboard, Blog, Risk Calculator, Eval Gym |
+| **Live product** | ✅ Fly.io | https://agentshield.fly.dev, Landing, Dashboard, Blog, Risk Calculator, Eval Gym |
 | **Vercel domain** | ⚠️ BROKEN | https://agentshield.dev → redirects to Vercel login wall (SSO gate). NOT publicly accessible. |
 | **Eval Gym** | ✅ 50/50 | 7 categories, all passing. https://agentshield.fly.dev/eval |
 | **Tests** | ✅ 14/14 | Run with: `cd /Users/sipi/agentshield && LICENSING_MASTER_SECRET=test python3.11 tests/run_tests.py` |
 | **Stripe** | ✅ Wired | 3 price IDs in Stripe. Checkout endpoint: POST `/api/billing/checkout` with `price_id` and `success_url`. Webhook: `/api/billing/webhook` |
-| **Email capture** | ✅ Working | POST `/api/email-capture` — stores to SQLite. Tested and returns success. |
-| **Analytics** | ✅ Working | JS `sendBeacon` to `/api/track` — tracks pageview, cta_try_free, cta_github, cta_risk_calc. Tested: returns `{"ok": true}` |
+| **Email capture** | ✅ Working | POST `/api/email-capture`, stores to SQLite. Tested and returns success. |
+| **Analytics** | ✅ Working | JS `sendBeacon` to `/api/track`, tracks pageview, cta_try_free, cta_github, cta_risk_calc. Tested: returns `{"ok": true}` |
 | **Revenue** | 🔴 $0 | Zero paying customers. No trial signups. No Stripe transactions. |
 | **GitHub stars** | ~0 | Repo created, README decent, but no organic stars |
 | **Cron jobs** | 6 active | Market scout, lead processor, HN warm-up, GitHub monitor, Reddit warm-up, weekly report. All deliver to Telegram. |
-| **B2B outreach** | 3 emails sent | Portal26, CloudZero, Nevermined — 0 replies |
-| **GitHub outreach** | 3 issues posted | AgentBudget #29, OpenClaw #42475, AgentGuard #2 — 0 replies |
+| **B2B outreach** | 3 emails sent | Portal26, CloudZero, Nevermined, 0 replies |
+| **GitHub outreach** | 3 issues posted | AgentBudget #29, OpenClaw #42475, AgentGuard #2, 0 replies |
 | **Dev.to** | 2 articles | Architecture deep-dive + OpenClaw plugin. Cross-linked. |
 | **HN** | 1 post | news.ycombinator.com/item?id=49250917 (low karma account, no traction) |
 | **PH listing** | Draft ready | Content in `/Users/sipi/agentshield/content/producthunt-listing.md`. NOT yet submitted. Slug collision: "agentshield" taken by tomsun28. |
@@ -34,7 +34,7 @@ AgentShield is a firewall for AI agent spending. It sits between an AI agent and
 /Users/sipi/agentshield/
 ├── core/
 │   ├── api.py          # 18-route HTTP server (stdlib ThreadingMixIn)
-│   ├── engine.py       # SpendControlEngine — 5 rule types, stateless
+│   ├── engine.py       # SpendControlEngine, 5 rule types, stateless
 │   ├── store.py        # SQLite WAL multi-tenant storage
 │   ├── auth.py         # PBKDF2-HMAC-SHA256 auth + sessions
 │   ├── licensing.py    # HMAC-SHA256 offline license keys
@@ -60,7 +60,7 @@ AgentShield is a firewall for AI agent spending. It sits between an AI agent and
 │   ├── dream100.json
 │   └── state.json
 ├── scripts/             # Automation scripts
-├── run_app.py           # Entrypoint — port 7100
+├── run_app.py           # Entrypoint, port 7100
 ├── Dockerfile           # 39MB image, Python 3.11-slim
 ├── README.md
 ├── HANDOFF.md
@@ -86,18 +86,18 @@ AgentShield is a firewall for AI agent spending. It sits between an AI agent and
 ## THE MONETISATION STRATEGY (Read Before Acting)
 
 ### The Core Problem
-The open-source version (self-hosted) has **all features, zero limits**. Anyone can clone the repo, run `python3.11 run_app.py`, and get the full product for free. The paid tiers are only for managed hosting — but the target audience (developers) will just self-host.
+The open-source version (self-hosted) has **all features, zero limits**. Anyone can clone the repo, run `python3.11 run_app.py`, and get the full product for free. The paid tiers are only for managed hosting, but the target audience (developers) will just self-host.
 
 ### The Pivot: From "Managed Hosting" to "Network Effect"
 Instead of selling hosting, we sell **what can't be self-hosted**:
 
-1. **Live Threat Intelligence Feed** — A continuously updated list of problematic API endpoints, price-surge patterns, and vendor-specific guard rules. Free users see a 24h-old snapshot. Paid users get real-time pushes to their rules engine.
+1. **Live Threat Intelligence Feed**, A continuously updated list of problematic API endpoints, price-surge patterns, and vendor-specific guard rules. Free users see a 24h-old snapshot. Paid users get real-time pushes to their rules engine.
 
-2. **Pre-Built Rule Packs** — Curated rulesets for specific providers ("OpenAI Cost Guard", "Anthropic Safety Net", "Multi-Provider Fleet Pack"). These are updated as API pricing changes.
+2. **Pre-Built Rule Packs**, Curated rulesets for specific providers ("OpenAI Cost Guard", "Anthropic Safety Net", "Multi-Provider Fleet Pack"). These are updated as API pricing changes.
 
-3. **Cross-Agent Fleet Analytics** — When running 10+ agents, you need anomaly detection across the fleet. This requires centralized data — inherently a hosted feature.
+3. **Cross-Agent Fleet Analytics**, When running 10+ agents, you need anomaly detection across the fleet. This requires centralized data, inherently a hosted feature.
 
-4. **The "First $2,800 Is Free" Insurance Pitch** — Reframe the pricing: "One night of unprotected agent activity costs $2,800. A year of AgentShield costs $228. You do the math."
+4. **The "First $2,800 Is Free" Insurance Pitch**, Reframe the pricing: "One night of unprotected agent activity costs $2,800. A year of AgentShield costs $228. You do the math."
 
 ### Revenue Target
 **$190 MRR in 30 days** = 10 paying Dev-tier customers at $19/mo.
@@ -112,7 +112,7 @@ Find companies running AI agents in production who've had billing surprises.
 
 ---
 
-## PHASE 1: FIX BLOCKERS (Day 1 — 2 hours)
+## PHASE 1: FIX BLOCKERS (Day 1, 2 hours)
 
 ### 1A. Fix agentshield.dev Vercel Deployment
 **Problem:** https://agentshield.dev redirects to Vercel SSO login. It's not a public landing page.
@@ -171,7 +171,7 @@ The last command should return a Stripe Checkout URL. If it errors, read `/Users
 
 ---
 
-## PHASE 2: CONVERSION INFRASTRUCTURE (Day 1-2 — 4 hours)
+## PHASE 2: CONVERSION INFRASTRUCTURE (Day 1-2, 4 hours)
 
 ### 2A. Build the Email Nurture Sequence
 Currently: email capture stores to DB but does NOTHING with the emails. There's no follow-up.
@@ -205,15 +205,15 @@ EMAILS = {
         "html": """<h2>You ran the risk calculator. Here's what it means.</h2>
         <p>We analyzed your agent setup and found potential exposure points. The average unprotected AI agent deployment loses $2,800 in its first billing surprise.</p>
         <p><strong>Your next step:</strong> Set up your first spend rule in 2 minutes → <a href="https://agentshield.fly.dev/dashboard">Create free account</a></p>
-        <p>— AgentShield Team</p>"""
+        <p>, AgentShield Team</p>"""
     },
     2: {  # Day 2: The $2,800 story
         "subject": "The $2,800 wake-up call (and how to avoid it)",
         "html": """<h2>At 3 AM, an AI agent spent $2,800 in 60 seconds.</h2>
-        <p>21 API calls to a premium endpoint. $133 each. The budget alert arrived at 6:14 AM — too late.</p>
+        <p>21 API calls to a premium endpoint. $133 each. The budget alert arrived at 6:14 AM, too late.</p>
         <p>This isn't a hypothetical. It happened to me. That's why I built AgentShield.</p>
         <p><a href="https://agentshield.fly.dev/blog">Read the full story →</a></p>
-        <p>— Maryan, AgentShield</p>"""
+        <p>, Maryan, AgentShield</p>"""
     },
     3: {  # Day 3: Quick setup guide
         "subject": "2-minute setup: block runaway AI agent spending",
@@ -252,7 +252,7 @@ EMAILS = {
         </ul>
         <p>14-day free trial. No credit card drama. Cancel anytime.</p>
         <p><a href="https://agentshield.fly.dev/dashboard"><strong>Start your free trial →</strong></a></p>
-        <p>— AgentShield Team</p>"""
+        <p>, AgentShield Team</p>"""
     },
 }
 
@@ -355,19 +355,19 @@ And ensure it has the trial messaging.
 ### 2C. Add Trial Signup Flow to Dashboard
 **Goal:** When a free user hits their limits, show a clear upgrade path.
 
-Check `/Users/sipi/agentshield/public/dashboard.html` — the dashboard should show:
+Check `/Users/sipi/agentshield/public/dashboard.html`, the dashboard should show:
 1. Current tier and usage
-2. "Upgrade to Dev — 14-day free trial" button when near limits
+2. "Upgrade to Dev, 14-day free trial" button when near limits
 3. Clear value prop for each tier
 
 The dashboard already has tabs and stat cards. Add a tier-status banner at the top.
 
 ---
 
-## PHASE 3: THE "NORTON SCAN" FUNNEL (Day 2-3 — 6 hours)
+## PHASE 3: THE "NORTON SCAN" FUNNEL (Day 2-3, 6 hours)
 
 ### Core Insight
-Nobody searches for "AI agent spend firewall." They search for "how to control AI agent costs" AFTER they've been burned. The risk calculator is our top-of-funnel asset — it needs to be so compelling that visitors give their email just to see their score.
+Nobody searches for "AI agent spend firewall." They search for "how to control AI agent costs" AFTER they've been burned. The risk calculator is our top-of-funnel asset, it needs to be so compelling that visitors give their email just to see their score.
 
 ### 3A. Supercharge the Risk Calculator
 Files: `/Users/sipi/agentshield/public/tools/risk-calculator/index.html`
@@ -392,23 +392,23 @@ Embed a mini risk calculator directly on the landing page hero section:
 
 ### 3C. SEO-Optimize the Risk Calculator Page
 Add to the risk calculator page `<head>`:
-- Title: "AI Agent Spend Risk Calculator — How Much Could You Lose? | AgentShield"
+- Title: "AI Agent Spend Risk Calculator, How Much Could You Lose? | AgentShield"
 - Meta description: "Calculate your AI agent spending risk in 30 seconds. No signup. See how much unprotected autonomous agents could cost you based on real-world data."
 - JSON-LD: `SoftwareApplication` schema with `applicationCategory: "FinanceApplication"`
 - Target keywords in on-page text: "AI agent cost calculator", "OpenAI spending risk", "agent API budget control"
 
 ---
 
-## PHASE 4: DISTRIBUTION BLITZ (Day 3-7 — ongoing)
+## PHASE 4: DISTRIBUTION BLITZ (Day 3-7, ongoing)
 
 ### 4A. Product Hunt Launch
-**File:** `/Users/sipi/agentshield/content/producthunt-listing.md` — all content ready.
+**File:** `/Users/sipi/agentshield/content/producthunt-listing.md`, all content ready.
 
 **Name collision issue:** `producthunt.com/posts/agentshield` is taken by tomsun28's file-rollback tool. Our listing will get a different slug (e.g., `/posts/agentshield-2`).
 
 **Action plan:**
-1. Maryan submits the listing manually (we cannot do it — PH requires human submission with GitHub auth)
-2. The listing name should differentiate: **"AgentShield — AI Agent Spend Firewall"** (emphasize "spend firewall" to distinguish from the rollback tool)
+1. Maryan submits the listing manually (we cannot do it, PH requires human submission with GitHub auth)
+2. The listing name should differentiate: **"AgentShield, AI Agent Spend Firewall"** (emphasize "spend firewall" to distinguish from the rollback tool)
 3. After submission, note the actual URL slug
 4. Add the PH badge to the landing page with the real URL
 5. Post the Maker Comment (fully written in the content file)
@@ -419,7 +419,7 @@ Add to the risk calculator page `<head>`:
 - [ ] Risk calculator is ready for traffic (Phase 3A)
 - [ ] Email capture + nurture sequence active (Phase 2A)
 - [ ] PH listing content reviewed and ready
-- [ ] Screenshot/logo assets ready (240x240 icon needed — shield concept)
+- [ ] Screenshot/logo assets ready (240x240 icon needed, shield concept)
 
 ### 4B. Reddit Distribution (Safe Subreddits Only)
 **User is BANNED from:** r/SaaS, r/Entrepreneur, r/startups, r/SideProject
@@ -439,8 +439,8 @@ For each thread found:
 4. Save drafted comments to `/Users/sipi/agentshield/content/reddit-comments.md`
 5. User posts them manually from their account
 
-### 4C. Dev.to — Third Article
-**Two articles already published.** Write a third: **"AI Agent Cost Comparison: AgentShield vs Helicone vs LangSmith — Which One Actually Saves You Money?"**
+### 4C. Dev.to, Third Article
+**Two articles already published.** Write a third: **"AI Agent Cost Comparison: AgentShield vs Helicone vs LangSmith, Which One Actually Saves You Money?"**
 
 **Strategy:** Comparison articles rank well for "X vs Y" searches and capture people actively evaluating solutions. This positions us against the established players.
 
@@ -456,12 +456,12 @@ Structure:
 
 **Important:** Be FACTUALLY ACCURATE about competitors. Do not fabricate features or pricing. Research each competitor's current pricing and features before writing.
 
-### 4D. SEO Content — "AI Agent Cost" Keyword Cluster
+### 4D. SEO Content, "AI Agent Cost" Keyword Cluster
 Create 3 additional pages on the blog for keyword capture:
 
-1. **`/blog/ai-agent-cost-control`** — "How to Control AI Agent Costs: The Complete Guide"
-2. **`/blog/openai-api-budget-limits`** — "OpenAI API Budget Limits: Why They're Not Enough for Autonomous Agents"
-3. **`/blog/agent-spend-monitoring-vs-enforcement`** — "Monitoring vs Enforcement: Why Watching Your AI Agent Spend Isn't Enough"
+1. **`/blog/ai-agent-cost-control`**, "How to Control AI Agent Costs: The Complete Guide"
+2. **`/blog/openai-api-budget-limits`**, "OpenAI API Budget Limits: Why They're Not Enough for Autonomous Agents"
+3. **`/blog/agent-spend-monitoring-vs-enforcement`**, "Monitoring vs Enforcement: Why Watching Your AI Agent Spend Isn't Enough"
 
 Each page should:
 - Be 800-1200 words
@@ -490,7 +490,7 @@ Each page should:
 
 ---
 
-## PHASE 5: FRAMEWORK PLUGINS (Day 5-10 — 8 hours)
+## PHASE 5: FRAMEWORK PLUGINS (Day 5-10, 8 hours)
 
 ### The Multiplier Effect
 One plugin for LangChain = exposure to every LangChain user who searches "spend control." Framework plugins are permanent distribution channels.
@@ -581,7 +581,7 @@ A middleware for OpenAI's Agents SDK that wraps the API call in AgentShield eval
 
 ---
 
-## PHASE 6: ENTERPRISE HUNTING (Day 7-14 — ongoing)
+## PHASE 6: ENTERPRISE HUNTING (Day 7-14, ongoing)
 
 ### The $499/mo Play
 One Managed-tier customer pays more than 26 Dev customers. The target: companies actively building AI agents and experiencing billing pain.
@@ -642,10 +642,10 @@ This shows momentum and gives free users a reason to stick around.
 ### Positioning for Exit
 While building revenue, also build acquisition attractiveness:
 
-1. **Become the "standard" spend-control layer** — get mentioned in LangChain, CrewAI, and OpenAI docs
-2. **500+ GitHub stars** — star count is a proxy for community validation
-3. **Publish benchmark data** — "We evaluated 10,000 agent transactions. Here's what we found about AI agent spending patterns." Data = credibility.
-4. **Developer love** — fast responses to issues, good docs, clean API
+1. **Become the "standard" spend-control layer**, get mentioned in LangChain, CrewAI, and OpenAI docs
+2. **500+ GitHub stars**, star count is a proxy for community validation
+3. **Publish benchmark data**, "We evaluated 10,000 agent transactions. Here's what we found about AI agent spending patterns." Data = credibility.
+4. **Developer love**, fast responses to issues, good docs, clean API
 
 ### Target Acquirers (and Why)
 | Company | Why They'd Buy | Approach |
@@ -690,7 +690,7 @@ curl -s https://agentshield.fly.dev/dashboard | head -5
 
 ### Phase 4 Verification
 ```bash
-# PH listing submitted? (manual — cannot verify programmatically)
+# PH listing submitted? (manual, cannot verify programmatically)
 # Check GitHub stars
 curl -s https://api.github.com/repos/kindrat86/agentshield | python3 -c "import sys,json; print(json.load(sys.stdin)['stargazers_count'])"
 ```
@@ -725,7 +725,7 @@ cd /Users/sipi/agentshield && python3.11 -c "import sys; sys.path.insert(0,'plug
 1. **NEVER fabricate.** No made-up customer testimonials, no fake revenue numbers, no invented case studies. "Teams report 40% reduction" must be backed by actual data or clearly labeled as "projected."
 2. **Self-host competitor is our enemy.** Every feature we charge for must be genuinely hard to self-host (network effects, centralized data, live updates).
 3. **The free tier must be genuinely useful.** If the free tier sucks, nobody upgrades. The free tier's job is to prove value so clearly that the paid tier is obvious.
-4. **Measure everything.** Every change to the landing page, every email sent, every Reddit comment — track the impact. If something doesn't move the needle in 7 days, kill it.
+4. **Measure everything.** Every change to the landing page, every email sent, every Reddit comment, track the impact. If something doesn't move the needle in 7 days, kill it.
 5. **Ask for help when stuck.** Some things (PH submission, Reddit posting, DNS changes) require Maryan. For those, write clear instructions and request action. Do not silently skip.
 
 ---
@@ -738,4 +738,4 @@ Execute these in order:
 2. **Read the current landing page HTML:** `curl -s https://agentshield.fly.dev/ | grep -E "(cta-btn|price-card|social-proof|as-seen)"`
 3. **Check Vercel status:** `curl -s -o /dev/null -w "%{http_code} %{redirect_url}" https://agentshield.dev`
 4. **Count current email captures:** Query SQLite on Fly.io (if accessible) or count rows in email_captures
-5. **Begin Phase 1A** — investigate and fix the Vercel deployment
+5. **Begin Phase 1A**, investigate and fix the Vercel deployment

@@ -1,5 +1,5 @@
 """
-AgentShield — The Safety Layer for Autonomous AI
+AgentShield, The Safety Layer for Autonomous AI
 
 A per-transaction enforcement engine for AI agents.
 Evaluates every API call against your rules in <1ms before it executes.

@@ -34,5 +34,5 @@
 
 ## Notes
 - HN does not allow "Show HN" posts from new accounts (needs karma). Posted as regular link instead.
-- Dev.to requires login — no credentials in vault. Article markdown ready at ~/agentshield/content/agent-kill-switch.md for manual submission.
+- Dev.to requires login, no credentials in vault. Article markdown ready at ~/agentshield/content/agent-kill-switch.md for manual submission.
 - Stripe webhook: https://agentshield.fly.dev/api/billing/webhook (events: checkout.session.completed, customer.subscription.*, invoice.payment_failed)

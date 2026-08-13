@@ -2,19 +2,19 @@
 
 ## ⚠️ YOUR ONLY KPI: Start 3+ real technical conversations about AI agent cost problems
 
-Everything else is secondary. Infrastructure, DNS, cron — ignore all of it. You are here to **talk to developers who are currently experiencing AI cost pain** and demonstrate that AgentShield solves their specific problem.
+Everything else is secondary. Infrastructure, DNS, cron, ignore all of it. You are here to **talk to developers who are currently experiencing AI cost pain** and demonstrate that AgentShield solves their specific problem.
 
 ---
 
-## WHAT HAPPENED LAST SESSION (verified — build on this)
+## WHAT HAPPENED LAST SESSION (verified, build on this)
 
 The Phase 10 outreach session produced **verifiable results:**
 
 - **9 new GitHub comments** posted across open issues about AI agent costs
 - **1 real technical conversation started** with @yun520-1 on OpenClaw #42475
 - @yun520-1 suggested two features: **session-scoped budgets with decay tightening** and **cascade cost estimation** (pre-dispatch EV: call_cost + fail_probability × reversal_cost)
-- **Both features were implemented** — `session_budget` and `cascade_cost` rule types, with 6 new eval scenarios
-- **Eval gym: 56/56** (up from 50) — confirmed live at https://agentshield.fly.dev/eval
+- **Both features were implemented**, `session_budget` and `cascade_cost` rule types, with 6 new eval scenarios
+- **Eval gym: 56/56** (up from 50), confirmed live at https://agentshield.fly.dev/eval
 - **GitHub outreach: 14 total posts** across 12 repos
 
 ### What Matters About This
@@ -25,11 +25,11 @@ The @yun520-1 conversation is **not a cold outreach comment.** It's a product fe
 
 ## RULE ZERO: YOU CANNOT FABRICATE
 
-Every claim must be backed by visible tool output. Comment posted → show the URL. Search run → show results. Eval checked → show the numbers. Never invent IDs, URLs, or statuses. Never touch memory. Never mention cron — the pipeline runs, ignore it entirely.
+Every claim must be backed by visible tool output. Comment posted → show the URL. Search run → show results. Eval checked → show the numbers. Never invent IDs, URLs, or statuses. Never touch memory. Never mention cron, the pipeline runs, ignore it entirely.
 
 ---
 
-## PHASE 1: FOLLOW UP WITH @yun520-1 (HIGHEST PRIORITY — 10 min)
+## PHASE 1: FOLLOW UP WITH @yun520-1 (HIGHEST PRIORITY, 10 min)
 
 This is the most valuable lead we have. Someone from HeartFlow engaged substantively. Follow up within the same thread.
 
@@ -44,7 +44,7 @@ Read @yun520-1's original reply and your previous response carefully.
 
 Write a comment that:
 1. **Thanks them** for the cascade_cost and session_budget suggestions
-2. **Shows you implemented them** — mention the 56/56 eval gym, link to the live endpoint
+2. **Shows you implemented them**, mention the 56/56 eval gym, link to the live endpoint
 3. **Asks a specific, technical question** to continue the conversation:
    - "In HeartFlow's cost-gating system, how do you handle the case where a blocked transaction's reversal cost is unknown? We default to TTL-based estimation but curious if you found a better approach."
 4. **Soft pitch:** "We're looking for a few early design partners to stress-test these rule types in production. Would you be open to a 15-minute call?"
@@ -53,16 +53,16 @@ Write a comment that:
 Write the comment body and post:
 ```bash
 cat << 'EOF' > /tmp/yun-follow-up.md
-Thank you @yun520-1 — your cascade_cost and session_budget suggestions were exactly what the engine was missing. We shipped both:
+Thank you @yun520-1, your cascade_cost and session_budget suggestions were exactly what the engine was missing. We shipped both:
 
-• **session_budget** — session-scoped spend cap with optional decay tightening as usage approaches the limit
-• **cascade_cost** — pre-dispatch expected value: call_cost + (fail_probability × reversal_cost)
+• **session_budget**, session-scoped spend cap with optional decay tightening as usage approaches the limit
+• **cascade_cost**, pre-dispatch expected value: call_cost + (fail_probability × reversal_cost)
 
 Both are live with 6 new eval scenarios → 56/56 total across 9 categories: https://agentshield.fly.dev/eval
 
 One question from implementing cascade_cost: in HeartFlow's system, how do you estimate reversal_cost when it's unknown? We default to TTL-based estimation (assume max tokens × provider rate for the model tier), but I'm curious if you found a more accurate approach for gating pre-dispatch.
 
-We're looking for a few design partners to stress-test these rule types against real production workloads. Would you be open to a 15-minute call, or would you prefer to kick the tires yourself? The self-hosted version takes 60 seconds — pure Python stdlib, zero deps.
+We're looking for a few design partners to stress-test these rule types against real production workloads. Would you be open to a 15-minute call, or would you prefer to kick the tires yourself? The self-hosted version takes 60 seconds, pure Python stdlib, zero deps.
 
 GitHub: https://github.com/kindrat86/agentshield
 Risk calculator: https://agentshield.fly.dev/tools/risk-calculator/
@@ -74,12 +74,12 @@ gh issue comment https://github.com/openclaw/openclaw/issues/42475 --body-file /
 ### 1C. If @yun520-1 replies positively
 If they show interest in a call or design partnership:
 - **Save the conversation details** to `/Users/sipi/agentshield/outreach/yun520-1-conversation.md`
-- **Send a Telegram notification:** "HeartFlow lead engaged — possible design partner. Check OpenClaw #42475."
+- **Send a Telegram notification:** "HeartFlow lead engaged, possible design partner. Check OpenClaw #42475."
 - **Ask for contact info** or scheduling
 
 ---
 
-## PHASE 2: FIND 10+ MORE DEVELOPERS IN COST PAIN (20 min — repeatable core loop)
+## PHASE 2: FIND 10+ MORE DEVELOPERS IN COST PAIN (20 min, repeatable core loop)
 
 Search for developers actively complaining about AI costs RIGHT NOW. Post contextual, specific comments offering AgentShield as a solution.
 
@@ -106,19 +106,19 @@ gh search issues "budget limit" OR "cost control" OR "spend limit" "AI" OR "agen
 
 ### 2B. For Each Qualifying Issue
 
-1. **Read the full issue** — understand the EXACT pain point
-2. **Check for existing AgentShield comments** — don't duplicate
+1. **Read the full issue**, understand the EXACT pain point
+2. **Check for existing AgentShield comments**, don't duplicate
 3. **Craft a reply using this structure:**
 
 ```
-[1-2 sentences acknowledging their specific problem — quote their exact words]
+[1-2 sentences acknowledging their specific problem, quote their exact words]
 
-This is structural: AI agents don't know they're spending money. Every API call, retry, and context window expansion is invisible to the agent — the operator only sees the bill.
+This is structural: AI agents don't know they're spending money. Every API call, retry, and context window expansion is invisible to the agent, the operator only sees the bill.
 
 [One specific AgentShield rule that would have prevented their exact scenario]
 
 - <1ms evaluation overhead
-- Pure Python 3.11 stdlib — zero dependencies — self-host in 60 seconds
+- Pure Python 3.11 stdlib, zero dependencies, self-host in 60 seconds
 - 56/56 eval gym across 9 rule types: https://agentshield.fly.dev/eval
 
 Risk calculator (no signup, 30 seconds): https://agentshield.fly.dev/tools/risk-calculator/
@@ -215,7 +215,7 @@ web_search "\"AI agent\" OR \"LLM agent\" \"budget\" OR \"spend\" OR \"cost\" pr
 curl -s "https://dev.to/api/articles?tag=ai&per_page=5" | python3 -c "
 import sys,json
 for a in json.load(sys.stdin):
-    print(f'{a[\"title\"][:80]} — {a[\"url\"]}')
+    print(f'{a[\"title\"][:80]}, {a[\"url\"]}')
 "
 ```
 If articles are about AI costs, draft comments. If API posting is possible, post via REST. If not, save drafts.
@@ -226,9 +226,9 @@ If articles are about AI costs, draft comments. If API posting is possible, post
 
 ---
 
-## PHASE 5: ATTEMPT DNS + PH (15 min max — secondary)
+## PHASE 5: ATTEMPT DNS + PH (15 min max, secondary)
 
-### 5A. DNS — ONE attempt
+### 5A. DNS, ONE attempt
 
 Load skills: `skill_view name="cloudflare-dns-operations"` and `skill_view name="macos-browser-driving"`.
 
@@ -241,17 +241,17 @@ Capture: `computer_use action='capture' mode='som' app='Safari'`
 - A: agentshield → 66.241.125.16 (proxy OFF)
 - AAAA: agentshield → 2a09:8280:1::166:9212:0 (proxy OFF)
 
-**If no session or login required** → stop. Report "DNS blocked — requires Safari login to mkondratyuk86@gmail.com."
+**If no session or login required** → stop. Report "DNS blocked, requires Safari login to mkondratyuk86@gmail.com."
 
 Verify: `dig agentshield.sipiteno.com A +short`
 
-### 5B. Product Hunt — ONE attempt
+### 5B. Product Hunt, ONE attempt
 
 Read content: `read_file path="/Users/sipi/agentshield/content/producthunt-listing.md"`
 
 Navigate: `open -a Safari "https://www.producthunt.com/posts/new"`
 
-Fill fields via JS native setter injection. Upload logo (PNG stdlib generation). Try tags 3 ways (set_value, JS injection, foreground type). If tags fail, mark PH as "blocked by autocomplete field — needs Maryan to type 'Developer Tools' in launch tags."
+Fill fields via JS native setter injection. Upload logo (PNG stdlib generation). Try tags 3 ways (set_value, JS injection, foreground type). If tags fail, mark PH as "blocked by autocomplete field, needs Maryan to type 'Developer Tools' in launch tags."
 
 If submitted → capture URL → add badge to `public/index.html` → `fly deploy`.
 
@@ -262,7 +262,7 @@ If submitted → capture URL → add badge to `public/index.html` → `fly deplo
 ```bash
 # Product health
 curl -s https://agentshield.fly.dev/health
-curl -s https://agentshield.fly.dev/eval | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'{d[\"passed\"]}/{d[\"total\"]} — {len(d[\"by_category\"])} categories')"
+curl -s https://agentshield.fly.dev/eval | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'{d[\"passed\"]}/{d[\"total\"]}, {len(d[\"by_category\"])} categories')"
 
 # Tests
 cd /Users/sipi/agentshield && LICENSING_MASTER_SECRET=test python3.11 tests/run_tests.py 2>&1 | tail -3
@@ -282,10 +282,10 @@ cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 11: outreach fo
 ## REPORT FORMAT
 
 ```
-## Phase 11 — Outreach Report
+## Phase 11, Outreach Report
 
 ### @yun520-1 Follow-Up
-- Reply posted: [YES / NO] — [URL]
+- Reply posted: [YES / NO], [URL]
 - Their response: [Pending / They replied (quote)]
 - Status: [Conversation active / Awaiting reply / Design partner ask made]
 
@@ -318,7 +318,7 @@ cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 11: outreach fo
 
 ### Quality
 - Health: [ok/error]
-- Eval: [N]/[N] — [N] categories
+- Eval: [N]/[N], [N] categories
 - Tests: [N]/14
 - Commit: [hash]
 

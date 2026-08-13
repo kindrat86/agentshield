@@ -1,8 +1,8 @@
-# MISSION: Scale Distribution From Dozens to Thousands — Get AgentShield Discovered
+# MISSION: Scale Distribution From Dozens to Thousands, Get AgentShield Discovered
 
 ## ⚠️ READ THIS FIRST
 
-You are NOT posting more GitHub comments. The outreach loop is exhausted — 25 posts across 14 repos produced 5 conversations and 0 trial signups. That loop extracted its value. Stop running it.
+You are NOT posting more GitHub comments. The outreach loop is exhausted, 25 posts across 14 repos produced 5 conversations and 0 trial signups. That loop extracted its value. Stop running it.
 
 Your job in this session is to **put AgentShield in front of thousands of developers** through channels that have built-in distribution: PyPI, Dev.to, awesome lists, and Hacker News.
 
@@ -14,9 +14,9 @@ Every action backed by tool output. Package published → show the PyPI URL. Art
 
 ---
 
-## WHAT EXISTS (verified — don't rebuild)
+## WHAT EXISTS (verified, don't rebuild)
 
-- **Product:** https://agentshield.fly.dev — 56/56 eval, 9 rule types, 14/14 tests
+- **Product:** https://agentshield.fly.dev, 56/56 eval, 9 rule types, 14/14 tests
 - **Content assets:** `/eval-gym-spec` (13KB), `/blog/zeroclaw-preflight-enforcement` (12KB)
 - **GitHub:** https://github.com/kindrat86/agentshield (MIT)
 - **25 outreach posts** across 14 repos, 5 active conversations
@@ -27,7 +27,7 @@ Every action backed by tool output. Package published → show the PyPI URL. Art
 
 ---
 
-## PHASE 1: PUBLISH TO PyPI (30 min — highest permanent discovery value)
+## PHASE 1: PUBLISH TO PyPI (30 min, highest permanent discovery value)
 
 ### Why This Matters
 When a developer searches "how to control AI agent costs" on Google, they find blog posts. When they search `pip install agent cost` on PyPI, they find **nothing.** We need to be the first result.
@@ -44,7 +44,7 @@ Create `pyproject.toml`:
 [project]
 name = "agentshield"
 version = "1.0.0"
-description = "A firewall for AI agent spending. 7+ composable rules evaluated per-transaction in <1ms. Pure Python stdlib — zero dependencies."
+description = "A firewall for AI agent spending. 7+ composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies."
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.11"
@@ -71,7 +71,7 @@ build-backend = "setuptools.backends._legacy:_Backend"
 Create `agentshield/__init__.py` that exports the engine and eval gym:
 ```python
 """
-AgentShield — Firewall for AI Agent Spending
+AgentShield, Firewall for AI Agent Spending
 
 Pure Python 3.11 stdlib. Zero dependencies.
 7+ composable rules evaluated per-transaction in <1ms.
@@ -154,7 +154,7 @@ ls -la /Users/sipi/agentshield/dist/
 
 ---
 
-## PHASE 2: PUBLISH DEV.TO ARTICLE #3 (20 min — built-in distribution to 500+ developers)
+## PHASE 2: PUBLISH DEV.TO ARTICLE #3 (20 min, built-in distribution to 500+ developers)
 
 ### Why This Matters
 Our 2 existing Dev.to articles are live and cross-linked. A third article about the Eval Gym Spec has the highest organic reach potential because it's **useful content**, not a product pitch.
@@ -168,7 +168,7 @@ curl -s https://agentshield.fly.dev/eval-gym-spec | head -200
 
 Create `/Users/sipi/agentshield/content/eval-gym-article.md`:
 
-Title: "56 Test Scenarios for AI Agent Spend Control (MIT Licensed — Steal Them)"
+Title: "56 Test Scenarios for AI Agent Spend Control (MIT Licensed, Steal Them)"
 
 Structure:
 ```markdown
@@ -185,7 +185,7 @@ You built a cost-gating layer for your AI agents. You set a daily limit, a per-c
 
 Most teams test their spend controls by... not testing them. They set the limits, deploy, and wait for a billing surprise to reveal the gaps.
 
-We wrote 56 labeled test scenarios — covering 9 spend-control rule types — and open-sourced them. MIT licensed. You can copy them into your test suite today.
+We wrote 56 labeled test scenarios, covering 9 spend-control rule types, and open-sourced them. MIT licensed. You can copy them into your test suite today.
 
 ## The 9 Rule Types
 
@@ -241,7 +241,7 @@ If API AND browser both fail: save the markdown and document the manual steps fo
 
 ---
 
-## PHASE 3: AWESOME LIST SUBMISSIONS (15 min — permanent backlinks + discovery)
+## PHASE 3: AWESOME LIST SUBMISSIONS (15 min, permanent backlinks + discovery)
 
 ### Why This Matters
 `awesome-ai-agents` has 50,000+ stars. Being listed there is a permanent, high-traffic discovery channel. These lists are bookmarked by every developer entering the AI agent space.
@@ -258,11 +258,11 @@ cat << 'BODY' > /tmp/awesome-pr-body.md
 Adds AgentShield to the Open Source section.
 
 ## AgentShield
-- **Description:** A per-transaction spend firewall for AI agents. Evaluates every API call against 7+ composable rules in <1ms before it executes. Pure Python stdlib — zero dependencies.
+- **Description:** A per-transaction spend firewall for AI agents. Evaluates every API call against 7+ composable rules in <1ms before it executes. Pure Python stdlib, zero dependencies.
 - **GitHub:** https://github.com/kindrat86/agentshield
 - **Website:** https://agentshield.fly.dev
 - **License:** MIT
-- **Why it belongs here:** AI agents make autonomous API calls with no budget awareness. AgentShield is the only open-source per-transaction enforcement layer (not observability — enforcement). 56/56 eval gym, self-hostable in 60 seconds.
+- **Why it belongs here:** AI agents make autonomous API calls with no budget awareness. AgentShield is the only open-source per-transaction enforcement layer (not observability, enforcement). 56/56 eval gym, self-hostable in 60 seconds.
 
 ## Category
 Open Source AI Agent Tools
@@ -276,7 +276,7 @@ gh repo fork e2b-dev/awesome-ai-agents --clone=false 2>/dev/null
 
 # Or create an issue requesting addition
 gh issue create --repo e2b-dev/awesome-ai-agents \
-  --title "Add AgentShield — AI Agent Spend Firewall (open source, MIT)" \
+  --title "Add AgentShield, AI Agent Spend Firewall (open source, MIT)" \
   --body-file /tmp/awesome-pr-body.md 2>&1
 ```
 
@@ -285,7 +285,7 @@ gh issue create --repo e2b-dev/awesome-ai-agents \
 ```bash
 # awesome-langchain
 gh issue create --repo gkammaris/awesome-langchain \
-  --title "Add AgentShield — LangChain spend control callback" \
+  --title "Add AgentShield, LangChain spend control callback" \
   --body "AgentShield provides a LangChain BaseCallbackHandler that intercepts LLM calls and evaluates cost against configurable rules before execution. MIT licensed. https://github.com/kindrat86/agentshield" 2>&1
 
 # awesome-llm (if exists)
@@ -317,7 +317,7 @@ gh repo view kindrat86/agentshield --json repositoryTopics --jq '.repositoryTopi
 
 ## PHASE 4: CHECK ACTIVE CONVERSATIONS FOR REPLIES (10 min)
 
-The 5 active conversations may have gotten replies since Phase 13. Check FIRST — a reply is worth 100 new posts.
+The 5 active conversations may have gotten replies since Phase 13. Check FIRST, a reply is worth 100 new posts.
 
 ```bash
 # Check all threads for new comments
@@ -342,7 +342,7 @@ done
 
 ---
 
-## PHASE 5: SHOW HN POST (10 min — potential for massive reach)
+## PHASE 5: SHOW HN POST (10 min, potential for massive reach)
 
 ### Why This Matters
 Show HN is the #1 channel for developer tool discovery. A good Show HN post can reach 5,000-50,000 developers in 24 hours. Our HN account (SipitenoMK) has been warming up via cron and may have enough karma now.
@@ -404,7 +404,7 @@ Capture. If logged in:
 
 If NOT logged in or karma too low:
 - Save the draft to `/Users/sipi/agentshield/content/show-hn-post.md`
-- Note: "HN post requires manual submission — karma may still be too low for Show HN"
+- Note: "HN post requires manual submission, karma may still be too low for Show HN"
 
 ---
 
@@ -419,7 +419,7 @@ curl -s https://agentshield.fly.dev/eval | python3 -c "import sys,json; d=json.l
 cd /Users/sipi/agentshield && LICENSING_MASTER_SECRET=test python3.11 tests/run_tests.py 2>&1 | tail -3
 
 # Package build
-ls -la /Users/sipi/agentshield/dist/ 2>/dev/null || echo "No dist/ — package not built"
+ls -la /Users/sipi/agentshield/dist/ 2>/dev/null || echo "No dist/, package not built"
 
 # New content
 ls -la /Users/sipi/agentshield/content/eval-gym-article.md 2>/dev/null
@@ -438,17 +438,17 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 14 — Scale Distribution Report
+## Phase 14, Scale Distribution Report
 
 ### PyPI Package
 - Package built: [YES / NO]
 - Local test (56/56): [YES / NO]
-- Published to PyPI: [YES / NO — include URL if YES]
+- Published to PyPI: [YES / NO, include URL if YES]
 - If not published: [exact steps for Maryan]
 
 ### Dev.to Article #3
 - Article written: [YES / NO]
-- Published via API: [YES / NO — include URL if YES]
+- Published via API: [YES / NO, include URL if YES]
 - If not published: [exact steps for Maryan]
 
 ### Awesome List Submissions
@@ -469,7 +469,7 @@ git log --oneline -3
 
 ### Show HN
 - HN karma: [number]
-- Post submitted: [YES / NO — include URL if YES]
+- Post submitted: [YES / NO, include URL if YES]
 - If not submitted: [reason]
 
 ### Quality
@@ -499,7 +499,7 @@ git log --oneline -3
 
 2. **PyPI is the #1 priority.** `pip install agentshield` is the permanent discovery channel. If credentials block publishing, build the package and document exact steps for Maryan.
 
-3. **Dev.to article #3 is the #2 priority.** It has built-in distribution via tags and feeds. The eval gym content is genuinely useful — not a pitch.
+3. **Dev.to article #3 is the #2 priority.** It has built-in distribution via tags and feeds. The eval gym content is genuinely useful, not a pitch.
 
 4. **Check active conversations FIRST.** If @yun520-1 or @theonlyhennygod replied, that's worth more than everything else combined.
 

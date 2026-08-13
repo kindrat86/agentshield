@@ -15,7 +15,7 @@ Zero fabrication. Never mention cron. Never touch memory. Sign all communication
 ## TASK 1: COMPLETE THE TWITTER THREAD VIA xurl CLI (Priority #1)
 
 ### The Breakthrough
-`xurl` is installed at `/Users/sipi/.local/bin/xurl` — it's X's official CLI. It posts tweets/replies directly from the terminal. No browser needed. **This is how we bypass the React SPA problem entirely.**
+`xurl` is installed at `/Users/sipi/.local/bin/xurl`, it's X's official CLI. It posts tweets/replies directly from the terminal. No browser needed. **This is how we bypass the React SPA problem entirely.**
 
 ### 1A. Check xurl auth status
 ```bash
@@ -38,7 +38,7 @@ TWITTER/xurl SETUP (5 minutes, one time only):
 2. Create or open an app
 3. Set redirect URI to: http://localhost:8080/callback
 4. Copy the Client ID and Client Secret
-5. Run these commands in terminal (NOT in the agent — secrets involved):
+5. Run these commands in terminal (NOT in the agent, secrets involved):
 
    xurl auth apps add my-app --client-id YOUR_REAL_CLIENT_ID --client-secret YOUR_REAL_CLIENT_SECRET
    xurl auth oauth2 --app my-app
@@ -186,7 +186,7 @@ d = json.load(sys.stdin)
 if d.get('result'):
     print(f'Zone ID: {d[\"result\"][0][\"id\"]}')
 else:
-    print('No access to sipiteno.com zone (expected — dashboard-only)')
+    print('No access to sipiteno.com zone (expected, dashboard-only)')
 " 2>/dev/null
 fi
 ```
@@ -207,7 +207,7 @@ CLOUDFLARE API TOKEN (2 minutes, enables DNS automation forever):
 Then run:
 echo 'CLOUDFLARE_DNS_EDIT_TOKEN=YOUR_TOKEN' >> ~/.hermes/.env
 
-After that, the agent can add DNS records via API — no browser needed.
+After that, the agent can add DNS records via API, no browser needed.
 ```
 
 ### 3C. If a DNS-edit token IS available
@@ -306,18 +306,18 @@ cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 22: xurl Twitte
 ## REPORT FORMAT
 
 ```
-## Phase 22 — API-First Distribution Report
+## Phase 22, API-First Distribution Report
 
 ### Twitter Thread (via xurl)
 - xurl auth status: [Authenticated / Needs setup]
 - If needs setup: [exact setup steps documented]
 - If authenticated:
   - Tweet 2 ID: [ID]
-  - Tweets 3-8 posted: [count/6 — include tweet IDs from xurl JSON response]
+  - Tweets 3-8 posted: [count/6, include tweet IDs from xurl JSON response]
   - Thread complete: [YES / NO]
 
 ### HN Karma
-- Comment posted: [YES/NO — include HN URL]
+- Comment posted: [YES/NO, include HN URL]
 - Karma before: 1
 - Karma after: [number]
 
@@ -325,7 +325,7 @@ cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 22: xurl Twitte
 - DNS edit token found: [YES / NO]
 - If no token: [exact token creation steps documented]
 - If token found:
-  - A record added: [YES / NO — include API response]
+  - A record added: [YES / NO, include API response]
   - AAAA record added: [YES / NO]
   - dig A: [output]
   - dig AAAA: [output]
@@ -344,16 +344,16 @@ cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 22: xurl Twitte
 - Git: [hash]
 
 ### Maryan Actions Required
-- [ONLY what truly couldn't be automated — should be the one-time xurl OAuth and CF token creation if not already done]
+- [ONLY what truly couldn't be automated, should be the one-time xurl OAuth and CF token creation if not already done]
 ```
 
 ---
 
 ## HARD RULES
 
-1. **KPI 1: Complete the Twitter thread via `xurl reply`.** This is the entire reason we're using xurl — it bypasses the browser entirely.
+1. **KPI 1: Complete the Twitter thread via `xurl reply`.** This is the entire reason we're using xurl, it bypasses the browser entirely.
 
-2. **KPI 2: Post 1 HN comment.** HN is server-rendered HTML — browser typing works fine on HN.
+2. **KPI 2: Post 1 HN comment.** HN is server-rendered HTML, browser typing works fine on HN.
 
 3. **KPI 3: Add DNS records via Cloudflare API.** No browser. Pure `curl`.
 
@@ -363,4 +363,4 @@ cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 22: xurl Twitte
 
 6. **Never mention cron. Never touch memory. Never fabricate. Sign as "Maryan K."**
 
-7. **The xurl approach is the breakthrough.** If authenticated, it solves the Twitter thread in 6 `xurl reply` commands — zero browser, zero React, zero context exhaustion. This is the out-of-the-box solution.
+7. **The xurl approach is the breakthrough.** If authenticated, it solves the Twitter thread in 6 `xurl reply` commands, zero browser, zero React, zero context exhaustion. This is the out-of-the-box solution.

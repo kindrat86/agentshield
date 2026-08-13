@@ -1,6 +1,6 @@
-# AgentShield — Firewall for AI Agent Spending
+# AgentShield, Firewall for AI Agent Spending
 
-Stop runaway AI agents before they burn your budget. 7 composable rules evaluated per-transaction in <1ms. Pure Python stdlib — zero dependencies.
+Stop runaway AI agents before they burn your budget. 7 composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies.
 
 ## Install
 
@@ -8,7 +8,7 @@ Stop runaway AI agents before they burn your budget. 7 composable rules evaluate
 pip install agentshield-spend
 ```
 
-(The import name is `agentshield` — the PyPI name `agentshield` belongs to an unrelated project.)
+(The import name is `agentshield`, the PyPI name `agentshield` belongs to an unrelated project.)
 
 ## Quick Start
 
@@ -39,7 +39,7 @@ rules = [
 # Prior transactions today (for daily_total and velocity checks)
 prior_transactions = []
 
-# Evaluate — returns in <1ms
+# Evaluate, returns in <1ms
 result = engine.evaluate(transaction, rules, prior_transactions)
 print(result["decision"])  # BLOCKED
 print(result["reason"])    # Transaction amount $500.00 exceeds limit of $250.00
@@ -70,10 +70,10 @@ All 56 test scenarios are MIT licensed. Use them as test fixtures for your own s
 
 ## Key Design Decisions
 
-- **Pure Python 3.11 stdlib** — no pip install required (except for the package wrapper itself)
-- **Decimal for money** — never float, always `decimal.Decimal`
-- **Stateless** — no file I/O, no network, no global state
-- **Deterministic** — same inputs always produce the same output
+- **Pure Python 3.11 stdlib**, no pip install required (except for the package wrapper itself)
+- **Decimal for money**, never float, always `decimal.Decimal`
+- **Stateless**, no file I/O, no network, no global state
+- **Deterministic**, same inputs always produce the same output
 - **<1ms per evaluation**
 
 ## Links

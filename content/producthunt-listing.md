@@ -1,4 +1,4 @@
-# AgentShield — Product Hunt Listing
+# AgentShield, Product Hunt Listing
 
 ## Tagline (40 chars)
 A firewall for AI agent spending
@@ -7,25 +7,25 @@ A firewall for AI agent spending
 Stop runaway AI agents before they burn your budget. 7 composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies. Deploy in 60 seconds. 56/56 eval gym included. Open source + managed hosting ($19/mo).
 
 ## Media
-- Logo: (needs 240x240 product icon — use the shield concept)
+- Logo: (needs 240x240 product icon, use the shield concept)
 - Screenshot 1: Risk calculator (https://agentshield.fly.dev/tools/risk-calculator/)
 - Screenshot 2: Eval gym results (https://agentshield.fly.dev/eval)
 - Screenshot 3: Dashboard rules configuration
 
-## Maker Comment (first comment — MOST IMPORTANT)
+## Maker Comment (first comment, MOST IMPORTANT)
 
-I built AgentShield after an AI agent I deployed spent $2,800 in 60 seconds while I was asleep. The budget alert arrived at 6:14 AM. By then the agent had moved on to its next task — oblivious to the damage.
+I built AgentShield after an AI agent I deployed spent $2,800 in 60 seconds while I was asleep. The budget alert arrived at 6:14 AM. By then the agent had moved on to its next task, oblivious to the damage.
 
-The problem: AI agents make API calls autonomously. One infinite loop, one batch job bug, one misconfigured cron — and your API bill explodes. Tools like LangSmith and Helicone track costs AFTER they happen. Nothing stops them BEFORE they execute.
+The problem: AI agents make API calls autonomously. One infinite loop, one batch job bug, one misconfigured cron, and your API bill explodes. Tools like LangSmith and Helicone track costs AFTER they happen. Nothing stops them BEFORE they execute.
 
 AgentShield sits between your agent and the API. Each transaction is evaluated against 7 composable rules in under 1 millisecond. The first rule that matches decides: ALLOW or BLOCK.
 
 The rules engine:
-- Transaction limits — block any call over $X
-- Daily totals — cap spending per agent per day
-- Velocity detection — flag if an agent fires too many calls too fast
-- Merchant allowlists — only allow approved API providers
-- Category blocks — block entire spending categories
+- Transaction limits, block any call over $X
+- Daily totals, cap spending per agent per day
+- Velocity detection, flag if an agent fires too many calls too fast
+- Merchant allowlists, only allow approved API providers
+- Category blocks, block entire spending categories
 
 Built in pure Python 3.11 standard library. Zero pip dependencies. Runs on Fly.io free tier (256MB RAM, 39MB Docker image). Multi-tenant with SQLite WAL and PBKDF2 auth.
 
@@ -35,7 +35,7 @@ Risk calculator (no signup): https://agentshield.fly.dev/tools/risk-calculator/
 Architecture deep-dive: https://dev.to/maryan_k_bef6cf83fa64e809/i-built-a-firewall-for-ai-agent-spending-here-is-the-architecture-2560
 Eval gym (56/56 across 9 categories): https://agentshield.fly.dev/eval
 
-I'll be here all day — fire away with questions.
+I'll be here all day, fire away with questions.
 
 ## Competitor Context (from PH research)
 - Paybond: Safe spend controls for AI agents (broader, less developer-focused)

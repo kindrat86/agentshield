@@ -19,7 +19,7 @@ reddit_comments = [l for l in reddit_entries if 'comment' in l.lower() or 'poste
 
 total = len(hn_comments) + len(reddit_comments)
 
-print(f"=== AgentShield Warm-Up Stats — {datetime.date.today()} ===")
+print(f"=== AgentShield Warm-Up Stats, {datetime.date.today()} ===")
 print(f"HN comments:      {len(hn_comments)}")
 print(f"Reddit comments:  {len(reddit_comments)}")
 print(f"Combined:         {total}")

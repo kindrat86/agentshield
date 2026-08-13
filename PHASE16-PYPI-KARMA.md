@@ -131,10 +131,10 @@ print_tree(d)
 ### 2C. Draft comments for the best 2 threads
 
 For each thread, draft a comment that:
-1. **Adds technical value** — shares a real insight, data point, or correction
-2. **Is conversational** — responds to the thread's specific content
+1. **Adds technical value**, shares a real insight, data point, or correction
+2. **Is conversational**, responds to the thread's specific content
 3. **Does NOT mention AgentShield, GitHub, or any link to our project**
-4. **Is 3-8 sentences** — long enough to be substantive, short enough to be read
+4. **Is 3-8 sentences**, long enough to be substantive, short enough to be read
 
 Save drafts to `/Users/sipi/agentshield/content/hn-karma-comments.md`.
 
@@ -241,8 +241,8 @@ If no feedback → leave it. Maintainers process these in batches.
 
 Also check if PR #811 and #640 (older AgentShield submissions from April) can be closed to clean up:
 ```bash
-gh pr close 811 --repo e2b-dev/awesome-ai-agents --comment "Closing old PR — superseded by #1377 with updated project details (spend firewall, 56 eval scenarios, PyPI package)." 2>&1
-gh pr close 640 --repo e2b-dev/awesome-ai-agents --comment "Closing old PR — superseded by #1377." 2>&1
+gh pr close 811 --repo e2b-dev/awesome-ai-agents --comment "Closing old PR, superseded by #1377 with updated project details (spend firewall, 56 eval scenarios, PyPI package)." 2>&1
+gh pr close 640 --repo e2b-dev/awesome-ai-agents --comment "Closing old PR, superseded by #1377." 2>&1
 ```
 
 ---
@@ -273,18 +273,18 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 16 — PyPI + Karma Report
+## Phase 16, PyPI + Karma Report
 
 ### PyPI
 - Token found: [YES / NO]
-- Package published: [YES (URL) / NO — exact steps for Maryan]
+- Package published: [YES (URL) / NO, exact steps for Maryan]
 - pip install works: [YES / NO / NOT TESTED]
 - README badges added: [YES / NO]
 
 ### Hacker News Karma
 - Starting karma: 1
 - Comments drafted: [count]
-- Comments posted: [count — include HN comment URLs]
+- Comments posted: [count, include HN comment URLs]
 - Ending karma: [number]
 - Rate-limited: [YES / NO]
 
@@ -304,7 +304,7 @@ git log --oneline -3
 - Git: [hash]
 
 ### Maryan Actions Required
-- [PyPI registration if token not found — copy-paste ready]
+- [PyPI registration if token not found, copy-paste ready]
 - [Other items]
 ```
 

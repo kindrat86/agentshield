@@ -1,6 +1,6 @@
 # PHASE 9: Execute the 3 Remaining Tasks + Cleanup
 
-## ⚠️ START HERE — CONTEXT YOU MUST READ
+## ⚠️ START HERE, CONTEXT YOU MUST READ
 
 You are the Nth Hermes Agent in a multi-session pipeline building AgentShield (AI agent spend firewall, Python 3.11 stdlib, live at `https://agentshield.fly.dev`).
 
@@ -24,15 +24,15 @@ for p in paths:
 EOF
 ```
 
-The 8 real AgentShield jobs are: `6f33fb6cd459`, `707dd2d06308`, `5a5a7d42e61a`, `73198eb477c9`, `490d890b0e6a`, `c52aa796f78f`, `a0c2caef4e81`, `1861dbcffbaf`. All in `architector`. Any other IDs you see in prompt files mentioning AgentShield crons are stale — ignore them.
+The 8 real AgentShield jobs are: `6f33fb6cd459`, `707dd2d06308`, `5a5a7d42e61a`, `73198eb477c9`, `490d890b0e6a`, `c52aa796f78f`, `a0c2caef4e81`, `1861dbcffbaf`. All in `architector`. Any other IDs you see in prompt files mentioning AgentShield crons are stale, ignore them.
 
 ### WHAT'S VERIFIED TRUE (as of 2026-08-11 ~16:00)
 - **DNS:** `agentshield.sipiteno.com` does NOT resolve. DNS records were NEVER added. This is the #1 blocker.
 - **Product Hunt:** NOT submitted. Content ready at `content/producthunt-listing.md`.
-- **Reddit:** Genuinely blocked at network layer (`outreach/reddit_warmup_log.txt`: "API BLOCKED"). Not a bug — Reddit's security blocks all API requests from this network.
+- **Reddit:** Genuinely blocked at network layer (`outreach/reddit_warmup_log.txt`: "API BLOCKED"). Not a bug, Reddit's security blocks all API requests from this network.
 - **Tests:** 14/14. **Eval:** 50/50. **Health:** OK. **Deploy:** Fly.io live.
 - **6 GitHub outreach posts:** 5 real (AgentBudget#29, OpenClaw#42475, AgentGuard#2, zeroclaw#2269, one more) + drafts saved.
-- **Resend API key:** In plaintext across 4 prompt files and `jobs.json`. This is a security issue — fix it in this session.
+- **Resend API key:** In plaintext across 4 prompt files and `jobs.json`. This is a security issue, fix it in this session.
 
 ### YOUR 4 OBJECTIVES
 
@@ -41,7 +41,7 @@ The 8 real AgentShield jobs are: `6f33fb6cd459`, `707dd2d06308`, `5a5a7d42e61a`,
 | 1 | Add DNS records via Safari → Cloudflare dashboard | BLOCKER | Medium (browser automation) |
 | 2 | Submit Product Hunt listing | HIGH | Hard (JS injection + autocomplete wall) |
 | 3 | Fix Resend key exposure + commit | HIGH | Easy (terminal work) |
-| 4 | Reddit — workaround or accept block | LOW | N/A (network-blocked) |
+| 4 | Reddit, workaround or accept block | LOW | N/A (network-blocked) |
 
 ---
 
@@ -62,7 +62,7 @@ skill_view name="macos-browser-driving"
 Key facts from these skills:
 - `sipiteno.com` is in Cloudflare Acct2 (Google: `mkondratyuk86@gmail.com`). NO API token. Dashboard only.
 - Safari is the ONLY browser that renders the CF dashboard correctly (Comet shows blank pages).
-- `open -a Safari "<url>"` from terminal opens a tab AND fronts the app — this is the reliable navigation method.
+- `open -a Safari "<url>"` from terminal opens a tab AND fronts the app, this is the reliable navigation method.
 - Coordinate-based clicks on the CF SPA are unreliable. Use element-index clicks (`click element=N`) from SOM captures.
 - The CF dashboard direct URLs (`dash.cloudflare.com/{zone_id}/dns/records`) 404. You must click the zone from the domains list.
 
@@ -84,7 +84,7 @@ open -a Safari "https://dash.cloudflare.com/"
 ```
 Wait 3 seconds. Capture.
 
-**If login page:** Click "Continue with Google" — it should auto-auth from the Gmail session. If it still asks for credentials → blocked.
+**If login page:** Click "Continue with Google", it should auto-auth from the Gmail session. If it still asks for credentials → blocked.
 
 **If dashboard (domains list):** Find `sipiteno.com` in the list. Click it by element index. Then navigate left sidebar → DNS → Records.
 
@@ -96,7 +96,7 @@ Click "Add record" button. For each record:
 - Name: use `type` (foreground if background returns 0 chars) with text='agentshield'
 - IPv4: use `type` with text='66.241.125.16'
 - TTL: leave as Auto
-- Proxy: click orange cloud toggle to OFF (grey cloud = DNS only — REQUIRED)
+- Proxy: click orange cloud toggle to OFF (grey cloud = DNS only, REQUIRED)
 - Click Save by element index
 
 **AAAA record:** same but Type='AAAA', IPv6='2a09:8280:1::166:9212:0'
@@ -143,11 +143,11 @@ osascript -e 'tell application "Safari" to do JavaScript "
 ```
 
 **Fields to fill (with selectors and values from the content file):**
-1. `input[name="post[name]"]` → "AgentShield — AI Agent Spend Firewall"
+1. `input[name="post[name]"]` → "AgentShield, AI Agent Spend Firewall"
 2. `textarea[name="post[tagline]"]` → "A firewall for AI agent spending" (use textarea setter!)
 3. `input[name="post[website_url]"]` → "https://agentshield.sipiteno.com" (if DNS worked) or "https://agentshield.fly.dev"
 4. Input for GitHub URL → "https://github.com/kindrat86/agentshield"
-5. `textarea[name="post[description]"]` → from content file (260 char limit — COUNT)
+5. `textarea[name="post[description]"]` → from content file (260 char limit, COUNT)
 6. `textarea` for maker story → full maker comment from content file
 7. Twitter input → "@Sipiteno"
 
@@ -193,7 +193,7 @@ var inputs = document.querySelectorAll("input[aria-autocomplete='list'], input[r
 computer_use action='type' text='Developer Tools' delivery_mode='foreground'
 ```
 
-**IF ALL FAIL:** The escape hatch — tell the user: "Everything is filled. Type 'Developer Tools' in the launch tags box and press Enter. Just one word." After they do it, capture again and click "Next."
+**IF ALL FAIL:** The escape hatch, tell the user: "Everything is filled. Type 'Developer Tools' in the launch tags box and press Enter. Just one word." After they do it, capture again and click "Next."
 
 ### 2.6 Submit & capture URL
 Click Next → review page → Submit → **capture confirmation page** → record the exact PH URL.
@@ -232,7 +232,7 @@ In each of the 4 prompt files, replace the cleartext key with a reference:
 ```
 Resend: key is RESEND_API_KEY from ~/.hermes/.env (prefix REDACTED)
 ```
-Do NOT just mask it — actually remove the full key and replace with the reference.
+Do NOT just mask it, actually remove the full key and replace with the reference.
 
 ### 3.4 Update the nurture cron prompt
 The nurture cron job (707dd2d06308) has the full Resend key in its prompt. Update it to use the env var fix from 3.2:
@@ -247,13 +247,13 @@ cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 9: DNS attempte
 
 ---
 
-## TASK 4: REDDIT — ACCEPT THE BLOCK
+## TASK 4: REDDIT, ACCEPT THE BLOCK
 
-The report confirms Reddit is genuinely network-blocked on this connection. The file `outreach/reddit_warmup_log.txt` records: "API BLOCKED — Reddit network security blocked all API requests from this IP."
+The report confirms Reddit is genuinely network-blocked on this connection. The file `outreach/reddit_warmup_log.txt` records: "API BLOCKED, Reddit network security blocked all API requests from this IP."
 
 **Do NOT:**
 - Try to bypass Reddit's network security
-- Attempt to post via Comet (same network — same block)
+- Attempt to post via Comet (same network, same block)
 - Spend more than 2 minutes on this
 
 **Instead:** Save the latest radar drafts to a file that can be posted from a different network or by the user manually. Mark Reddit as "network-blocked" in your final report.
@@ -303,7 +303,7 @@ cd /Users/sipi/agentshield && fly deploy
 ## REPORT FORMAT
 
 ```
-## Phase 9 — Final Execution Report
+## Phase 9, Final Execution Report
 
 ### DNS (agentshield.sipiteno.com)
 - Safari Google session: [Active / Expired / Blocked]

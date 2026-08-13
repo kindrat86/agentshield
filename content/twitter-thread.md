@@ -1,4 +1,4 @@
-# AgentShield Twitter Thread — The $2,800 Story
+# AgentShield Twitter Thread, The $2,800 Story
 
 **Post 1/8:**
 At 3 AM, an AI agent I built made 21 API calls to a premium LLM endpoint.
@@ -14,7 +14,7 @@ So I built a firewall. 🧵
 **Post 2/8:**
 The problem: AI agents don't know they're spending money.
 
-They make autonomous decisions about token consumption. Retry loops, context accumulation, tool call spirals — each one costs real dollars that the agent has zero awareness of.
+They make autonomous decisions about token consumption. Retry loops, context accumulation, tool call spirals, each one costs real dollars that the agent has zero awareness of.
 
 **Post 3/8:**
 Existing tools don't help:
@@ -27,7 +27,7 @@ Existing tools don't help:
 All reactive. None preventive.
 
 **Post 4/8:**
-I built AgentShield — a per-transaction spend firewall.
+I built AgentShield, a per-transaction spend firewall.
 
 Every API call is evaluated against rules YOU set before it executes:
 
@@ -44,14 +44,14 @@ If a call violates a rule, it's BLOCKED before it reaches the API provider. The 
 **Post 6/8:**
 Two rules that came from production experience:
 
-1️⃣ session_budget — Daily caps miss the "2 AM cron burst" where one session eats the whole day. Session-scoped budgets with decay tightening catch it.
+1️⃣ session_budget, Daily caps miss the "2 AM cron burst" where one session eats the whole day. Session-scoped budgets with decay tightening catch it.
 
-2️⃣ cascade_cost — A $0.50 call with 30% failure rate and $5 retry = $2.00 expected cost. The rule blocks calls that look cheap but compound on failure.
+2️⃣ cascade_cost, A $0.50 call with 30% failure rate and $5 retry = $2.00 expected cost. The rule blocks calls that look cheap but compound on failure.
 
 **Post 7/8:**
 56 labeled test scenarios. 7 composable rule types. MIT licensed.
 
-The eval gym is a universal benchmark — use it to test YOUR spend-control implementation, not just ours.
+The eval gym is a universal benchmark, use it to test YOUR spend-control implementation, not just ours.
 
 Live eval: https://agentshield.fly.dev/eval
 

@@ -1,5 +1,5 @@
 """
-AgentShield Emergency — instant crisis scanner.
+AgentShield Emergency, instant crisis scanner.
 
 Usage:
     python -m agentshield.emergency
@@ -129,7 +129,7 @@ def run_emergency():
         level = "🟡 ELEVATED"
     else:
         level = "🟢 LOW"
-    print(f"  RISK SCORE: {risk}/100 — {level}")
+    print(f"  RISK SCORE: {risk}/100, {level}")
     print(f"  ESTIMATED MONTHLY EXPOSURE: ~${exposure:,}")
     print(f"  ANNUAL RISK: ~${exposure * 12:,}")
     print("=" * 60)

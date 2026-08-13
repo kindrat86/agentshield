@@ -1,4 +1,4 @@
-# MISSION: The Russell Brunson + Greg Isenberg Playbook — Funnels, Stories, and Community
+# MISSION: The Russell Brunson + Greg Isenberg Playbook, Funnels, Stories, and Community
 
 ## ⚠️ YOUR SINGLE KPI: Build a Complete Brunson-Style Funnel AND Establish Community Presence
 
@@ -30,7 +30,7 @@ Zero fabrication. Every page deployed → show the URL. Every community post →
 
 ## WHAT EXISTS (verified)
 
-- **Product:** https://agentshield.sipiteno.com — 56/56 eval, 9 rules, 14/14 tests
+- **Product:** https://agentshield.sipiteno.com, 56/56 eval, 9 rules, 14/14 tests
 - **PyPI:** `pip install agentshield-spend` works worldwide
 - **Twitter:** 8-tweet thread LIVE from @sipiteno
 - **DNS:** agentshield.sipiteno.com LIVE and serving
@@ -43,12 +43,12 @@ Zero fabrication. Every page deployed → show the URL. Every community post →
 - **Eval gym spec:** `/eval-gym-spec` live
 
 ### What's Missing (Brunson Audit)
-- ❌ **No Epiphany Bridge story page** — the $2,800 story is scattered across tweets and a blog post, not a dedicated conversion page
-- ❌ **No value ladder landing page** — pricing exists but isn't structured as a ladder
-- ❌ **No "Who, What, How" hook** — we say "firewall for AI agent spending" but Brunson would say "How to Never Get a Surprise AI Bill Again"
-- ❌ **No Soap Opera email sequence upgrade** — nurture exists but isn't structured with open loops and tension
-- ❌ **No community presence** — zero Discord, zero Indie Hackers, zero Reddit engagement
-- ❌ **No free audit offer in communities** — the audit exists as a paid page but isn't being offered as a lead magnet
+- ❌ **No Epiphany Bridge story page**, the $2,800 story is scattered across tweets and a blog post, not a dedicated conversion page
+- ❌ **No value ladder landing page**, pricing exists but isn't structured as a ladder
+- ❌ **No "Who, What, How" hook**, we say "firewall for AI agent spending" but Brunson would say "How to Never Get a Surprise AI Bill Again"
+- ❌ **No Soap Opera email sequence upgrade**, nurture exists but isn't structured with open loops and tension
+- ❌ **No community presence**, zero Discord, zero Indie Hackers, zero Reddit engagement
+- ❌ **No free audit offer in communities**, the audit exists as a paid page but isn't being offered as a lead magnet
 
 ---
 
@@ -67,7 +67,7 @@ This is NOT the blog post. This is a **dedicated conversion page** structured as
 At 3 AM, an AI agent I built made 21 API calls to a premium LLM endpoint.
 Each call cost $133.
 $2,800 gone. While I slept.
-The budget alert arrived at 6:14 AM — 3 hours too late.
+The budget alert arrived at 6:14 AM, 3 hours too late.
 ```
 
 **Section 2: The Backstory (Build Empathy)**
@@ -101,7 +101,7 @@ So I built AgentShield.
 
 A per-transaction firewall that sits between your agent and the API.
 Every call is evaluated against YOUR rules in <1ms.
-If a call would blow the budget — it gets blocked. Before it fires.
+If a call would blow the budget, it gets blocked. Before it fires.
 The agent never knows the difference.
 
 9 rule types. 56 test scenarios. Pure Python stdlib. Zero dependencies.
@@ -112,19 +112,19 @@ pip install agentshield-spend
 ```
 Here's everything you get:
 
-1. The AgentShield Engine (open source, MIT) — $0
+1. The AgentShield Engine (open source, MIT), $0
    9 rule types, <1ms evaluation, pure stdlib
    
-2. The 56-Scenario Eval Gym (MIT) — $0
+2. The 56-Scenario Eval Gym (MIT), $0
    The industry's only standardized spend-control benchmark
    
-3. The Risk Calculator — $0
+3. The Risk Calculator, $0
    See your financial exposure in 30 seconds. No signup.
    
-4. The Spend Audit — $299 (refundable if we don't find $299 in waste)
+4. The Spend Audit, $299 (refundable if we don't find $299 in waste)
    Send us your bills. We'll map every wasteful call to prevention rules.
    
-5. Managed AgentShield — $19/mo (14-day free trial)
+5. Managed AgentShield, $19/mo (14-day free trial)
    We host it. We maintain the rules. You sleep easy.
 ```
 
@@ -166,7 +166,7 @@ Brunson's framework: every business needs a clear "Who, What, How" hook that can
 
 **Current (weak):** "A firewall for AI agent spending. 7 composable rules evaluated per-transaction in under 1ms."
 
-**Brunson version (strong):** "How to Never Get a Surprise AI Bill Again — Without Monitoring Dashboards or Budget Alerts"
+**Brunson version (strong):** "How to Never Get a Surprise AI Bill Again, Without Monitoring Dashboards or Budget Alerts"
 
 The hook addresses:
 - **Who:** Developers and teams running autonomous AI agents
@@ -197,7 +197,7 @@ cd /Users/sipi/agentshield && fly deploy
 
 ---
 
-## PHASE 3: COMMUNITY PRESENCE — GREG ISENBERG STYLE (30 min)
+## PHASE 3: COMMUNITY PRESENCE, GREG ISENBERG STYLE (30 min)
 
 ### 3A. Find and prepare Discord community links
 
@@ -216,15 +216,15 @@ Hi, I'm Maryan K. I build AI agents for a living.
 
 Last month, one of my agents spent $2,800 in 60 seconds while I slept. 21 API calls at $133 each. The budget alert arrived 3 hours later.
 
-I realized agents have no concept of money — every API call is invisible to them. And monitoring tools (LangSmith, Helicone) only show you what happened AFTER it happened.
+I realized agents have no concept of money, every API call is invisible to them. And monitoring tools (LangSmith, Helicone) only show you what happened AFTER it happened.
 
-So I built AgentShield — an open-source per-transaction firewall. It evaluates every API call against your budget rules in <1ms BEFORE the call fires. If it would blow the budget, it gets blocked.
+So I built AgentShield, an open-source per-transaction firewall. It evaluates every API call against your budget rules in <1ms BEFORE the call fires. If it would blow the budget, it gets blocked.
 
 pip install agentshield-spend (MIT licensed, pure Python stdlib)
 
-Not here to spam — just sharing because I've seen this exact problem discussed here before. Happy to answer questions about the architecture or the rules engine.
+Not here to spam, just sharing because I've seen this exact problem discussed here before. Happy to answer questions about the architecture or the rules engine.
 
-If anyone's interested, I'm doing 3 free spend audits this week — I'll analyze your last 30 days of API bills and show you exactly where money is leaking. DM me.
+If anyone's interested, I'm doing 3 free spend audits this week, I'll analyze your last 30 days of API bills and show you exactly where money is leaking. DM me.
 ```
 
 Save to `/Users/sipi/agentshield/content/community-intro-post.md`.
@@ -256,7 +256,7 @@ web_search "\"my agent\" \"spent\" OR \"cost\" OR \"bill\" openai OR anthropic 2
 
 For each complaint found, draft a genuine empathetic reply:
 ```
-Damn, that's painful. I had the exact same thing happen — $2,800 in 60 seconds. Built a firewall that blocks the call BEFORE it fires if it would blow the budget. Open source: github.com/kindrat86/agentshield. Risk calculator (30 sec, no signup): agentshield.sipiteno.com
+Damn, that's painful. I had the exact same thing happen, $2,800 in 60 seconds. Built a firewall that blocks the call BEFORE it fires if it would blow the budget. Open source: github.com/kindrat86/agentshield. Risk calculator (30 sec, no signup): agentshield.sipiteno.com
 ```
 
 Post via Safari `do JavaScript` (navigate to the tweet, use execCommand to type reply, click reply button).
@@ -277,7 +277,7 @@ tags: ai, agents, founders,opensource
 
 [Full Epiphany Bridge story from the /the-2800-story page]
 
-[Architecture section — brief, not the full deep-dive]
+[Architecture section, brief, not the full deep-dive]
 
 [CTA: pip install agentshield-spend / risk calculator / audit]
 
@@ -318,7 +318,7 @@ At 6:14 AM, my phone buzzed. An email from OpenAI.
 I sat up in bed. My agent had made 21 API calls at $133 each.
 Between 3 AM and 3:01 AM. While I slept.
 
-Tomorrow, I'll tell you exactly how it happened — and why your agents 
+Tomorrow, I'll tell you exactly how it happened, and why your agents 
 might be doing the same thing right now without you knowing.
 
 But first: what's YOUR risk score?
@@ -335,7 +335,7 @@ Yesterday I told you about the $2,800 wake-up call.
 
 Here's what actually happened:
 
-My agent hit a rate limit. It retried — with full context each time.
+My agent hit a rate limit. It retried, with full context each time.
 21 retries. Each one re-sending 43,000 tokens of context.
 At $133 per call.
 
@@ -351,7 +351,7 @@ Tomorrow: what I built to do exactly that.
 Maryan K.
 ```
 
-**Email 3 (The Reveal — Epiphany Bridge):**
+**Email 3 (The Reveal, Epiphany Bridge):**
 ```
 Subject: I built a firewall (not a monitoring tool)
 
@@ -365,7 +365,7 @@ in under 1 millisecond BEFORE the call fires:
 - "Block if today's total exceeds $2,000"
 - "Flag if more than 10 calls in 60 minutes"
 
-If a call would break your budget — it gets blocked.
+If a call would break your budget, it gets blocked.
 The agent never knows. You sleep easy.
 
 pip install agentshield-spend (MIT, pure stdlib, zero deps)
@@ -376,7 +376,7 @@ it works. 56 of them. All open source.
 Maryan K.
 ```
 
-**Email 4 (The Gift — Value Bomb):**
+**Email 4 (The Gift, Value Bomb):**
 ```
 Subject: 56 test scenarios for AI agent spend control (steal them)
 
@@ -401,7 +401,7 @@ Tomorrow: the offer (and why it pays for itself with one prevented incident).
 Maryan K.
 ```
 
-**Email 5 (The Offer — Brunson Stack):**
+**Email 5 (The Offer, Brunson Stack):**
 ```
 Subject: One prevented incident = 12 years of protection
 
@@ -414,9 +414,9 @@ You do the math.
 
 But here's everything you actually get:
 
-1. AgentShield Engine (MIT, open source) — $0
-2. 56-scenario eval gym (MIT) — $0
-3. Risk calculator (no signup) — $0
+1. AgentShield Engine (MIT, open source), $0
+2. 56-scenario eval gym (MIT), $0
+3. Risk calculator (no signup), $0
 4. Professional Spend Audit ($299, refundable if we find <$299 waste)
 5. Managed AgentShield ($19/mo, 14-day free trial)
 
@@ -506,7 +506,7 @@ curl -s https://agentshield.sipiteno.com/health
 curl -s https://agentshield.sipiteno.com/eval | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'{d[\"passed\"]}/{d[\"total\"]}')"
 
 # Commit
-cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 25: Brunson+Isenberg — Epiphany Bridge, Soap Opera emails, free audit, community"
+cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 25: Brunson+Isenberg, Epiphany Bridge, Soap Opera emails, free audit, community"
 git log --oneline -3
 ```
 
@@ -515,10 +515,10 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 25 — Brunson + Isenberg Report
+## Phase 25, Brunson + Isenberg Report
 
 ### Epiphany Bridge Story Page
-- /the-2800-story live: [YES/NO — HTTP code]
+- /the-2800-story live: [YES/NO, HTTP code]
 - Brunson structure: Hook → Backstory → Epiphany → Solution → Stack → CTA: [YES/NO]
 
 ### Hook Rewrite
@@ -550,7 +550,7 @@ git log --oneline -3
 - Git: [hash]
 
 ### Maryan Actions Required
-- [Post community intro in Discord servers — requires manual join]
+- [Post community intro in Discord servers, requires manual join]
 - [Other items if blocked]
 ```
 
@@ -562,7 +562,7 @@ git log --oneline -3
 
 2. **KPI: Establish community presence.** Indie Hackers post + Dev.to founder story + Twitter replies + community intro template.
 
-3. **KPI: Create the free audit offer.** `/free-audit` page with 3 spots — the Greg Isenberg lead magnet.
+3. **KPI: Create the free audit offer.** `/free-audit` page with 3 spots, the Greg Isenberg lead magnet.
 
 4. **The $2,800 story is the Epiphany Bridge.** It goes on a dedicated page. It goes in the emails. It goes in community posts. It goes on Dev.to. It's the ONE story that makes people realize they need a firewall, not a monitoring tool.
 

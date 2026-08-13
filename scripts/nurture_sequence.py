@@ -39,22 +39,22 @@ SEQUENCE = {
 <p>We analyzed your agent setup and found potential exposure points. The average unprotected AI agent deployment loses $2,800 in its first billing surprise.</p>
 <h3>The three biggest risk vectors:</h3>
 <ol>
-<li><strong>Retry storms</strong> — agent hits an error, retries with full context each time, each retry costs more</li>
-<li><strong>Context accumulation</strong> — turn 40 of a session costs 50x turn 1 from re-sending history</li>
-<li><strong>Tool call loops</strong> — agent gets stuck calling the same failing tool indefinitely</li>
+<li><strong>Retry storms</strong>, agent hits an error, retries with full context each time, each retry costs more</li>
+<li><strong>Context accumulation</strong>, turn 40 of a session costs 50x turn 1 from re-sending history</li>
+<li><strong>Tool call loops</strong>, agent gets stuck calling the same failing tool indefinitely</li>
 </ol>
-<p>AgentShield evaluates each API call against your rules <em>before</em> it executes. Transaction limits, daily caps, velocity detection — all in under 1ms.</p>
+<p>AgentShield evaluates each API call against your rules <em>before</em> it executes. Transaction limits, daily caps, velocity detection, all in under 1ms.</p>
 <p><a href="https://agentshield.fly.dev/tools/risk-calculator/">See your full risk report →</a></p>
 <hr>
-<p style="font-size:12px;color:#666">AgentShield — A firewall for AI agent spending. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
+<p style="font-size:12px;color:#666">AgentShield, A firewall for AI agent spending. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
 """,
     },
     2: {
         "subject": "The $2,800 wake-up call (and how to avoid it)",
         "html": """\
 <h2>At 3 AM, an AI agent spent $2,800 in 60 seconds.</h2>
-<p>21 API calls to a premium endpoint. $133 each. The budget alert arrived at 6:14 AM — too late. The agent had already moved on.</p>
-<p>This is the dark side of autonomous AI agents. They're powerful, fast, and relentless — and they can drain your budget before you wake up.</p>
+<p>21 API calls to a premium endpoint. $133 each. The budget alert arrived at 6:14 AM, too late. The agent had already moved on.</p>
+<p>This is the dark side of autonomous AI agents. They're powerful, fast, and relentless, and they can drain your budget before you wake up.</p>
 <h3>Why existing tools fail:</h3>
 <ul>
 <li><strong>API rate limits</strong> protect the provider, not your wallet</li>
@@ -64,7 +64,7 @@ SEQUENCE = {
 <p>AgentShield sits between your agent and the API. Each transaction is evaluated in under 1ms. If it violates a rule, it's blocked <em>before</em> the call executes.</p>
 <p><a href="https://agentshield.fly.dev">Set up your first rule in 60 seconds →</a></p>
 <hr>
-<p style="font-size:12px;color:#666">AgentShield — Budget alerts shouldn't arrive by email. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
+<p style="font-size:12px;color:#666">AgentShield, Budget alerts shouldn't arrive by email. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
 """,
     },
     3: {
@@ -90,7 +90,7 @@ SEQUENCE = {
 <p>7 composable rules available: transaction limits, daily caps, velocity detection, merchant allowlists, category blocks.</p>
 <p><a href="https://agentshield.fly.dev/dashboard">Configure your rules →</a></p>
 <hr>
-<p style="font-size:12px;color:#666">AgentShield — Pure Python stdlib. Zero dependencies. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
+<p style="font-size:12px;color:#666">AgentShield, Pure Python stdlib. Zero dependencies. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
 """,
     },
     4: {
@@ -113,9 +113,9 @@ SEQUENCE = {
 </tr>
 </table>
 <p>The pattern: one rule catches the first surprise. A full ruleset prevents all of them.</p>
-<p>Our eval gym has 50 labeled scenarios across 7 categories — all passing. <a href="https://agentshield.fly.dev/eval">See the proof →</a></p>
+<p>Our eval gym has 50 labeled scenarios across 7 categories, all passing. <a href="https://agentshield.fly.dev/eval">See the proof →</a></p>
 <hr>
-<p style="font-size:12px;color:#666">AgentShield — 50/50 eval scenarios passing. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
+<p style="font-size:12px;color:#666">AgentShield, 50/50 eval scenarios passing. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
 """,
     },
     5: {
@@ -124,17 +124,17 @@ SEQUENCE = {
 <h2>You've seen the risk. Now protect yourself.</h2>
 <p>AgentShield Dev ($19/month) gives you:</p>
 <ul>
-<li><strong>5 AI agents</strong> — each with independent spend rules</li>
-<li><strong>10 custom rules</strong> — transaction limits, daily caps, velocity, allowlists</li>
-<li><strong>1,000 daily evaluations</strong> — every API call checked before execution</li>
-<li><strong>Email alerts</strong> — instant notification when a block fires</li>
-<li><strong>Full API access</strong> — integrate with any agent framework</li>
+<li><strong>5 AI agents</strong>, each with independent spend rules</li>
+<li><strong>10 custom rules</strong>, transaction limits, daily caps, velocity, allowlists</li>
+<li><strong>1,000 daily evaluations</strong>, every API call checked before execution</li>
+<li><strong>Email alerts</strong>, instant notification when a block fires</li>
+<li><strong>Full API access</strong>, integrate with any agent framework</li>
 </ul>
 <p>Unprotected runaway agent: $2,800. A whole year of AgentShield Dev: $228.</p>
 <p>You do the math.</p>
 <p style="margin-top:24px"><a href="https://agentshield.fly.dev/dashboard" style="display:inline-block;background:#4f46e5;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600">Start 14-Day Free Trial →</a></p>
 <hr>
-<p style="font-size:12px;color:#666">AgentShield — Built because budget alerts shouldn't arrive by email. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
+<p style="font-size:12px;color:#666">AgentShield, Built because budget alerts shouldn't arrive by email. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
 """,
     },
 }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Universal AI Agent Spend-Control Benchmark — 56 Labeled Scenarios (MIT Licensed)</title>
+<title>Universal AI Agent Spend-Control Benchmark, 56 Labeled Scenarios (MIT Licensed)</title>
 <meta name="description" content="A standardized test suite of 56 labeled scenarios for validating AI agent spend-control rules. MIT licensed. Steal these test cases.">
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --surface2:#1a1a1a; --border:#2a2a2a; --accent:#00d4aa; --text:#e8e8e8; --muted:#888; --danger:#ff4757; --warn:#ffa502; --green:#22c55e; }
@@ -47,7 +47,7 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
 <h1>Universal AI Agent Spend-Control Benchmark</h1>
 <p style="font-size:1.15em;color:var(--muted)">56 labeled test scenarios across 9 categories. MIT licensed. Designed to validate any spend-control or budget-enforcement engine for autonomous AI agents.</p>
 
-<div class="badge">MIT LICENSED — STEAL THESE TEST CASES</div>
+<div class="badge">MIT LICENSED, STEAL THESE TEST CASES</div>
 
 <h2>Why This Exists</h2>
 <p>AI agent frameworks are deploying into production with spend controls that range from "none" to "a daily budget alert email." Neither prevents the $2,800-in-60-seconds scenario. As more teams build pre-flight cost enforcement (see: <a href="https://github.com/zeroclaw-labs/zeroclaw/pull/2333" style="color:var(--accent)">ZeroClaw's merged enforcement PR</a>), there is a need for a standardized way to validate that the enforcement logic is correct.</p>
@@ -85,13 +85,13 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
 }</code></pre>
 
 <h3>4. Velocity / Burst Detection (6 scenarios)</h3>
-<p>Counts transactions in a rolling time window. Catches retry storms and infinite loops — the $2,800-in-60-seconds pattern.</p>
+<p>Counts transactions in a rolling time window. Catches retry storms and infinite loops, the $2,800-in-60-seconds pattern.</p>
 <pre><code>{
   "type": "velocity",
   "params": {"window_minutes": 60, "max_count": 10},
   "action": "FLAGGED"
 }</code></pre>
-<p>Unlike other rules, velocity typically uses FLAGGED rather than BLOCKED — the transaction is allowed but an alert fires for investigation.</p>
+<p>Unlike other rules, velocity typically uses FLAGGED rather than BLOCKED, the transaction is allowed but an alert fires for investigation.</p>
 
 <h3>5. Merchant Allowlist (7 scenarios)</h3>
 <p>Only allows transactions to approved API providers. Blocks calls to unknown proxies, unauthorized endpoints, or silently-substituted model variants.</p>
@@ -217,7 +217,7 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
 </div>
 
 <div class="footer">
-<p>AgentShield Eval Gym — 56 scenarios, 9 categories, 7 rule types, MIT licensed.</p>
+<p>AgentShield Eval Gym, 56 scenarios, 9 categories, 7 rule types, MIT licensed.</p>
 <p><a href="https://agentshield.fly.dev" style="color:var(--accent)">Home</a> ·
 <a href="https://agentshield.fly.dev/eval" style="color:var(--accent)">Live Eval</a> ·
 <a href="https://github.com/kindrat86/agentshield" style="color:var(--accent)">GitHub</a> ·

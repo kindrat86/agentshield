@@ -1,5 +1,5 @@
 # BRUNSON MAXIMUM CONVERSION IMPLEMENTATION PROMPT
-## AgentShield Landing Page — Russell Brunson Secrets Trilogy Overhaul
+## AgentShield Landing Page, Russell Brunson Secrets Trilogy Overhaul
 
 **Project:** agentshield.fly.dev
 **Repo:** ~/agentshield
@@ -19,13 +19,13 @@ The founder (Maryan K.) lost $2,800 in 60 seconds when an AI agent entered a ret
 **Current pages:** Landing (`/`), Audit (`/audit`), Story (`/the-2800-story`), Auth (`/auth`), Dashboard (`/dashboard`), Eval Gym (`/eval`), Eval Gym Spec (`/eval-gym-spec`), Bounty (`/bounty`), Challenge (`/challenge`), Free Audit (`/free-audit`), Risk Calculator (`/tools/risk-calculator/`), Blog (`/blog/zeroclaw-preflight-enforcement`), Comparisons (`/comparisons/helicone`, `/comparisons/langsmith`).
 
 **File structure:**
-- `public/index.html` — main landing page (static HTML, dark theme, ~428 lines)
-- `public/*.html` — other static pages
-- `core/api.py` — Python stdlib HTTP handler (~980 lines), routes via `if path == '/...'`
-- `core/store.py` — SQLite data layer (~433 lines)
-- `core/engine.py` — SpendControlEngine (~372 lines)
-- `content/soap-opera-emails.md` — 5-day Soap Opera sequence ALREADY WRITTEN but NOT wired to send
-- `fly.toml` — Fly.io config
+- `public/index.html`, main landing page (static HTML, dark theme, ~428 lines)
+- `public/*.html`, other static pages
+- `core/api.py`, Python stdlib HTTP handler (~980 lines), routes via `if path == '/...'`
+- `core/store.py`, SQLite data layer (~433 lines)
+- `core/engine.py`, SpendControlEngine (~372 lines)
+- `content/soap-opera-emails.md`, 5-day Soap Opera sequence ALREADY WRITTEN but NOT wired to send
+- `fly.toml`, Fly.io config
 
 ---
 
@@ -35,39 +35,39 @@ The page has a **strong Hook + Story** (the $2,800 narrative is excellent) but i
 
 ### Critical Gaps (in priority order):
 
-1. **NO EMAIL SEQUENCE FIRES** — `/api/email-capture` stores the email in SQLite but sends NOTHING. The 5-day Soap Opera sequence exists in `content/soap-opera-emails.md` but is NOT wired to any email-sending code. `RESEND_API_KEY` is in `.env.example` but never used anywhere in the codebase. Every captured email goes into a black hole.
+1. **NO EMAIL SEQUENCE FIRES**, `/api/email-capture` stores the email in SQLite but sends NOTHING. The 5-day Soap Opera sequence exists in `content/soap-opera-emails.md` but is NOT wired to any email-sending code. `RESEND_API_KEY` is in `.env.example` but never used anywhere in the codebase. Every captured email goes into a black hole.
 
-2. **NO TRIPWIRE** — There is no $7 impulse offer between Free and $19/mo. The jump from $0 to $228/year with no micro-commitment is a Brunson Ch 5 violation. The subscriber→buyer identity shift never happens.
+2. **NO TRIPWIRE**, There is no $7 impulse offer between Free and $19/mo. The jump from $0 to $228/year with no micro-commitment is a Brunson Ch 5 violation. The subscriber→buyer identity shift never happens.
 
-3. **NO VALUE STACK** — The Dev tier ($19/mo) lists features but never shows the STACK: individual item values, strikethrough total, actual price. The visitor has no anchor for "this is a deal." (Brunson Ch 18 / DotCom Ch 8)
+3. **NO VALUE STACK**, The Dev tier ($19/mo) lists features but never shows the STACK: individual item values, strikethrough total, actual price. The visitor has no anchor for "this is a deal." (Brunson Ch 18 / DotCom Ch 8)
 
-4. **NO FALSE BELIEF CRUSHER** — The page never names and destroys the 3 lies that hold the dream customer back: (a) "Rate limits already protect me," (b) "Budget alerts are enough," (c) "I'd notice if spending spiked." (Expert Secrets Ch 6)
+4. **NO FALSE BELIEF CRUSHER**, The page never names and destroys the 3 lies that hold the dream customer back: (a) "Rate limits already protect me," (b) "Budget alerts are enough," (c) "I'd notice if spending spiked." (Expert Secrets Ch 6)
 
-5. **NO NAMED FRAMEWORK** — There's no proprietary methodology name. "AgentShield" is a product name, not a framework. Competitors can copy "9 rules." They can't copy a trademarked system. (Expert Secrets Ch 10-11)
+5. **NO NAMED FRAMEWORK**, There's no proprietary methodology name. "AgentShield" is a product name, not a framework. Competitors can copy "9 rules." They can't copy a trademarked system. (Expert Secrets Ch 10-11)
 
-6. **NO EXIT-INTENT POPUP** — Visitors who bounce are gone forever. No recovery mechanism. (DotCom Ch 16)
+6. **NO EXIT-INTENT POPUP**, Visitors who bounce are gone forever. No recovery mechanism. (DotCom Ch 16)
 
-7. **FOUNDER IS INVISIBLE ON LANDING** — Maryan K. appears only on `/the-2800-story`. The landing page has no human face, no Attractive Character. (Expert Secrets Ch 2)
+7. **FOUNDER IS INVISIBLE ON LANDING**, Maryan K. appears only on `/the-2800-story`. The landing page has no human face, no Attractive Character. (Expert Secrets Ch 2)
 
-8. **NO ORDER BUMP** — No impulse add-on at checkout. "Add rule-config templates for $7?" (DotCom Ch 7 / Profit Maximizer)
+8. **NO ORDER BUMP**, No impulse add-on at checkout. "Add rule-config templates for $7?" (DotCom Ch 7 / Profit Maximizer)
 
-9. **NO URGENCY/SCARCITY ON PRICING** — "7 spots left" is mentioned once in a banner but not integrated into the pricing section or checkout flow.
+9. **NO URGENCY/SCARCITY ON PRICING**, "7 spots left" is mentioned once in a banner but not integrated into the pricing section or checkout flow.
 
-10. **RISK CALCULATOR BURIED** — The lead magnet (Risk Calculator) sits BELOW pricing. It should be the FIRST thing visitors interact with, capturing email BEFORE showing prices. The squeeze page purity rule is violated: pricing is visible before opt-in.
+10. **RISK CALCULATOR BURIED**, The lead magnet (Risk Calculator) sits BELOW pricing. It should be the FIRST thing visitors interact with, capturing email BEFORE showing prices. The squeeze page purity rule is violated: pricing is visible before opt-in.
 
-11. **NO DREAM CUSTOMER SPECIFICITY** — "Developers building AI agents" is a category, not a person. The page doesn't speak to ONE person with a name, a fear, and a Sunday-night feeling.
+11. **NO DREAM CUSTOMER SPECIFICITY**, "Developers building AI agents" is a category, not a person. The page doesn't speak to ONE person with a name, a fear, and a Sunday-night feeling.
 
 ---
 
 ## IMPLEMENTATION: 14 CHANGES, ORDERED BY IMPACT
 
-### CHANGE 1: Wire the Email Sequence (CRITICAL — fixes the black hole)
+### CHANGE 1: Wire the Email Sequence (CRITICAL, fixes the black hole)
 
 **Problem:** `/api/email-capture` captures emails but sends nothing. The Soap Opera sequence is written but dead.
 
 **What to build:**
 
-1. **Add a Resend email sender** to `core/api.py` using stdlib `urllib.request` (NO `requests` dependency — the Docker image is `python:3.11-slim` with no pip installs):
+1. **Add a Resend email sender** to `core/api.py` using stdlib `urllib.request` (NO `requests` dependency, the Docker image is `python:3.11-slim` with no pip installs):
 
 ```python
 def _send_resend_email(self, to_email: str, subject: str, html_body: str):
@@ -117,9 +117,9 @@ def _handle_email_capture(self):
 <p><strong>$2,793.00. In one hour. While I was asleep.</strong></p>
 <p>An AI agent I'd deployed had entered a retry loop. Each retry cost $133. It retried 21 times before the budget alert even arrived.</p>
 <p>The alert came at 3:14 AM. I read it at 6:17 AM. Three hours too late.</p>
-<p>Every tool I had was reactive. Rate limits protect the provider. Budget alerts arrive by email. Dashboards show you what happened — after the money is gone.</p>
+<p>Every tool I had was reactive. Rate limits protect the provider. Budget alerts arrive by email. Dashboards show you what happened, after the money is gone.</p>
 <p>Tomorrow I'll show you what I built to stop this from ever happening again.</p>
-<p>— Maryan K.<br>AgentShield<br><a href="https://agentshield.fly.dev">https://agentshield.fly.dev</a></p>
+<p>, Maryan K.<br>AgentShield<br><a href="https://agentshield.fly.dev">https://agentshield.fly.dev</a></p>
 </body></html>"""
     sent = self._send_resend_email(email, "I lost $2,800 while I was sleeping", day1_html)
     
@@ -130,7 +130,7 @@ def _handle_email_capture(self):
     self._send_json({"success": True, "id": capture_id, "email_sent": sent}, 201)
 ```
 
-3. **Add `schedule_email_sequence` to `core/store.py`** — create a new table `email_sequence`:
+3. **Add `schedule_email_sequence` to `core/store.py`**, create a new table `email_sequence`:
 
 ```python
 def schedule_email_sequence(self, email: str, capture_id: str):
@@ -206,7 +206,7 @@ def _handle_email_cron(self):
     self._send_json({"sent": sent_count, "checked": len(rows)}, 200)
 ```
 
-5. **Add `_get_email_bodies()`** — a method returning a dict mapping step keys to HTML email bodies. Parse the content from `content/soap-opera-emails.md` (already written) and add 3 Seinfeld follow-up emails.
+5. **Add `_get_email_bodies()`**, a method returning a dict mapping step keys to HTML email bodies. Parse the content from `content/soap-opera-emails.md` (already written) and add 3 Seinfeld follow-up emails.
 
 **Verification:**
 - `curl -s -X POST https://agentshield.fly.dev/api/email-capture -H 'Content-Type: application/json' -d '{"email":"test@sipiteno.com","source":"test"}'` must return `"email_sent": true`
@@ -221,9 +221,9 @@ def _handle_email_cron(self):
 
 **What to build:**
 
-Create `public/tripwire.html` — a standalone Brunson tripwire page:
+Create `public/tripwire.html`, a standalone Brunson tripwire page:
 
-**Offer:** "The AgentShield Spend-Control Starter Kit" — $7 one-time
+**Offer:** "The AgentShield Spend-Control Starter Kit", $7 one-time
 **Contents:**
 - Pre-configured rule templates for OpenAI, Anthropic, and common agent patterns (JSON, ready to import)
 - A copy of the $2,800 post-mortem playbook (the exact rules that would have prevented it)
@@ -231,12 +231,12 @@ Create `public/tripwire.html` — a standalone Brunson tripwire page:
 - 30-min setup walkthrough (text-based, no video needed yet)
 
 **Page structure (Brunson Tripwire Formula):**
-1. **Headline:** "Get the Complete AgentShield Starter Kit for $7 (Normally $97 — Today Only)"
+1. **Headline:** "Get the Complete AgentShield Starter Kit for $7 (Normally $97, Today Only)"
 2. **Value stack with strikethroughs:**
-   - Rule Template Pack (OpenAI + Anthropic + LangChain configs) — ~~$47~~
-   - The $2,800 Post-Mortem Playbook — ~~$27~~
-   - Rule-Tuning Checklist by Agent Type — ~~$17~~
-   - 30-Min Setup Walkthrough — ~~$6~~
+   - Rule Template Pack (OpenAI + Anthropic + LangChain configs), ~~$47~~
+   - The $2,800 Post-Mortem Playbook, ~~$27~~
+   - Rule-Tuning Checklist by Agent Type, ~~$17~~
+   - 30-Min Setup Walkthrough, ~~$6~~
    - **Total value: $97 → Your price today: $7**
 3. **Urgency:** "This price is only available right now. Leave this page and it's $97."
 4. **Guarantee:** "If the starter kit doesn't save you $7 in the first week, email me and I'll refund you. Keep the kit."
@@ -273,25 +273,25 @@ if (resp.ok) {
 
 ### CHANGE 3: Rebuild the Landing Page Section Order (Squeeze Purity)
 
-**Problem:** The landing page shows pricing BEFORE capturing email. This violates the squeeze page purity rule — every price anchor before opt-in reduces email capture conversion.
+**Problem:** The landing page shows pricing BEFORE capturing email. This violates the squeeze page purity rule, every price anchor before opt-in reduces email capture conversion.
 
 **New section order for `public/index.html`:**
 
-1. **Hero** (existing, minor edits — see CHANGE 4)
-2. **Stats bar** (existing — keep)
-3. **3 False Beliefs Crusher** (NEW — see CHANGE 5)
-4. **The $2,800 Story** (existing — keep but add Epiphany Bridge depth, see CHANGE 6)
-5. **Risk Calculator / Lead Magnet** (MOVE THIS UP — before pricing, add email gate, see CHANGE 7)
-6. **Named Framework** (NEW — see CHANGE 8)
-7. **How It Works** (existing — keep)
-8. **Value Stack for Dev Tier** (NEW — see CHANGE 9)
-9. **Pricing** (existing — but now the visitor has already opted in via Risk Calculator)
-10. **Founder / Attractive Character** (NEW — see CHANGE 10)
-11. **Email Capture** (existing — keep as bottom-of-page secondary capture)
-12. **FAQ** (NEW — see CHANGE 11)
-13. **Footer** (existing — keep)
+1. **Hero** (existing, minor edits, see CHANGE 4)
+2. **Stats bar** (existing, keep)
+3. **3 False Beliefs Crusher** (NEW, see CHANGE 5)
+4. **The $2,800 Story** (existing, keep but add Epiphany Bridge depth, see CHANGE 6)
+5. **Risk Calculator / Lead Magnet** (MOVE THIS UP, before pricing, add email gate, see CHANGE 7)
+6. **Named Framework** (NEW, see CHANGE 8)
+7. **How It Works** (existing, keep)
+8. **Value Stack for Dev Tier** (NEW, see CHANGE 9)
+9. **Pricing** (existing, but now the visitor has already opted in via Risk Calculator)
+10. **Founder / Attractive Character** (NEW, see CHANGE 10)
+11. **Email Capture** (existing, keep as bottom-of-page secondary capture)
+12. **FAQ** (NEW, see CHANGE 11)
+13. **Footer** (existing, keep)
 
-**Implementation:** This is a reordering + addition task in `public/index.html`. The file is static HTML — move `<section>` blocks, add new sections.
+**Implementation:** This is a reordering + addition task in `public/index.html`. The file is static HTML, move `<section>` blocks, add new sections.
 
 ---
 
@@ -310,13 +310,13 @@ The Safety Layer for Autonomous AI Agents
 **Headline:** "Stop AI Agents From Burning Your Budget"
 
 **Subheadline (the Story bridge in one sentence):**
-"Last month, an autonomous agent spent $2,800 in 60 seconds — while its developer slept. AgentShield evaluates every API call against your rules in under 1ms, BEFORE it executes. 9 composable rules. Zero dependencies. One kill switch."
+"Last month, an autonomous agent spent $2,800 in 60 seconds, while its developer slept. AgentShield evaluates every API call against your rules in under 1ms, BEFORE it executes. 9 composable rules. Zero dependencies. One kill switch."
 
 **Primary CTA:** "Calculate Your Risk Score (30 sec, no signup) →" → links to `#risk-calculator`
 
 **Secondary CTA:** "Read the $2,800 Story →" → links to `/the-2800-story`
 
-**Remove the $299 Audit CTA from the hero** — too many CTAs dilute. The audit is offered AFTER the risk calculator and email capture.
+**Remove the $299 Audit CTA from the hero**, too many CTAs dilute. The audit is offered AFTER the risk calculator and email capture.
 
 **Add an urgency micro-line below CTAs:**
 "⚡ 56/56 eval scenarios passing · <1ms per transaction · 0 pip dependencies · MIT licensed"
@@ -345,7 +345,7 @@ The Safety Layer for Autonomous AI Agents
         <div style="font-size:2em;color:var(--danger)">❌</div>
         <div>
           <h3 style="color:var(--danger);margin-bottom:8px">Lie #1: "API rate limits already protect me."</h3>
-          <p style="color:var(--muted);margin-bottom:12px">Rate limits protect the API <em>provider</em>, not you. Your provider is happy to let your agent make 21 calls at $133 each — they get paid either way. A rate limit caps requests per second. It does not cap dollars per transaction, dollars per day, or dollars per session.</p>
+          <p style="color:var(--muted);margin-bottom:12px">Rate limits protect the API <em>provider</em>, not you. Your provider is happy to let your agent make 21 calls at $133 each, they get paid either way. A rate limit caps requests per second. It does not cap dollars per transaction, dollars per day, or dollars per session.</p>
           <div style="padding:16px;background:rgba(0,212,170,0.08);border-radius:8px;border-left:3px solid var(--accent)">
             <strong style="color:var(--accent)">Truth:</strong> AgentShield evaluates the <em>dollar amount</em> of each transaction before it executes. $133 call when your limit is $50? Blocked. Instantly.
           </div>
@@ -398,12 +398,12 @@ The Safety Layer for Autonomous AI Agents
     <h2 style="text-align:center;font-size:2em;margin-bottom:32px">The Moment Everything Changed</h2>
     <div style="font-size:1.1em;line-height:1.8;color:#ccc">
       <p style="margin-bottom:16px">I sat in bed at 6:17 AM, staring at the email. <strong style="color:var(--danger)">$2,793.00.</strong></p>
-      <p style="margin-bottom:16px">I checked my rate limits — fine. The provider was happy to take 21 calls at $133 each.</p>
-      <p style="margin-bottom:16px">I checked my budget alerts — they triggered at 3:14 AM, right on schedule. I just didn't see them until morning.</p>
-      <p style="margin-bottom:16px">I checked my observability dashboard — beautiful graphs. Clear breakdowns. <em style="color:var(--muted)">Zero prevention.</em></p>
+      <p style="margin-bottom:16px">I checked my rate limits, fine. The provider was happy to take 21 calls at $133 each.</p>
+      <p style="margin-bottom:16px">I checked my budget alerts, they triggered at 3:14 AM, right on schedule. I just didn't see them until morning.</p>
+      <p style="margin-bottom:16px">I checked my observability dashboard, beautiful graphs. Clear breakdowns. <em style="color:var(--muted)">Zero prevention.</em></p>
       <p style="margin-bottom:16px;font-size:1.2em;color:var(--accent)">And then I realized: every tool I had was reactive. They told me what happened <em>after</em> the money was spent. None of them could stop the transaction <em>before</em> it executed.</p>
       <p style="margin-bottom:16px">So I built one that could.</p>
-      <p style="margin-bottom:24px">If that agent had been running AgentShield, the second call — the first retry — would have been blocked at <strong>$266</strong>. Not $2,793.</p>
+      <p style="margin-bottom:24px">If that agent had been running AgentShield, the second call, the first retry, would have been blocked at <strong>$266</strong>. Not $2,793.</p>
     </div>
     <div style="text-align:center">
       <a href="/the-2800-story" style="display:inline-block;padding:14px 32px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:8px;font-weight:700;text-decoration:none">Read the Full Story →</a>
@@ -432,14 +432,14 @@ The Safety Layer for Autonomous AI Agents
 3. **Enhance the risk calculator output:**
    After showing the score, add a "What This Means" section with specific scenarios:
    ```
-   Your Risk Score: 72/100 — HIGH RISK
+   Your Risk Score: 72/100, HIGH RISK
    
    At your current setup:
    - Monthly projected spend: $X
    - Worst-case runaway (1 hour): $Y
    - Time to detect with alerts alone: 3+ hours
    
-   AgentShield would cap this at: $[budget] — guaranteed.
+   AgentShield would cap this at: $[budget], guaranteed.
    
    Recommended rules:
    - Set transaction_limit to $[amount*3]
@@ -460,9 +460,9 @@ The Safety Layer for Autonomous AI Agents
 **Framework name:** "The Pre-Flight Enforcement Protocol™"
 
 **3-step methodology:**
-1. **SCREEN** — Every transaction is intercepted before it reaches the API
-2. **EVALUATE** — 9 composable rules check the transaction against your budget in under 1ms
-3. **ENFORCE** — Approved calls pass through. Blocked calls return a structured error. Kill switch stops everything.
+1. **SCREEN**, Every transaction is intercepted before it reaches the API
+2. **EVALUATE**, 9 composable rules check the transaction against your budget in under 1ms
+3. **ENFORCE**, Approved calls pass through. Blocked calls return a structured error. Kill switch stops everything.
 
 **Add this section** between "How It Works" and the Value Stack:
 
@@ -482,12 +482,12 @@ The Safety Layer for Autonomous AI Agents
       <div style="text-align:center;padding:32px;background:var(--surface);border-radius:12px;border:1px solid var(--border)">
         <div style="font-size:2em;margin-bottom:12px">⚡</div>
         <h3 style="color:var(--accent);margin-bottom:8px;font-size:1.1em">2. EVALUATE</h3>
-        <p style="color:var(--muted);font-size:0.95em">9 composable rule types — transaction limits, daily caps, velocity, allowlists, category blocks, session budgets, cascade costs — evaluated in priority order. Under 1ms per call.</p>
+        <p style="color:var(--muted);font-size:0.95em">9 composable rule types, transaction limits, daily caps, velocity, allowlists, category blocks, session budgets, cascade costs, evaluated in priority order. Under 1ms per call.</p>
       </div>
       <div style="text-align:center;padding:32px;background:var(--surface);border-radius:12px;border:1px solid var(--border)">
         <div style="font-size:2em;margin-bottom:12px">🛡️</div>
         <h3 style="color:var(--accent);margin-bottom:8px;font-size:1.1em">3. ENFORCE</h3>
-        <p style="color:var(--muted);font-size:0.95em">Approved calls pass through to the API. Blocked calls return a structured JSON error the agent can handle. Emergency kill switch stops everything — instantly.</p>
+        <p style="color:var(--muted);font-size:0.95em">Approved calls pass through to the API. Blocked calls return a structured JSON error the agent can handle. Emergency kill switch stops everything, instantly.</p>
       </div>
     </div>
     <p style="text-align:center;margin-top:24px;color:var(--muted);font-size:0.9em">
@@ -559,7 +559,7 @@ The Safety Layer for Autonomous AI Agents
 </section>
 ```
 
-**IMPORTANT:** The $3,008/mo strikethrough is anchored on the real $2,800 incident + actual service values. Do NOT inflate or invent. If the math doesn't add up honestly, use lower anchors. The honesty brand is non-negotiable — never use fabricated value anchors.
+**IMPORTANT:** The $3,008/mo strikethrough is anchored on the real $2,800 incident + actual service values. Do NOT inflate or invent. If the math doesn't add up honestly, use lower anchors. The honesty brand is non-negotiable, never use fabricated value anchors.
 
 ---
 
@@ -577,7 +577,7 @@ The Safety Layer for Autonomous AI Agents
         <h2 style="font-size:1.8em;margin-bottom:16px">Hi, I'm Maryan.</h2>
         <div style="color:#ccc;font-size:1.05em;line-height:1.7">
           <p style="margin-bottom:12px">I'm a developer who lost $2,800 in 60 seconds because my AI agent didn't know when to stop.</p>
-          <p style="margin-bottom:12px">I checked my rate limits, my budget alerts, my dashboards. They all worked perfectly. They just couldn't <em>prevent</em> anything — only report on what already happened.</p>
+          <p style="margin-bottom:12px">I checked my rate limits, my budget alerts, my dashboards. They all worked perfectly. They just couldn't <em>prevent</em> anything, only report on what already happened.</p>
           <p style="margin-bottom:12px">So I built the thing I wished existed: a firewall that evaluates every transaction <em>before</em> it executes. In under 1ms. With zero dependencies. Open source under MIT.</p>
           <p style="margin-bottom:12px">I'm not a security company. I'm a developer who got a $2,800 bill at 3 AM and decided it would never happen again.</p>
           <p style="margin-top:16px;font-size:0.9em;color:var(--muted)">
@@ -607,12 +607,12 @@ The Safety Layer for Autonomous AI Agents
     
     <div style="margin-bottom:24px">
       <h3 style="color:var(--accent);margin-bottom:8px">"Will this slow down my agents?"</h3>
-      <p style="color:var(--muted)">No. Every evaluation takes less than 1 millisecond. Your agents won't notice. The evaluation happens in Python stdlib — no network round trip, no external service.</p>
+      <p style="color:var(--muted)">No. Every evaluation takes less than 1 millisecond. Your agents won't notice. The evaluation happens in Python stdlib, no network round trip, no external service.</p>
     </div>
     
     <div style="margin-bottom:24px">
       <h3 style="color:var(--accent);margin-bottom:8px">"Do I need to rewrite my agent code?"</h3>
-      <p style="color:var(--muted)">No. You route transactions through one endpoint — <code>/v1/transactions/evaluate</code> — before they execute. One line of integration. Your agent gets a structured JSON response: approved or blocked, with the reason.</p>
+      <p style="color:var(--muted)">No. You route transactions through one endpoint, <code>/v1/transactions/evaluate</code>, before they execute. One line of integration. Your agent gets a structured JSON response: approved or blocked, with the reason.</p>
     </div>
     
     <div style="margin-bottom:24px">
@@ -627,7 +627,7 @@ The Safety Layer for Autonomous AI Agents
     
     <div style="margin-bottom:24px">
       <h3 style="color:var(--accent);margin-bottom:8px">"What if it doesn't work for my setup?"</h3>
-      <p style="color:var(--muted)">14-day free trial, no credit card. If it doesn't fit, you've lost nothing. The open-source engine is MIT licensed — you can self-host forever for free. The $299 audit has a money-back guarantee: if we don't find $299 in preventable waste, full refund.</p>
+      <p style="color:var(--muted)">14-day free trial, no credit card. If it doesn't fit, you've lost nothing. The open-source engine is MIT licensed, you can self-host forever for free. The $299 audit has a money-back guarantee: if we don't find $299 in preventable waste, full refund.</p>
     </div>
     
     <div style="margin-bottom:24px">
@@ -678,7 +678,7 @@ The Safety Layer for Autonomous AI Agents
 <div class="exit-modal-overlay" id="exit-overlay">
   <div class="exit-modal">
     <button class="close-btn" onclick="document.getElementById('exit-overlay').classList.remove('show')">×</button>
-    <h2>Wait — Before You Go</h2>
+    <h2>Wait, Before You Go</h2>
     <p>Get the <strong>AgentShield Spend-Control Starter Kit</strong> for just <strong style="color:var(--accent)">$7</strong> (normally $97). Pre-configured rule templates for OpenAI, Anthropic, and LangChain. The exact rules that would have prevented the $2,800 incident.</p>
     <a href="/tripwire" style="display:block;padding:14px;background:var(--accent);color:#000;border-radius:6px;font-weight:700;text-decoration:none;margin-bottom:8px">Get the $7 Starter Kit →</a>
     <p style="font-size:0.85em;color:var(--muted)">This price is only available on this page.</p>
@@ -728,11 +728,11 @@ The Safety Layer for Autonomous AI Agents
 
 **Implementation:** In the Stripe checkout flow, add an order bump. Since this uses Stripe Checkout Sessions (not a custom checkout page), implement as a pre-checkout upsell page.
 
-Create `public/checkout-bump.html` — a lightweight page shown BEFORE redirecting to Stripe:
+Create `public/checkout-bump.html`, a lightweight page shown BEFORE redirecting to Stripe:
 
 ```
-Headline: "Wait — Add the Rule Template Pack for $7?"
-Body: "Pre-configured enforcement rule templates for OpenAI, Anthropic, LangChain, and common agent patterns. Import-ready JSON. Normally $47 — add it to your order for just $7."
+Headline: "Wait, Add the Rule Template Pack for $7?"
+Body: "Pre-configured enforcement rule templates for OpenAI, Anthropic, LangChain, and common agent patterns. Import-ready JSON. Normally $47, add it to your order for just $7."
 [ ] Yes, add the Rule Template Pack (+$7)
 [ ] No thanks, just the subscription
 ```
@@ -765,7 +765,7 @@ elif path == '/checkout':
         <ul style="list-style:none;color:var(--muted)">
           <li style="padding:6px 0">✗ Your agents run 24/7 with no spend guardrails</li>
           <li style="padding:6px 0">✗ A single retry loop can cost $2,800+ in minutes</li>
-          <li style="padding:6px 0">✗ You find out via email — hours too late</li>
+          <li style="padding:6px 0">✗ You find out via email, hours too late</li>
           <li style="padding:6px 0">✗ Rate limits protect the provider, not you</li>
           <li style="padding:6px 0">✗ Dashboards show beautiful graphs of your money burning</li>
           <li style="padding:6px 0">✗ Scale to 10+ agents and monitoring becomes impossible</li>
@@ -776,11 +776,11 @@ elif path == '/checkout':
       <div style="padding:32px;border-radius:12px;background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2)">
         <h3 style="color:var(--accent);margin-bottom:16px">With AgentShield</h3>
         <ul style="list-style:none;color:var(--muted)">
-          <li style="padding:6px 0">✓ Every transaction evaluated in under 1ms — before it executes</li>
-          <li style="padding:6px 0">✓ Runaway agents blocked on the first retry — at $266, not $2,800</li>
+          <li style="padding:6px 0">✓ Every transaction evaluated in under 1ms, before it executes</li>
+          <li style="padding:6px 0">✓ Runaway agents blocked on the first retry, at $266, not $2,800</li>
           <li style="padding:6px 0">✓ Real-time SSE alerts the instant a block fires</li>
           <li style="padding:6px 0">✓ 9 composable rule types, fully configurable</li>
-          <li style="padding:6px 0">✓ Multi-tenant isolation — scale to unlimited agents safely</li>
+          <li style="padding:6px 0">✓ Multi-tenant isolation, scale to unlimited agents safely</li>
           <li style="padding:6px 0">✓ Sleep through the night knowing your wallet is locked</li>
         </ul>
       </div>
@@ -872,11 +872,11 @@ curl -s -o /dev/null -w "%{http_code}" https://agentshield.fly.dev/checkout
 
 1. **Do NOT use `patch()` for multi-line insertions into Python f-strings.** The escaping mangles newlines. Use `write_file` to rewrite `core/api.py` sections, or use a Python script via `terminal()` that reads the file, does `str.replace()`, and writes it back.
 
-2. **Do NOT use `requests` library.** The Docker image is `python:3.11-slim` — no pip installs. Use `urllib.request` for ALL HTTP calls (Resend API, Stripe API).
+2. **Do NOT use `requests` library.** The Docker image is `python:3.11-slim`, no pip installs. Use `urllib.request` for ALL HTTP calls (Resend API, Stripe API).
 
 3. **Do NOT add `requests` to requirements.txt.** The zero-dependency claim is a CORE product feature. Any email/HTTP code must use stdlib only.
 
-4. **Verify Resend domain:** `sipiteno.com` is verified. Do NOT use `@agentshield.fly.dev` as the from-address — Resend requires a verified domain.
+4. **Verify Resend domain:** `sipiteno.com` is verified. Do NOT use `@agentshield.fly.dev` as the from-address, Resend requires a verified domain.
 
 5. **Do NOT invent testimonials.** The honesty brand is non-negotiable. The existing "Beta audit participant" quote on `/audit` is the only testimonial. Do NOT fabricate more.
 
@@ -888,7 +888,7 @@ curl -s -o /dev/null -w "%{http_code}" https://agentshield.fly.dev/checkout
 
 9. **Test the email capture endpoint BEFORE deploying.** Run locally: `python3.11 run_app.py` → `curl -X POST localhost:7100/api/email-capture ...` → check `email_sent: true`.
 
-10. **The `email_sequence` table must be created in `store.py` `__init__`** — NOT as a migration script. The SQLite DB is ephemeral on Fly.io (unless on a volume). The `CREATE TABLE IF NOT EXISTS` pattern in `__init__` handles this.
+10. **The `email_sequence` table must be created in `store.py` `__init__`**, NOT as a migration script. The SQLite DB is ephemeral on Fly.io (unless on a volume). The `CREATE TABLE IF NOT EXISTS` pattern in `__init__` handles this.
 
 ---
 
@@ -912,20 +912,20 @@ curl -s -o /dev/null -w "%{http_code}" https://agentshield.fly.dev/checkout
 
 ## IMPLEMENTATION ORDER (do in this sequence)
 
-1. **CHANGE 1** — Wire email sequence (highest impact — fixes the black hole)
-2. **CHANGE 3** — Reorder landing page sections
-3. **CHANGE 4** — Hero edits
-4. **CHANGE 5** — False beliefs crusher
-5. **CHANGE 6** — Epiphany bridge depth
-6. **CHANGE 7** — Risk calculator email gate + repositioning
-7. **CHANGE 8** — Named framework
-8. **CHANGE 9** — Value stack
-9. **CHANGE 10** — Founder section
-10. **CHANGE 11** — FAQ section
-11. **CHANGE 2** — Tripwire page
-12. **CHANGE 12** — Exit-intent popup
-13. **CHANGE 13** — Order bump
-14. **CHANGE 14** — Two futures / cost of inaction
+1. **CHANGE 1**, Wire email sequence (highest impact, fixes the black hole)
+2. **CHANGE 3**, Reorder landing page sections
+3. **CHANGE 4**, Hero edits
+4. **CHANGE 5**, False beliefs crusher
+5. **CHANGE 6**, Epiphany bridge depth
+6. **CHANGE 7**, Risk calculator email gate + repositioning
+7. **CHANGE 8**, Named framework
+8. **CHANGE 9**, Value stack
+9. **CHANGE 10**, Founder section
+10. **CHANGE 11**, FAQ section
+11. **CHANGE 2**, Tripwire page
+12. **CHANGE 12**, Exit-intent popup
+13. **CHANGE 13**, Order bump
+14. **CHANGE 14**, Two futures / cost of inaction
 
 After each change, verify locally (`python3.11 run_app.py` → check at `localhost:7100`). Deploy once all changes are verified.
 
@@ -944,13 +944,13 @@ LICENSING_MASTER_SECRET=xxx
 
 # Needs to be set:
 RESEND_API_KEY=re_xxx  # Already in .env.example, verify it's on Fly.io
-STRIPE_PRICE_TRIPWIRE=price_xxx  # NEW — create $7 one-time in Stripe
-STRIPE_PRICE_BUMP=price_xxx  # NEW — create $7 one-time in Stripe
-CRON_SECRET=xxx  # NEW — generate random hex
+STRIPE_PRICE_TRIPWIRE=price_xxx  # NEW, create $7 one-time in Stripe
+STRIPE_PRICE_BUMP=price_xxx  # NEW, create $7 one-time in Stripe
+CRON_SECRET=xxx  # NEW, generate random hex
 ```
 
 Check current Fly.io secrets: `flyctl secrets list --app agentshield`
 
 ---
 
-**END OF PROMPT.** Feed this entire document to a Hermes Agent session as the task prompt. The agent should work autonomously through all 14 changes, verify locally, then deploy. Report any Stripe product creation as a human-action item — the agent cannot create Stripe products without dashboard access.
+**END OF PROMPT.** Feed this entire document to a Hermes Agent session as the task prompt. The agent should work autonomously through all 14 changes, verify locally, then deploy. Report any Stripe product creation as a human-action item, the agent cannot create Stripe products without dashboard access.

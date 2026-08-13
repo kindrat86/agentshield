@@ -9,25 +9,25 @@ Not more comments. Not more features. Not more conversations. **One person click
 ## THE STATE OF PLAY
 
 ### What's Real (verified)
-- **Product:** https://agentshield.fly.dev — 56/56 eval gym, 9 rule types, 14/14 tests, health OK
-- **Stripe:** Dev $19/mo, Team $99/mo, Managed $499/mo — checkout wired and tested
+- **Product:** https://agentshield.fly.dev, 56/56 eval gym, 9 rule types, 14/14 tests, health OK
+- **Stripe:** Dev $19/mo, Team $99/mo, Managed $499/mo, checkout wired and tested
 - **Email capture:** POST `/api/email-capture` → 5-day nurture sequence via Resend
-- **Risk calculator:** `https://agentshield.fly.dev/tools/risk-calculator/` — no signup required
+- **Risk calculator:** `https://agentshield.fly.dev/tools/risk-calculator/`, no signup required
 - **21 GitHub outreach posts** across 14 repos
-- **5 active conversations** — real technical exchanges, not one-off comments
+- **5 active conversations**, real technical exchanges, not one-off comments
 
 ### The 5 Active Conversations
 
 | # | Thread | Who | Status | Conversion Status |
 |---|--------|-----|--------|-------------------|
-| 1 | **OpenClaw #42475** | @yun520-1 (HeartFlow) | 2 exchanges deep — they suggested features, we built them | **HOTTEST — hasn't tried the product yet** |
-| 2 | **ZeroClaw #2269** | @theonlyhennygod | They merged a pre-flight enforcement PR after our post | **STRONGEST validation — hasn't tried OUR product** |
-| 3 | **LangChain #31647** | @sailikhithk | PR in progress, we suggested enforcement complement | **Active developer — direct adjacent need** |
-| 4 | **RocketRide #1693** | @Zayed024 | Assigned, shared architecture | **Design phase — early enough to influence** |
-| 5 | **Elitea #6010** | @epamLDadayan | Verified on stage, UX suggestions made | **Implementation phase — evaluating options** |
+| 1 | **OpenClaw #42475** | @yun520-1 (HeartFlow) | 2 exchanges deep, they suggested features, we built them | **HOTTEST, hasn't tried the product yet** |
+| 2 | **ZeroClaw #2269** | @theonlyhennygod | They merged a pre-flight enforcement PR after our post | **STRONGEST validation, hasn't tried OUR product** |
+| 3 | **LangChain #31647** | @sailikhithk | PR in progress, we suggested enforcement complement | **Active developer, direct adjacent need** |
+| 4 | **RocketRide #1693** | @Zayed024 | Assigned, shared architecture | **Design phase, early enough to influence** |
+| 5 | **Elitea #6010** | @epamLDadayan | Verified on stage, UX suggestions made | **Implementation phase, evaluating options** |
 
 ### The Gap
-All 5 conversations are **technical** — people discussing architecture, code, and approaches. None have been asked: "Would you actually use this?"
+All 5 conversations are **technical**, people discussing architecture, code, and approaches. None have been asked: "Would you actually use this?"
 
 ---
 
@@ -37,7 +37,7 @@ Every claim backed by visible tool output. Comment posted → show URL. Trial si
 
 ---
 
-## PHASE 1: CONVERT THE HOTTEST LEAD — @yun520-1 (20 min)
+## PHASE 1: CONVERT THE HOTTEST LEAD, @yun520-1 (20 min)
 
 This person:
 - Works at HeartFlow (production cost-gating system)
@@ -56,15 +56,15 @@ Read EVERY comment carefully. Understand the full arc of the conversation.
 
 This is the most important comment you'll write. It must:
 
-1. **Acknowledge the relationship built so far:** "You've already shaped two of our rule types — session_budget and cascade_cost came directly from our last exchange."
+1. **Acknowledge the relationship built so far:** "You've already shaped two of our rule types, session_budget and cascade_cost came directly from our last exchange."
 
-2. **Make a specific, narrow ask — NOT "try our product":**
+2. **Make a specific, narrow ask, NOT "try our product":**
    - "Would you be willing to run our risk calculator with HeartFlow's numbers? No signup. Takes 30 seconds. I'd value your read on whether the risk score aligns with what you see in production."
    - Link: https://agentshield.fly.dev/tools/risk-calculator/
 
 3. **Offer something in return:** "If the risk model seems useful, I can share the raw eval scenarios we use so you can adapt them for HeartFlow's cost-gating tests."
 
-4. **No pressure:** "No pitch, no demo request — genuinely curious if the model holds up against a real production system."
+4. **No pressure:** "No pitch, no demo request, genuinely curious if the model holds up against a real production system."
 
 Write the comment and post:
 ```bash
@@ -79,7 +79,7 @@ gh issue view https://github.com/openclaw/openclaw/issues/42475 --comments 2>&1 
 
 ---
 
-## PHASE 2: CONVERT THE STRONGEST VALIDATION — @theonlyhennygod (15 min)
+## PHASE 2: CONVERT THE STRONGEST VALIDATION, @theonlyhennygod (15 min)
 
 This person:
 - Works on ZeroClaw (production agent framework)
@@ -93,16 +93,16 @@ gh issue view https://github.com/zeroclaw-labs/zeroclaw/issues/2269 --comments 2
 
 ### 2B. Craft a bridge from their PR to our product
 
-They just shipped pre-flight enforcement. The bridge: "You built enforcement — you might want a benchmark to validate against."
+They just shipped pre-flight enforcement. The bridge: "You built enforcement, you might want a benchmark to validate against."
 
 ```
-The pre-flight enforcement PR is a strong signal — you're already thinking about this at the architecture level. One thing we found useful when building our enforcement engine: having a standardized eval gym to validate correctness.
+The pre-flight enforcement PR is a strong signal, you're already thinking about this at the architecture level. One thing we found useful when building our enforcement engine: having a standardized eval gym to validate correctness.
 
 Ours is 56 labeled scenarios across 9 rule types: https://agentshield.fly.dev/eval
 
-If you're building similar enforcement logic, you might find the edge cases category useful — it covers boundary values, malformed inputs, and empty rulesets. All the scenarios are in tests/eval_gym.py (MIT licensed — steal anything useful).
+If you're building similar enforcement logic, you might find the edge cases category useful, it covers boundary values, malformed inputs, and empty rulesets. All the scenarios are in tests/eval_gym.py (MIT licensed, steal anything useful).
 
-Also — our risk calculator gives a rough baseline for what unprotected agent spend looks like at different scales. Feed it ZeroClaw's typical agent workloads? Curious how it maps to what you see.
+Also, our risk calculator gives a rough baseline for what unprotected agent spend looks like at different scales. Feed it ZeroClaw's typical agent workloads? Curious how it maps to what you see.
 
 Risk calc: https://agentshield.fly.dev/tools/risk-calculator/
 ```
@@ -114,35 +114,35 @@ gh issue comment https://github.com/zeroclaw-labs/zeroclaw/issues/2269 --body-fi
 
 ---
 
-## PHASE 3: CONVERT THE ACTIVE DEVELOPERS (15 min — @sailikhithk, @Zayed024, @epamLDadayan)
+## PHASE 3: CONVERT THE ACTIVE DEVELOPERS (15 min, @sailikhithk, @Zayed024, @epamLDadayan)
 
 For each of the remaining 3 active conversations, the pattern is: **acknowledge their specific work → offer a specific resource → soft CTL to risk calculator.**
 
-### 3A. @sailikhithk — LangChain #31647 (cost tracking PR in progress)
+### 3A. @sailikhithk, LangChain #31647 (cost tracking PR in progress)
 
 ```bash
 gh issue view https://github.com/langchain-ai/langchain/issues/31647 --comments 2>&1 | tail -40
 ```
 
-Draft: They're building cost tracking. Bridge: "You're building observability — here's what enforcement looks like as the complement."
+Draft: They're building cost tracking. Bridge: "You're building observability, here's what enforcement looks like as the complement."
 Link to: https://agentshield.fly.dev/comparisons/langsmith (enforcement vs observability comparison page)
 
-### 3B. @Zayed024 — RocketRide #1693 (design phase)
+### 3B. @Zayed024, RocketRide #1693 (design phase)
 
 ```bash
 gh issue view https://github.com/rocketride-ai/rocketride/issues/1693 --comments 2>&1 | tail -40
 ```
 
-Draft: They're in design phase — early enough to influence architecture. Bridge: "Before you finalize the cost estimation approach, here's a reference model."
+Draft: They're in design phase, early enough to influence architecture. Bridge: "Before you finalize the cost estimation approach, here's a reference model."
 Link to: https://agentshield.fly.dev/eval (show the rule types as a design reference)
 
-### 3C. @epamLDadayan — Elitea #6010 (implementation phase)
+### 3C. @epamLDadayan, Elitea #6010 (implementation phase)
 
 ```bash
 gh issue view https://github.com/elitea-ai/elitea/issues/6010 --comments 2>&1 | tail -40
 ```
 
-Draft: They're implementing. Bridge: "You mentioned UX improvements — here's what a live dashboard looks like for comparison."
+Draft: They're implementing. Bridge: "You mentioned UX improvements, here's what a live dashboard looks like for comparison."
 Link to: https://agentshield.fly.dev/dashboard
 
 Post all three:
@@ -154,9 +154,9 @@ gh issue comment <url> --body-file /tmp/elitea-bridge.md
 
 ---
 
-## PHASE 4: FRESH OUTREACH — CONVERSION-ORIENTED (15 min)
+## PHASE 4: FRESH OUTREACH, CONVERSION-ORIENTED (15 min)
 
-Unlike Phase 10-11 (volume play), this session's new outreach targets **people who are actively building or fixing something** — not just complaining.
+Unlike Phase 10-11 (volume play), this session's new outreach targets **people who are actively building or fixing something**, not just complaining.
 
 ### 4A. Search for builders, not complainers
 
@@ -175,7 +175,7 @@ gh search issues "feature request" "cost" OR "budget" "agent" label:"feature req
 
 Follow the conversion pattern:
 1. **Acknowledge their work:** "Nice approach on [specific detail from their PR/issue]."
-2. **Offer a specific resource:** Link to the relevant comparison page, eval gym, or risk calculator — not a generic "check us out."
+2. **Offer a specific resource:** Link to the relevant comparison page, eval gym, or risk calculator, not a generic "check us out."
 3. **Soft CTL:** "Curious if [specific AgentShield feature] would complement what you're building."
 4. **Disclosure + link.**
 
@@ -189,9 +189,9 @@ Follow the conversion pattern:
 # If analytics are captured:
 curl -s https://agentshield.fly.dev/api/track -X POST -H 'Content-Type: application/json' -d '{"e":"check_risk_calc_usage","p":"/tools/risk-calculator/","t":'"$(date +%s)"'}' 2>&1
 
-# The analytics endpoint returns {"ok": true} — but we can't count usage. 
+# The analytics endpoint returns {"ok": true}, but we can't count usage. 
 # Instead, check if any email captures happened recently:
-sqlite3 /Users/sipi/agentshield/agentshield.db "SELECT email, source, created_at FROM email_captures ORDER BY created_at DESC LIMIT 10;" 2>/dev/null || echo "DB not accessible locally — Fly.io only"
+sqlite3 /Users/sipi/agentshield/agentshield.db "SELECT email, source, created_at FROM email_captures ORDER BY created_at DESC LIMIT 10;" 2>/dev/null || echo "DB not accessible locally, Fly.io only"
 ```
 
 ### 5B. Check trial signups
@@ -223,7 +223,7 @@ After the risk score calculation, add a visible section:
 ```html
 <div id="trial-cta" style="display:none;margin-top:24px;padding:20px;background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.3);border-radius:8px;text-align:center">
   <h3 style="color:#00d4aa;margin-bottom:8px">Protect Your Agents in 60 Seconds</h3>
-  <p style="color:#888;margin-bottom:16px">Your risk score: <strong id="risk-score-display" style="color:#ff4757">—</strong>. 
+  <p style="color:#888;margin-bottom:16px">Your risk score: <strong id="risk-score-display" style="color:#ff4757">, </strong>. 
   AgentShield Dev prevents this for $19/month. 14-day free trial. No credit card drama.</p>
   <a href="/dashboard" style="display:inline-block;padding:14px 32px;background:#00d4aa;color:#000;border-radius:8px;font-weight:700;text-decoration:none">Start 14-Day Free Trial →</a>
   <p style="color:#666;font-size:12px;margin-top:8px">Or <a href="https://github.com/kindrat86/agentshield" style="color:#00d4aa">self-host for free</a> (MIT license, 60-second deploy)</p>
@@ -262,7 +262,7 @@ curl -s https://agentshield.fly.dev/tools/risk-calculator/ | grep -c "trial-cta"
 sqlite3 /Users/sipi/agentshield/agentshield.db "SELECT COUNT(*) FROM email_captures;" 2>/dev/null
 
 # Commit
-cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 12: Conversion push — trial CTAs, direct asks, risk calc upgrade"
+cd /Users/sipi/agentshield && git add -A && git commit -m "Phase 12: Conversion push, trial CTAs, direct asks, risk calc upgrade"
 git log --oneline -3
 ```
 
@@ -271,7 +271,7 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 12 — Conversion Report
+## Phase 12, Conversion Report
 
 ### Direct Asks Made
 | # | Thread | Person | Ask | Response |

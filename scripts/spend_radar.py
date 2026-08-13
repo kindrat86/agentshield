@@ -1,6 +1,6 @@
 #!/usr/bin/env python3.11
 """
-AgentShield Spend Radar — GitHub Issue/PR Scanner
+AgentShield Spend Radar, GitHub Issue/PR Scanner
 ==================================================
 Searches GitHub for developers complaining about AI agent API costs,
 retry storms, rate limit loops, or runaway spending. Generates draft
@@ -73,7 +73,7 @@ SEARCH_QUERIES = [
     "agent infinite loop API bill in:body in:comments",
 ]
 
-DRAFT_TEMPLATE = """Hi {author}, saw your issue about {issue_title}. We hit the same wall and built AgentShield — a per-transaction spend firewall that evaluates each API call against configurable rules (transaction limits, daily caps, velocity detection) in under 1ms before the call executes. Pure Python stdlib, zero deps.
+DRAFT_TEMPLATE = """Hi {author}, saw your issue about {issue_title}. We hit the same wall and built AgentShield, a per-transaction spend firewall that evaluates each API call against configurable rules (transaction limits, daily caps, velocity detection) in under 1ms before the call executes. Pure Python stdlib, zero deps.
 
 Risk calculator (no signup): https://agentshield.fly.dev/tools/risk-calculator/
 GitHub: https://github.com/kindrat86/agentshield
@@ -115,7 +115,7 @@ def build_report(results: list) -> str:
     if not results:
         return "🛡️ AgentShield Spend Radar: No new high-intent leads found today."
 
-    lines = [f"🛡️ AgentShield Spend Radar — {len(results)} lead(s) found\n"]
+    lines = [f"🛡️ AgentShield Spend Radar, {len(results)} lead(s) found\n"]
 
     for i, item in enumerate(results[:5], 1):
         title = item.get("title", "?")[:80]
@@ -142,7 +142,7 @@ def build_report(results: list) -> str:
 def send_telegram(text: str) -> bool:
     """Send message via Telegram bot."""
     if not TELEGRAM_TOKEN:
-        print("  [TELEGRAM] No bot token found — skipping delivery")
+        print("  [TELEGRAM] No bot token found, skipping delivery")
         return False
 
     payload = json.dumps({

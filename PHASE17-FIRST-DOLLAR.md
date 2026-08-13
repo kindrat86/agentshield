@@ -1,4 +1,4 @@
-# MISSION: First Dollar — Productize the Audit + Sell Certainty
+# MISSION: First Dollar, Productize the Audit + Sell Certainty
 
 ## ⚠️ YOUR KPI: One concrete revenue-generating action deployed
 
@@ -18,7 +18,7 @@ Zero fabrication. Every page deployed → show the live URL. Every person found 
 
 ## WHAT EXISTS (verified)
 
-- **Product:** https://agentshield.fly.dev — 56/56 eval, 9 rule types, 14/14 tests
+- **Product:** https://agentshield.fly.dev, 56/56 eval, 9 rule types, 14/14 tests
 - **PyPI:** `pip install agentshield-spend` works worldwide (import as `agentshield`)
 - **Content:** 3 Dev.to articles, eval gym spec, ZeroClaw case study, 2 comparison pages
 - **Risk calculator:** https://agentshield.fly.dev/tools/risk-calculator/ with trial CTA
@@ -44,8 +44,8 @@ A dark-themed landing page (matching the existing `--bg: #0a0a0a`, `--accent: #0
 
 **Hero:**
 - Headline: "How Much Did Your AI Agents Waste Last Month?"
-- Subhead: "Send us your last 30 days of API bills. We'll run them through our 56-scenario spend-control benchmark and send you a detailed report showing exactly where your money is leaking — and the exact rules that would prevent it."
-- CTA: "Get Your Audit — $299" (links to Stripe checkout)
+- Subhead: "Send us your last 30 days of API bills. We'll run them through our 56-scenario spend-control benchmark and send you a detailed report showing exactly where your money is leaking, and the exact rules that would prevent it."
+- CTA: "Get Your Audit, $299" (links to Stripe checkout)
 - Trust line: "Used by teams running 20+ production AI agents. 56/56 eval gym. MIT licensed."
 
 **What You Get section:**
@@ -73,7 +73,7 @@ A dark-themed landing page (matching the existing `--bg: #0a0a0a`, `--accent: #0
 | Hours | 48 hours, done for you |
 
 **Social proof:**
-- "56/56 eval gym scenarios — the industry's only standardized spend-control benchmark"
+- "56/56 eval gym scenarios, the industry's only standardized spend-control benchmark"
 - "Open source (MIT). Steal the code. Or let us do the analysis for you."
 
 ### 1B. Wire the route
@@ -87,11 +87,11 @@ elif path == '/audit' or path == '/audit/':
 
 ### 1C. Wire the Stripe checkout
 
-The audit needs its own Stripe price. For now, use the existing Team tier price (`price_1U31cUCwGoUDklRe41V2eDvn`) as the checkout — but add a note in the audit page that says "Audit includes 1 month of Team tier free."
+The audit needs its own Stripe price. For now, use the existing Team tier price (`price_1U31cUCwGoUDklRe41V2eDvn`) as the checkout, but add a note in the audit page that says "Audit includes 1 month of Team tier free."
 
 Alternatively, create a static checkout link in Stripe for $299. If you can't create a Stripe price autonomously, use a mailto link:
 ```html
-<a href="mailto:sales@sipiteno.com?subject=AI Agent Spend Audit&body=I'd like to commission a spend audit. Here are my API bills: [attach]">Get Your Audit — $299</a>
+<a href="mailto:sales@sipiteno.com?subject=AI Agent Spend Audit&body=I'd like to commission a spend audit. Here are my API bills: [attach]">Get Your Audit, $299</a>
 ```
 
 ### 1D. Add the audit link to the main navigation
@@ -130,7 +130,7 @@ At 3 AM, my AI agent spent $2,800 in 60 seconds.
 
 The budget alert arrived at 6:14 AM. By then, the agent had moved on to its next task.
 
-Here's what happened — and how I made sure it never happens again. 🧵
+Here's what happened, and how I made sure it never happens again. 🧵
 
 ## Tweet 2 (The Problem)
 AI agents make autonomous decisions about API calls. They choose which model to use, how many tokens to consume, when to retry, when to loop.
@@ -148,7 +148,7 @@ I tried everything:
 Nothing STOPS the transaction BEFORE it executes.
 
 ## Tweet 4 (The Solution)
-So I built AgentShield — a firewall that sits between your agent and the API.
+So I built AgentShield, a firewall that sits between your agent and the API.
 
 Every transaction is evaluated against YOUR rules in <1ms BEFORE the API call fires.
 
@@ -225,7 +225,7 @@ The landing page says "14-day free trial." No urgency. No reason to act today. I
 
 ### 3A. Add a scarcity banner to the landing page
 
-Patch `/Users/sipi/agentshield/public/index.html` — add a banner above the hero section:
+Patch `/Users/sipi/agentshield/public/index.html`, add a banner above the hero section:
 
 ```html
 <div style="background:linear-gradient(90deg,#00d4aa,#00b894);color:#000;padding:10px;text-align:center;font-size:14px;font-weight:600">
@@ -233,9 +233,9 @@ Patch `/Users/sipi/agentshield/public/index.html` — add a banner above the her
 </div>
 ```
 
-(3/50 is honest — we have 0 real customers. But the framing creates urgency. Adjust to "0/50" if you want to be fully literal. The POINT is the cap.)
+(3/50 is honest, we have 0 real customers. But the framing creates urgency. Adjust to "0/50" if you want to be fully literal. The POINT is the cap.)
 
-Actually — be honest. Use:
+Actually, be honest. Use:
 ```html
   ⚡ Founding Customer Special: First 10 teams get lifetime Dev pricing ($19/mo locked forever) + free spend audit ($299 value).
 ```
@@ -275,7 +275,7 @@ Should return > 0.
 ## TASK 4: FIND REAL BUYERS ON TWITTER/X (15 min)
 
 ### Why This Works
-GitHub issues have developers who build their own solutions. Twitter has founders and CTOs who BUY solutions. Find people who publicly complained about AI API costs — they're pre-qualified leads.
+GitHub issues have developers who build their own solutions. Twitter has founders and CTOs who BUY solutions. Find people who publicly complained about AI API costs, they're pre-qualified leads.
 
 ### 4A. Search for cost complaints on Twitter/X
 
@@ -289,11 +289,11 @@ web_search "\"AI API\" \"too expensive\" OR \"cost too much\" OR \"budget exceed
 ### 4B. For each result found
 
 1. Record: the person's name, handle, tweet URL, what they said
-2. Draft a SHORT reply (not a DM — a public reply that adds value):
+2. Draft a SHORT reply (not a DM, a public reply that adds value):
 
 ```
 Template:
-"Damn, that's painful. We built AgentShield after the exact same thing happened to us ($2,800 in 60 seconds). It's a per-transaction firewall — blocks the API call BEFORE it fires if it violates your budget rules. Open source: github.com/kindrat86/agentshield. Or we can audit your spending: agentshield.fly.dev/audit"
+"Damn, that's painful. We built AgentShield after the exact same thing happened to us ($2,800 in 60 seconds). It's a per-transaction firewall, blocks the API call BEFORE it fires if it violates your budget rules. Open source: github.com/kindrat86/agentshield. Or we can audit your spending: agentshield.fly.dev/audit"
 ```
 
 3. Save all replies to `/Users/sipi/agentshield/content/twitter-replies.md`
@@ -407,7 +407,7 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 17 — Revenue Generation Report
+## Phase 17, Revenue Generation Report
 
 ### Paid Audit Page
 - Page created: [YES / NO]
@@ -417,7 +417,7 @@ git log --oneline -3
 
 ### Twitter Thread
 - Thread written: [YES / NO]
-- Posted to Twitter: [YES (URL) / NO — saved for Maryan]
+- Posted to Twitter: [YES (URL) / NO, saved for Maryan]
 - File: content/twitter-thread-2800.md
 
 ### Scarcity + Urgency
@@ -446,7 +446,7 @@ git log --oneline -3
 - Git: [hash]
 
 ### Revenue-Generating Assets Now Live
-1. [Audit page — $299 one-time]
+1. [Audit page, $299 one-time]
 2. [Risk calculator → trial CTA]
 3. [Eval gym → email capture → nurture]
 4. [Landing page → founding customer offer]
@@ -461,18 +461,18 @@ git log --oneline -3
 
 ## HARD RULES
 
-1. **KPI: Deploy ONE revenue-generating asset.** The audit page is the #1 priority — it's a completely different offering (paid service vs free software) that doesn't require the buyer to install anything.
+1. **KPI: Deploy ONE revenue-generating asset.** The audit page is the #1 priority, it's a completely different offering (paid service vs free software) that doesn't require the buyer to install anything.
 
 2. **The guarantee is non-negotiable.** "If we don't find $299 in preventable waste, full refund." This removes all risk for the buyer. It's the most powerful conversion tool we have.
 
 3. **The Twitter thread is the #2 priority.** It's the first time the $2,800 story reaches a mass audience in the right format. If posted, it could reach 5,000-50,000 developers.
 
-4. **Never fabricate engagement, followers, or replies.** The scarcity banner must be truthful ("0/50" or "founding customer special" — no fake counters).
+4. **Never fabricate engagement, followers, or replies.** The scarcity banner must be truthful ("0/50" or "founding customer special", no fake counters).
 
 5. **Check active GitHub conversations.** A reply from @yun520-1 is still the single highest-value event.
 
 6. **Never mention cron. Never touch memory. Never fabricate.**
 
-7. **The audit page must be genuinely useful.** This isn't a landing page — it's a service offering. The copy must reflect real capability (we CAN analyze API bills and identify waste patterns using the 56-scenario benchmark).
+7. **The audit page must be genuinely useful.** This isn't a landing page, it's a service offering. The copy must reflect real capability (we CAN analyze API bills and identify waste patterns using the 56-scenario benchmark).
 
 8. **The eval gym lead magnet converts our best content asset into email captures.** Every developer who downloads it enters the nurture sequence. This is the long-term conversion engine.

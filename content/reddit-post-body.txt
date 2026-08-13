@@ -1,6 +1,6 @@
 At 3 AM, an AI agent made 21 API calls in 60 seconds. $2,800 gone before I woke up.
 
-So I built AgentShield — a firewall that evaluates every transaction before it executes. 7 composable rules in <1ms. Pure Python 3.11 stdlib — no pip install needed.
+So I built AgentShield, a firewall that evaluates every transaction before it executes. 7 composable rules in <1ms. Pure Python 3.11 stdlib, no pip install needed.
 
 **The eval gym has 56 labeled scenarios across 7 categories. Currently 56/56.**
 
@@ -8,4 +8,4 @@ Try the risk calculator (no signup): https://agentshield.fly.dev/tools/risk-calc
 Live eval: https://agentshield.fly.dev/eval
 Architecture deep-dive: https://dev.to/maryan_k_bef6cf83fa64e809/i-built-a-firewall-for-ai-agent-spending-here-is-the-architecture-2560
 
-What rules would you add for your own AI agents? I'm especially curious about time-based rules (e.g., "no spending between 2-6 AM") — does anyone run agents on a schedule?
+What rules would you add for your own AI agents? I'm especially curious about time-based rules (e.g., "no spending between 2-6 AM"), does anyone run agents on a schedule?

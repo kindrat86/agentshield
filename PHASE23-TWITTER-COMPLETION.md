@@ -2,7 +2,7 @@
 
 ## ⚠️ YOUR SINGLE KPI: Post tweets 4-8 as replies to tweet 3
 
-Tweets 1-3 are live from @sipiteno. Tweets 4-8 are in `content/twitter-thread.md`. Post them using Safari's `do JavaScript` AppleScript bridge — the EXACT method that successfully posted the HN comment in Phase 22.
+Tweets 1-3 are live from @sipiteno. Tweets 4-8 are in `content/twitter-thread.md`. Post them using Safari's `do JavaScript` AppleScript bridge, the EXACT method that successfully posted the HN comment in Phase 22.
 
 ---
 
@@ -29,7 +29,7 @@ This works because Safari's `do JavaScript` command doesn't have the Chrome `exe
 6. Wait 2 seconds, verify the tweet appeared
 7. Repeat for tweets 5-8
 
-This is the same React native-setter technique documented in the `macos-browser-driving` skill Section 12 — it bypasses all React form validation by writing directly to the DOM element's value property and dispatching synthetic events.
+This is the same React native-setter technique documented in the `macos-browser-driving` skill Section 12, it bypasses all React form validation by writing directly to the DOM element's value property and dispatching synthetic events.
 
 ---
 
@@ -198,7 +198,7 @@ If the first tweet on the page contains the text of tweet 4 → success.
 ### Step 10: Repeat for tweets 5-8
 
 For each remaining tweet:
-1. The newly posted tweet should now be visible — navigate to it or find its reply button
+1. The newly posted tweet should now be visible, navigate to it or find its reply button
 2. Click reply on the newly posted tweet
 3. Fill with the next tweet's content
 4. Submit
@@ -292,7 +292,7 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 23 — Twitter Thread Completion Report
+## Phase 23, Twitter Thread Completion Report
 
 ### Method Used
 [ ] Safari do JavaScript (execCommand insertText)
@@ -335,7 +335,7 @@ git log --oneline -3
 
 3. **Wait between tweets.** React needs time to process state updates. 3 seconds between each tweet.
 
-4. **Verify every tweet after posting.** Don't assume success — check the DOM.
+4. **Verify every tweet after posting.** Don't assume success, check the DOM.
 
 5. **Never mention cron. Never touch memory. Never fabricate.**
 

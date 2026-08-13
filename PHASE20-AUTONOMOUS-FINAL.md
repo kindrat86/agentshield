@@ -1,9 +1,9 @@
 # MISSION: Complete the Twitter Thread, Post HN Comments, Send 5 More Direct Emails
 
 ## ⚠️ YOUR 3 KPIS (Complete ALL 3)
-1. **Complete the $2,800 Twitter thread** — post tweets 3-8 as replies to tweet 2 from @sipiteno
-2. **Build HN karma** — post 1+ genuine value comment on an active thread
-3. **Send 5 personalized B2B partnership/outreach emails** — to AI agent frameworks and funded startups
+1. **Complete the $2,800 Twitter thread**, post tweets 3-8 as replies to tweet 2 from @sipiteno
+2. **Build HN karma**, post 1+ genuine value comment on an active thread
+3. **Send 5 personalized B2B partnership/outreach emails**, to AI agent frameworks and funded startups
 
 ---
 
@@ -14,7 +14,7 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 
 ## WHAT EXISTS (verified)
 
-- **Product:** https://agentshield.fly.dev — 56/56 eval, 9 rules, 14/14 tests, health OK
+- **Product:** https://agentshield.fly.dev, 56/56 eval, 9 rules, 14/14 tests, health OK
 - **PyPI:** `pip install agentshield-spend` works worldwide (import as `agentshield`)
 - **Audit page:** `/audit` live with $299 pricing, guarantee, scarcity
 - **Landing page:** Scarcity banner, money-back guarantee, audit cross-sell
@@ -30,13 +30,13 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 - **Eval Gym Spec:** Live at `/eval-gym-spec`
 
 ### The Three Remaining Blockers
-1. **Twitter thread incomplete** — 2/8 looks abandoned. Must complete or it hurts the brand.
-2. **HN karma=1** — Blocks Show HN, the #1 distribution channel.
-3. **Zero trial signups** — Need more direct outreach to qualified buyers.
+1. **Twitter thread incomplete**, 2/8 looks abandoned. Must complete or it hurts the brand.
+2. **HN karma=1**, Blocks Show HN, the #1 distribution channel.
+3. **Zero trial signups**, Need more direct outreach to qualified buyers.
 
 ---
 
-## TASK 1: COMPLETE THE TWITTER THREAD (20 min — PRIORITY #1)
+## TASK 1: COMPLETE THE TWITTER THREAD (20 min, PRIORITY #1)
 
 ### 1A. Read the thread content
 ```bash
@@ -149,10 +149,10 @@ show(d)
 
 For the 2 best threads, write comments that:
 1. **Share a real technical insight** from building/deploying AI agents
-2. **Add to the discussion** — correct a misconception, provide a data point, share experience
-3. **Are 3-6 sentences** — substantive but concise
+2. **Add to the discussion**, correct a misconception, provide a data point, share experience
+3. **Are 3-6 sentences**, substantive but concise
 4. **Do NOT mention AgentShield, GitHub, or any link to our project**
-5. **Sound like a real developer** — not marketing copy
+5. **Sound like a real developer**, not marketing copy
 
 Save to `/Users/sipi/agentshield/content/hn-karma-comments-$(date +%Y%m%d).md`.
 
@@ -208,7 +208,7 @@ Hi [first name],
 
 I've been following [Company]'s work on [specific product feature from their site]. Impressive architecture.
 
-We built AgentShield — an open-source per-transaction spend firewall for AI agents. It sits between the agent and the API, evaluating every call against configurable rules in <1ms before it executes. Pure Python stdlib, zero dependencies, MIT licensed.
+We built AgentShield, an open-source per-transaction spend firewall for AI agents. It sits between the agent and the API, evaluating every call against configurable rules in <1ms before it executes. Pure Python stdlib, zero dependencies, MIT licensed.
 
 pip install agentshield-spend
 
@@ -229,7 +229,7 @@ Subject: Enforcement layer complement for [Company]'s observability stack
 
 Hi [first name],
 
-[Company] does great work on AI cost observability. We're building the complementary enforcement layer — AgentShield blocks runaway API calls BEFORE they execute, rather than reporting on them after.
+[Company] does great work on AI cost observability. We're building the complementary enforcement layer, AgentShield blocks runaway API calls BEFORE they execute, rather than reporting on them after.
 
 The two approaches work together: [Company] shows what happened, AgentShield prevents what COULD happen. We've open-sourced the enforcement engine (MIT, Python stdlib) plus a 56-scenario spend-control eval gym.
 
@@ -248,7 +248,7 @@ Subject: AI agent spend audit for [Company]
 
 Hi [first name],
 
-Saw [Company]'s recent [funding/product launch] — congrats. Quick question: how much did your AI agents spend on API calls last month?
+Saw [Company]'s recent [funding/product launch], congrats. Quick question: how much did your AI agents spend on API calls last month?
 
 We offer a professional spend audit: send us your last 30 days of API bills, we run them through our 56-scenario spend-control benchmark, and send you a report showing exactly where money is leaking and the specific rules that would prevent it.
 
@@ -263,7 +263,7 @@ AgentShield
 
 ### 3C. Send the emails via Resend
 
-Use shell curl directly (NOT Python — subprocess mangles Authorization header per memory):
+Use shell curl directly (NOT Python, subprocess mangles Authorization header per memory):
 
 ```bash
 # For each email:
@@ -329,17 +329,17 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 20 — Direct Action Report
+## Phase 20, Direct Action Report
 
 ### Twitter Thread
 - Browser session active: [YES / NO]
-- Tweets 3-8 posted: [count/6 — include URLs if posted]
+- Tweets 3-8 posted: [count/6, include URLs if posted]
 - If failed: [exact copy-paste steps for Maryan]
 
 ### HN Karma
 - Starting karma: 1
 - Threads found: [count]
-- Comments posted: [count — include HN URLs]
+- Comments posted: [count, include HN URLs]
 - Ending karma: [number]
 
 ### B2B Outreach Emails
@@ -349,7 +349,7 @@ git log --oneline -3
 | 2 | ... | ... | ... | ... |
 
 ### GitHub Conversations
-- New replies: [count — list which threads]
+- New replies: [count, list which threads]
 
 ### Quality
 - Health: [ok/error]

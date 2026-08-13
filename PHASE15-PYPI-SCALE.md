@@ -14,9 +14,9 @@ Zero fabrication. Every claim backed by tool output. Package built → show the 
 
 ## WHAT EXISTS RIGHT NOW
 
-- **Live product:** https://agentshield.fly.dev — 56/56 eval, 9 rule types, 14/14 tests
-- **Engine:** `/Users/sipi/agentshield/core/engine.py` — `SpendControlEngine` class, pure stdlib (decimal, datetime)
-- **Eval gym:** `/Users/sipi/agentshield/tests/eval_gym.py` — 56 scenarios, `SCENARIOS` list + `run_eval()` function
+- **Live product:** https://agentshield.fly.dev, 56/56 eval, 9 rule types, 14/14 tests
+- **Engine:** `/Users/sipi/agentshield/core/engine.py`, `SpendControlEngine` class, pure stdlib (decimal, datetime)
+- **Eval gym:** `/Users/sipi/agentshield/tests/eval_gym.py`, 56 scenarios, `SCENARIOS` list + `run_eval()` function
 - **3 Dev.to articles** published (architecture, OpenClaw plugin, ZeroClaw case study)
 - **29 GitHub posts** across 14 repos, 5 active conversations
 - **Comparison pages:** `/comparisons/helicone`, `/comparisons/langsmith`
@@ -29,7 +29,7 @@ The Phase 14 prompt asked for PyPI, Dev.to, awesome lists, Show HN, and GitHub t
 
 ---
 
-## TASK 1: BUILD AND PUBLISH THE PyPI PACKAGE (45 min — PRIORITY #1)
+## TASK 1: BUILD AND PUBLISH THE PyPI PACKAGE (45 min, PRIORITY #1)
 
 ### 1A. Create the package directory structure
 
@@ -49,7 +49,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "agentshield"
 version = "1.0.0"
-description = "A firewall for AI agent spending. 9 composable rules evaluated per-transaction in <1ms. Pure Python stdlib — zero dependencies."
+description = "A firewall for AI agent spending. 9 composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies."
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.11"
@@ -93,7 +93,7 @@ This is what users import. It must export the engine and the eval gym runner.
 ```bash
 cat > /Users/sipi/agentshield/pkg/agentshield/__init__.py << 'PYEOF'
 """
-AgentShield — Firewall for AI Agent Spending
+AgentShield, Firewall for AI Agent Spending
 =============================================
 Pure Python 3.11 stdlib. Zero dependencies.
 9 composable rules evaluated per-transaction in <1ms.
@@ -110,15 +110,15 @@ Quick Start:
     'APPROVED'
 
 Rule Types (9):
-    - transaction_limit   — block if a single transaction exceeds max_amount
-    - daily_total         — block if cumulative daily spend exceeds max_daily
-    - velocity            — flag if transaction count in rolling window exceeds max_count
-    - merchant_allowlist  — block if merchant is NOT in the allowed list
-    - category_block      — block if category IS in the blocked list
-    - session_budget      — session-scoped spend cap with optional decay tightening
-    - cascade_cost        — pre-dispatch EV: call_cost + fail_probability × reversal_cost
-    - edge_cases          — boundary values, malformed inputs, empty rulesets
-    - clean_approval      — normal transactions that should pass
+    - transaction_limit, block if a single transaction exceeds max_amount
+    - daily_total      , block if cumulative daily spend exceeds max_daily
+    - velocity         , flag if transaction count in rolling window exceeds max_count
+    - merchant_allowlist, block if merchant is NOT in the allowed list
+    - category_block   , block if category IS in the blocked list
+    - session_budget   , session-scoped spend cap with optional decay tightening
+    - cascade_cost     , pre-dispatch EV: call_cost + fail_probability × reversal_cost
+    - edge_cases       , boundary values, malformed inputs, empty rulesets
+    - clean_approval   , normal transactions that should pass
 
 MIT Licensed. See: https://github.com/kindrat86/agentshield
 """
@@ -136,7 +136,7 @@ PYEOF
 ### 1D. Copy engine and eval gym into the package
 
 ```bash
-# Copy the engine — it's pure stdlib, no modifications needed
+# Copy the engine, it's pure stdlib, no modifications needed
 cp /Users/sipi/agentshield/core/engine.py /Users/sipi/agentshield/pkg/agentshield/engine.py
 
 # Copy the eval gym
@@ -169,13 +169,13 @@ Must show `from .engine import SpendControlEngine`.
 
 ```bash
 cat > /Users/sipi/agentshield/pkg/README.md << 'MDEOF'
-# AgentShield — Firewall for AI Agent Spending
+# AgentShield, Firewall for AI Agent Spending
 
-Stop runaway AI agents before they burn your budget. 9 composable rules evaluated per-transaction in under 1 millisecond. Pure Python 3.11 stdlib — zero dependencies.
+Stop runaway AI agents before they burn your budget. 9 composable rules evaluated per-transaction in under 1 millisecond. Pure Python 3.11 stdlib, zero dependencies.
 
 ## The $2,800 Wake-Up Call
 
-At 3 AM, an AI agent made 21 API calls to a premium endpoint. Each cost $133. $2,800 gone in 60 seconds — while the developer slept.
+At 3 AM, an AI agent made 21 API calls to a premium endpoint. Each cost $133. $2,800 gone in 60 seconds, while the developer slept.
 
 AgentShield sits between your agent and the API. Every transaction is evaluated against your rules BEFORE it executes. First rule that matches wins. All in under 1ms.
 
@@ -215,7 +215,7 @@ result = engine.evaluate(
     prior_transactions=[]
 )
 
-print(result["decision"])  # "BLOCKED" — exceeds $500 limit
+print(result["decision"])  # "BLOCKED", exceeds $500 limit
 print(result["reason"])    # "Transaction amount $750.00 exceeds limit of $500.00"
 ```
 
@@ -245,10 +245,10 @@ print(f"{results['passed']}/{results['total']} passed")
 
 ## Tech Stack
 
-- **Language:** Python 3.11+ (stdlib only — zero pip installs)
+- **Language:** Python 3.11+ (stdlib only, zero pip installs)
 - **Monetary precision:** `decimal.Decimal` (never float)
 - **Latency:** <1ms per evaluation
-- **State:** Stateless engine — deterministic, testable, composable
+- **State:** Stateless engine, deterministic, testable, composable
 
 ## Links
 
@@ -308,7 +308,7 @@ Must show:
 
 ### 1I. Test the built package in a clean venv
 
-This is critical — it must work from a clean install with zero context.
+This is critical, it must work from a clean install with zero context.
 
 ```bash
 # Create a test venv
@@ -381,12 +381,12 @@ TWINE_USERNAME=__token__ TWINE_PASSWORD=pypi-YOUR_TOKEN python3.11 -m twine uplo
 ```
 
 **If NO credentials exist:**
-1. Try to register a PyPI account — this requires email verification, so it will likely fail autonomously. But try:
+1. Try to register a PyPI account, this requires email verification, so it will likely fail autonomously. But try:
    ```bash
    # Check if we can use the requests/httpx to register
    python3.11 -c "
    import urllib.request, json
-   # PyPI registration is through their web form — not a simple API
+   # PyPI registration is through their web form, not a simple API
    print('PyPI registration requires web form + email verification')
    "
    ```
@@ -431,7 +431,7 @@ cp -r /Users/sipi/agentshield/pkg/agentshield /Users/sipi/agentshield/agentshiel
 
 ---
 
-## TASK 2: AWESOME LIST SUBMISSIONS (15 min — PRIORITY #2)
+## TASK 2: AWESOME LIST SUBMISSIONS (15 min, PRIORITY #2)
 
 ### 2A. Add GitHub topics to the repo
 
@@ -471,10 +471,10 @@ gh repo view OWNER/REPO --json description 2>/dev/null
 
 # Create an issue requesting addition
 gh issue create --repo OWNER/awesome-ai-agents \
-  --title "Add AgentShield — AI Agent Spend Firewall (open source, MIT)" \
+  --title "Add AgentShield, AI Agent Spend Firewall (open source, MIT)" \
   --body "## AgentShield
 
-**Description:** A per-transaction spend firewall for AI agents. Evaluates every API call against 9 composable rules in <1ms before it executes. Pure Python stdlib — zero dependencies.
+**Description:** A per-transaction spend firewall for AI agents. Evaluates every API call against 9 composable rules in <1ms before it executes. Pure Python stdlib, zero dependencies.
 
 **GitHub:** https://github.com/kindrat86/agentshield
 **Website:** https://agentshield.fly.dev
@@ -482,7 +482,7 @@ gh issue create --repo OWNER/awesome-ai-agents \
 **Stars:** Growing
 **Eval Gym:** 56/56 test scenarios (MIT licensed)
 
-**Why it belongs here:** AI agents make autonomous API calls with no budget awareness. AgentShield is the only open-source per-transaction enforcement layer (not observability — enforcement). Self-hostable in 60 seconds. Now available on PyPI: \`pip install agentshield\`.
+**Why it belongs here:** AI agents make autonomous API calls with no budget awareness. AgentShield is the only open-source per-transaction enforcement layer (not observability, enforcement). Self-hostable in 60 seconds. Now available on PyPI: \`pip install agentshield\`.
 
 **Category:** Open Source / Tools / Cost Management" 2>&1
 ```
@@ -502,7 +502,7 @@ For each relevant list, create an issue or PR following their contribution forma
 
 ---
 
-## TASK 3: SHOW HN DRAFT + ATTEMPT (15 min — PRIORITY #3)
+## TASK 3: SHOW HN DRAFT + ATTEMPT (15 min, PRIORITY #3)
 
 ### 3A. Check HN karma
 
@@ -566,7 +566,7 @@ Capture. If logged in as SipitenoMK:
 
 If karma is too low (< 5) or not logged in:
 - Save the draft
-- Note: "Show HN requires manual submission — karma may be too low"
+- Note: "Show HN requires manual submission, karma may be too low"
 
 ---
 
@@ -594,7 +594,7 @@ If @yun520-1 or @theonlyhennygod replied → respond immediately. That's worth m
 curl -s https://agentshield.fly.dev/health
 curl -s https://agentshield.fly.dev/eval | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'{d[\"passed\"]}/{d[\"total\"]}')"
 
-# Tests (core — the package doesn't affect the server)
+# Tests (core, the package doesn't affect the server)
 cd /Users/sipi/agentshield && LICENSING_MASTER_SECRET=test python3.11 tests/run_tests.py 2>&1 | tail -3
 
 # Package build artifacts
@@ -614,7 +614,7 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 15 — Distribution Scale Report
+## Phase 15, Distribution Scale Report
 
 ### PyPI Package
 - Package directory created: [YES / NO]
@@ -622,9 +622,9 @@ git log --oneline -3
 - __init__.py with exports: [YES / NO]
 - Engine + eval_gym copied with fixed imports: [YES / NO]
 - README.md created: [YES / NO]
-- Package built (wheel + sdist): [YES / NO — show ls dist/]
-- Clean venv test (56/56): [YES / NO — show output]
-- Published to PyPI: [YES (include URL) / NO — include exact steps for Maryan]
+- Package built (wheel + sdist): [YES / NO, show ls dist/]
+- Clean venv test (56/56): [YES / NO, show output]
+- Published to PyPI: [YES (include URL) / NO, include exact steps for Maryan]
 - pip install agentshield works: [YES / NO / NOT TESTED]
 
 ### GitHub Topics
@@ -655,7 +655,7 @@ git log --oneline -3
 - Git: [hash]
 
 ### Maryan Action Required
-- [PyPI publishing steps if credentials blocked — copy-paste ready]
+- [PyPI publishing steps if credentials blocked, copy-paste ready]
 - [Show HN submission if karma blocked]
 ```
 

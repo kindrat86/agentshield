@@ -1,9 +1,9 @@
 # MISSION: Complete the Twitter Thread, Post HN Comments, Send 5 Direct Emails
 
 ## ⚠️ YOUR 3 KPIS (Complete ALL 3)
-1. **Complete the $2,800 Twitter thread** — post tweets 3-8 as replies to tweet 2 from @sipiteno
-2. **Build HN karma** — post 1+ genuine value comment on an active thread
-3. **Send 5 personalized outreach emails** — directly to founders/CTOs who complained about AI costs
+1. **Complete the $2,800 Twitter thread**, post tweets 3-8 as replies to tweet 2 from @sipiteno
+2. **Build HN karma**, post 1+ genuine value comment on an active thread
+3. **Send 5 personalized outreach emails**, directly to founders/CTOs who complained about AI costs
 
 ---
 
@@ -14,7 +14,7 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 
 ## WHAT EXISTS (verified)
 
-- **Product:** https://agentshield.fly.dev — 56/56 eval, 9 rules, 14/14 tests, health OK
+- **Product:** https://agentshield.fly.dev, 56/56 eval, 9 rules, 14/14 tests, health OK
 - **PyPI:** `pip install agentshield-spend` works worldwide (import as `agentshield`)
 - **Audit page:** `/audit` live with $299 pricing, guarantee, scarcity
 - **Landing page:** Scarcity banner, money-back guarantee, audit cross-sell
@@ -30,13 +30,13 @@ Zero fabrication. Every claim backed by tool output. Never mention cron. Never t
 ### Critical Context
 The Twitter thread is the highest-leverage action available. Tweets 1-2 are live and visible. But an incomplete thread (only 2 of 8 tweets) looks abandoned. **Completing it is priority #1.**
 
-HN karma is 1. We need just ONE upvoted comment to reach karma 2, which unlocks Show HN — the single biggest distribution channel.
+HN karma is 1. We need just ONE upvoted comment to reach karma 2, which unlocks Show HN, the single biggest distribution channel.
 
 Zero personal outreach emails have been sent. Every previous "ask" was a public GitHub comment. Direct email is 10x more effective.
 
 ---
 
-## TASK 1: COMPLETE THE TWITTER THREAD (20 min — PRIORITY #1)
+## TASK 1: COMPLETE THE TWITTER THREAD (20 min, PRIORITY #1)
 
 ### 1A. Read the thread content
 ```bash
@@ -157,10 +157,10 @@ show(d)
 
 For the 2 best threads, write comments that:
 1. **Share a real technical insight** from building/deploying AI agents
-2. **Add to the discussion** — correct a misconception, provide a data point, share experience
-3. **Are 3-6 sentences** — substantive but concise
+2. **Add to the discussion**, correct a misconception, provide a data point, share experience
+3. **Are 3-6 sentences**, substantive but concise
 4. **Do NOT mention AgentShield, GitHub, or any link to our project**
-5. **Sound like a real developer** — not marketing copy
+5. **Sound like a real developer**, not marketing copy
 
 Save to `/Users/sipi/agentshield/content/hn-karma-comments-$(date +%Y%m%d).md`.
 
@@ -206,20 +206,20 @@ For each result:
 
 ### 3B. Draft 5 personalized emails
 
-Each email must be UNIQUE — not a template. Reference their specific complaint.
+Each email must be UNIQUE, not a template. Reference their specific complaint.
 
 ```
-Subject: Your [exact amount] [OpenAI/Anthropic] bill — preventing the next one
+Subject: Your [exact amount] [OpenAI/Anthropic] bill, preventing the next one
 
 Hi [first name],
 
 I saw your [tweet/post/comment] about [exact complaint, e.g., "waking up to a $500 OpenAI bill from an agent loop"].
 
-We built AgentShield to solve exactly this. It's a per-transaction spend firewall that sits between your agents and the API — every call is evaluated against your budget rules in <1ms before it executes. If a call would blow the budget, it gets blocked.
+We built AgentShield to solve exactly this. It's a per-transaction spend firewall that sits between your agents and the API, every call is evaluated against your budget rules in <1ms before it executes. If a call would blow the budget, it gets blocked.
 
 It's open source (MIT) and on PyPI: `pip install agentshield-spend`
 
-If you'd rather not install anything, we offer a professional spend audit — send us your last 30 days of API bills and we'll map every wasteful transaction to the specific rules that would prevent it. $299, fully refundable if we don't find $299 in preventable waste.
+If you'd rather not install anything, we offer a professional spend audit, send us your last 30 days of API bills and we'll map every wasteful transaction to the specific rules that would prevent it. $299, fully refundable if we don't find $299 in preventable waste.
 
 Risk calculator (no signup, 30 seconds): https://agentshield.fly.dev/tools/risk-calculator/
 Audit details: https://agentshield.fly.dev/audit
@@ -244,7 +244,7 @@ curl -s -X POST "https://api.resend.com/emails" \
     "from": "AgentShield <sales@sipiteno.com>",
     "to": ["RECIPIENT_EMAIL"],
     "bcc": ["sales@sipiteno.com"],
-    "subject": "Your [amount] OpenAI bill — preventing the next one",
+    "subject": "Your [amount] OpenAI bill, preventing the next one",
     "html": "<p>Hi [name],</p><p>I saw your [tweet/post] about [complaint]...</p><p>[Full email HTML]</p>"
   }'
 ```
@@ -296,18 +296,18 @@ git log --oneline -3
 ## REPORT FORMAT
 
 ```
-## Phase 19 — Direct Action Report
+## Phase 19, Direct Action Report
 
 ### Twitter Thread
 - Tweets 1-2 status: [Already live / Missing]
-- Tweets 3-8 posted: [count/6 — include URLs if posted]
+- Tweets 3-8 posted: [count/6, include URLs if posted]
 - Browser used: [Comet / Safari / Failed]
 - If failed: [exact copy-paste steps for Maryan]
 
 ### HN Karma
 - Starting karma: 1
 - Threads found: [count]
-- Comments posted: [count — include HN URLs]
+- Comments posted: [count, include HN URLs]
 - Ending karma: [number]
 
 ### B2B Outreach Emails
@@ -317,7 +317,7 @@ git log --oneline -3
 | 2 | ... | ... | "..." | ... | ... |
 
 ### GitHub Conversations
-- New replies: [count — list which threads]
+- New replies: [count, list which threads]
 
 ### Quality
 - Health: [ok/error]

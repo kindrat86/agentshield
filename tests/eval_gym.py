@@ -1,5 +1,5 @@
 """
-AgentShield Eval Gym — 50 Scenarios
+AgentShield Eval Gym, 50 Scenarios
 =====================================
 50 labeled test cases spanning 7 categories, testing the SpendControlEngine
 against real-world agent spending patterns.
@@ -126,7 +126,7 @@ SCENARIOS = [
      "rules": [{"id": "r1", "type": "transaction_limit", "priority": 1, "params": {"max_amount": 500}, "action": "BLOCK"},
                {"id": "r2", "type": "merchant_allowlist", "priority": 2, "params": {"allowed": ["openai-api"]}, "action": "BLOCK"}],
      "prior_transactions": [], "expected": "BLOCKED",
-     "description": "Over limit — transaction_limit fires first (priority 1)"},
+     "description": "Over limit, transaction_limit fires first (priority 1)"},
 
     {"id": 15, "category": "transaction_limit_block",
      "transaction": _txn("t015", amount=501.00),
@@ -372,7 +372,7 @@ SCENARIOS = [
      "rules": [{"id": "r1", "type": "transaction_limit", "priority": 1, "params": {"max_amount": 5}, "action": "BLOCK"},
                {"id": "r2", "type": "transaction_limit", "priority": 1, "params": {"max_amount": 5000}, "action": "BLOCK"}],
      "prior_transactions": [], "expected": "BLOCKED",
-     "description": "Same priority — first rule (max_amount=5) blocks $10"},
+     "description": "Same priority, first rule (max_amount=5) blocks $10"},
 
     # ─── Session Budget (inspired by HeartFlow / @yun520-1) ───
     {"id": 51, "category": "session_budget",
@@ -393,7 +393,7 @@ SCENARIOS = [
          {**_txn("t052a", amount=200.00), "session_id": "sess_2"},
      ],
      "expected": "APPROVED",
-     "description": "Session total $300 under $500 session budget — approved"},
+     "description": "Session total $300 under $500 session budget, approved"},
 
     {"id": 53, "category": "session_budget",
      "transaction": {**_txn("t053", amount=50.00), "session_id": "sess_3"},
@@ -403,7 +403,7 @@ SCENARIOS = [
          {**_txn("t053a", amount=200.00), "session_id": "sess_4"},  # Different session
      ],
      "expected": "APPROVED",
-     "description": "Prior transaction in different session — not counted"},
+     "description": "Prior transaction in different session, not counted"},
 
     # ─── Cascade Cost (inspired by HeartFlow / @yun520-1) ───
     {"id": 54, "category": "cascade_cost",
@@ -437,7 +437,7 @@ SCENARIOS = [
                 "params": {"max_daily": 100}, "action": "BLOCK"}],
      "prior_transactions": [_prior("agent_a", -1000.00, "2026-08-10T09:00:00Z")],
      "expected": "BLOCKED",
-     "description": "Negative prior amount ($-1000) should not reduce daily total — $500 > $100 cap → BLOCKED"},
+     "description": "Negative prior amount ($-1000) should not reduce daily total, $500 > $100 cap → BLOCKED"},
 
     {"id": 58, "category": "session_budget",
      "transaction": {**_txn("t058", amount=190.00), "session_id": "s1"},
@@ -447,7 +447,7 @@ SCENARIOS = [
          {**_prior("a", -95.00, "2026-08-10T09:00:00Z"), "session_id": "s1"}
      ],
      "expected": "BLOCKED",
-     "description": "Negative prior session amount ($-95) should not reduce session total — $190 > $100 → BLOCKED"},
+     "description": "Negative prior session amount ($-95) should not reduce session total, $190 > $100 → BLOCKED"},
 
     {"id": 59, "category": "transaction_limit_block",
      "transaction": _txn("t059", amount=-1000000.00),
@@ -533,7 +533,7 @@ def generate_report(results: dict) -> str:
     if results['failures']:
         md += "\n## Failures\n\n"
         for f in results['failures']:
-            md += f"- **Scenario {f['scenario']}**: Expected `{f['expected']}`, got `{f['got']}` — {f['description']}\n"
+            md += f"- **Scenario {f['scenario']}**: Expected `{f['expected']}`, got `{f['got']}`, {f['description']}\n"
 
     return md
 

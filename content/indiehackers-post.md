@@ -1,4 +1,4 @@
-# Indie Hackers Post — AgentShield
+# Indie Hackers Post, AgentShield
 
 ## Title
 I built a firewall for AI agent spending after an agent burned $2,800 in 60 seconds while I slept
@@ -7,7 +7,7 @@ I built a firewall for AI agent spending after an agent burned $2,800 in 60 seco
 
 At 3 AM, an AI agent I deployed made 21 API calls to a premium endpoint. Each call cost $133. That's $2,800 gone before I woke up.
 
-The budget alert email arrived three hours after the damage was done. The agent had already moved on — oblivious to what it had cost.
+The budget alert email arrived three hours after the damage was done. The agent had already moved on, oblivious to what it had cost.
 
 So I built AgentShield. It's a per-transaction firewall that sits between your agent and the API. Every call is evaluated against 7 composable rules in under 1ms:
 
@@ -17,7 +17,7 @@ So I built AgentShield. It's a per-transaction firewall that sits between your a
 - Merchant allowlists (only approved providers)
 - Category blocks (no crypto exchanges, no gambling APIs)
 
-The whole thing is Python 3.11 standard library — zero pip dependencies. Multi-tenant, offline licensing, SQLite WAL storage. Runs on Fly.io's free tier (256MB RAM).
+The whole thing is Python 3.11 standard library, zero pip dependencies. Multi-tenant, offline licensing, SQLite WAL storage. Runs on Fly.io's free tier (256MB RAM).
 
 **Stats:**
 - Evaluation: 56/56 scenarios passing across 9 categories
