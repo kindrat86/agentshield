@@ -11,13 +11,13 @@ and returns a decision: APPROVED, BLOCKED, or FLAGGED. It is:
   - Monetary-safe: uses decimal.Decimal for all amount arithmetic (never float).
 
 Rule Types (9):
-  1. transaction_limit   — block if a single transaction exceeds max_amount
-  2. daily_total         — block if cumulative daily spend exceeds max_daily
-  3. velocity            — flag if transaction count in rolling window exceeds max_count
-  4. merchant_allowlist  — block if merchant is NOT in the allowed list
-  5. category_block      — block if category IS in the blocked list
-  6. session_budget      — block if cumulative session spend exceeds max_session (resets per session)
-  7. cascade_cost        — block if estimated cascade cost (call + retry probability × reversal) exceeds threshold
+  1. transaction_limit  , block if a single transaction exceeds max_amount
+  2. daily_total        , block if cumulative daily spend exceeds max_daily
+  3. velocity           , flag if transaction count in rolling window exceeds max_count
+  4. merchant_allowlist , block if merchant is NOT in the allowed list
+  5. category_block     , block if category IS in the blocked list
+  6. session_budget     , block if cumulative session spend exceeds max_session (resets per session)
+  7. cascade_cost       , block if estimated cascade cost (call + retry probability × reversal) exceeds threshold
 """
 
 from decimal import Decimal, InvalidOperation
@@ -82,7 +82,7 @@ class SpendControlEngine:
             if result is not None:
                 return result
 
-        # No rule matched — approve
+        # No rule matched, approve
         return {
             "decision": "APPROVED",
             "reason": "All rules passed",
@@ -101,10 +101,10 @@ class SpendControlEngine:
             }
 
         `outcome` is one of:
-          - "triggered"   — rule produced the decision
-          - "passed"      — rule evaluated and did not fire
-          - "skipped"     — rule could not be evaluated (missing/invalid params)
-          - "not_reached" — lower priority than the winning rule, never evaluated
+          - "triggered"  , rule produced the decision
+          - "passed"     , rule evaluated and did not fire
+          - "skipped"    , rule could not be evaluated (missing/invalid params)
+          - "not_reached", lower priority than the winning rule, never evaluated
 
         `detail` carries the actual-vs-threshold values for the triggered rule
         (rule-type specific) and is None otherwise.
@@ -175,7 +175,7 @@ class SpendControlEngine:
             return self._to_decimal_safe(params.get('max_session')) is not None
         if rule_type == 'cascade_cost':
             return self._to_decimal_safe(params.get('max_cascade_cost')) is not None
-        return False  # unknown rule type — the engine skips it silently
+        return False  # unknown rule type, the engine skips it silently
 
     def _trace_detail(self, rule: dict, transaction: dict, txn_amount: Decimal,
                       prior_transactions: list) -> dict | None:
@@ -308,7 +308,7 @@ class SpendControlEngine:
         elif rule_type == 'cascade_cost':
             return self._check_cascade_cost(rule_id, txn_amount, transaction, params, action)
         else:
-            # Unknown rule type — skip silently
+            # Unknown rule type, skip silently
             return None
 
     def _check_transaction_limit(self, rule_id: str, txn_amount: Decimal, params: dict, action: str):
@@ -410,7 +410,7 @@ class SpendControlEngine:
           require_session_id: Optional bool (default False). When True, a transaction
                        whose session_id is None/missing is blocked (or flagged, per
                        `action`) because callers must always provide a session id for
-                       budget tracking — strict guardrail mode.
+                       budget tracking, strict guardrail mode.
         """
         max_session = self._to_decimal_safe(params.get('max_session'))
         if max_session is None:

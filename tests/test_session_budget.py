@@ -1,4 +1,4 @@
-"""AgentShield — session_budget `None`-session bypass regression tests (issue #7).
+"""AgentShield, session_budget `None`-session bypass regression tests (issue #7).
 
 Verifies that a `session_id` equal to `None` is treated as a real "default" session:
 
@@ -48,7 +48,7 @@ def _session_rule(max_session, **extra_params):
 
 
 class TestSessionBudgetNoneBypass(unittest.TestCase):
-    """Case 1 — the `session_id is None` bypass is closed."""
+    """Case 1, the `session_id is None` bypass is closed."""
 
     def setUp(self):
         self.engine = SpendControlEngine()
@@ -82,7 +82,7 @@ class TestSessionBudgetNoneBypass(unittest.TestCase):
 
 
 class TestSessionBudgetIsolation(unittest.TestCase):
-    """Case 2 — named sessions never bleed into the None bucket (or each other)."""
+    """Case 2, named sessions never bleed into the None bucket (or each other)."""
 
     def setUp(self):
         self.engine = SpendControlEngine()
@@ -109,9 +109,9 @@ class TestSessionBudgetIsolation(unittest.TestCase):
         """sess_1 txn excludes None-session and sess_2 priors."""
         txn = _txn(amount="450.00", session_id="sess_1")
         prior = [
-            _prior("100.00", None),       # default bucket — must NOT count
-            _prior("100.00", "sess_2"),   # other session — must NOT count
-            _prior("50.00", "sess_1"),    # same session — counts
+            _prior("100.00", None),       # default bucket, must NOT count
+            _prior("100.00", "sess_2"),   # other session, must NOT count
+            _prior("50.00", "sess_1"),    # same session, counts
         ]
         # 450 + 50 = 500 <= 500 → approved; were the others counted it would reach 700.
         result = self.engine.evaluate(txn, _session_rule(500), prior)
@@ -127,7 +127,7 @@ class TestSessionBudgetIsolation(unittest.TestCase):
 
 
 class TestSessionBudgetDecimalPrecision(unittest.TestCase):
-    """Case 3 — Decimal-exact arithmetic; never float."""
+    """Case 3, Decimal-exact arithmetic; never float."""
 
     def setUp(self):
         self.engine = SpendControlEngine()
@@ -202,7 +202,7 @@ class TestSessionBudgetTrace(unittest.TestCase):
 
 
 class TestSessionBudgetStrictGuardrail(unittest.TestCase):
-    """require_session_id — strict mode blocks/flags a None session_id."""
+    """require_session_id, strict mode blocks/flags a None session_id."""
 
     def setUp(self):
         self.engine = SpendControlEngine()

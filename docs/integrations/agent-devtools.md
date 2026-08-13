@@ -1,7 +1,7 @@
 # AgentShield → Agent-Devtools integration schema (draft v1)
 
 Goal: emit one structured event per spend evaluation so Agent-Devtools can render
-AgentShield decisions as a first-class trace source — *"what did the firewall
+AgentShield decisions as a first-class trace source, *"what did the firewall
 block"* alongside *"what did the agent actually do."*
 
 ## What the engine produces today
@@ -16,7 +16,7 @@ single summary dict:
 - `decision` ∈ `APPROVED | BLOCKED | FLAGGED`
 - `severity` ∈ `high | medium | none`
 
-This is the **winning** decision only — the first rule to trigger (lowest
+This is the **winning** decision only, the first rule to trigger (lowest
 `priority` number) wins, and the per-rule reasoning that led there is not exposed.
 That's the gap this schema fills for a visual tracer.
 
@@ -65,7 +65,7 @@ That's the gap this schema fills for a visual tracer.
 
 Notes:
 
-- `amount` and all money values are **strings** (Decimal-safe — the engine never
+- `amount` and all money values are **strings** (Decimal-safe, the engine never
   uses float; keep that guarantee across the wire).
 - `trace_id` is the join key into Agent-Devtools. `agent_id` / `session_id` /
   `transaction.id` are secondary correlation fields.
@@ -119,13 +119,13 @@ class SpendEvaluationEvent(BaseModel):
 ## Per-rule evaluation trace (the value-add)
 
 `evaluate()` returns only the winning rule. For a tracer to show *why* a run was
-blocked — and what was **close** to blocking — we add an `evaluation` array that
+blocked, and what was **close** to blocking, we add an `evaluation` array that
 records every rule's outcome:
 
-- `triggered` — rule fired and produced the decision
-- `passed` — rule evaluated, did not fire
-- `skipped` — rule had absent/invalid params and was ignored
-- `not_reached` — lower priority than the winning rule, never evaluated
+- `triggered`, rule fired and produced the decision
+- `passed`, rule evaluated, did not fire
+- `skipped`, rule had absent/invalid params and was ignored
+- `not_reached`, lower priority than the winning rule, never evaluated
 
 `detail` is rule-type-specific (actual vs. threshold):
 
@@ -139,15 +139,15 @@ records every rule's outcome:
 | `session_budget` | `session_total`, `max_session`, `session_id` |
 | `cascade_cost` | `cascade_cost`, `max_cascade_cost`, `fail_probability`, `reversal_cost` |
 
-> This per-rule trace is a **proposal** — the engine currently returns the winning
+> This per-rule trace is a **proposal**, the engine currently returns the winning
 > decision only, so exposing it needs a thin emitter wrapper that re-runs each
 > rule's check and records its outcome (the rule checks are already pure functions,
 > so this is mechanical).
 
 ## Open questions for the integration
 
-1. **Delivery** — ndjson stream (stdout/file) fits AgentShield's stdlib, zero-dependency
+1. **Delivery**, ndjson stream (stdout/file) fits AgentShield's stdlib, zero-dependency
    ethos; a webhook push is possible but adds a dependency. Which does Agent-Devtools
    prefer to consume?
-2. **`trace_id` join** — what correlation id does Agent-Devtools already use for its
+2. **`trace_id` join**, what correlation id does Agent-Devtools already use for its
    traces? Align the naming so a blocked AgentShield event links straight to the replay.
