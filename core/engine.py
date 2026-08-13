@@ -90,6 +90,201 @@ class SpendControlEngine:
             "severity": "none"
         }
 
+    def evaluate_with_trace(self, transaction: dict, rules: list, prior_transactions: list) -> dict:
+        """
+        Evaluate a transaction and additionally return a per-rule evaluation trace.
+
+        Returns:
+            {
+              "decision": {decision, reason, rule_triggered, severity},
+              "evaluation": [{"rule_id", "type", "priority", "outcome", "detail"}, ...]
+            }
+
+        `outcome` is one of:
+          - "triggered"   — rule produced the decision
+          - "passed"      — rule evaluated and did not fire
+          - "skipped"     — rule could not be evaluated (missing/invalid params)
+          - "not_reached" — lower priority than the winning rule, never evaluated
+
+        `detail` carries the actual-vs-threshold values for the triggered rule
+        (rule-type specific) and is None otherwise.
+        """
+        decision = self.evaluate(transaction, rules, prior_transactions)
+        evaluation = self._build_evaluation_trace(transaction, rules, prior_transactions)
+        return {"decision": decision, "evaluation": evaluation}
+
+    def _build_evaluation_trace(self, transaction: dict, rules: list, prior_transactions: list) -> list:
+        """Build the per-rule evaluation trace (used by evaluate_with_trace)."""
+        # If the transaction itself was invalid, no rule was meaningfully evaluated.
+        if not transaction or not all(k in transaction for k in ('amount', 'merchant', 'category')):
+            return []
+        try:
+            txn_amount = self._to_decimal(transaction['amount'])
+        except (InvalidOperation, TypeError, ValueError):
+            return []
+
+        sorted_rules = sorted(
+            enumerate(rules),
+            key=lambda pair: (pair[1].get('priority', 999), pair[0])
+        )
+
+        triggered_seen = False
+        trace = []
+        for _original_index, rule in sorted_rules:
+            entry = {
+                "rule_id": rule.get('id', 'unknown'),
+                "type": rule.get('type'),
+                "priority": rule.get('priority', 999),
+                "outcome": None,
+                "detail": None,
+            }
+
+            if triggered_seen:
+                entry["outcome"] = "not_reached"
+            elif not self._rule_applicable(rule, transaction):
+                entry["outcome"] = "skipped"
+            else:
+                result = self._evaluate_rule(rule, transaction, txn_amount, prior_transactions)
+                if result is not None:
+                    entry["outcome"] = "triggered"
+                    entry["detail"] = self._trace_detail(rule, transaction, txn_amount, prior_transactions)
+                    triggered_seen = True
+                else:
+                    entry["outcome"] = "passed"
+
+            trace.append(entry)
+        return trace
+
+    def _rule_applicable(self, rule: dict, transaction: dict) -> bool:
+        """Whether a rule has the params it needs to actually evaluate."""
+        rule_type = rule.get('type')
+        params = rule.get('params', {})
+        if rule_type == 'transaction_limit':
+            return self._to_decimal_safe(params.get('max_amount')) is not None
+        if rule_type == 'daily_total':
+            return self._to_decimal_safe(params.get('max_daily')) is not None
+        if rule_type == 'velocity':
+            if params.get('window_minutes') is None or params.get('max_count') is None:
+                return False
+            return self._parse_ts(transaction.get('timestamp')) is not None
+        if rule_type == 'merchant_allowlist':
+            return 'allowed' in params
+        if rule_type == 'category_block':
+            return 'blocked' in params
+        if rule_type == 'session_budget':
+            return self._to_decimal_safe(params.get('max_session')) is not None
+        if rule_type == 'cascade_cost':
+            return self._to_decimal_safe(params.get('max_cascade_cost')) is not None
+        return False  # unknown rule type — the engine skips it silently
+
+    def _trace_detail(self, rule: dict, transaction: dict, txn_amount: Decimal,
+                      prior_transactions: list) -> dict | None:
+        """Compute the actual-vs-threshold detail for a triggered rule."""
+        rule_type = rule.get('type')
+        params = rule.get('params', {})
+        agent_id = transaction.get('agent_id')
+
+        if rule_type == 'transaction_limit':
+            return {
+                "actual": self._fmt(txn_amount),
+                "limit": self._fmt(self._to_decimal_safe(params.get('max_amount'))),
+            }
+
+        if rule_type == 'daily_total':
+            max_daily = self._to_decimal_safe(params.get('max_daily'))
+            daily_total = txn_amount
+            txn_date = self._extract_date(transaction.get('timestamp'))
+            for prior in prior_transactions:
+                if agent_id and prior.get('agent_id') != agent_id:
+                    continue
+                prior_date = self._extract_date(prior.get('timestamp'))
+                if txn_date and prior_date and prior_date == txn_date:
+                    prior_amount = self._to_decimal_safe(prior.get('amount'))
+                    if prior_amount is not None and prior_amount > 0:
+                        daily_total += prior_amount
+            return {
+                "daily_total": self._fmt(daily_total),
+                "max_daily": self._fmt(max_daily),
+                "date": txn_date,
+            }
+
+        if rule_type == 'velocity':
+            window_minutes = params.get('window_minutes')
+            max_count = params.get('max_count')
+            txn_ts = self._parse_ts(transaction.get('timestamp'))
+            window_start = txn_ts - timedelta(minutes=window_minutes)
+            count_in_window = 0
+            for prior in prior_transactions:
+                if agent_id and prior.get('agent_id') != agent_id:
+                    continue
+                prior_ts = self._parse_ts(prior.get('timestamp'))
+                if prior_ts and window_start <= prior_ts <= txn_ts:
+                    count_in_window += 1
+            return {
+                "count_in_window": count_in_window + 1,
+                "window_minutes": window_minutes,
+                "max_count": max_count,
+            }
+
+        if rule_type == 'merchant_allowlist':
+            return {
+                "merchant": transaction.get('merchant'),
+                "allowed": params.get('allowed', []),
+            }
+
+        if rule_type == 'category_block':
+            return {
+                "category": transaction.get('category'),
+                "blocked": params.get('blocked', []),
+            }
+
+        if rule_type == 'session_budget':
+            max_session = self._to_decimal_safe(params.get('max_session'))
+            session_field = params.get('session_id', 'session_id')
+            session_id = transaction.get(session_field)
+            session_total = txn_amount
+            for prior in prior_transactions:
+                if agent_id and prior.get('agent_id') != agent_id:
+                    continue
+                if session_id and prior.get(session_field) == session_id:
+                    prior_amount = self._to_decimal_safe(prior.get('amount'))
+                    if prior_amount is not None and prior_amount > 0:
+                        session_total += prior_amount
+            return {
+                "session_total": self._fmt(session_total),
+                "max_session": self._fmt(max_session),
+                "session_id": session_id,
+            }
+
+        if rule_type == 'cascade_cost':
+            max_cascade = self._to_decimal_safe(params.get('max_cascade_cost'))
+            pre_computed = self._to_decimal_safe(transaction.get('estimated_cascade_cost'))
+            if pre_computed is not None:
+                cascade_cost = pre_computed
+                fail_probability = None
+                reversal_cost = None
+            else:
+                fail_probability = params.get('fail_probability', transaction.get('fail_probability'))
+                reversal_cost = self._to_decimal_safe(
+                    params.get('reversal_cost', transaction.get('reversal_cost'))
+                )
+                if fail_probability is not None and reversal_cost is not None:
+                    fp = Decimal(str(fail_probability))
+                    cascade_cost = txn_amount + (fp * reversal_cost)
+                else:
+                    cascade_cost = txn_amount
+            detail = {
+                "cascade_cost": self._fmt(cascade_cost),
+                "max_cascade_cost": self._fmt(max_cascade),
+            }
+            if fail_probability is not None:
+                detail["fail_probability"] = fail_probability
+            if reversal_cost is not None:
+                detail["reversal_cost"] = self._fmt(reversal_cost)
+            return detail
+
+        return None
+
     def _evaluate_rule(self, rule: dict, transaction: dict, txn_amount: Decimal,
                        prior_transactions: list) -> dict | None:
         """Evaluate a single rule. Returns a result dict if triggered, None otherwise."""

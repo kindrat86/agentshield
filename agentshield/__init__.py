@@ -24,10 +24,11 @@ Quick Start:
 """
 
 from agentshield.engine import SpendControlEngine
+from agentshield.emitter import SpendEvaluationEmitter
 from agentshield.eval_gym import run_eval, SCENARIOS
 
 __version__ = "1.2.0"
 __author__ = "Maryan K."
 __license__ = "MIT"
 
-__all__ = ["SpendControlEngine", "run_eval", "SCENARIOS"]
+__all__ = ["SpendControlEngine", "SpendEvaluationEmitter", "run_eval", "SCENARIOS"]
