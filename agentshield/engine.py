@@ -59,6 +59,10 @@ class SpendControlEngine:
                 "severity": "medium"
             }
 
+        # Ensure timestamp exists, default to now if missing
+        if 'timestamp' not in transaction or not transaction['timestamp']:
+            transaction['timestamp'] = datetime.now(timezone.utc).isoformat()
+
         # Validate amount is parseable as a number
         try:
             txn_amount = self._to_decimal(transaction['amount'])
@@ -184,7 +188,7 @@ class SpendControlEngine:
     def _check_merchant_allowlist(self, rule_id: str, transaction: dict, params: dict, action: str):
         allowed = params.get('allowed', [])
         merchant = transaction.get('merchant')
-        if merchant and merchant not in allowed:
+        if merchant is not None and merchant not in allowed:
             return self._make_result(action, rule_id,
                 f"Merchant '{merchant}' is not in the allowlist")
         return None
@@ -192,7 +196,7 @@ class SpendControlEngine:
     def _check_category_block(self, rule_id: str, transaction: dict, params: dict, action: str):
         blocked = params.get('blocked', [])
         category = transaction.get('category')
-        if category and category in blocked:
+        if category is not None and category in blocked:
             return self._make_result(action, rule_id,
                 f"Category '{category}' is blocked")
         return None
@@ -214,7 +218,7 @@ class SpendControlEngine:
             return None
 
         session_field = params.get('session_id', 'session_id')
-        session_id = transaction.get(session_field)
+        session_id = transaction.get(session_field, 'default_session')
         agent_id = transaction.get('agent_id')
         decay_factor = params.get('decay_factor')
 
@@ -223,7 +227,8 @@ class SpendControlEngine:
         for prior in prior_transactions:
             if agent_id and prior.get('agent_id') != agent_id:
                 continue
-            if session_id and prior.get(session_field) == session_id:
+            prior_session = prior.get(session_field, 'default_session')
+            if session_id == prior_session:
                 prior_amount = self._to_decimal_safe(prior.get('amount'))
                 if prior_amount is not None and prior_amount > 0:
                     session_total += prior_amount
@@ -296,6 +301,8 @@ class SpendControlEngine:
         if fail_prob is not None and reversal_cost is not None:
             try:
                 fp = Decimal(str(fail_prob))
+                # Security: reject out-of-range probabilities and negative costs rather
+                # than allowing malformed inputs to create an artificially low total.
                 if fp < 0 or fp > 1:
                     return self._make_result(action, rule_id,
                         f"Invalid fail_probability {fp} (must be 0-1)")
