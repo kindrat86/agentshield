@@ -526,9 +526,17 @@ class SpendControlEngine:
 
     @staticmethod
     def _fmt(d: Decimal) -> str:
-        """Format a Decimal as a 2-decimal-place string."""
-        quantized = d.quantize(Decimal('0.01'))
-        return f"{quantized}"
+        """Format a Decimal for trace/reason output.
+
+        Values that are already exact at 2 decimal places keep the tidy money
+        form ("250.00"). Higher-precision values are emitted EXACTLY (never
+        quantized), so trace ``detail`` never understates the evaluated amount
+        (relevant for sub-cent pricing, token fractions, crypto amounts).
+        """
+        two_dp = d.quantize(Decimal('0.01'))
+        if d == two_dp:
+            return f"{two_dp}"
+        return f"{d}"
 
     @staticmethod
     def _make_result(action: str, rule_id: str, reason: str) -> dict:
