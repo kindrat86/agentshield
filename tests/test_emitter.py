@@ -123,6 +123,25 @@ class TestEmitter(unittest.TestCase):
         self.assertEqual(detail["daily_total"], "2050.00")
         self.assertEqual(detail["max_daily"], "2000.00")
 
+    def test_trace_detail_preserves_sub_cent_precision(self):
+        # High-precision amounts must survive the trace EXACTLY (never
+        # quantized), while round money values keep the tidy 2dp form.
+        rules = [
+            {"id": "r1", "type": "transaction_limit", "priority": 1,
+             "params": {"max_amount": "250.00"}, "action": "BLOCK"},
+        ]
+        event = self.emitter.build_event(
+            _txn(amount="1234567890.1234567890"), rules)
+        detail = event["evaluation"][0]["detail"]
+        self.assertEqual(detail["actual"], "1234567890.1234567890")
+        self.assertEqual(detail["limit"], "250.00")
+
+        # round money still formats to 2dp (existing behaviour preserved)
+        event2 = self.emitter.build_event(_txn(amount="500.00"), rules)
+        d2 = event2["evaluation"][0]["detail"]
+        self.assertEqual(d2["actual"], "500.00")
+        self.assertEqual(d2["limit"], "250.00")
+
     def test_invalid_transaction_empty_trace(self):
         event = self.emitter.build_event({"amount": "abc"}, [])
         self.assertEqual(event["decision"]["decision"], "FLAGGED")
