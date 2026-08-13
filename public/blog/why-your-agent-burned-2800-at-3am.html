@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why Your Agent Burned $2,800 at 3 AM: And How to See It</title>
+<meta name="description" content="At 3 AM, an AI agent made 21 API calls at $133 each, $2,800 in 60 seconds. The fix took two open-source projects: a pre-execution spend firewall (AgentShield) and a post-execution visual debugger (Agent-Devtools). Here's the full loop.">
+<style>
+:root { --bg:#0a0a0a; --surface:#141414; --surface2:#1a1a1a; --border:#2a2a2a; --accent:#00d4aa; --text:#e8e8e8; --muted:#888; --danger:#ff4757; --warn:#ffa502; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+.container { max-width:800px; margin:0 auto; padding:40px 24px; }
+h1 { font-size:2em; margin-bottom:8px; line-height:1.2; }
+h2 { font-size:1.35em; margin:32px 0 12px; color:var(--accent); }
+h3 { margin:20px 0 8px; }
+p { margin-bottom:14px; color:#ccc; }
+ul, ol { margin:12px 0; padding-left:24px; }
+li { margin-bottom:8px; color:#ccc; }
+code { background:var(--surface2); padding:2px 6px; border-radius:4px; font-size:0.9em; color:var(--accent); }
+pre { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:16px; overflow-x:auto; margin:14px 0; }
+pre code { background:none; color:#e8e8e8; padding:0; }
+.nav { background:var(--surface); padding:12px 24px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); }
+.nav a { color:var(--accent); text-decoration:none; font-weight:600; }
+.meta { color:var(--muted); font-size:0.9em; margin-bottom:24px; }
+.meta a { color:var(--accent); }
+.diagram { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:24px; margin:20px 0; text-align:center; font-family:monospace; white-space:pre; overflow-x:auto; color:var(--accent); }
+.callout { border-left:3px solid var(--accent); padding:12px 16px; margin:16px 0; background:rgba(0,212,170,0.05); border-radius:0 8px 8px 0; }
+.callout p { color:#ddd; }
+.footer { text-align:center; padding:32px; color:var(--muted); font-size:0.85em; }
+.footer a { color:var(--accent); }
+strong { color:#fff; }
+</style>
+</head>
+<body>
+<nav class="nav">
+<a href="https://agentshield.fly.dev">🛡️ AgentShield</a>
+<a href="https://github.com/kindrat86/agentshield">GitHub →</a>
+</nav>
+
+<div class="container">
+
+<h1>Why Your Agent Burned $2,800 at 3 AM: And How to See It</h1>
+<p class="meta">Co-authored: Maryan (<a href="https://github.com/kindrat86/agentshield">AgentShield</a>) × Jacopo (<a href="https://github.com/Jacopos311/Agent-Devtools">Agent-Devtools</a>) · August 2026</p>
+
+<p>At 3:07 AM, my agent made 21 API calls to a premium LLM endpoint. Each cost $133. Total time: 60 seconds. Total bill: <strong>$2,800</strong>.</p>
+
+<p>I was asleep. The budget alert email, the thing I'd set up so this couldn't happen, arrived 4 minutes later. Also while I was asleep. It was a very informative email about money that was already gone.</p>
+
+<p>That night taught me something that took two open-source projects to fully solve:</p>
+
+<div class="callout"><p><strong>You need a firewall to stop the bleed. You need a debugger to see why it happened.</strong> One without the other is half a safety system.</p></div>
+
+<h2>Half one: stop the bleeding</h2>
+
+<p>Before that night, I'd tried the standard defenses, in order:</p>
+
+<ol>
+<li><strong>Budget alert emails.</strong> They fire <em>after</em> the spend happens. At 3 AM the only thing reading them is your inbox.</li>
+<li><strong>Rate limits.</strong> They cap <em>speed</em>, not spend. An agent can trickle its way to the same bill over an hour.</li>
+<li><strong>Manual monitoring.</strong> It fails at exactly the moment you need it most, 3 AM, weekends, holidays, the one night you forget.</li>
+</ol>
+
+<p>So I built <strong>AgentShield</strong>: a pre-execution spend firewall for AI agents. Every transaction is evaluated against your rules <em>before</em> the API call goes out. Pure Python stdlib, zero dependencies, &lt;1ms per evaluation, 7 composable rules, transaction limits, daily totals, velocity, merchant allowlists, category blocks, session budgets, cascade cost estimates, plus a kill switch. APPROVED, BLOCKED, or FLAGGED, in priority order, deterministically.</p>
+
+<p>The 3 AM incident wouldn't have survived contact with a single rule: <code>transaction_limit: max_amount $100</code>.</p>
+
+<p>That solves <em>"what should we block right now?"</em> It does not solve <em>"why did it happen?"</em></p>
+
+<h2>Half two: see the loop</h2>
+
+<p>Blocking a runaway agent is like unplugging a burning appliance. Safe. Necessary. But you still don't know if it was a bug in your code, a retry loop in a library, a poisoned tool response, or a bad prompt. Without that answer, the agent just runs again tomorrow, and you play firewall whack-a-mole.</p>
+
+<p>That's the problem <a href="https://github.com/Jacopos311/Agent-Devtools">Agent-Devtools</a>, built by Jacopo, solves: a local-first causal debugger for agent runs. It answers "why did my agent behave this way?" with visual replay, behavior diffing, and full visibility into prompts, context, memory, retrieval, and tool calls, the exact execution timeline that led to the bad decision.</p>
+
+<p>Jacopo found AgentShield through a comment on a LangChain issue about runaway agent loops, saw the same gap I did, and opened an issue: <em>"You stop the bleed, I show the loop. Want to integrate?"</em> We both said yes.</p>
+
+<h2>Wiring the halves together</h2>
+
+<p>The integration is deliberately boring, a shared event schema, two small modules, no hosted services:</p>
+
+<pre><code>from agentshield import SpendControlEngine, SpendEvaluationEmitter
+from agent_devtools import TraceStore
+from agent_devtools.adapters.agentshield import make_agentshield_callback
+
+store = TraceStore()
+cb = make_agentshield_callback(store)
+
+engine = SpendControlEngine()
+emitter = SpendEvaluationEmitter(engine)
+
+# Every evaluation flows into your trace store automatically
+emitter.emit(
+ transaction={"amount": "500.00", "merchant": "openai-api",
+ "category": "llm_inference"},
+ rules=[{"id": "r1", "type": "transaction_limit", "priority": 1,
+ "params": {"max_amount": "250.00"}, "action": "BLOCK"}],
+ trace_id="trace_42",
+ on_event=cb,
+)</code></pre>
+
+<p>That's it. Under the hood:</p>
+
+<ul>
+<li>AgentShield emits one <code>agentshield.spend.evaluation</code> event per evaluation, NDJSON to stdout or a file (for tailing), or an in-process callback for embedding.</li>
+<li><code>trace_id</code> joins directly to Agent-Devtools' native <code>run_id</code>, so spend decisions render <strong>inside the execution timeline</strong>, the blocked call, the rule that fired, the actual-vs-threshold numbers, and the agent's own reasoning, all in one view.</li>
+<li>Per-rule trace visibility: every rule reports <code>triggered</code>, <code>passed</code>, <code>skipped</code>, or <code>not_reached</code>. You see near-misses, not just the winning rule.</li>
+<li>Money stays exact: amounts cross the wire as Decimal-safe strings, never floats.</li>
+</ul>
+
+<div class="diagram">┌─────────────────────┐ ┌──────────────────────┐
+│ AgentShield │ │ Agent-Devtools │
+│ pre-execution │────────▶│ post-execution │
+│ "should this run?" │ trace_id│ "why did it run?" │
+│ │ =run_id │ │
+│ BLOCK in &lt;1ms │ │ visual replay of │
+│ before the call │ │ the whole timeline │
+└─────────────────────┘ └──────────────────────┘</div>
+
+<p>The result is the loop the title promises: <strong>the firewall stops the spend at the moment it happens, and the debugger shows you the replay of why the agent got there.</strong></p>
+
+<h2>What the collaboration actually took</h2>
+
+<p>The nice thing about this integration is how little ceremony it needed:</p>
+
+<ol>
+<li>Jacopo opened the issue. We agreed on a schema <strong>before</strong> writing code, the contract took one document.</li>
+<li>AgentShield shipped the emitter (<code>evaluate_with_trace()</code> + <code>SpendEvaluationEmitter</code>), additive, so existing <code>evaluate()</code> behavior didn't change.</li>
+<li>Agent-Devtools shipped the adapter, a parser, a callback, and NDJSON ingestion.</li>
+<li>Then the important part: <strong>independent E2E verification on both sides.</strong> We ran each other's code against real events, and it surfaced real edge cases: missing <code>trace_id</code> crashing the host runtime (now falls back to <code>unattributed</code>), callback events invisible in the run list (runs now auto-create), one malformed NDJSON line dropping the rest of a file (now skip-and-continue), and a Decimal precision bug on our side (now exact).</li>
+<li>Everything merged. Both suites green. 37/37 across the cross-stack harness.</li>
+</ol>
+
+<p>Two repos, one issue thread, under a day from first comment to both sides merged.</p>
+
+<h2>The takeaway</h2>
+
+<p>Every agent team eventually has their own 3 AM. The only question is whether it's a $2,800 lesson or a <a href="https://agentshield.fly.dev">$19/month non-event</a>.</p>
+
+<p>The pattern worth stealing isn't the code, it's the division of labor: <strong>pre-execution control answers "should this run?"; post-execution visibility answers "why did it run badly?"</strong> Monitoring tools only tell you what already happened. Budget alerts only tell you what already happened. An agent safety story needs both halves, and now they're one integration.</p>
+
+<ul>
+<li><strong>AgentShield</strong> (pre-execution firewall): <a href="https://github.com/kindrat86/agentshield">github.com/kindrat86/agentshield</a>, stdlib-only, 7 rules, &lt;1ms, kill switch.</li>
+<li><strong>Agent-Devtools</strong> (post-execution debugger): <a href="https://github.com/Jacopos311/Agent-Devtools">github.com/Jacopos311/Agent-Devtools</a>, local-first visual replay for agent runs.</li>
+</ul>
+
+<p>Both MIT. Both merged. Star both, wire them together, and sleep through the next 3 AM with confidence.</p>
+
+</div>
+
+<div class="footer">
+<a href="https://agentshield.fly.dev/the-2800-story">The $2,800 Story</a> · <a href="https://github.com/kindrat86/agentshield">AgentShield</a> · <a href="https://github.com/Jacopos311/Agent-Devtools">Agent-Devtools</a>
+</div>
+</body>
+</html>
