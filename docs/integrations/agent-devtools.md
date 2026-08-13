@@ -29,7 +29,7 @@ That's the gap this schema fills for a visual tracer.
 | `velocity` | call count in rolling window > cap | `window_minutes`, `max_count` |
 | `merchant_allowlist` | merchant NOT in allowlist | `allowed[]` |
 | `category_block` | category in blocklist | `blocked[]` |
-| `session_budget` | session cumulative spend > cap | `max_session`, `session_id`, `decay_factor` |
+| `session_budget` | session cumulative spend > cap | `max_session`, `session_id`, `decay_factor`, `require_session_id` |
 | `cascade_cost` | call + fail_prob × reversal > cap | `max_cascade_cost`, `fail_probability`, `reversal_cost` |
 
 ## Proposed event envelope (v1)
@@ -70,6 +70,11 @@ Notes:
 - `trace_id` is the join key into Agent-Devtools. `agent_id` / `session_id` /
   `transaction.id` are secondary correlation fields.
 - `transaction` echoes the exact input; `decision` echoes the exact output.
+- `session_budget` treats a `None` (or absent) `session_id` as a real "default"
+  session: prior transactions with `session_id == None` are summed into the same
+  bucket, so the cap cannot be bypassed by omitting the id. Setting the rule
+  param `require_session_id: true` flips on a strict guardrail that blocks (or
+  flags, per the rule `action`) any transaction whose `session_id` is missing.
 
 ## Pydantic model
 

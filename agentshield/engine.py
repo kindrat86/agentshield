@@ -246,7 +246,7 @@ class SpendControlEngine:
             for prior in prior_transactions:
                 if agent_id and prior.get('agent_id') != agent_id:
                     continue
-                if session_id and prior.get(session_field) == session_id:
+                if prior.get(session_field) == session_id:
                     prior_amount = self._to_decimal_safe(prior.get('amount'))
                     if prior_amount is not None and prior_amount > 0:
                         session_total += prior_amount
@@ -398,11 +398,19 @@ class SpendControlEngine:
         Session-scoped budget with optional decay tightening.
         Inspired by HeartFlow's session budget pattern (via @yun520-1 on OpenClaw #42475).
 
+        A missing/None `session_id` is treated as a real "default" session: prior
+        transactions whose session_id is also None are summed into the same bucket,
+        so the budget can never be bypassed by omitting the id (issue #7).
+
         Params:
           max_session: Maximum cumulative spend per session
           session_id:  Field name in transaction to identify session (default: 'session_id')
           decay_factor: Optional tightening factor (0.0-1.0). Each call's effective
                        threshold shrinks as session spend accumulates.
+          require_session_id: Optional bool (default False). When True, a transaction
+                       whose session_id is None/missing is blocked (or flagged, per
+                       `action`) because callers must always provide a session id for
+                       budget tracking — strict guardrail mode.
         """
         max_session = self._to_decimal_safe(params.get('max_session'))
         if max_session is None:
@@ -413,12 +421,22 @@ class SpendControlEngine:
         agent_id = transaction.get('agent_id')
         decay_factor = params.get('decay_factor')
 
-        # Sum prior transactions in the same session
+        # Strict guardrail: session identity is mandatory for budget tracking.
+        if params.get('require_session_id') and session_id is None:
+            return self._make_result(
+                action, rule_id,
+                f"session_id is required for session_budget tracking "
+                f"(max_session=${self._fmt(max_session)})"
+            )
+
+        # Sum prior transactions in the same session. Equality (not truthiness) is
+        # used so a None session_id matches prior None-session transactions: they
+        # all belong to the same "default/unnamed" session bucket.
         session_total = txn_amount
         for prior in prior_transactions:
             if agent_id and prior.get('agent_id') != agent_id:
                 continue
-            if session_id and prior.get(session_field) == session_id:
+            if prior.get(session_field) == session_id:
                 prior_amount = self._to_decimal_safe(prior.get('amount'))
                 if prior_amount is not None and prior_amount > 0:
                     session_total += prior_amount
