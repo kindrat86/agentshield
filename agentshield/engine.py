@@ -124,6 +124,9 @@ class SpendControlEngine:
         max_amount = self._to_decimal_safe(params.get('max_amount'))
         if max_amount is None:
             return None
+        if txn_amount <= 0:
+            return self._make_result(action, rule_id,
+                f"Transaction amount ${self._fmt(txn_amount)} is not a positive value")
         if txn_amount > max_amount:
             return self._make_result(action, rule_id,
                 f"Transaction amount ${self._fmt(txn_amount)} exceeds limit of ${self._fmt(max_amount)}")
@@ -145,7 +148,7 @@ class SpendControlEngine:
             prior_date = self._extract_date(prior.get('timestamp'))
             if txn_date and prior_date and prior_date == txn_date:
                 prior_amount = self._to_decimal_safe(prior.get('amount'))
-                if prior_amount is not None:
+                if prior_amount is not None and prior_amount > 0:
                     daily_total += prior_amount
 
         if daily_total > max_daily:
@@ -227,7 +230,7 @@ class SpendControlEngine:
             prior_session = prior.get(session_field, 'default_session')
             if session_id == prior_session:
                 prior_amount = self._to_decimal_safe(prior.get('amount'))
-                if prior_amount is not None:
+                if prior_amount is not None and prior_amount > 0:
                     session_total += prior_amount
 
         if session_total > max_session:
@@ -281,6 +284,9 @@ class SpendControlEngine:
         # Check if caller pre-computed cascade cost
         pre_computed = self._to_decimal_safe(transaction.get('estimated_cascade_cost'))
         if pre_computed is not None:
+            if pre_computed < 0:
+                return self._make_result(action, rule_id,
+                    f"Invalid negative cascade cost ${self._fmt(pre_computed)}")
             if pre_computed > max_cascade:
                 return self._make_result(action, rule_id,
                     f"Cascade cost ${self._fmt(pre_computed)} exceeds limit of ${self._fmt(max_cascade)}")
@@ -295,8 +301,14 @@ class SpendControlEngine:
         if fail_prob is not None and reversal_cost is not None:
             try:
                 fp = Decimal(str(fail_prob))
-                # Security: Clamp failure probability to [0, 1] to prevent negative-cost bypasses
-                fp = max(Decimal('0'), min(Decimal('1'), fp))
+                # Security: reject out-of-range probabilities and negative costs rather
+                # than allowing malformed inputs to create an artificially low total.
+                if fp < 0 or fp > 1:
+                    return self._make_result(action, rule_id,
+                        f"Invalid fail_probability {fp} (must be 0-1)")
+                if reversal_cost < 0:
+                    return self._make_result(action, rule_id,
+                        f"Invalid negative reversal cost ${self._fmt(reversal_cost)}")
                 cascade_cost = txn_amount + (fp * reversal_cost)
                 if cascade_cost > max_cascade:
                     return self._make_result(action, rule_id,
