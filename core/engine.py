@@ -206,7 +206,7 @@ class SpendControlEngine:
             daily_total = txn_amount
             txn_date = self._extract_date(transaction.get('timestamp'))
             for prior in prior_transactions:
-                if agent_id and prior.get('agent_id') != agent_id:
+                if prior.get('agent_id') != agent_id:
                     continue
                 prior_date = self._extract_date(prior.get('timestamp'))
                 if txn_date and prior_date and prior_date == txn_date:
@@ -226,7 +226,7 @@ class SpendControlEngine:
             window_start = txn_ts - timedelta(minutes=window_minutes)
             count_in_window = 0
             for prior in prior_transactions:
-                if agent_id and prior.get('agent_id') != agent_id:
+                if prior.get('agent_id') != agent_id:
                     continue
                 prior_ts = self._parse_ts(prior.get('timestamp'))
                 if prior_ts and window_start <= prior_ts <= txn_ts:
@@ -255,7 +255,7 @@ class SpendControlEngine:
             session_id = transaction.get(session_field)
             session_total = txn_amount
             for prior in prior_transactions:
-                if agent_id and prior.get('agent_id') != agent_id:
+                if prior.get('agent_id') != agent_id:
                     continue
                 if prior.get(session_field) == session_id:
                     prior_amount = self._to_decimal_safe(prior.get('amount'))
@@ -376,7 +376,7 @@ class SpendControlEngine:
 
         daily_total = txn_amount  # Start with current transaction
         for prior in prior_transactions:
-            if agent_id and prior.get('agent_id') != agent_id:
+            if prior.get('agent_id') != agent_id:
                 continue
             prior_date = self._extract_date(prior.get('timestamp'))
             if txn_date and prior_date and prior_date == txn_date:
@@ -405,7 +405,7 @@ class SpendControlEngine:
 
         count_in_window = 0
         for prior in prior_transactions:
-            if agent_id and prior.get('agent_id') != agent_id:
+            if prior.get('agent_id') != agent_id:
                 continue
             prior_ts = self._parse_ts(prior.get('timestamp'))
             if prior_ts and window_start <= prior_ts <= txn_ts:
@@ -476,7 +476,7 @@ class SpendControlEngine:
         # all belong to the same "default/unnamed" session bucket.
         session_total = txn_amount
         for prior in prior_transactions:
-            if agent_id and prior.get('agent_id') != agent_id:
+            if prior.get('agent_id') != agent_id:
                 continue
             if prior.get(session_field) == session_id:
                 prior_amount = self._to_decimal_safe(prior.get('amount'))
@@ -681,8 +681,13 @@ class SpendControlEngine:
         form ("250.00"). Higher-precision values are emitted EXACTLY (never
         quantized), so trace ``detail`` never understates the evaluated amount
         (relevant for sub-cent pricing, token fractions, crypto amounts).
+        Overflow values (e.g. 1e50) fall back to scientific notation instead
+        of crashing the pipeline (DoS vector).
         """
-        two_dp = d.quantize(Decimal('0.01'))
+        try:
+            two_dp = d.quantize(Decimal('0.01'))
+        except InvalidOperation:
+            return f"{d:E}"
         if d == two_dp:
             return f"{two_dp}"
         return f"{d}"
