@@ -11,7 +11,7 @@ You built a cost-gating layer for your AI agents. You set a daily limit, a per-c
 
 Most teams test their spend controls by... not testing them. They set the limits, deploy, and wait for a billing surprise to reveal the gaps. That's how one of my agents spent $2,800 in 60 seconds while I was asleep, the "controls" I had (a budget alert email) fired 40 minutes after the money was gone.
 
-So we wrote **56 labeled test scenarios**, covering **9 spend-control rule types**, and open-sourced them. MIT licensed. You can copy them into your test suite today.
+So we wrote **74 labeled test scenarios**, covering **10 spend-control rule types**, and open-sourced them. MIT licensed. You can copy them into your test suite today.
 
 Each scenario specifies a transaction, a rule set, prior transactions, and the expected decision (`APPROVED`, `BLOCKED`, or `FLAGGED`). If your enforcement engine returns something else, you have a gap.
 
@@ -89,20 +89,20 @@ pip install agentshield-spend
 from agentshield import run_eval
 results = run_eval()
 print(f"{results['passed']}/{results['total']} passed")
-# 56/56 passed
+# 74/74 passed
 ```
 
 Or skip the package entirely and copy the scenarios from [`tests/eval_gym.py`](https://github.com/kindrat86/agentshield/blob/main/tests/eval_gym.py), they're plain Python dicts with no dependencies, easy to port to any language or test framework. MIT licensed.
 
-The scenarios are engine-agnostic by design: transaction in, rules in, prior transactions in, decision out. If your enforcement layer can express that contract, the 56 scenarios can validate it.
+The scenarios are engine-agnostic by design: transaction in, rules in, prior transactions in, decision out. If your enforcement layer can express that contract, the 74 scenarios can validate it.
 
 ## The Bigger Picture
 
 Post-facto observability tools (LangSmith, Helicone) tell you what went wrong AFTER it happens. Pre-flight enforcement stops the transaction BEFORE the API call executes. Both have their place, but only one of them prevents the bill.
 
-These 56 scenarios exist to answer one question: **does your enforcement layer actually enforce?** Most teams assume yes. The edge-cases category, in our experience, says otherwise about one time in two.
+These 74 scenarios exist to answer one question: **does your enforcement layer actually enforce?** Most teams assume yes. The edge-cases category, in our experience, says otherwise about one time in two.
 
-- Full spec (all 9 categories with JSON structures and formulas): https://agentshield.fly.dev/eval-gym-spec
+- Full spec (all 12 categories with JSON structures and formulas): https://agentshield.fly.dev/eval-gym-spec
 - Live eval run: https://agentshield.fly.dev/eval
 - GitHub (MIT): https://github.com/kindrat86/agentshield
 

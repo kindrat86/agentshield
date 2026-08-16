@@ -1,6 +1,6 @@
 # AgentShield, Firewall for AI Agent Spending
 
-Stop runaway AI agents before they burn your budget. 7 composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies.
+Stop runaway AI agents before they burn your budget. 10 composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies.
 
 ## Install
 
@@ -43,7 +43,7 @@ print(result["decision"])  # BLOCKED
 print(result["reason"])    # Transaction amount $500.00 exceeds limit of $250.00
 ```
 
-## Rule Types (9)
+## Rule Types (10)
 
 | Rule | Description | Example Params |
 |------|-------------|----------------|
@@ -54,17 +54,20 @@ print(result["reason"])    # Transaction amount $500.00 exceeds limit of $250.00
 | `category_block` | Block spend categories | `{"blocked": ["crypto_exchange"]}` |
 | `session_budget` | Per-session spend cap with decay | `{"max_session": 100, "decay_factor": 0.3}` |
 | `cascade_cost` | Expected value with retry cost | `{"max_cascade_cost": 100, "fail_probability": 0.3, "reversal_cost": 200}` |
+| `hitl_threshold` | Escalate to human review past a spend threshold | `{"max_budget": 500, "mode": "on_threshold", "threshold": 0.15}` |
+| `replay` | Block duplicate transactions by nonce | `{"field": "nonce"}` |
+| `circuit` | Deny all calls while the circuit is tripped | `{"state_field": "circuit_tripped"}` |
 
-## Eval Gym (56 scenarios)
+## Eval Gym (74 scenarios)
 
 ```python
 from agentshield import run_eval
 
 results = run_eval()
-print(f"{results['passed']}/{results['total']} passed")  # 56/56
+print(f"{results['passed']}/{results['total']} passed")  # 74/74
 ```
 
-All 56 test scenarios are MIT licensed. Use them as test fixtures for your own spend-control implementation.
+All 74 test scenarios are MIT licensed. Use them as test fixtures for your own spend-control implementation.
 
 ## Key Design Decisions
 

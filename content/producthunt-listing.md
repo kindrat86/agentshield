@@ -4,7 +4,7 @@
 A firewall for AI agent spending
 
 ## Description (260 chars)
-Stop runaway AI agents before they burn your budget. 7 composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies. Deploy in 60 seconds. 56/56 eval gym included. Open source + managed hosting ($19/mo).
+Stop runaway AI agents before they burn your budget. 10 composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies. Deploy in 60 seconds. 74/74 eval gym included. Open source + managed hosting ($19/mo).
 
 ## Media
 - Logo: (needs 240x240 product icon, use the shield concept)
@@ -18,7 +18,7 @@ I built AgentShield after an AI agent I deployed spent $2,800 in 60 seconds whil
 
 The problem: AI agents make API calls autonomously. One infinite loop, one batch job bug, one misconfigured cron, and your API bill explodes. Tools like LangSmith and Helicone track costs AFTER they happen. Nothing stops them BEFORE they execute.
 
-AgentShield sits between your agent and the API. Each transaction is evaluated against 7 composable rules in under 1 millisecond. The first rule that matches decides: ALLOW or BLOCK.
+AgentShield sits between your agent and the API. Each transaction is evaluated against 10 composable rules in under 1 millisecond. The first rule that matches decides: ALLOW or BLOCK.
 
 The rules engine:
 - Transaction limits, block any call over $X
@@ -33,7 +33,7 @@ The whole thing is open source. There's managed hosting on Stripe if you want it
 
 Risk calculator (no signup): https://agentshield.fly.dev/tools/risk-calculator/
 Architecture deep-dive: https://dev.to/maryan_k_bef6cf83fa64e809/i-built-a-firewall-for-ai-agent-spending-here-is-the-architecture-2560
-Eval gym (56/56 across 9 categories): https://agentshield.fly.dev/eval
+Eval gym (74/74 across 12 categories): https://agentshield.fly.dev/eval
 
 I'll be here all day, fire away with questions.
 

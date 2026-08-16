@@ -87,7 +87,7 @@ SEQUENCE = {
   "evaluation_ms": 0.09
 }</code></pre>
 <p>That's it. Every API call above $500 is now blocked before it executes.</p>
-<p>7 composable rules available: transaction limits, daily caps, velocity detection, merchant allowlists, category blocks.</p>
+<p>10 composable rules available: transaction limits, daily caps, velocity detection, merchant allowlists, category blocks.</p>
 <p><a href="https://agentshield.fly.dev/dashboard">Configure your rules →</a></p>
 <hr>
 <p style="font-size:12px;color:#666">AgentShield, Pure Python stdlib. Zero dependencies. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
@@ -113,9 +113,9 @@ SEQUENCE = {
 </tr>
 </table>
 <p>The pattern: one rule catches the first surprise. A full ruleset prevents all of them.</p>
-<p>Our eval gym has 50 labeled scenarios across 7 categories, all passing. <a href="https://agentshield.fly.dev/eval">See the proof →</a></p>
+<p>Our eval gym has 74 labeled scenarios across 12 categories, all passing. <a href="https://agentshield.fly.dev/eval">See the proof →</a></p>
 <hr>
-<p style="font-size:12px;color:#666">AgentShield, 50/50 eval scenarios passing. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
+<p style="font-size:12px;color:#666">AgentShield, 74/74 eval scenarios passing. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
 """,
     },
     5: {

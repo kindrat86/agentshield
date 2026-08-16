@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "agentshield-spend"
 version = "1.0.1"
-description = "A firewall for AI agent spending. 7 composable rules evaluated per-transaction in <1ms. Pure Python stdlib — zero dependencies."
+description = "A firewall for AI agent spending. 10 composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies."
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.11"

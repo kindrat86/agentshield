@@ -9,7 +9,7 @@ At 3 AM, an AI agent I deployed made 21 API calls to a premium endpoint. Each ca
 
 The budget alert email arrived three hours after the damage was done. The agent had already moved on, oblivious to what it had cost.
 
-So I built AgentShield. It's a per-transaction firewall that sits between your agent and the API. Every call is evaluated against 7 composable rules in under 1ms:
+So I built AgentShield. It's a per-transaction firewall that sits between your agent and the API. Every call is evaluated against 10 composable rules in under 1ms:
 
 - Transaction limits (block any call over $500)
 - Daily caps ($2,000 max per agent per day)
@@ -20,7 +20,7 @@ So I built AgentShield. It's a per-transaction firewall that sits between your a
 The whole thing is Python 3.11 standard library, zero pip dependencies. Multi-tenant, offline licensing, SQLite WAL storage. Runs on Fly.io's free tier (256MB RAM).
 
 **Stats:**
-- Evaluation: 56/56 scenarios passing across 9 categories
+- Evaluation: 56/74 scenarios passing across 12 categories
 - Performance: 0.09ms average per transaction
 - Image size: 39MB Docker container
 - E2E tests: 14/14 including multi-tenant isolation

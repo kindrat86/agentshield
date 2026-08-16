@@ -106,7 +106,7 @@ If a transaction violates multiple rules, the highest-priority rule fires first.
 
 ## The Eval Gym: 50 Labeled Scenarios
 
-To prove the engine works, I built a test suite of 50 scenarios covering real-world agent behaviors:
+To prove the engine works, I built a test suite of 74 scenarios covering real-world agent behaviors:
 
 | Category | Scenarios | Pass Rate |
 |----------|-----------|-----------|
@@ -161,7 +161,7 @@ Every transaction flows through the engine before reaching the provider. The eng
 
 **[Dashboard →](/dashboard)**, Register for a free account and configure your own rules.
 
-The core engine is open-source and runs on Python 3.11 stdlib. No dependencies. No frameworks. Just 7 composable rules, evaluated fast. **[56/56 eval gym results →](/eval)**
+The core engine is open-source and runs on Python 3.11 stdlib. No dependencies. No frameworks. Just 10 composable rules, evaluated fast. **[74/74 eval gym results →](/eval)**
 
 ---
 

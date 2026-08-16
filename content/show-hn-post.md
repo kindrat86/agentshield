@@ -16,7 +16,7 @@ I built a per-transaction spend firewall for AI agents after one of my agents sp
 
 The problem: AI agents make autonomous API calls with zero budget awareness. A single infinite loop, retry storm, or context accumulation bug can drain your API budget before you wake up. Observability tools (Helicone, LangSmith) show you what happened AFTER the bill arrives. Nothing stops the transaction BEFORE it executes.
 
-AgentShield sits between your agent and the API. Every transaction is evaluated against 7 composable rule types in under 1ms. First rule that matches wins.
+AgentShield sits between your agent and the API. Every transaction is evaluated against 10 composable rule types in under 1ms. First rule that matches wins.
 
 Rule types:
 
@@ -28,7 +28,7 @@ Rule types:
 - Session budgets (session-scoped spend cap with decay tightening)
 - Cascade cost estimation (pre-dispatch EV: call_cost + fail_probability × reversal_cost)
 
-I wrote 56 labeled test scenarios for spend-control engines and open-sourced them (MIT). Eval gym: https://agentshield.fly.dev/eval
+I wrote 74 labeled test scenarios for spend-control engines and open-sourced them (MIT). Eval gym: https://agentshield.fly.dev/eval
 
 Pure Python 3.11 standard library. Zero dependencies. Runs on 256MB RAM. Self-hostable in 60 seconds. Also on PyPI once the upload lands: pip install agentshield-spend
 

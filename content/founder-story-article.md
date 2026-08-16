@@ -126,7 +126,7 @@ engine.add_rule("limit", {
 
 - **GitHub (MIT)**: https://github.com/kindrat86/agentshield
 - **Live demo + risk calculator**: https://agentshield.fly.dev
-- **Eval gym (56 scenarios)**: https://agentshield.fly.dev/eval
+- **Eval gym (74 scenarios)**: https://agentshield.fly.dev/eval
 - **Eval gym spec page**: https://agentshield.fly.dev/eval-gym-spec
 
 ## The Lesson

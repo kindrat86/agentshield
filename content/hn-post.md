@@ -1,4 +1,4 @@
-# Show HN: AgentShield, A firewall for AI agent spending (56/56 eval, stdlib only)
+# Show HN: AgentShield, A firewall for AI agent spending (74/74 eval, stdlib only)
 
 At 3 AM, an AI agent I built made 21 API calls in 60 seconds. $2,800 gone before I woke up.
 
@@ -18,7 +18,7 @@ So I built AgentShield: 5 composable rule types, evaluated per-transaction, in <
 
 Rules evaluate in priority order. First match wins. All monetary arithmetic uses Decimal (never float).
 
-**The eval gym has 56 labeled scenarios. Currently at 56/56.**
+**The eval gym has 74 labeled scenarios. Currently at 74/74.**
 
 Edge cases that prove correctness:
 - Amount exactly at limit → APPROVED (not strictly greater)

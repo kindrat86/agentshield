@@ -1,23 +1,23 @@
 """
-AgentShield Eval Gym, 70 Scenarios
+AgentShield Eval Gym, 74 Scenarios
 =====================================
-70 labeled test cases spanning 12 categories, testing the
+74 labeled test cases spanning 12 categories, testing the
 SpendControlEngine against real-world agent spending patterns plus the
 SHACKLE SP/1.0 conformance envelope (HITL review, replay, circuit).
 
-Categories (70 total):
+Categories (74 total):
   - cascade_cost (5)
   - category_block (7)
   - circuit_breaker (2)
   - clean_approval (10)
-  - daily_total_block (8)
-  - edge_cases (6)
+  - daily_total_block (9)
+  - edge_cases (8)
   - hitl_review (3)
   - merchant_allowlist_block (7)
   - replay_nonce (2)
   - session_budget (4)
   - transaction_limit_block (10)
-  - velocity_flag (6)
+  - velocity_flag (7)
 """
 
 

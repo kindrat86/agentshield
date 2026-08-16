@@ -1,8 +1,8 @@
 At 3 AM, an AI agent made 21 API calls in 60 seconds. $2,800 gone before I woke up.
 
-So I built AgentShield, a firewall that evaluates every transaction before it executes. 7 composable rules in <1ms. Pure Python 3.11 stdlib, no pip install needed.
+So I built AgentShield, a firewall that evaluates every transaction before it executes. 10 composable rules in <1ms. Pure Python 3.11 stdlib, no pip install needed.
 
-**The eval gym has 56 labeled scenarios across 7 categories. Currently 56/56.**
+**The eval gym has 74 labeled scenarios across 12 categories. Currently 74/74.**
 
 Try the risk calculator (no signup): https://agentshield.fly.dev/tools/risk-calculator/
 Live eval: https://agentshield.fly.dev/eval
