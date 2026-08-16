@@ -4,13 +4,13 @@ AgentShield Spend Control Engine
 A deterministic, stateless spend-control rule evaluator for AI agent transactions.
 
 The engine evaluates an incoming transaction against a prioritized list of rules
-and returns a decision: APPROVED, BLOCKED, or FLAGGED. It is:
+and returns a decision: APPROVED, BLOCKED, FLAGGED, or REVIEW. It is:
   - Stateless: no file I/O, no network calls, no global mutable state.
   - Deterministic: same inputs always produce the same output.
   - Composable: rules can be combined arbitrarily; first match (by priority) wins.
   - Monetary-safe: uses decimal.Decimal for all amount arithmetic (never float).
 
-Rule Types (9):
+Rule Types (10):
   1. transaction_limit  , block if a single transaction exceeds max_amount
   2. daily_total        , block if cumulative daily spend exceeds max_daily
   3. velocity           , flag if transaction count in rolling window exceeds max_count
@@ -18,6 +18,9 @@ Rule Types (9):
   5. category_block     , block if category IS in the blocked list
   6. session_budget     , block if cumulative session spend exceeds max_session (resets per session)
   7. cascade_cost       , block if estimated cascade cost (call + retry probability × reversal) exceeds threshold
+  8. hitl_threshold     , escalate to REVIEW when spend crosses a human-review threshold (or always)
+  9. replay             , block if the transaction nonce was already seen (replay protection)
+ 10. circuit            , block all calls while the circuit is tripped (fail-closed latch)
 """
 
 from decimal import Decimal, InvalidOperation
@@ -30,7 +33,7 @@ class SpendControlEngine:
 
     All monetary arithmetic uses Decimal for exact precision. Timestamps are
     parsed with datetime.fromisoformat() with graceful fallback. The engine
-    handles malformed input by returning FLAGGED.
+    handles malformed input by returning BLOCKED (fail-closed).
     """
 
     def evaluate(self, transaction: dict, rules: list, prior_transactions: list) -> dict:
@@ -53,10 +56,10 @@ class SpendControlEngine:
         required_fields = ['amount', 'merchant', 'category']
         if not transaction or not all(k in transaction for k in required_fields):
             return {
-                "decision": "FLAGGED",
-                "reason": "Invalid transaction format: missing required fields",
+                "decision": "BLOCKED",
+                "reason": "Invalid transaction format: missing required fields (fail-closed)",
                 "rule_triggered": None,
-                "severity": "medium"
+                "severity": "high"
             }
 
         # Validate amount is parseable as a number
@@ -64,10 +67,10 @@ class SpendControlEngine:
             txn_amount = self._to_decimal(transaction['amount'])
         except (InvalidOperation, TypeError, ValueError):
             return {
-                "decision": "FLAGGED",
-                "reason": "Invalid transaction format: amount is not a valid number",
+                "decision": "BLOCKED",
+                "reason": "Invalid transaction format: amount is not a valid number (fail-closed)",
                 "rule_triggered": None,
-                "severity": "medium"
+                "severity": "high"
             }
 
         # Sort rules by priority (lowest number = highest priority).
@@ -175,6 +178,14 @@ class SpendControlEngine:
             return self._to_decimal_safe(params.get('max_session')) is not None
         if rule_type == 'cascade_cost':
             return self._to_decimal_safe(params.get('max_cascade_cost')) is not None
+        if rule_type == 'hitl_threshold':
+            if params.get('mode') == 'always':
+                return True
+            return self._to_decimal_safe(params.get('max_budget')) is not None
+        if rule_type == 'replay':
+            return True
+        if rule_type == 'circuit':
+            return True
         return False  # unknown rule type, the engine skips it silently
 
     def _trace_detail(self, rule: dict, transaction: dict, txn_amount: Decimal,
@@ -283,6 +294,31 @@ class SpendControlEngine:
                 detail["reversal_cost"] = self._fmt(reversal_cost)
             return detail
 
+        if rule_type == 'hitl_threshold':
+            max_budget = self._to_decimal_safe(params.get('max_budget'))
+            session_field = params.get('session_id', 'session_id')
+            session_id = transaction.get(session_field)
+            session_total = txn_amount
+            for prior in prior_transactions:
+                if prior.get('agent_id') != agent_id:
+                    continue
+                if prior.get(session_field) == session_id:
+                    prior_amount = self._to_decimal_safe(prior.get('amount'))
+                    if prior_amount is not None and prior_amount > 0:
+                        session_total += prior_amount
+            remaining = max_budget - session_total if max_budget is not None else None
+            return {
+                "session_total": self._fmt(session_total),
+                "max_budget": self._fmt(max_budget) if max_budget is not None else None,
+                "remaining": self._fmt(remaining) if remaining is not None else None,
+            }
+
+        if rule_type == 'replay':
+            return {"nonce": transaction.get(params.get('field', 'nonce'))}
+
+        if rule_type == 'circuit':
+            return {"circuit_tripped": transaction.get(params.get('state_field', 'circuit_tripped')) is True}
+
         return None
 
     def _evaluate_rule(self, rule: dict, transaction: dict, txn_amount: Decimal,
@@ -307,6 +343,12 @@ class SpendControlEngine:
             return self._check_session_budget(rule_id, transaction, txn_amount, prior_transactions, params, action)
         elif rule_type == 'cascade_cost':
             return self._check_cascade_cost(rule_id, txn_amount, transaction, params, action)
+        elif rule_type == 'hitl_threshold':
+            return self._check_hitl_threshold(rule_id, transaction, txn_amount, prior_transactions, params, action)
+        elif rule_type == 'replay':
+            return self._check_replay(rule_id, transaction, prior_transactions, params, action)
+        elif rule_type == 'circuit':
+            return self._check_circuit(rule_id, transaction, params, action)
         else:
             # Unknown rule type, skip silently
             return None
@@ -525,6 +567,95 @@ class SpendControlEngine:
 
         return None
 
+    def _check_hitl_threshold(self, rule_id: str, transaction: dict, txn_amount: Decimal,
+                              prior_transactions: list, params: dict, action: str):
+        """Escalate to human review (REVIEW) instead of hard-blocking when a
+        spend threshold is crossed. Mirrors SHACKLE SP/1.0 hitl_mode.
+
+        Params:
+          max_budget: session budget this threshold is measured against
+          mode:       'always' (every call escalates) or 'on_threshold' (default)
+          threshold:  fraction of budget (0.0-1.0) below which calls escalate (default 0.15)
+          session_id: field name identifying the session (default 'session_id')
+
+        This rule type always escalates to REVIEW; the configured action is
+        ignored because the point of the rule is escalation, not hard-block.
+        """
+        mode = params.get('mode', 'on_threshold')
+        if mode == 'always':
+            return self._make_result('REVIEW', rule_id,
+                "Human review required for every call (hitl mode 'always')")
+
+        max_budget = self._to_decimal_safe(params.get('max_budget'))
+        if max_budget is None or max_budget <= 0:
+            return None
+        threshold = params.get('threshold', 0.15)
+        try:
+            threshold_f = float(threshold)
+        except (TypeError, ValueError):
+            threshold_f = 0.15
+        if threshold_f < 0 or threshold_f > 1:
+            return None
+
+        session_field = params.get('session_id', 'session_id')
+        session_id = transaction.get(session_field)
+        agent_id = transaction.get('agent_id')
+
+        session_total = txn_amount
+        for prior in prior_transactions:
+            if prior.get('agent_id') != agent_id:
+                continue
+            if prior.get(session_field) == session_id:
+                prior_amount = self._to_decimal_safe(prior.get('amount'))
+                if prior_amount is not None and prior_amount > 0:
+                    session_total += prior_amount
+
+        remaining = max_budget - session_total
+        if remaining <= 0:
+            return self._make_result('REVIEW', rule_id,
+                f"Budget exhausted (${self._fmt(session_total)} of ${self._fmt(max_budget)}); human review required")
+
+        fraction = float(remaining) / float(max_budget)
+        if fraction <= threshold_f:
+            return self._make_result('REVIEW', rule_id,
+                f"Remaining budget ${self._fmt(remaining)} is {fraction:.0%} of "
+                f"${self._fmt(max_budget)} (threshold {threshold_f:.0%}); human review required")
+        return None
+
+    def _check_replay(self, rule_id: str, transaction: dict, prior_transactions: list,
+                      params: dict, action: str):
+        """Reject a replayed (duplicate) transaction by nonce. Mirrors SHACKLE
+        SP/1.0 duplicate_nonce.
+
+        Params:
+          field: transaction field holding the single-use nonce (default 'nonce')
+        """
+        field = params.get('field', 'nonce')
+        nonce = transaction.get(field)
+        if nonce is None:
+            return None
+        for prior in prior_transactions:
+            if prior.get(field) == nonce:
+                return self._make_result(action, rule_id,
+                    f"Duplicate nonce '{nonce}': transaction was already seen")
+        return None
+
+    def _check_circuit(self, rule_id: str, transaction: dict, params: dict, action: str):
+        """Deny all calls while the circuit is tripped. Mirrors SHACKLE SP/1.0
+        circuit_open. The runtime latches the trip (e.g. after N consecutive
+        denials) and stamps it on the transaction; the engine deterministically
+        denies while tripped.
+
+        Params:
+          state_field: transaction field carrying the circuit flag
+                       (default 'circuit_tripped')
+        """
+        state_field = params.get('state_field', 'circuit_tripped')
+        if transaction.get(state_field) is True:
+            return self._make_result(action, rule_id,
+                "Circuit open: enforcement paused pending human reset")
+        return None
+
     @staticmethod
     def _to_decimal(value) -> Decimal:
         """Convert a value to Decimal. Raises on failure."""
@@ -564,12 +695,16 @@ class SpendControlEngine:
             'BLOCKED': 'high',
             'FLAG': 'medium',
             'FLAGGED': 'medium',
+            'REVIEW': 'high',
+            'HITL': 'high',
         }
         decision = action.upper()
         if decision == 'BLOCK':
             decision = 'BLOCKED'
         elif decision == 'FLAG':
             decision = 'FLAGGED'
+        elif decision == 'HITL':
+            decision = 'REVIEW'
         return {
             "decision": decision,
             "reason": reason,

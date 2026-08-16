@@ -674,6 +674,7 @@ class APIHandler(BaseHTTPRequestHandler):
             'category_block': ['blocked'],
             'session_budget': ['max_session'],
             'cascade_cost': ['max_cascade_cost'],
+            'hitl_threshold': ['max_budget'],
         }
         if rule_type in required_params:
             params = body.get('params', {})
@@ -742,7 +743,7 @@ class APIHandler(BaseHTTPRequestHandler):
         )
 
         # Broadcast if blocked/flagged
-        if result['decision'] in ('BLOCKED', 'FLAGGED'):
+        if result['decision'] in ('BLOCKED', 'FLAGGED', 'REVIEW'):
             broadcast_event({
                 'type': result['decision'].lower(),
                 'transaction': transaction,
