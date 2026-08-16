@@ -1,18 +1,25 @@
 """
-AgentShield Eval Gym, 50 Scenarios
+AgentShield Eval Gym, 70 Scenarios
 =====================================
-50 labeled test cases spanning 7 categories, testing the SpendControlEngine
-against real-world agent spending patterns.
+70 labeled test cases spanning 12 categories, testing the
+SpendControlEngine against real-world agent spending patterns plus the
+SHACKLE SP/1.0 conformance envelope (HITL review, replay, circuit).
 
-Categories (50 total):
-  - clean_approval (10):        Normal transactions that should pass
-  - transaction_limit_block (8): Single transactions exceeding max amount
-  - daily_total_block (7):       Cumulative daily spend exceeding cap
-  - velocity_flag (6):           Rapid-fire transactions triggering velocity cap
-  - merchant_allowlist_block (7): Transactions to unlisted merchants
-  - category_block (7):          Transactions in blocked categories
-  - edge_cases (5):              Boundary values, malformed inputs, empty rules
+Categories (70 total):
+  - cascade_cost (5)
+  - category_block (7)
+  - circuit_breaker (2)
+  - clean_approval (10)
+  - daily_total_block (8)
+  - edge_cases (6)
+  - hitl_review (3)
+  - merchant_allowlist_block (7)
+  - replay_nonce (2)
+  - session_budget (4)
+  - transaction_limit_block (10)
+  - velocity_flag (6)
 """
+
 
 import sys
 import os
@@ -351,8 +358,8 @@ SCENARIOS = [
      "transaction": {"id": "t047", "agent_id": "agent_a", "merchant": "openai-api",
                      "category": "llm_inference", "timestamp": "2026-08-10T10:00:00Z"},
      "rules": [{"id": "r1", "type": "transaction_limit", "priority": 1, "params": {"max_amount": 500}, "action": "BLOCK"}],
-     "prior_transactions": [], "expected": "FLAGGED",
-     "description": "Missing amount field yields FLAGGED"},
+     "prior_transactions": [], "expected": "BLOCKED",
+     "description": "Missing amount field yields BLOCKED (fail-closed)"},
 
     {"id": 48, "category": "edge_cases",
      "transaction": _txn("t048", amount=10.00),
@@ -429,11 +436,124 @@ SCENARIOS = [
      "prior_transactions": [],
      "expected": "BLOCKED",
      "description": "Pre-computed cascade cost $150 exceeds $100 limit"},
+
+    # ─── Non-Negativity Validation (reported by @sharkwon) ───
+    {"id": 57, "category": "daily_total_block",
+     "transaction": _txn("t057", amount=500.00),
+     "rules": [{"id": "r1", "type": "daily_total", "priority": 1,
+                "params": {"max_daily": 100}, "action": "BLOCK"}],
+     "prior_transactions": [_prior("agent_a", -1000.00, "2026-08-10T09:00:00Z")],
+     "expected": "BLOCKED",
+     "description": "Negative prior amount ($-1000) should not reduce daily total, $500 > $100 cap → BLOCKED"},
+
+    {"id": 58, "category": "session_budget",
+     "transaction": {**_txn("t058", amount=190.00), "session_id": "s1"},
+     "rules": [{"id": "r1", "type": "session_budget", "priority": 1,
+                "params": {"max_session": 100}, "action": "BLOCK"}],
+     "prior_transactions": [
+         {**_prior("a", -95.00, "2026-08-10T09:00:00Z"), "session_id": "s1"}
+     ],
+     "expected": "BLOCKED",
+     "description": "Negative prior session amount ($-95) should not reduce session total, $190 > $100 → BLOCKED"},
+
+    {"id": 59, "category": "transaction_limit_block",
+     "transaction": _txn("t059", amount=-1000000.00),
+     "rules": [{"id": "r1", "type": "transaction_limit", "priority": 1,
+                "params": {"max_amount": 500}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Negative amount should be rejected by transaction_limit"},
+
+    {"id": 60, "category": "transaction_limit_block",
+     "transaction": _txn("t060", amount=0.00),
+     "rules": [{"id": "r1", "type": "transaction_limit", "priority": 1,
+                "params": {"max_amount": 500}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Zero amount transaction should be rejected"},
+
+    {"id": 61, "category": "cascade_cost",
+     "transaction": {**_txn("t061", amount=50.00), "estimated_cascade_cost": -10},
+     "rules": [{"id": "cc4", "type": "cascade_cost", "priority": 1,
+                "params": {"max_cascade_cost": 100}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Negative pre-computed cascade cost should be rejected"},
+
+    {"id": 62, "category": "cascade_cost",
+     "transaction": {**_txn("t062", amount=50.00), "reversal_cost": -100, "fail_probability": 0.5},
+     "rules": [{"id": "cc5", "type": "cascade_cost", "priority": 1,
+                "params": {"max_cascade_cost": 100}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Negative reversal cost should be rejected in cascade calculation"},
+
+    # === SP/1.0 envelope: HITL review, replay, circuit (Fame510/SHACKLE conformance) ===
+    {"id": 63, "category": "hitl_review",
+     "transaction": _txn("t063", amount=10.00),
+     "rules": [{"id": "hr1", "type": "hitl_threshold", "priority": 1,
+                "params": {"mode": "always"}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "REVIEW",
+     "description": "hitl_mode=always escalates every call to REVIEW"},
+
+    {"id": 64, "category": "hitl_review",
+     "transaction": {**_txn("t064", amount=50.00), "session_id": "s_hitl_1"},
+     "rules": [{"id": "hr2", "type": "hitl_threshold", "priority": 1,
+                "params": {"max_budget": 100, "threshold": 0.15}, "action": "BLOCK"}],
+     "prior_transactions": [{**_txn("t064a", amount=40.00), "session_id": "s_hitl_1"}],
+     "expected": "REVIEW",
+     "description": "Remaining budget ($10 of $100) under 15% threshold escalates to REVIEW"},
+
+    {"id": 65, "category": "hitl_review",
+     "transaction": {**_txn("t065", amount=5.00), "session_id": "s_hitl_2"},
+     "rules": [{"id": "hr3", "type": "hitl_threshold", "priority": 1,
+                "params": {"max_budget": 100, "threshold": 0.15}, "action": "BLOCK"}],
+     "prior_transactions": [{**_txn("t065a", amount=10.00), "session_id": "s_hitl_2"}],
+     "expected": "APPROVED",
+     "description": "Remaining budget ($85 of $100) above 15% threshold stays APPROVED"},
+
+    {"id": 66, "category": "replay_nonce",
+     "transaction": {**_txn("t066"), "nonce": 7},
+     "rules": [{"id": "rp1", "type": "replay", "priority": 1, "params": {}, "action": "BLOCK"}],
+     "prior_transactions": [{**_txn("t066a"), "nonce": 7}],
+     "expected": "BLOCKED",
+     "description": "Replayed nonce (7 already seen) is blocked"},
+
+    {"id": 67, "category": "replay_nonce",
+     "transaction": {**_txn("t067"), "nonce": 9},
+     "rules": [{"id": "rp2", "type": "replay", "priority": 1, "params": {}, "action": "BLOCK"}],
+     "prior_transactions": [{**_txn("t067a"), "nonce": 8}],
+     "expected": "APPROVED",
+     "description": "Fresh nonce (9, never seen) is not replayed"},
+
+    {"id": 68, "category": "circuit_breaker",
+     "transaction": {**_txn("t068"), "circuit_tripped": True},
+     "rules": [{"id": "cb1", "type": "circuit", "priority": 1, "params": {}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Tripped circuit blocks all calls (fail-closed latch)"},
+
+    {"id": 69, "category": "circuit_breaker",
+     "transaction": _txn("t069"),
+     "rules": [{"id": "cb2", "type": "circuit", "priority": 1, "params": {}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "APPROVED",
+     "description": "Circuit closed (no flag) does not block"},
+
+    {"id": 70, "category": "edge_cases",
+     "transaction": {"id": "t070", "agent_id": "agent_a", "amount": "not_a_number",
+                     "merchant": "openai-api", "category": "llm_inference",
+                     "timestamp": "2026-08-10T10:00:00Z"},
+     "rules": [{"id": "r1", "type": "transaction_limit", "priority": 1, "params": {"max_amount": 500}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Unparseable amount is BLOCKED (fail-closed), not FLAGGED"},
 ]
 
 
 def run_eval() -> dict:
-    """Run all 50 scenarios and return results dict."""
+    """Run all scenarios and return results dict."""
     engine = SpendControlEngine()
     results = {"total": 0, "passed": 0, "failed": 0, "by_category": {}, "failures": []}
 

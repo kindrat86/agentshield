@@ -143,8 +143,9 @@ class TestEmitter(unittest.TestCase):
         self.assertEqual(d2["limit"], "250.00")
 
     def test_invalid_transaction_empty_trace(self):
+        # Malformed input now fails closed (BLOCKED), with an empty trace.
         event = self.emitter.build_event({"amount": "abc"}, [])
-        self.assertEqual(event["decision"]["decision"], "FLAGGED")
+        self.assertEqual(event["decision"]["decision"], "BLOCKED")
         self.assertEqual(event["evaluation"], [])
 
     def test_parity_with_core_engine(self):

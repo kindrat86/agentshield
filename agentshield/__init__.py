@@ -10,9 +10,9 @@ Quick Start:
 
     engine = SpendControlEngine()
     result = engine.evaluate(transaction, rules, prior_transactions)
-    print(result["decision"])  # APPROVED, BLOCKED, or FLAGGED
+    print(result["decision"])  # APPROVED, BLOCKED, FLAGGED, or REVIEW
 
-    # Run the 56-scenario eval gym:
+    # Run the 70-scenario eval gym:
     results = run_eval()
     print(f"{results['passed']}/{results['total']} passed")
 

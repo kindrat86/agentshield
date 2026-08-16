@@ -1,0 +1,114 @@
+{
+  "rows": [
+    {
+      "agent_reason": "All rules passed",
+      "expected": "ALLOW",
+      "got": "ALLOW",
+      "name": "allow_within_thresholds",
+      "status": "MATCH"
+    },
+    {
+      "agent_reason": "Session spend $1.02 exceeds session budget of $1.00",
+      "expected": "DENY",
+      "got": "DENY",
+      "name": "deny_budget_exhausted",
+      "status": "MATCH"
+    },
+    {
+      "agent_reason": "Velocity exceeded: 3 transactions in 60min window (limit: 2)",
+      "expected": "DENY",
+      "got": "FLAG",
+      "name": "deny_max_repeat",
+      "status": "PARTIAL"
+    },
+    {
+      "agent_reason": "Circuit open: enforcement paused pending human reset",
+      "expected": "DENY",
+      "got": "DENY",
+      "name": "deny_circuit_open",
+      "status": "MATCH"
+    },
+    {
+      "agent_reason": "Duplicate nonce '7': transaction was already seen",
+      "expected": "DENY",
+      "got": "DENY",
+      "name": "deny_duplicate_nonce",
+      "status": "MATCH"
+    },
+    {
+      "agent_reason": "Remaining budget $0.09 is 9% of $1.00 (threshold 15%); human review required",
+      "expected": "HITL",
+      "got": "HITL",
+      "name": "hitl_threshold",
+      "status": "MATCH"
+    },
+    {
+      "agent_reason": "Human review required for every call (hitl mode 'always')",
+      "expected": "HITL",
+      "got": "HITL",
+      "name": "hitl_always",
+      "status": "MATCH"
+    },
+    {
+      "agent_reason": "Invalid transaction format: missing required fields (fail-closed)",
+      "expected": "DENY",
+      "got": "DENY",
+      "name": "malformed_non_canonical_input",
+      "status": "MATCH"
+    },
+    {
+      "expected": "HITL",
+      "got": null,
+      "name": "untestable_opaque_context",
+      "note": "no AgentShield surface for this vector",
+      "status": "NO_EQUIVALENT"
+    },
+    {
+      "expected": "ALLOW",
+      "got": null,
+      "name": "hitl_transition_approve",
+      "note": "no AgentShield surface for this vector",
+      "status": "NO_EQUIVALENT"
+    },
+    {
+      "expected": "DENY",
+      "got": null,
+      "name": "hitl_transition_reject",
+      "note": "no AgentShield surface for this vector",
+      "status": "NO_EQUIVALENT"
+    },
+    {
+      "expected": "ALLOW",
+      "got": null,
+      "name": "hitl_transition_modify",
+      "note": "no AgentShield surface for this vector",
+      "status": "NO_EQUIVALENT"
+    },
+    {
+      "expected": "HITL",
+      "got": null,
+      "name": "hitl_transition_defer_escalate",
+      "note": "no AgentShield surface for this vector",
+      "status": "NO_EQUIVALENT"
+    },
+    {
+      "expected": "DENY",
+      "got": null,
+      "name": "hitl_transition_duplicate_resume",
+      "note": "no AgentShield surface for this vector",
+      "status": "NO_EQUIVALENT"
+    },
+    {
+      "agent_reason": "Session spend $1.05 exceeds session budget of $1.00",
+      "expected": "DENY",
+      "got": "DENY",
+      "name": "concurrent_budget_overrun",
+      "status": "MATCH"
+    }
+  ],
+  "summary": {
+    "MATCH": 8,
+    "NO_EQUIVALENT": 6,
+    "PARTIAL": 1
+  }
+}
