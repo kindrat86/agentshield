@@ -549,6 +549,40 @@ SCENARIOS = [
      "prior_transactions": [],
      "expected": "BLOCKED",
      "description": "Unparseable amount is BLOCKED (fail-closed), not FLAGGED"},
+
+    # === Decimal Overflow DoS (reported by @LinWang312, bug #3) ===
+    {"id": 71, "category": "edge_cases",
+     "transaction": _txn("t071", amount=1e50),
+     "rules": [{"id": "r1", "type": "transaction_limit", "priority": 1, "params": {"max_amount": 500}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Absurd amount (1e50) should BLOCK not crash _fmt quantize (DoS fix)"},
+
+    {"id": 72, "category": "edge_cases",
+     "transaction": _txn("t072", amount=1e27),
+     "rules": [{"id": "r1", "type": "transaction_limit", "priority": 1, "params": {"max_amount": 500}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "Amount at 28-digit precision boundary (1e27) should BLOCK not crash"},
+
+    # === Cross-Agent False Positive: falsy None (reported by @LinWang312, bug #5) ===
+    {"id": 73, "category": "velocity_flag",
+     "transaction": {"id": "t073", "amount": 10.00, "merchant": "openai-api",
+                     "category": "llm_inference", "timestamp": "2026-08-10T10:00:00Z"},
+     "rules": [{"id": "r1", "type": "velocity", "priority": 1,
+                "params": {"window_minutes": 60, "max_count": 5}, "action": "FLAGGED"}],
+     "prior_transactions": [_prior("agent_a", 5, f"2026-08-10T09:3{i}:00Z") for i in range(7)],
+     "expected": "APPROVED",
+     "description": "Txn without agent_id must not aggregate with agent_a priors (cross-agent FP fix)"},
+
+    {"id": 74, "category": "daily_total_block",
+     "transaction": {"id": "t074", "amount": 10.00, "merchant": "openai-api",
+                     "category": "llm_inference", "timestamp": "2026-08-10T10:00:00Z"},
+     "rules": [{"id": "r1", "type": "daily_total", "priority": 1,
+                "params": {"max_daily": 100}, "action": "BLOCK"}],
+     "prior_transactions": [_prior("agent_a", 200, "2026-08-10T09:00:00Z")],
+     "expected": "APPROVED",
+     "description": "Txn without agent_id must not aggregate agent_a daily total (cross-agent fix)"},
 ]
 
 
