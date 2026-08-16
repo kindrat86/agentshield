@@ -14,7 +14,7 @@ Existing solutions failed:
 - Budget alerts: emailed me while I was asleep
 - Manual monitoring: doesn't scale past 3 agents
 
-So I built AgentShield, 5 composable spending rules evaluated per-transaction in under 1ms.
+So I built AgentShield, 10 composable spending rules evaluated per-transaction in under 1ms.
 
 What it does:
 - Per-transaction limit (max $500/single call)
@@ -30,7 +30,7 @@ The eval gym has 74 labeled scenarios across 12 categories. Currently 74/74 on f
 Edge cases:
 - Amount exactly at limit → APPROVED (not strictly greater)
 - $0.01 over limit → BLOCKED
-- Missing amount field → FLAGGED
+- Missing or malformed amount field → BLOCKED (fail-closed)
 - Empty rules list → APPROVED
 
 Try the risk calculator (no signup): https://agentshield.fly.dev/tools/risk-calculator/

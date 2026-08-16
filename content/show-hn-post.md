@@ -8,7 +8,7 @@
 
 **Title:**
 
-Show HN: AgentShield – A firewall for AI agent spending (56 eval scenarios, Python stdlib)
+Show HN: AgentShield – A firewall for AI agent spending (74 eval scenarios, Python stdlib)
 
 **Text:**
 

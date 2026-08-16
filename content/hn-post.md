@@ -7,7 +7,7 @@ Existing tools failed:
 - Budget alerts emailed me... while I was asleep
 - Manual monitoring doesn't scale past 3 agents
 
-So I built AgentShield: 5 composable rule types, evaluated per-transaction, in <1ms. No dependencies beyond Python 3 stdlib.
+So I built AgentShield: 10 composable rule types, evaluated per-transaction, in <1ms. No dependencies beyond Python 3 stdlib.
 
 **Rule types:**
 - transaction_limit, block single calls over a threshold
@@ -23,7 +23,7 @@ Rules evaluate in priority order. First match wins. All monetary arithmetic uses
 Edge cases that prove correctness:
 - Amount exactly at limit → APPROVED (not strictly greater)
 - $0.01 over limit → BLOCKED
-- Missing amount field → FLAGGED
+- Missing or malformed amount field → BLOCKED (fail-closed)
 - Empty rules list → APPROVED
 
 **Architecture:**

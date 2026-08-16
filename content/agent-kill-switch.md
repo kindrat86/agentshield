@@ -20,9 +20,9 @@ I tried everything before building my own solution:
 
 The fundamental problem: none of these tools evaluate **each individual transaction** before it executes. They're reactive, not preventive.
 
-## The 7-Rule Framework
+## The 10-Rule Framework
 
-I built AgentShield around 5 composable rule types (the engine supports 7 total, including the 2 most common aliases). Each rule is evaluated per-transaction, in priority order. First match wins.
+I built AgentShield around 10 composable rule types. Here are the five you will use most. Each rule is evaluated per-transaction, in priority order. First match wins.
 
 ### 1. Transaction Limit
 
@@ -104,26 +104,31 @@ Rules are evaluated in priority order. Lower number = higher priority. First mat
 
 If a transaction violates multiple rules, the highest-priority rule fires first. This gives you predictable, debuggable behavior.
 
-## The Eval Gym: 50 Labeled Scenarios
+## The Eval Gym: 74 Labeled Scenarios
 
 To prove the engine works, I built a test suite of 74 scenarios covering real-world agent behaviors:
 
 | Category | Scenarios | Pass Rate |
 |----------|-----------|-----------|
 | clean_approval | 10 | 100% |
-| transaction_limit_block | 8 | 100% |
-| daily_total_block | 7 | 100% |
-| velocity_flag | 6 | 100% |
-| merchant_allowlist_block | 7 | 100% |
+| transaction_limit_block | 10 | 100% |
+| daily_total_block | 9 | 100% |
+| edge_cases | 8 | 100% |
 | category_block | 7 | 100% |
-| edge_cases | 5 | 100% |
-| **Overall** | **50** | **100%** |
+| merchant_allowlist_block | 7 | 100% |
+| velocity_flag | 7 | 100% |
+| cascade_cost | 5 | 100% |
+| session_budget | 4 | 100% |
+| hitl_review | 3 | 100% |
+| circuit_breaker | 2 | 100% |
+| replay_nonce | 2 | 100% |
+| **Overall** | **74** | **100%** |
 
 The edge cases are where the engine proves its correctness:
 
 - **Amount exactly at limit** ($500.00 vs $500 limit) → APPROVED (not strictly greater)
 - **Amount $0.01 over limit** ($500.01 vs $500 limit) → BLOCKED
-- **Missing amount field** → FLAGGED (graceful degradation)
+- **Missing or malformed amount field** → BLOCKED (fail-closed)
 - **Empty rules list** → APPROVED (fail-open for legitimate use)
 - **Two rules at same priority** → First in list wins (deterministic)
 
