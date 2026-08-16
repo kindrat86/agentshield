@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Universal AI Agent Spend-Control Benchmark, 56 Labeled Scenarios (MIT Licensed)</title>
+<title>Universal AI Agent Spend-Control Benchmark, 74 Labeled Scenarios (MIT Licensed)</title>
 <meta name="description" content="A standardized test suite of 74 labeled scenarios for validating AI agent spend-control rules. MIT licensed. Steal these test cases.">
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --surface2:#1a1a1a; --border:#2a2a2a; --accent:#00d4aa; --text:#e8e8e8; --muted:#888; --danger:#ff4757; --warn:#ffa502; --green:#22c55e; }
@@ -52,22 +52,22 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
 <h2>Why This Exists</h2>
 <p>AI agent frameworks are deploying into production with spend controls that range from "none" to "a daily budget alert email." Neither prevents the $2,800-in-60-seconds scenario. As more teams build pre-flight cost enforcement (see: <a href="https://github.com/zeroclaw-labs/zeroclaw/pull/2333" style="color:var(--accent)">ZeroClaw's merged enforcement PR</a>), there is a need for a standardized way to validate that the enforcement logic is correct.</p>
 
-<p>This benchmark provides 74 labeled scenarios with expected outcomes, covering the failure modes that actually occur in production agent deployments. Each scenario specifies a transaction, a rule set, prior transactions, and the expected decision (APPROVED, BLOCKED, or FLAGGED).</p>
+<p>This benchmark provides 74 labeled scenarios with expected outcomes, covering the failure modes that actually occur in production agent deployments. Each scenario specifies a transaction, a rule set, prior transactions, and the expected decision (APPROVED, BLOCKED, FLAGGED, or REVIEW).</p>
 
 <div class="stat-row">
-<div class="stat"><div class="num">56</div><div class="lbl">Test Scenarios</div></div>
-<div class="stat"><div class="num">9</div><div class="lbl">Rule Categories</div></div>
+<div class="stat"><div class="num">74</div><div class="lbl">Test Scenarios</div></div>
+<div class="stat"><div class="num">12</div><div class="lbl">Categories</div></div>
 <div class="stat"><div class="num">100%</div><div class="lbl">Pass Rate</div></div>
 <div class="stat"><div class="num">&lt;1ms</div><div class="lbl">Per Evaluation</div></div>
 </div>
 
-<h2>The 9 Spend-Control Categories</h2>
+<h2>The 12 Spend-Control Categories</h2>
 
 <h3>1. Clean Approval (10 scenarios)</h3>
 <p>Normal transactions that should pass all rules. Tests that the engine does not produce false positives on legitimate agent activity.</p>
 <p><strong>Example:</strong> A $10 API call to an approved merchant with $500 daily budget remaining → APPROVED.</p>
 
-<h3>2. Transaction Limit (8 scenarios)</h3>
+<h3>2. Transaction Limit (10 scenarios)</h3>
 <p>Blocks any single transaction exceeding a configurable maximum amount. First line of defense against expensive model calls.</p>
 <pre><code>{
   "type": "transaction_limit",
@@ -76,7 +76,7 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
 }</code></pre>
 <p><strong>Key edge case:</strong> Amount exactly at limit ($500.00 vs $500 limit) → APPROVED (not strictly greater). $500.01 → BLOCKED.</p>
 
-<h3>3. Daily Total (7 scenarios)</h3>
+<h3>3. Daily Total (9 scenarios)</h3>
 <p>Caps cumulative spend per agent per calendar day. Prevents death-by-a-thousand-cuts patterns.</p>
 <pre><code>{
   "type": "daily_total",
@@ -84,7 +84,7 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
   "action": "BLOCK"
 }</code></pre>
 
-<h3>4. Velocity / Burst Detection (6 scenarios)</h3>
+<h3>4. Velocity / Burst Detection (7 scenarios)</h3>
 <p>Counts transactions in a rolling time window. Catches retry storms and infinite loops, the $2,800-in-60-seconds pattern.</p>
 <pre><code>{
   "type": "velocity",
@@ -104,17 +104,17 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
 <h3>6. Category Block (7 scenarios)</h3>
 <p>Blocks entire categories of spend. Useful for enterprise policies (no crypto exchanges, no gambling, no adult content).</p>
 
-<h3>7. Edge Cases (5 scenarios)</h3>
+<h3>7. Edge Cases (8 scenarios)</h3>
 <p>Boundary values and malformed inputs that test engine correctness:</p>
 <ul>
 <li><strong>Amount exactly at limit</strong> ($500.00 vs $500 limit) → APPROVED</li>
 <li><strong>Amount $0.01 over limit</strong> ($500.01 vs $500 limit) → BLOCKED</li>
-<li><strong>Missing amount field</strong> → FLAGGED (graceful degradation, not crash)</li>
+<li><strong>Missing amount field</strong> → BLOCKED (fail-closed, not crash)</li>
 <li><strong>Empty rules list</strong> → APPROVED (fail-open for legitimate use)</li>
 <li><strong>Two rules at same priority</strong> → First in list wins (deterministic)</li>
 </ul>
 
-<h3>8. Session Budget (3 scenarios) <span style="color:var(--accent);font-size:0.7em">NEW</span></h3>
+<h3>8. Session Budget (4 scenarios) <span style="color:var(--accent);font-size:0.7em">NEW</span></h3>
 <p>Session-scoped spend caps with optional decay tightening. Addresses the "2 AM cron burst" pattern where a single agent session consumes an entire day's budget in one run.</p>
 
 <div class="callout">
@@ -133,7 +133,7 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
 
 <p><strong>Decay logic:</strong> When remaining session budget falls below <code>decay_factor × max_session</code>, the per-call threshold shrinks proportionally to the remaining budget. This prevents a single expensive call from consuming the last of the budget.</p>
 
-<h3>9. Cascade Cost (3 scenarios) <span style="color:var(--accent);font-size:0.7em">NEW</span></h3>
+<h3>9. Cascade Cost (5 scenarios) <span style="color:var(--accent);font-size:0.7em">NEW</span></h3>
 <p>Pre-dispatch expected-value estimation. Computes the cascade-adjusted cost of a call, accounting for the probability of failure and the cost of reversal/retry.</p>
 
 <div class="callout">
@@ -154,6 +154,15 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
 <p><strong>Example:</strong> A $50 call with 30% failure probability and $200 reversal cost has a cascade cost of $50 + (0.3 × $200) = $110. If the threshold is $100, the call is blocked.</p>
 
 <p>The caller can also pre-compute the cascade cost and pass it directly: <code>"estimated_cascade_cost": 150.00</code> in the transaction object.</p>
+
+<h3>10. Circuit Breaker (2 scenarios) <span style="color:var(--accent);font-size:0.7em">NEW</span></h3>
+<p>Blocks all transactions while a circuit is tripped. After a configurable number of consecutive failures, the circuit opens and every call is denied until it resets, preventing a failing integration from draining budget through repeated retries.</p>
+
+<h3>11. HITL Review (3 scenarios) <span style="color:var(--accent);font-size:0.7em">NEW</span></h3>
+<p>Human-in-the-loop escalation. Transactions that exceed a risk threshold are routed to REVIEW for an operator to decide, instead of being auto-approved or auto-blocked. Adds a deterministic third verdict beyond ALLOW and DENY.</p>
+
+<h3>12. Replay Nonce (2 scenarios) <span style="color:var(--accent);font-size:0.7em">NEW</span></h3>
+<p>Duplicate nonce detection. A transaction that reuses an already-processed nonce is blocked, preventing replay attacks that would double-spend budget.</p>
 
 <h2>Transaction Structure</h2>
 <p>Every scenario uses this transaction shape:</p>
@@ -189,7 +198,7 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
   "rule_triggered": "rule_001",
   "severity": "high"
 }</code></pre>
-<p>Decision values: <code>APPROVED</code>, <code>BLOCKED</code>, or <code>FLAGGED</code>. Severity: <code>none</code>, <code>medium</code>, <code>high</code>.</p>
+<p>Decision values: <code>APPROVED</code>, <code>BLOCKED</code>, <code>FLAGGED</code>, or <code>REVIEW</code>. Severity: <code>none</code>, <code>medium</code>, <code>high</code>.</p>
 
 <h2>How to Use These Scenarios</h2>
 <ol>

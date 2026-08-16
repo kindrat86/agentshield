@@ -1,5 +1,5 @@
 ---
-title: 56 Test Scenarios for AI Agent Spend Control (MIT Licensed, Steal Them)
+title: 74 Test Scenarios for AI Agent Spend Control (MIT Licensed, Steal Them)
 published: true
 tags: ai, agents, testing, opensource
 canonical_url: https://agentshield.fly.dev/eval-gym-spec
@@ -13,15 +13,15 @@ Most teams test their spend controls by... not testing them. They set the limits
 
 So we wrote **74 labeled test scenarios**, covering **10 spend-control rule types**, and open-sourced them. MIT licensed. You can copy them into your test suite today.
 
-Each scenario specifies a transaction, a rule set, prior transactions, and the expected decision (`APPROVED`, `BLOCKED`, or `FLAGGED`). If your enforcement engine returns something else, you have a gap.
+Each scenario specifies a transaction, a rule set, prior transactions, and the expected decision (`APPROVED`, `BLOCKED`, `FLAGGED`, or `REVIEW`). If your enforcement engine returns something else, you have a gap.
 
-## The 9 Rule Types
+## The 10 Rule Types
 
 ### 1. Clean Approval (10 scenarios)
 
 Not a rule type per se, these test that your engine doesn't produce **false positives** on legitimate activity. A $10 API call to an approved merchant with plenty of daily budget left must be APPROVED. An engine that blocks everything is trivially "safe" and completely useless.
 
-### 2. Transaction Limit (8 scenarios)
+### 2. Transaction Limit (10 scenarios)
 
 Block any single call exceeding a max amount. The first line of defense against expensive model calls.
 
@@ -31,11 +31,11 @@ Block any single call exceeding a max amount. The first line of defense against 
 
 The scenario that catches bugs: amount **exactly at** the limit. $500.00 against a $500 limit → APPROVED (not strictly greater). $500.01 → BLOCKED. Half the hand-rolled implementations we've seen get this boundary wrong.
 
-### 3. Daily Total (7 scenarios)
+### 3. Daily Total (9 scenarios)
 
 Cap cumulative spend per agent per calendar day. Catches death-by-a-thousand-cuts patterns where no single call is alarming but the sum is.
 
-### 4. Velocity / Burst Detection (6 scenarios)
+### 4. Velocity / Burst Detection (7 scenarios)
 
 Count transactions in a rolling window. This is the rule that catches retry storms and infinite loops, the $2,800-in-60-seconds pattern.
 
@@ -53,11 +53,11 @@ Only allow calls to approved API providers. Blocks calls to unknown proxies, una
 
 Block entire categories of spend. Enterprise policy territory: no crypto exchanges, no gambling, no unapproved data vendors.
 
-### 7. Session Budget (3 scenarios)
+### 7. Session Budget (4 scenarios)
 
 Session-scoped spend caps with optional **decay tightening**: when remaining session budget falls below `decay_factor × max_session`, the per-call threshold shrinks proportionally. This prevents a single expensive call from consuming the last of the budget. Addresses the "2 AM cron burst" pattern where one agent session eats a whole day's budget in one run.
 
-### 8. Cascade Cost (3 scenarios)
+### 8. Cascade Cost (5 scenarios)
 
 Pre-dispatch expected-value estimation:
 
@@ -67,15 +67,15 @@ cascade_cost = call_cost + (fail_probability × reversal_cost)
 
 A $50 call with 30% failure probability and $200 reversal cost has a cascade cost of $110. If your threshold is $100, block it, the *expected* cost of dispatching exceeds what the sticker price suggests. This rule type came directly from a conversation with an engineer building production cost-gating; it's the difference between gating on price and gating on risk.
 
-### 9. Edge Cases (5 scenarios)
+### 9. Edge Cases (8 scenarios)
 
 The category that will actually bite you:
 
 - **Boundary values**, amount exactly at limit (covered above, but tested independently)
-- **Missing fields**, transaction with no `amount` field → FLAGGED, never crash, never silently approve
+- **Missing fields**, transaction with no `amount` field → BLOCKED (fail-closed), never crash, never silently approve
 - **Empty rulesets**, no rules configured → APPROVED (fail-open, documented and deliberate; you may want fail-closed, the point is the scenario forces you to *decide*)
 - **Priority ties**, two rules with the same priority → first in list wins, deterministically
-- **Malformed inputs**, garbage in the amount field → FLAGGED with a reason, not an unhandled exception
+- **Malformed inputs**, garbage in the amount field → BLOCKED (fail-closed) with a reason, not an unhandled exception
 
 If your spend-control engine hasn't been tested against malformed input, it *has* been tested against malformed input, just in production, later, by an agent.
 

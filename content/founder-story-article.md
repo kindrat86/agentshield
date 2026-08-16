@@ -2,7 +2,7 @@
 title: I Lost $2,800 in 60 Seconds to an AI Agent. Here's What I Built to Stop It.
 published: true
 tags: aiagents, costcontrol, python, opensource
-description: After an AI agent drained my API budget while I slept, I built a per-transaction spend firewall. Here's the full story, the architecture, and 56 open-source test scenarios.
+description: After an AI agent drained my API budget while I slept, I built a per-transaction spend firewall. Here's the full story, the architecture, and 74 open-source test scenarios.
 ---
 
 # I Lost $2,800 in 60 Seconds to an AI Agent
@@ -52,7 +52,7 @@ Agent → AgentShield → Rules Engine → API Provider
 
 The engine is pure Python 3.11 standard library. Zero dependencies. Runs on 256MB RAM. You can self-host it in 60 seconds.
 
-### 9 Rule Types
+### 10 Rule Types
 
 1. **transaction_limit**, block any single call over $X
 2. **daily_total**, cap cumulative spend per agent per day
@@ -61,10 +61,11 @@ The engine is pure Python 3.11 standard library. Zero dependencies. Runs on 256M
 5. **category_block**, block entire spending categories
 6. **session_budget**, session-scoped spend cap with decay tightening
 7. **cascade_cost**, pre-dispatch EV: call_cost + fail_probability × reversal_cost
-8. **clean_approval**, explicit allow for known-good patterns
-9. **edge_cases**, precision handling for Decimal arithmetic edge cases
+8. **hitl_threshold**, human-in-the-loop escalation for high-risk calls
+9. **replay**, duplicate nonce / replay protection
+10. **circuit**, circuit breaker that denies calls while tripped
 
-The last two rules, **session_budget** and **cascade_cost**, came from an engineer at HeartFlow who's building production cost-gating. Real-world rules from real-world pain.
+Two of these rules, **session_budget** and **cascade_cost**, came from an engineer at HeartFlow who's building production cost-gating. Real-world rules from real-world pain.
 
 ### session_budget
 
@@ -80,21 +81,24 @@ expected_cost = call_cost + (fail_probability × reversal_cost)
 
 If expected_cost exceeds the threshold, the call is blocked.
 
-## The Eval Gym: 56 Open-Source Test Scenarios
+## The Eval Gym: 74 Open-Source Test Scenarios
 
-You can't claim "spend control" without test cases. So I wrote 56 of them.
+You can't claim "spend control" without test cases. So I wrote 74 of them.
 
 The [Eval Gym](https://agentshield.fly.dev/eval) covers:
 
 - **Clean approvals** (10 scenarios): transactions that should pass
-- **Transaction limits** (8): edge cases around max amount
-- **Daily totals** (8): cumulative spend tracking
-- **Velocity** (8): burst detection
-- **Merchant allowlists** (6): provider filtering
-- **Category blocks** (6): category-level enforcement
-- **Edge cases** (10): precision, timing, concurrent transactions
-- **Session budgets** (6): session-scoped enforcement
-- **Cascade cost** (4): expected value calculations
+- **Transaction limits** (10): edge cases around max amount
+- **Daily totals** (9): cumulative spend tracking
+- **Velocity** (7): burst detection
+- **Merchant allowlists** (7): provider filtering
+- **Category blocks** (7): category-level enforcement
+- **Edge cases** (8): precision, timing, concurrent transactions
+- **Session budgets** (4): session-scoped enforcement
+- **Cascade cost** (5): expected value calculations
+- **Circuit breaker** (2): denies all calls while tripped
+- **HITL review** (3): operator escalation for high-risk calls
+- **Replay nonce** (2): duplicate nonce / replay protection
 
 All MIT licensed. You can grab the raw test definitions from [tests/eval_gym.py](https://github.com/kindrat86/agentshield/blob/main/tests/eval_gym.py) and use them to test YOUR spend-control implementation.
 
@@ -109,7 +113,7 @@ pip install agentshield
 ```python
 from agentshield import SpendControlEngine, run_eval
 
-# Run all 56 eval scenarios
+# Run all 74 eval scenarios
 results = run_eval()
 print(f"{results['passed']}/{results['total']} scenarios passed")
 
