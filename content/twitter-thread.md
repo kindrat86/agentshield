@@ -49,7 +49,7 @@ Two rules that came from production experience:
 2️⃣ cascade_cost, A $0.50 call with 30% failure rate and $5 retry = $2.00 expected cost. The rule blocks calls that look cheap but compound on failure.
 
 **Post 7/8:**
-56 labeled test scenarios. 7 composable rule types. MIT licensed.
+74 labeled test scenarios. 10 composable rule types. MIT licensed.
 
 The eval gym is a universal benchmark, use it to test YOUR spend-control implementation, not just ours.
 

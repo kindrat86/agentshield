@@ -154,10 +154,10 @@ def agent_loop_step(agent, task):
 
 <p>ZeroClaw's PR added the enforcement layer at the runtime level, integrated into their agent loop. This is the right architecture for a framework that controls its own execution model.</p>
 
-<p>For teams who want a standalone, framework-agnostic enforcement engine, we built <a href="https://github.com/kindrat86/agentshield" style="color:var(--accent)">AgentShield</a>, a pure Python 3.11 stdlib spend-control firewall with 7 composable rule types and 56 labeled test scenarios across 9 eval categories.</p>
+<p>For teams who want a standalone, framework-agnostic enforcement engine, we built <a href="https://github.com/kindrat86/agentshield" style="color:var(--accent)">AgentShield</a>, a pure Python 3.11 stdlib spend-control firewall with 10 composable rule types and 74 labeled test scenarios across 12 eval categories.</p>
 
 <div class="callout">
-<p><strong>The 56-scenario eval gym</strong> is independently useful as a test suite for <em>any</em> spend-control implementation, including yours. If you're building enforcement logic, run it against these scenarios. They're MIT licensed. <a href="https://agentshield.fly.dev/eval-gym-spec" style="color:var(--accent)">View the spec →</a></p>
+<p><strong>The 74-scenario eval gym</strong> is independently useful as a test suite for <em>any</em> spend-control implementation, including yours. If you're building enforcement logic, run it against these scenarios. They're MIT licensed. <a href="https://agentshield.fly.dev/eval-gym-spec" style="color:var(--accent)">View the spec →</a></p>
 </div>
 
 <h2>The Broader Pattern</h2>
@@ -166,15 +166,15 @@ def agent_loop_step(agent, task):
 
 <p>The teams running production agents, ZeroClaw, OpenClaw (see <a href="https://github.com/openclaw/openclaw/issues/42475" style="color:var(--accent)">issue #42475</a>), and others, are all converging on the same architecture: pre-dispatch cost evaluation, structured block decisions, and session-scoped budgets with decay.</p>
 
-<p>If you're building an agent framework, the question is not <em>whether</em> to add enforcement, it's <em>which edge cases you handle</em>. The 56-scenario benchmark is our answer to that question.</p>
+<p>If you're building an agent framework, the question is not <em>whether</em> to add enforcement, it's <em>which edge cases you handle</em>. The 74-scenario benchmark is our answer to that question.</p>
 
 <h2>Resources</h2>
 <ul>
 <li><a href="https://github.com/zeroclaw-labs/zeroclaw/pull/2333" style="color:var(--accent)">ZeroClaw PR #2333: Preflight budget enforcement policy</a></li>
 <li><a href="https://github.com/zeroclaw-labs/zeroclaw/issues/2269" style="color:var(--accent)">ZeroClaw RFI #2269: Token cost management for productized workloads</a></li>
-<li><a href="https://agentshield.fly.dev/eval-gym-spec" style="color:var(--accent)">Universal Eval Gym Spec (56 scenarios, MIT licensed)</a></li>
+<li><a href="https://agentshield.fly.dev/eval-gym-spec" style="color:var(--accent)">Universal Eval Gym Spec (74 scenarios, MIT licensed)</a></li>
 <li><a href="https://github.com/kindrat86/agentshield/blob/main/tests/eval_gym.py" style="color:var(--accent)">Test scenarios source code</a></li>
-<li><a href="https://agentshield.fly.dev/eval" style="color:var(--accent)">Live eval gym (56/56 passing)</a></li>
+<li><a href="https://agentshield.fly.dev/eval" style="color:var(--accent)">Live eval gym (74/74 passing)</a></li>
 </ul>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:32px 0">

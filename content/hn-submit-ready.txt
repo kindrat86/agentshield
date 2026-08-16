@@ -1,6 +1,6 @@
 HN POST READY, copy-paste this into https://news.ycombinator.com/submit
 
-TITLE: AgentShield – A firewall for AI agent spending (stdlib, 56/56 eval)
+TITLE: AgentShield – A firewall for AI agent spending (stdlib, 74/74 eval)
 URL: https://agentshield.fly.dev
 
 STATUS: Already submitted! Post URL: https://news.ycombinator.com/item?id=49250917
@@ -25,7 +25,7 @@ What it does:
 
 Tech: Pure Python 3.11 stdlib. No pip install. SQLite + WAL mode. SSE for real-time alerts. Multi-tenant isolation out of the box.
 
-The eval gym has 56 labeled scenarios across 7 categories. Currently 56/56 on first run.
+The eval gym has 74 labeled scenarios across 12 categories. Currently 74/74 on first run.
 
 Edge cases:
 - Amount exactly at limit → APPROVED (not strictly greater)

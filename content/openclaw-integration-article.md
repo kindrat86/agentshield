@@ -61,7 +61,7 @@ The plugin sends three things to the rules engine before each model call:
 - **Provider**, "anthropic-api", "openai-api", etc. for merchant allowlisting
 - **Session cost so far**, for daily cap enforcement
 
-The engine evaluates these against 7 composable rules, in priority order:
+The engine evaluates these against 10 composable rules, in priority order:
 
 1. Transaction limit, block any single call over $X
 2. Daily total, cap cumulative spend per agent per day
@@ -75,7 +75,7 @@ First rule that matches decides. The decision comes back as JSON: `{"decision": 
 
 ## The Eval Gym Proves It Works
 
-The rules engine has a test suite of 50 labeled scenarios across 7 categories. All passing:
+The rules engine has a test suite of 74 labeled scenarios across 12 categories. All passing:
 
 | Category | Scenarios | Pass Rate |
 |----------|-----------|-----------|

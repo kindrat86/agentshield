@@ -60,7 +60,7 @@ strong { color:#fff; }
 <li><strong>Manual monitoring.</strong> It fails at exactly the moment you need it most, 3 AM, weekends, holidays, the one night you forget.</li>
 </ol>
 
-<p>So I built <strong>AgentShield</strong>: a pre-execution spend firewall for AI agents. Every transaction is evaluated against your rules <em>before</em> the API call goes out. Pure Python stdlib, zero dependencies, &lt;1ms per evaluation, 7 composable rules, transaction limits, daily totals, velocity, merchant allowlists, category blocks, session budgets, cascade cost estimates, plus a kill switch. APPROVED, BLOCKED, or FLAGGED, in priority order, deterministically.</p>
+<p>So I built <strong>AgentShield</strong>: a pre-execution spend firewall for AI agents. Every transaction is evaluated against your rules <em>before</em> the API call goes out. Pure Python stdlib, zero dependencies, &lt;1ms per evaluation, 10 composable rules, transaction limits, daily totals, velocity, merchant allowlists, category blocks, session budgets, cascade cost estimates, plus a kill switch. APPROVED, BLOCKED, or FLAGGED, in priority order, deterministically.</p>
 
 <p>The 3 AM incident wouldn't have survived contact with a single rule: <code>transaction_limit: max_amount $100</code>.</p>
 
@@ -139,7 +139,7 @@ emitter.emit(
 <p>The pattern worth stealing isn't the code, it's the division of labor: <strong>pre-execution control answers "should this run?"; post-execution visibility answers "why did it run badly?"</strong> Monitoring tools only tell you what already happened. Budget alerts only tell you what already happened. An agent safety story needs both halves, and now they're one integration.</p>
 
 <ul>
-<li><strong>AgentShield</strong> (pre-execution firewall): <a href="https://github.com/kindrat86/agentshield">github.com/kindrat86/agentshield</a>, stdlib-only, 7 rules, &lt;1ms, kill switch.</li>
+<li><strong>AgentShield</strong> (pre-execution firewall): <a href="https://github.com/kindrat86/agentshield">github.com/kindrat86/agentshield</a>, stdlib-only, 10 rules, &lt;1ms, kill switch.</li>
 <li><strong>Agent-Devtools</strong> (post-execution debugger): <a href="https://github.com/Jacopos311/Agent-Devtools">github.com/Jacopos311/Agent-Devtools</a>, local-first visual replay for agent runs.</li>
 </ul>
 
