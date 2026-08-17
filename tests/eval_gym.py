@@ -347,6 +347,26 @@ SCENARIOS = [
      "prior_transactions": [], "expected": "BLOCKED",
      "description": "Unauthorized service blocked"},
 
+
+    {"id": 51, "category": "daily_total_block",
+     "transaction": _txn("t051", amount=50.00, agent_id="agent_b", timestamp="2026-08-10T10:00:00Z"),
+     "rules": [{"id": "r1", "type": "daily_total", "priority": 1, "params": {"max_daily": 300}, "action": "BLOCK"}],
+     "prior_transactions": [
+         {"agent_id": "agent_b", "amount": 1000.0, "timestamp": "2026-08-10T09:00:00Z", "decision": "BLOCKED"},
+         {"agent_id": "agent_b", "amount": 200.0, "timestamp": "2026-08-10T09:30:00Z", "decision": "APPROVED"}
+     ],
+     "expected": "APPROVED",
+     "description": "BLOCKED prior transaction is excluded from daily total cumulative sum"},
+
+    {"id": 52, "category": "daily_total_block",
+     "transaction": _txn("t052", amount=100.00, agent_id="agent_c", timestamp="2026-08-10T23:30:00-05:00"),
+     "rules": [{"id": "r1", "type": "daily_total", "priority": 1, "params": {"max_daily": 500}, "action": "BLOCK"}],
+     "prior_transactions": [
+         {"agent_id": "agent_c", "amount": 450.0, "timestamp": "2026-08-11T01:00:00Z", "decision": "APPROVED"}
+     ],
+     "expected": "BLOCKED",
+     "description": "ISO timestamp timezone offsets correctly parsed into UTC date for daily calculation"},
+
     # ═══ EDGE CASES (5) ═══
     {"id": 46, "category": "edge_cases",
      "transaction": _txn("t046", amount=500.00),
