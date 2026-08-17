@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Universal AI Agent Spend-Control Benchmark, 74 Labeled Scenarios (MIT Licensed)</title>
-<meta name="description" content="A standardized test suite of 74 labeled scenarios for validating AI agent spend-control rules. MIT licensed. Steal these test cases.">
+<title>Universal AI Agent Spend-Control Benchmark, 77 Labeled Scenarios (MIT Licensed)</title>
+<meta name="description" content="A standardized test suite of 77 labeled scenarios for validating AI agent spend-control rules. MIT licensed. Steal these test cases.">
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --surface2:#1a1a1a; --border:#2a2a2a; --accent:#00d4aa; --text:#e8e8e8; --muted:#888; --danger:#ff4757; --warn:#ffa502; --green:#22c55e; }
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -45,17 +45,17 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
 <div class="container">
 
 <h1>Universal AI Agent Spend-Control Benchmark</h1>
-<p style="font-size:1.15em;color:var(--muted)">74 labeled test scenarios across 12 categories. MIT licensed. Designed to validate any spend-control or budget-enforcement engine for autonomous AI agents.</p>
+<p style="font-size:1.15em;color:var(--muted)">77 labeled test scenarios across 12 categories. MIT licensed. Designed to validate any spend-control or budget-enforcement engine for autonomous AI agents.</p>
 
 <div class="badge">MIT LICENSED, STEAL THESE TEST CASES</div>
 
 <h2>Why This Exists</h2>
 <p>AI agent frameworks are deploying into production with spend controls that range from "none" to "a daily budget alert email." Neither prevents the $2,800-in-60-seconds scenario. As more teams build pre-flight cost enforcement (see: <a href="https://github.com/zeroclaw-labs/zeroclaw/pull/2333" style="color:var(--accent)">ZeroClaw's merged enforcement PR</a>), there is a need for a standardized way to validate that the enforcement logic is correct.</p>
 
-<p>This benchmark provides 74 labeled scenarios with expected outcomes, covering the failure modes that actually occur in production agent deployments. Each scenario specifies a transaction, a rule set, prior transactions, and the expected decision (APPROVED, BLOCKED, FLAGGED, or REVIEW).</p>
+<p>This benchmark provides 77 labeled scenarios with expected outcomes, covering the failure modes that actually occur in production agent deployments. Each scenario specifies a transaction, a rule set, prior transactions, and the expected decision (APPROVED, BLOCKED, FLAGGED, or REVIEW).</p>
 
 <div class="stat-row">
-<div class="stat"><div class="num">74</div><div class="lbl">Test Scenarios</div></div>
+<div class="stat"><div class="num">77</div><div class="lbl">Test Scenarios</div></div>
 <div class="stat"><div class="num">12</div><div class="lbl">Categories</div></div>
 <div class="stat"><div class="num">100%</div><div class="lbl">Pass Rate</div></div>
 <div class="stat"><div class="num">&lt;1ms</div><div class="lbl">Per Evaluation</div></div>
@@ -204,13 +204,13 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
 <ol>
 <li><strong>As test fixtures:</strong> Copy <code>tests/eval_gym.py</code> and adapt the scenarios to your enforcement engine's input/output format.</li>
 <li><strong>As a design reference:</strong> When designing a cost-control system, use these 12 categories as your feature checklist. If your system doesn't handle edge cases 48-50, you have a correctness bug.</li>
-<li><strong>As a benchmark:</strong> Run your engine against all 74 scenarios and compare pass rates. The edge cases category is where most implementations fail.</li>
+<li><strong>As a benchmark:</strong> Run your engine against all 77 scenarios and compare pass rates. The edge cases category is where most implementations fail.</li>
 <li><strong>As documentation:</strong> Share the scenario list with your team to align on what "spend control" means in your system.</li>
 </ol>
 
 <div class="cta-box">
 <h3>Get the Scenarios</h3>
-<p style="margin-bottom:16px">All 74 scenarios are in <code>tests/eval_gym.py</code>. MIT licensed. Copy freely.</p>
+<p style="margin-bottom:16px">All 77 scenarios are in <code>tests/eval_gym.py</code>. MIT licensed. Copy freely.</p>
 <a href="https://github.com/kindrat86/agentshield/blob/main/tests/eval_gym.py" target="_blank">View on GitHub →</a>
 <p style="margin-top:12px;font-size:0.9em"><a href="https://agentshield.fly.dev/eval" style="color:var(--accent)">Run the eval gym live</a> · <a href="https://github.com/kindrat86/agentshield" style="color:var(--accent)">Clone the repo</a></p>
 </div>
@@ -226,7 +226,7 @@ th { background:var(--surface); color:var(--accent); font-size:0.9em; text-trans
 </div>
 
 <div class="footer">
-<p>AgentShield Eval Gym, 74 scenarios, 12 categories, 10 rule types, MIT licensed.</p>
+<p>AgentShield Eval Gym, 77 scenarios, 12 categories, 10 rule types, MIT licensed.</p>
 <p><a href="https://agentshield.fly.dev" style="color:var(--accent)">Home</a> ·
 <a href="https://agentshield.fly.dev/eval" style="color:var(--accent)">Live Eval</a> ·
 <a href="https://github.com/kindrat86/agentshield" style="color:var(--accent)">GitHub</a> ·

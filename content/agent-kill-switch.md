@@ -104,9 +104,9 @@ Rules are evaluated in priority order. Lower number = higher priority. First mat
 
 If a transaction violates multiple rules, the highest-priority rule fires first. This gives you predictable, debuggable behavior.
 
-## The Eval Gym: 74 Labeled Scenarios
+## The Eval Gym: 77 Labeled Scenarios
 
-To prove the engine works, I built a test suite of 74 scenarios covering real-world agent behaviors:
+To prove the engine works, I built a test suite of 77 scenarios covering real-world agent behaviors:
 
 | Category | Scenarios | Pass Rate |
 |----------|-----------|-----------|
@@ -122,7 +122,7 @@ To prove the engine works, I built a test suite of 74 scenarios covering real-wo
 | hitl_review | 3 | 100% |
 | circuit_breaker | 2 | 100% |
 | replay_nonce | 2 | 100% |
-| **Overall** | **74** | **100%** |
+| **Overall** | **77** | **100%** |
 
 The edge cases are where the engine proves its correctness:
 
@@ -166,7 +166,7 @@ Every transaction flows through the engine before reaching the provider. The eng
 
 **[Dashboard →](/dashboard)**, Register for a free account and configure your own rules.
 
-The core engine is open-source and runs on Python 3.11 stdlib. No dependencies. No frameworks. Just 10 composable rules, evaluated fast. **[74/74 eval gym results →](/eval)**
+The core engine is open-source and runs on Python 3.11 stdlib. No dependencies. No frameworks. Just 10 composable rules, evaluated fast. **[77/77 eval gym results →](/eval)**
 
 ---
 
