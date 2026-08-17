@@ -75,7 +75,7 @@ First rule that matches decides. The decision comes back as JSON: `{"decision": 
 
 ## The Eval Gym Proves It Works
 
-The rules engine has a test suite of 74 labeled scenarios across 12 categories. All passing:
+The rules engine has a test suite of 77 labeled scenarios across 12 categories. All passing:
 
 | Category | Scenarios | Pass Rate |
 |----------|-----------|-----------|

@@ -20,7 +20,7 @@ So I built AgentShield. It's a per-transaction firewall that sits between your a
 The whole thing is Python 3.11 standard library, zero pip dependencies. Multi-tenant, offline licensing, SQLite WAL storage. Runs on Fly.io's free tier (256MB RAM).
 
 **Stats:**
-- Evaluation: 74/74 scenarios passing across 12 categories
+- Evaluation: 77/77 scenarios passing across 12 categories
 - Performance: 0.09ms average per transaction
 - Image size: 39MB Docker container
 - E2E tests: 14/14 including multi-tenant isolation

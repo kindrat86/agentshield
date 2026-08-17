@@ -1,11 +1,11 @@
 """
-AgentShield Eval Gym, 74 Scenarios
+AgentShield Eval Gym, 77 Scenarios
 =====================================
-74 labeled test cases spanning 12 categories, testing the
+77 labeled test cases spanning 12 categories, testing the
 SpendControlEngine against real-world agent spending patterns plus the
 SHACKLE SP/1.0 conformance envelope (HITL review, replay, circuit).
 
-Categories (74 total):
+Categories (77 total):
   - cascade_cost (5)
   - category_block (7)
   - circuit_breaker (2)
@@ -15,7 +15,7 @@ Categories (74 total):
   - hitl_review (3)
   - merchant_allowlist_block (7)
   - replay_nonce (2)
-  - session_budget (4)
+  - session_budget (7)
   - transaction_limit_block (10)
   - velocity_flag (7)
 """
@@ -583,6 +583,31 @@ SCENARIOS = [
      "prior_transactions": [_prior("agent_a", 200, "2026-08-10T09:00:00Z")],
      "expected": "APPROVED",
      "description": "Txn without agent_id must not aggregate agent_a daily total (cross-agent fix)"},
+
+    # === Claim-Coupled Decay (via @yun520-1 on OpenClaw #42475) ===
+    {"id": 75, "category": "session_budget",
+     "transaction": {**_txn("t075", amount=80.00), "session_id": "sc_1", "unverified_claims": 3},
+     "rules": [{"id": "cd1", "type": "session_budget", "priority": 1,
+                "params": {"max_session": 500, "decay_factor": 0.5}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "BLOCKED",
+     "description": "3 unverified claims: per-call cap $62.50 (500 x 0.5^3), $80 call blocked"},
+
+    {"id": 76, "category": "session_budget",
+     "transaction": {**_txn("t076", amount=80.00), "session_id": "sc_2", "unverified_claims": 0},
+     "rules": [{"id": "cd2", "type": "session_budget", "priority": 1,
+                "params": {"max_session": 500, "decay_factor": 0.5}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "APPROVED",
+     "description": "0 unverified claims: full $500 per-call cap, same $80 call approved"},
+
+    {"id": 77, "category": "session_budget",
+     "transaction": {**_txn("t077", amount=80.00), "session_id": "sc_3", "unverified_claims": "not_a_number"},
+     "rules": [{"id": "cd3", "type": "session_budget", "priority": 1,
+                "params": {"max_session": 500, "decay_factor": 0.5}, "action": "BLOCK"}],
+     "prior_transactions": [],
+     "expected": "APPROVED",
+     "description": "Malformed unverified_claims ignored, falls back to spend-based decay (under budget)"},
 ]
 
 

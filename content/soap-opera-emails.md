@@ -57,7 +57,7 @@ A $0.50 API call with a 30% failure rate and a $5 retry cost has an expected val
 
 These two rules came directly from an engineer at HeartFlow who's building production cost-gating. Real-world rules from real-world pain.
 
-Tomorrow: the 74-scenario eval gym that tests all of this.
+Tomorrow: the 77-scenario eval gym that tests all of this.
 
 - Maryan K.
 AgentShield
@@ -65,9 +65,9 @@ AgentShield
 ---
 
 ## Day 4: The Proof (Social Validation)
-**Subject:** 74 test scenarios that prove your spend control works
+**Subject:** 77 test scenarios that prove your spend control works
 
-You can't claim "spend control" without test cases. So I wrote 74 of them.
+You can't claim "spend control" without test cases. So I wrote 77 of them.
 
 The Eval Gym covers:
 - Clean approvals (transactions that should pass)
@@ -99,7 +99,7 @@ This is the last email in the series. Let me make it simple.
 **Free options:**
 - pip install agentshield (self-host, MIT)
 - Risk calculator: https://agentshield.fly.dev/tools/risk-calculator/ (30 seconds, no signup)
-- Eval gym: https://agentshield.fly.dev/eval (74 scenarios)
+- Eval gym: https://agentshield.fly.dev/eval (77 scenarios)
 
 **Paid options:**
 - $299 Professional Spend Audit (I analyze your API bills and find waste, money-back guarantee if I don't find $299)

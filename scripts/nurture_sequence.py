@@ -113,9 +113,9 @@ SEQUENCE = {
 </tr>
 </table>
 <p>The pattern: one rule catches the first surprise. A full ruleset prevents all of them.</p>
-<p>Our eval gym has 74 labeled scenarios across 12 categories, all passing. <a href="https://agentshield.fly.dev/eval">See the proof →</a></p>
+<p>Our eval gym has 77 labeled scenarios across 12 categories, all passing. <a href="https://agentshield.fly.dev/eval">See the proof →</a></p>
 <hr>
-<p style="font-size:12px;color:#666">AgentShield, 74/74 eval scenarios passing. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
+<p style="font-size:12px;color:#666">AgentShield, 77/77 eval scenarios passing. <a href="https://agentshield.fly.dev">agentshield.fly.dev</a></p>
 """,
     },
     5: {

@@ -60,16 +60,16 @@ print(result["reason"])    # Transaction amount $500.00 exceeds limit of $250.00
 | `replay` | Block duplicate transactions by nonce | `{"field": "nonce"}` |
 | `circuit` | Deny all calls while the circuit is tripped | `{"state_field": "circuit_tripped"}` |
 
-## Eval Gym (74 scenarios)
+## Eval Gym (77 scenarios)
 
 ```python
 from agentshield import run_eval
 
 results = run_eval()
-print(f"{results['passed']}/{results['total']} passed")  # 74/74
+print(f"{results['passed']}/{results['total']} passed")  # 77/77
 ```
 
-All 74 test scenarios are MIT licensed. Use them as test fixtures for your own spend-control implementation.
+All 77 test scenarios are MIT licensed. Use them as test fixtures for your own spend-control implementation.
 
 ## Key Design Decisions
 

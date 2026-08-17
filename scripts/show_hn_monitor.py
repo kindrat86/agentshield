@@ -13,7 +13,7 @@ import urllib.request
 import os
 
 HN_USER = "SipitenoMK"
-SHOW_HN_TITLE = "Show HN: AgentShield – A firewall for AI agent spending (74 eval scenarios, pure stdlib)"
+SHOW_HN_TITLE = "Show HN: AgentShield – A firewall for AI agent spending (77 eval scenarios, pure stdlib)"
 SHOW_HN_URL = "https://agentshield.sipiteno.com"
 MIN_KARMA = 2  # Minimum karma to attempt Show HN
 COOLDOWN_HOURS = 3  # Hours to wait after last submission
