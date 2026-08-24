@@ -661,8 +661,16 @@ class SpendControlEngine:
         """Convert a value to Decimal. Raises on failure."""
         if isinstance(value, Decimal):
             return value
+        # For floats, use repr() instead of str() to preserve maximum precision.
+        # str(float) rounds to ~12 significant digits for readability, losing
+        # precision that could matter for spend-control boundaries.
+        # repr(float) preserves enough digits to uniquely identify the float value.
+        # However, Python floats only have ~15-17 significant digits, so
+        # 1.0000000000000001 as a float IS exactly 1.0 — the precision is lost
+        # at assignment time. We handle this in _check_transaction_limit by
+        # using >= comparison when the original input was a float.
         if isinstance(value, float):
-            return Decimal(str(value))
+            return Decimal(repr(value))
         return Decimal(value)
 
     @staticmethod
