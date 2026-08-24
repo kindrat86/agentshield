@@ -2,6 +2,8 @@
 
 Stop runaway AI agents before they burn your budget. 10 composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies.
 
+> **Project consolidation:** AgentShield's spend-control work has been consolidated into [sipi.bot](https://sipi.bot/pilot?source=agentshield-github). The Python package and test fixtures remain available for existing users, but AgentShield no longer has a separate hosted offer, funnel, or distribution program. New implementation work runs through the single paid sipi.bot pilot.
+
 ## Install
 
 ```bash
@@ -81,9 +83,9 @@ All 74 test scenarios are MIT licensed. Use them as test fixtures for your own s
 
 ## Links
 
-- [Live Demo](https://agentshield.fly.dev)
-- [Eval Gym Spec](https://agentshield.fly.dev/eval-gym-spec)
-- [Risk Calculator](https://agentshield.fly.dev/tools/risk-calculator/)
+- [Canonical product](https://sipi.bot)
+- [Paid implementation pilot](https://sipi.bot/pilot?source=agentshield-github)
+- [sipi.bot public eval report](https://sipi.bot/eval-report/)
 - [GitHub](https://github.com/kindrat86/agentshield)
 
 ## License

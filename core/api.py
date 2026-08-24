@@ -26,6 +26,10 @@ store = None
 engine = None
 auth = None
 
+CANONICAL_PRODUCT_URL = os.environ.get(
+    "CANONICAL_PRODUCT_URL", "https://sipi.bot"
+).rstrip('/')
+
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
     daemon_threads = True
@@ -103,12 +107,24 @@ class APIHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def _send_redirect(self, location: str):
-        self.send_response(302)
+    def _send_redirect(self, location: str, status: int = 302):
+        self.send_response(status)
         self._send_cors_headers()
         self.send_header('Location', location)
+        self.send_header('Link', f'<{location}>; rel="canonical"')
+        self.send_header('Cache-Control', 'public, max-age=300')
+        self.send_header('X-Content-Type-Options', 'nosniff')
         self.send_header('Content-Length', '0')
         self.end_headers()
+
+    def _canonical_target(self, path: str) -> str:
+        if path == '/dashboard':
+            return CANONICAL_PRODUCT_URL + '/dashboard?source=agentshield'
+        if path in ('/eval', '/eval-gym-spec'):
+            return CANONICAL_PRODUCT_URL + '/eval-report/?source=agentshield'
+        if path.startswith('/tools/risk-calculator'):
+            return CANONICAL_PRODUCT_URL + '/tools/agent-spend-risk-calculator/?source=agentshield'
+        return CANONICAL_PRODUCT_URL + '/pilot?source=agentshield'
 
     def _read_body(self) -> dict:
         content_length = int(self.headers.get('Content-Length', 0))
@@ -241,10 +257,18 @@ class APIHandler(BaseHTTPRequestHandler):
             return
         parsed = urlparse(self.path)
         path = parsed.path
+        if path == '/health':
+            return self._send_json({
+                "status": "ok",
+                "version": "1.0.0",
+                "migrated": True,
+                "canonical": CANONICAL_PRODUCT_URL,
+            })
+        return self._send_redirect(self._canonical_target(path), status=301)
+
+        # Legacy implementation retained below for source history only.
         try:
-            if path == '/health':
-                self._send_json({"status": "ok", "version": "1.0.0"})
-            elif path == '/':
+            if path == '/':
                 self._serve_file(os.path.join(self.public_dir, 'index.html'))
             elif path == '/dashboard':
                 self._serve_file(os.path.join(self.public_dir, 'dashboard.html'))
@@ -347,6 +371,15 @@ class APIHandler(BaseHTTPRequestHandler):
             return
         parsed = urlparse(self.path)
         path = parsed.path
+        if path == '/v1/transactions/evaluate':
+            return self._send_redirect(
+                CANONICAL_PRODUCT_URL + '/v1/transactions/evaluate', status=308
+            )
+        return self._send_redirect(
+            CANONICAL_PRODUCT_URL + '/pilot?source=agentshield', status=303
+        )
+
+        # Legacy implementation retained below for source history only.
         try:
             if path == '/api/auth/register':
                 self._handle_register()
