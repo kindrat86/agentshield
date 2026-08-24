@@ -62,6 +62,10 @@ class SpendControlEngine:
                 "severity": "high"
             }
 
+        # Ensure timestamp exists, default to now if missing
+        if 'timestamp' not in transaction or not transaction['timestamp']:
+            transaction['timestamp'] = datetime.now(timezone.utc).isoformat()
+
         # Validate amount is parseable as a number
         try:
             txn_amount = self._to_decimal(transaction['amount'])
@@ -421,7 +425,7 @@ class SpendControlEngine:
     def _check_merchant_allowlist(self, rule_id: str, transaction: dict, params: dict, action: str):
         allowed = params.get('allowed', [])
         merchant = transaction.get('merchant')
-        if merchant and merchant not in allowed:
+        if merchant is not None and merchant not in allowed:
             return self._make_result(action, rule_id,
                 f"Merchant '{merchant}' is not in the allowlist")
         return None
@@ -429,7 +433,7 @@ class SpendControlEngine:
     def _check_category_block(self, rule_id: str, transaction: dict, params: dict, action: str):
         blocked = params.get('blocked', [])
         category = transaction.get('category')
-        if category and category in blocked:
+        if category is not None and category in blocked:
             return self._make_result(action, rule_id,
                 f"Category '{category}' is blocked")
         return None
@@ -459,12 +463,13 @@ class SpendControlEngine:
             return None
 
         session_field = params.get('session_id', 'session_id')
-        session_id = transaction.get(session_field)
+        raw_session_id = transaction.get(session_field)
+        session_id = raw_session_id if raw_session_id is not None else 'default_session'
         agent_id = transaction.get('agent_id')
         decay_factor = params.get('decay_factor')
 
         # Strict guardrail: session identity is mandatory for budget tracking.
-        if params.get('require_session_id') and session_id is None:
+        if params.get('require_session_id') and raw_session_id is None:
             return self._make_result(
                 action, rule_id,
                 f"session_id is required for session_budget tracking "
@@ -478,7 +483,10 @@ class SpendControlEngine:
         for prior in prior_transactions:
             if prior.get('agent_id') != agent_id:
                 continue
-            if prior.get(session_field) == session_id:
+            prior_session = prior.get(session_field, 'default_session')
+            if prior_session is None:
+                prior_session = 'default_session'
+            if session_id == prior_session:
                 prior_amount = self._to_decimal_safe(prior.get('amount'))
                 if prior_amount is not None and prior_amount > 0:
                     session_total += prior_amount
