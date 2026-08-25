@@ -4,7 +4,7 @@
 A firewall for AI agent spending
 
 ## Description (260 chars)
-Stop runaway AI agents before they burn your budget. 10 composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies. Deploy in 60 seconds. 74/74 eval gym included. Open source + managed hosting ($19/mo).
+Stop runaway AI agents before they burn your budget. 10 composable rules evaluated per-transaction in <1ms. Pure Python stdlib, zero dependencies. Deploy in 60 seconds. 77/77 eval gym included. Open source + managed hosting ($19/mo).
 
 ## Media
 - Logo: (needs 240x240 product icon, use the shield concept)
@@ -33,7 +33,7 @@ The whole thing is open source. There's managed hosting on Stripe if you want it
 
 Risk calculator (no signup): https://agentshield.fly.dev/tools/risk-calculator/
 Architecture deep-dive: https://dev.to/maryan_k_bef6cf83fa64e809/i-built-a-firewall-for-ai-agent-spending-here-is-the-architecture-2560
-Eval gym (74/74 across 12 categories): https://agentshield.fly.dev/eval
+Eval gym (77/77 across 12 categories): https://agentshield.fly.dev/eval
 
 I'll be here all day, fire away with questions.
 

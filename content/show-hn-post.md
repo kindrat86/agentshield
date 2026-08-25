@@ -8,7 +8,7 @@
 
 **Title:**
 
-Show HN: AgentShield – A firewall for AI agent spending (74 eval scenarios, Python stdlib)
+Show HN: AgentShield – A firewall for AI agent spending (77 eval scenarios, Python stdlib)
 
 **Text:**
 
@@ -28,7 +28,7 @@ Rule types:
 - Session budgets (session-scoped spend cap with decay tightening)
 - Cascade cost estimation (pre-dispatch EV: call_cost + fail_probability × reversal_cost)
 
-I wrote 74 labeled test scenarios for spend-control engines and open-sourced them (MIT). Eval gym: https://agentshield.fly.dev/eval
+I wrote 77 labeled test scenarios for spend-control engines and open-sourced them (MIT). Eval gym: https://agentshield.fly.dev/eval
 
 Pure Python 3.11 standard library. Zero dependencies. Runs on 256MB RAM. Self-hostable in 60 seconds. Also on PyPI once the upload lands: pip install agentshield-spend
 

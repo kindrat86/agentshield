@@ -449,6 +449,11 @@ class SpendControlEngine:
           session_id:  Field name in transaction to identify session (default: 'session_id')
           decay_factor: Optional tightening factor (0.0-1.0). Each call's effective
                        threshold shrinks as session spend accumulates.
+          Claim-coupled decay (via @yun520-1 on OpenClaw #42475): if the transaction
+                       carries an `unverified_claims` integer, decay switches from
+                       spend-based to claim-based: per-call cap = max_session *
+                       decay_factor ** unverified_claims. Falls back to spend-based
+                       decay when the field is absent or malformed.
           require_session_id: Optional bool (default False). When True, a transaction
                        whose session_id is None/missing is blocked (or flagged, per
                        `action`) because callers must always provide a session id for
@@ -493,6 +498,21 @@ class SpendControlEngine:
                 decay = float(decay_factor)
                 if 0 < decay < 1:
                     remaining = max_session - session_total
+                    # Claim-coupled decay: caller stamped an unverified-claims count
+                    claims_raw = transaction.get('unverified_claims')
+                    if claims_raw is not None:
+                        try:
+                            claims = int(claims_raw)
+                        except (ValueError, TypeError):
+                            claims = None
+                        if claims is not None and claims >= 0:
+                            per_call_cap = max_session * (Decimal(str(decay)) ** claims)
+                            if txn_amount > per_call_cap:
+                                return self._make_result(action, rule_id,
+                                    f"Claim-coupled decay: per-call cap ${self._fmt(per_call_cap)} "
+                                    f"({claims} unverified claims × decay {decay:g})")
+                            # claim-based decay handled; skip spend-based tightening
+                            return None
                     effective_threshold = txn_amount  # base check
                     # Tighten: if remaining budget is < decay × max_session, per-call threshold shrinks
                     if remaining < max_session * Decimal(str(decay)):

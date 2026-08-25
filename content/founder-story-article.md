@@ -2,7 +2,7 @@
 title: I Lost $2,800 in 60 Seconds to an AI Agent. Here's What I Built to Stop It.
 published: true
 tags: aiagents, costcontrol, python, opensource
-description: After an AI agent drained my API budget while I slept, I built a per-transaction spend firewall. Here's the full story, the architecture, and 74 open-source test scenarios.
+description: After an AI agent drained my API budget while I slept, I built a per-transaction spend firewall. Here's the full story, the architecture, and 77 open-source test scenarios.
 ---
 
 # I Lost $2,800 in 60 Seconds to an AI Agent
@@ -81,9 +81,9 @@ expected_cost = call_cost + (fail_probability × reversal_cost)
 
 If expected_cost exceeds the threshold, the call is blocked.
 
-## The Eval Gym: 74 Open-Source Test Scenarios
+## The Eval Gym: 77 Open-Source Test Scenarios
 
-You can't claim "spend control" without test cases. So I wrote 74 of them.
+You can't claim "spend control" without test cases. So I wrote 77 of them.
 
 The [Eval Gym](https://agentshield.fly.dev/eval) covers:
 
@@ -113,7 +113,7 @@ pip install agentshield
 ```python
 from agentshield import SpendControlEngine, run_eval
 
-# Run all 74 eval scenarios
+# Run all 77 eval scenarios
 results = run_eval()
 print(f"{results['passed']}/{results['total']} scenarios passed")
 
@@ -130,7 +130,7 @@ engine.add_rule("limit", {
 
 - **GitHub (MIT)**: https://github.com/kindrat86/agentshield
 - **Live demo + risk calculator**: https://agentshield.fly.dev
-- **Eval gym (74 scenarios)**: https://agentshield.fly.dev/eval
+- **Eval gym (77 scenarios)**: https://agentshield.fly.dev/eval
 - **Eval gym spec page**: https://agentshield.fly.dev/eval-gym-spec
 
 ## The Lesson
